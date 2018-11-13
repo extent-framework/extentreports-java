@@ -45,11 +45,7 @@ public class GherkinKeyword {
     private Class<IGherkinFormatterModel> clazz = IGherkinFormatterModel.class;
     private IGherkinFormatterModel keywordClazz;
     
-    public GherkinKeyword(String keyword) throws ClassNotFoundException {
-    	if (keyword == null) {
-        	throw new GherkinKeywordNotFoundException("Keyword " + keyword + " cannot be null");
-        }
-    	
+    public GherkinKeyword(String keyword) throws ClassNotFoundException {    	
     	GherkinDialect dialect =  null;
         String apiKeyword = StringUtil.capitalize(keyword.trim());
         String refPath = clazz.getPackage().getName();
@@ -72,7 +68,12 @@ public class GherkinKeyword {
                 }
             }
             
-            Class<?> c = Class.forName(refPath + "." + apiKeyword.replace(" ", ""));
+            if (apiKeyword == null) {
+            	throw new GherkinKeywordNotFoundException("Keyword " + apiKeyword + " cannot be null");
+            }
+            
+            String clazzName = refPath + "." + apiKeyword.replace(" ", "");
+            Class<?> c = Class.forName(clazzName);
             keywordClazz = (IGherkinFormatterModel) c.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             logger.log(Level.SEVERE, "", e);
