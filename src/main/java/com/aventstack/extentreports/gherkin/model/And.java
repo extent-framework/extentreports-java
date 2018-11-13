@@ -7,4 +7,13 @@ public class And
 
 	private static final long serialVersionUID = 8543289653944756660L;
 
+	public static String getGherkinName() {
+		return "And";
+	}
+	
+	@Override
+	public String toString() {
+		return getGherkinName();
+	}
+	
 }

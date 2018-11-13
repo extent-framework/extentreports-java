@@ -1,6 +1,8 @@
 package com.aventstack.extentreports.model;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -493,6 +495,12 @@ public class Test
     public Class<? extends IGherkinFormatterModel> getBehaviorDrivenType() { 
     	return bddType; 
 	}
+    
+    public String getBehaviorDrivenTypeName() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    	Method method = bddType.getMethod("getGherkinName");
+    	Object o = method.invoke(null, (Object[]) null);
+    	return o.toString();
+    }
         
     void setID(int id) { 
     	testId = id; 

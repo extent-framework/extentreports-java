@@ -2,13 +2,13 @@ package com.aventstack.extentreports.gherkin.model;
 
 import java.io.Serializable;
 
-public class Scenario 
+public class Asterisk 
 	implements IGherkinFormatterModel, Serializable {
 
-	private static final long serialVersionUID = 7401124129196617280L;
-
+	private static final long serialVersionUID = 7251419811428200133L;
+	
 	public static String getGherkinName() {
-		return "Scenario";
+		return "*";
 	}
 	
 	@Override

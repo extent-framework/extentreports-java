@@ -7,4 +7,13 @@ public class Feature
 
 	private static final long serialVersionUID = -4719215211721789414L;
 	
+	public static String getGherkinName() {
+		return "Feature";
+	}
+	
+	@Override
+	public String toString() {
+		return getGherkinName();
+	}
+	
 }

@@ -7,4 +7,13 @@ public class ScenarioOutline
 
 	private static final long serialVersionUID = -2058398543903906031L;
 
+	public static String getGherkinName() {
+		return "Scenario Outline";
+	}
+	
+	@Override
+	public String toString() {
+		return getGherkinName();
+	}
+	
 }

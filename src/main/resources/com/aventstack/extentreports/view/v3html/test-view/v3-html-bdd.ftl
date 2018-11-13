@@ -28,7 +28,7 @@
 	<ul class='steps'>
 		<#list node.nodeContext.all as child>
 		<li test-id='${ child.getID() }' class='node ${ child.getBehaviorDrivenType().getSimpleName()?lower_case } ${ child.status }' status='${ child.status }'>
-			<h6 class="bdd-step-name">${child.getBehaviorDrivenType().getSimpleName()}: ${ child.name }</h6>
+			<h6 class="bdd-step-name">${ child.name }</h6>
 			<#if child.screenCaptureList?? && child.screenCaptureList?size != 0>
 			<ul class='screenshots right'>
 				<#list child.screenCaptureList as sc>
@@ -50,7 +50,7 @@
 			<ul class='gc steps'>
 				<#list child.nodeContext.all as gc>
 					<li test-id='${ gc.getID() }' class='gc ${ gc.getBehaviorDrivenType().getSimpleName()?lower_case } ${ gc.status }' status='${ gc.status }'>
-						<h6 class="bdd-step-name">${gc.getBehaviorDrivenType().getSimpleName()}: ${ gc.name }</h6>
+						<h6 class="bdd-step-name">${ gc.name }</h6>
 						<#if gc.screenCaptureList?? && gc.screenCaptureList?size != 0>
 						<ul class='screenshots right'>
 							<#list gc.screenCaptureList as sc>
