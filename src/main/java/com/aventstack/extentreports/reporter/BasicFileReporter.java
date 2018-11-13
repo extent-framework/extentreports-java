@@ -245,7 +245,7 @@ public abstract class BasicFileReporter
     
     private void mediaExists(Media m) throws IOException {
     	if (m.getPath() != null && !new File(m.getPath()).exists()) {
-			throw new IOException("Media was not found at [" + m.getPath() + "]");
+			//throw new IOException("Media was not found at [" + m.getPath() + "]");
     	}
     }
     
