@@ -7,4 +7,13 @@ public class Given
 
 	private static final long serialVersionUID = 939197985263690070L;
 
+	public static String getGherkinName() {
+		return "Given";
+	}
+	
+	@Override
+	public String toString() {
+		return getGherkinName();
+	}
+	
 }

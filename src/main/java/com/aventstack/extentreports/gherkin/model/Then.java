@@ -7,8 +7,13 @@ public class Then
 
 	private static final long serialVersionUID = 2493591502473169772L;
 
-	@Override
-	public String toString() { 
-		return this.getClass().getSimpleName();
+	public static String getGherkinName() {
+		return "Then";
 	}
+	
+	@Override
+	public String toString() {
+		return getGherkinName();
+	}
+	
 }

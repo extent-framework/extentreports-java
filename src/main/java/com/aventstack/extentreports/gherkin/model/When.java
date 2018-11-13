@@ -7,4 +7,13 @@ public class When
 
 	private static final long serialVersionUID = 8337259741948416898L;
 
+	public static String getGherkinName() {
+		return "When";
+	}
+	
+	@Override
+	public String toString() {
+		return getGherkinName();
+	}
+	
 }

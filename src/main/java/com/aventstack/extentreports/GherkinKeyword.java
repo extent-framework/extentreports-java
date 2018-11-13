@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import com.aventstack.extentreports.exceptions.GherkinKeywordNotFoundException;
 import com.aventstack.extentreports.gherkin.GherkinDialect;
 import com.aventstack.extentreports.gherkin.GherkinDialectProvider;
+import com.aventstack.extentreports.gherkin.model.Asterisk;
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 
 import freemarker.template.utility.StringUtil;
@@ -44,13 +45,14 @@ public class GherkinKeyword {
     private Class<IGherkinFormatterModel> clazz = IGherkinFormatterModel.class;
     private IGherkinFormatterModel keywordClazz;
     
-    public GherkinKeyword(String keyword) throws ClassNotFoundException {
-        GherkinDialect dialect =  null;
+    public GherkinKeyword(String keyword) throws ClassNotFoundException {    	
+    	GherkinDialect dialect =  null;
         String apiKeyword = StringUtil.capitalize(keyword.trim());
         String refPath = clazz.getPackage().getName();
         
         try {
-            dialect = GherkinDialectProvider.getDialect();
+        	apiKeyword = apiKeyword.equals("*") ? Asterisk.class.getSimpleName() : apiKeyword;
+        	dialect = GherkinDialectProvider.getDialect();
             if (dialect != null && !dialect.getLanguage().equalsIgnoreCase(GherkinDialectProvider.getDefaultLanguage())) {
                 apiKeyword = null;
                 Map<String, List<String>> keywords = dialect.getKeywords();
@@ -67,10 +69,11 @@ public class GherkinKeyword {
             }
             
             if (apiKeyword == null) {
-            	throw new GherkinKeywordNotFoundException("Keyword " + keyword + " not available");
+            	throw new GherkinKeywordNotFoundException("Keyword " + apiKeyword + " cannot be null");
             }
             
-            Class<?> c = Class.forName(refPath + "." + apiKeyword.replace(" ", ""));
+            String clazzName = refPath + "." + apiKeyword.replace(" ", "");
+            Class<?> c = Class.forName(clazzName);
             keywordClazz = (IGherkinFormatterModel) c.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             logger.log(Level.SEVERE, "", e);
