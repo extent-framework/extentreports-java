@@ -250,9 +250,12 @@ public abstract class BasicFileReporter
     }
     
     private void autoCreateRelativePathMedia(ScreenCapture screenCapture) throws IOException {
+    	if (userConfig == null)
+    		return;
+    	
         String autoCreateRelativePathMedia = userConfig.getConfigMap().get(DEFAULT_MEDIA_SAVE_PROPERTY_NAME);
         // check always so user has the option to disable this setting at anytime
-        if (Boolean.valueOf(autoCreateRelativePathMedia)) {
+        if (autoCreateRelativePathMedia != null && Boolean.valueOf(autoCreateRelativePathMedia)) {
             if (media == null) {
                 media = new LocalMediaStorageHandler();
                 media.init(destination + DEFAULT_MEDIA_SAVE_PATH_NAME);
