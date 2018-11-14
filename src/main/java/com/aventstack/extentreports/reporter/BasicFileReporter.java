@@ -163,6 +163,7 @@ public abstract class BasicFileReporter
     }
     
     public synchronized void flush(ReportAggregates reportAggregates) {
+        super.flush(reportAggregates);
     	this.authorContext = reportAggregates.getAuthorContext();
     	this.categoryContext = reportAggregates.getCategoryContext();
     	this.deviceContext = reportAggregates.getDeviceContext();
@@ -268,11 +269,11 @@ public abstract class BasicFileReporter
 	public void stop() { }
 
 	public Date getStartTime() { 
-        return super.startTime; 
+        return super.getStartTime(); 
     }
 	
 	public Date getEndTime() { 
-        return super.endTime; 
+        return super.getEndTime(); 
     }
 
 	@Override

@@ -21,8 +21,7 @@ public abstract class AbstractReporter
 	protected List<Status> statusList;
     
 	private AnalysisStrategy strategy = AnalysisStrategy.TEST;
-	
-	@Override
+
 	public void flush(ReportAggregates reportAggregates) {
 		this.endTime = Calendar.getInstance().getTime();
 		this.statusList = reportAggregates.getStatusList();
