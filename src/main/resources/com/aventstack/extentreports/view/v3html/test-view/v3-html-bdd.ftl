@@ -41,7 +41,7 @@
 			</#if>
 			<#list child.logContext.all as log>
 			<#if log.exceptionInfo??>
-				<pre>${log.exceptionInfo.stackTrace}</pre>
+				<textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea>
 			<#else>
 				${log.details}
 			</#if>
@@ -63,7 +63,7 @@
 						</#if>
 						<#list gc.logContext.all as log>
 						<#if log.exceptionInfo??>
-							<pre>${log.exceptionInfo.stackTrace}</pre>
+							<textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea>
 						<#else>
 							${log.details}
 						</#if>

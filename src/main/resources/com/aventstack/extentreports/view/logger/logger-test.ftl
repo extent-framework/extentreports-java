@@ -109,7 +109,7 @@
 													<span class="ts">${log.status?replace("ing","")}</span><#list log.status.toString()?replace("ing","")?length..5 as x>&nbsp;</#list> 
 													<span class="tn">${spacer}[${test.name}]</span>
 													<#if log.hasScreenCapture()><span class="tm">${log.screenCaptureContext.last.sourceWithIcon}</span></#if>
-													<span class="td"><#if log.details??>${log.details}</#if><#if log.exceptionInfo??>threw an exception<br><pre>${log.exceptionInfo.stackTrace}</pre></#if></span>
+													<span class="td"><#if log.details??>${log.details}</#if><#if log.exceptionInfo??>threw an exception<br><textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea></#if></span>
 												</div>
 												</#list>
 											</div>

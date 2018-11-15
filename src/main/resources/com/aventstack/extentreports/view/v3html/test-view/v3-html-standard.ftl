@@ -47,7 +47,7 @@
 				</#if>
 				<td class='step-details'>
 					<#if log.exceptionInfo??>
-						<pre>${log.exceptionInfo.stackTrace}</pre>
+						<textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea>
 					<#else>
 						${log.details}
 					</#if>
@@ -117,7 +117,7 @@
 							</#if>
 							<td class='step-details'>
 								<#if log.exceptionInfo??>
-									<pre>${log.exceptionInfo.stackTrace}</pre>
+									<textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea>
 								<#else>
 									${log.details}
 								</#if>
