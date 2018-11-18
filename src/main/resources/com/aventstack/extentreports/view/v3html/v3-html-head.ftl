@@ -10,7 +10,7 @@
 	
 	<link href='${ config.getValue('protocol') }://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
 	<link href="${ config.getValue('protocol') }://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-	<link href='${ config.getValue('protocol') }://cdn.rawgit.com/extent-framework/extent-github-cdn/e9ccc29bd18c7914697075f44948d0913e462478/v3html/css/extent.css' type='text/css' rel='stylesheet' />
+	<link href='${ config.getValue('protocol') }://cdn.rawgit.com/extent-framework/extent-github-cdn/0647daa/v3html/css/extent.css' type='text/css' rel='stylesheet' />
 	
 	<title>${ config.getValue('documentTitle') }</title>
 
