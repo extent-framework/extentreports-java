@@ -4,7 +4,7 @@
 
 	<groupId>com.aventstack</groupId>
 	<artifactId>extentreports</artifactId>
-	<version>4.0.2</version>
+	<version>4.0.3</version>
 
 	<name>extentreports</name>
 	<url>www.extentreports.com</url>
@@ -111,6 +111,20 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
