@@ -1,6 +1,9 @@
-<#assign sizeLarge='s12 m6 l6'>
+<#assign sizeLarge='s12 m12 l12'>
 <#if bddReport || (report.reportStatusStats.childCount != 0 && report.reportStatusStats.grandChildCount != 0)>
-<#assign sizeLarge='s12 m4 l4'>
+    <#assign sizeLarge='s12 m4 l4'>
+</#if>
+<#if report.reportStatusStats.childCount!=0>
+    <#assign sizeLarge='s12 m6 l6'>
 </#if>
 <div id='test-view-charts' class='subview-full'>
 	<div id='charts-row' class='row nm-v nm-h'>

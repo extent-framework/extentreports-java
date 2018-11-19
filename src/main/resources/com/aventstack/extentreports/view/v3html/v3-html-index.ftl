@@ -63,6 +63,7 @@
 		<!-- container -->
 		<script>
 			var statusGroup = {
+                parentCount: ${ report.reportStatusStats.parentCount?c },
 				passParent: ${ report.reportStatusStats.parentCountPass?c },
 				failParent: ${ report.reportStatusStats.parentCountFail?c },
 				fatalParent: ${ report.reportStatusStats.parentCountFatal?c },
@@ -70,7 +71,7 @@
 				warningParent: ${ report.reportStatusStats.parentCountWarning?c },
 				skipParent: ${ report.reportStatusStats.parentCountSkip?c },
 				exceptionsParent: ${ report.reportStatusStats.parentCountExceptions?c },
-				
+				childCount: ${ report.reportStatusStats.childCount?c },
 				passChild: ${ report.reportStatusStats.childCountPass?c },
 				failChild: ${ report.reportStatusStats.childCountFail?c },
 				fatalChild: ${ report.reportStatusStats.childCountFatal?c },
@@ -80,7 +81,7 @@
 				infoChild: ${ report.reportStatusStats.childCountInfo?c },
 				debugChild: ${ report.reportStatusStats.childCountDebug?c },
 				exceptionsChild: ${ report.reportStatusStats.childCountExceptions?c },
-				
+				grandChildCount: ${ report.reportStatusStats.grandChildCount?c },
 				passGrandChild: ${ report.reportStatusStats.grandChildCountPass?c },
 				failGrandChild: ${ report.reportStatusStats.grandChildCountFail?c },
 				fatalGrandChild: ${ report.reportStatusStats.grandChildCountFatal?c },

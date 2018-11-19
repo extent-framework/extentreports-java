@@ -41,7 +41,7 @@
 										<td>${ test.startTime?datetime?string["${timeStampFormat}"] }</td>
 										<td class='linked' test-id='${ test.getID() }'>${ test.hierarchicalName }</td>
 										<td>
-											<pre>${ testException.getStackTrace() }</pre>
+											<textarea disabled class="code-block">${ testException.getStackTrace() }</textarea>
 										</td>
 									</tr>
 									</#if>
