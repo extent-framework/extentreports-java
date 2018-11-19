@@ -17,16 +17,6 @@
 							<span class="nav-text">Tests</span>
 							</a>
 						</li>
-						<#if config.getValue("enableDashboard")=="true">
-						<li>
-							<a href="dashboard.html">
-							<span class="nav-icon">
-							<i class="fa fa-dashboard"></i>
-							</span>
-							<span class="nav-text">Dashboard</span>
-							</a>
-						</li>
-						</#if>
 						<#if categoryContext?? && categoryContext?size != 0>
 						<li>
 							<a href="tag.html">
@@ -44,6 +34,16 @@
 							<i class="fa fa-warning"></i>
 							</span>
 							<span class="nav-text">Exceptions</span>
+							</a>
+						</li>
+						</#if>
+						<#if config.getValue("enableDashboard")=="true">
+						<li>
+							<a href="dashboard.html">
+							<span class="nav-icon">
+							<i class="fa fa-dashboard"></i>
+							</span>
+							<span class="nav-text">Dashboard</span>
 							</a>
 						</li>
 						</#if>

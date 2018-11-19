@@ -34,6 +34,7 @@
 										<th>Duration</th>
 										<th>Attributes</th>
 										<th>Media</th>
+										<th>Source</th>
 									</tr></thead>
 									<tbody>
 										<#list category.getTestList() as test>
