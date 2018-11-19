@@ -12,7 +12,7 @@ import com.aventstack.extentreports.model.ScreenCapture;
  */
 public class MediaEntityBuilder {
 
-	private static ThreadLocal<Media> media;
+	private static ThreadLocal<Media> media = new ThreadLocal<Media>();
 	
 	private static class MediaBuilderInstance {
         static final MediaEntityBuilder INSTANCE = new MediaEntityBuilder();
@@ -22,7 +22,7 @@ public class MediaEntityBuilder {
 
     private MediaEntityBuilder() { }
 	
-    private static MediaEntityBuilder getInstance() {
+    private static synchronized MediaEntityBuilder getInstance() {
     	return MediaBuilderInstance.INSTANCE;
     }
     
@@ -30,25 +30,25 @@ public class MediaEntityBuilder {
 		return new MediaEntityModelProvider(media.get());
 	}
 	
-	public static MediaEntityBuilder createScreenCaptureFromPath(String path, String title) throws IOException {
+	public static synchronized MediaEntityBuilder createScreenCaptureFromPath(String path, String title) throws IOException {
         if (path == null || path.isEmpty())
             throw new IOException("ScreenCapture path cannot be null or empty.");
         
         return createScreenCapture(path, title, false);
     }
     
-    public static MediaEntityBuilder createScreenCaptureFromPath(String path) throws IOException {
+    public static synchronized MediaEntityBuilder createScreenCaptureFromPath(String path) throws IOException {
         return createScreenCaptureFromPath(path, null);
     }
     
-    public static MediaEntityBuilder createScreenCaptureFromBase64String(String base64String) throws IOException {
+    public static synchronized MediaEntityBuilder createScreenCaptureFromBase64String(String base64String) throws IOException {
         if (base64String == null || base64String.trim().equals(""))
             throw new IOException("Base64 string cannot be null or empty.");
         
         return createScreenCapture(base64String, null, true);
     }
     
-    private static MediaEntityBuilder createScreenCapture(String pathOrBase64String, String title, boolean isBase64String) {
+    private static synchronized MediaEntityBuilder createScreenCapture(String pathOrBase64String, String title, boolean isBase64String) {
         ScreenCapture sc = new ScreenCapture();
         sc.setMediaType(MediaType.IMG);
         if (isBase64String)
@@ -58,8 +58,7 @@ public class MediaEntityBuilder {
         
         if (title != null)
             sc.setName(title);
-        
-        media = new ThreadLocal<Media>();
+
         media.set(sc);
         
         return getInstance();

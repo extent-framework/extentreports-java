@@ -30,11 +30,16 @@ public class LocalMediaStorageHandler
     }
     
     private void mkDirs() {
-        String fileName = reporterGeneratedFilePath + ".";
+    	String ext = FileUtil.getExtension(reporterGeneratedFilePath);
+    	String archiveName = "";
+    	if (ext.equalsIgnoreCase("htm") || ext.equalsIgnoreCase("html")) {
+    		archiveName = FileUtil.getFileNameWithoutExtension(reporterGeneratedFilePath) + ".";
+    	}
         String absolutePath = new File(reporterGeneratedFilePath).getAbsolutePath().replace("\\", "/");
-        String basePath = new File(absolutePath).getParent().replace("\\", "/");
+        String basePath = archiveName.isEmpty() ? absolutePath : new File(absolutePath).getParent().replace("\\", "/");
+        archiveName = archiveName.isEmpty() ? archiveName = FileUtil.getFileNameWithoutExtension(reporterGeneratedFilePath) + "." : archiveName;
         
-        mkDirs(basePath, fileName, 0);
+        mkDirs(basePath, archiveName, 0);
     }
     
     private void mkDirs(String basePath, String fileName, int cnt) {

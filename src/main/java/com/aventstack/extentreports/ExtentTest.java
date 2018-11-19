@@ -308,7 +308,7 @@ public class ExtentTest
     	return addLog(evt);
     }
     
-    private void addMedia(Log evt, MediaEntityModelProvider provider) {
+    private synchronized void addMedia(Log evt, MediaEntityModelProvider provider) {
     	if (provider != null) {
 	    	Class<? extends Media> clazz = provider.getMedia().getClass();
 	    	

@@ -55,7 +55,6 @@ public abstract class BasicFileReporter
 	private static final Logger logger = Logger.getLogger(BasicFileReporter.class.getName());
 	
 	private static final String DEFAULT_MEDIA_SAVE_PROPERTY_NAME = "autoCreateRelativePathMedia";
-	private static final String DEFAULT_MEDIA_SAVE_PATH_NAME = "extent-media";
 	private static final String TEMPLATE_LOCATION = "view/";
 	
 	private static String ENCODING = "UTF-8";
@@ -163,7 +162,7 @@ public abstract class BasicFileReporter
     }
     
     public synchronized void flush(ReportAggregates reportAggregates) {
-        super.flush(reportAggregates);
+    	super.flush(reportAggregates);
     	this.authorContext = reportAggregates.getAuthorContext();
     	this.categoryContext = reportAggregates.getCategoryContext();
     	this.deviceContext = reportAggregates.getDeviceContext();
@@ -251,6 +250,7 @@ public abstract class BasicFileReporter
     }
     
     private void autoCreateRelativePathMedia(ScreenCapture screenCapture) throws IOException {
+    	// if user has not specific a configuration, exit
     	if (userConfig == null)
     		return;
     	
@@ -259,7 +259,7 @@ public abstract class BasicFileReporter
         if (autoCreateRelativePathMedia != null && Boolean.valueOf(autoCreateRelativePathMedia)) {
             if (media == null) {
                 media = new LocalMediaStorageHandler();
-                media.init(destination + DEFAULT_MEDIA_SAVE_PATH_NAME);
+                media.init(destination);
             }
             media.storeMedia(screenCapture);
         }
