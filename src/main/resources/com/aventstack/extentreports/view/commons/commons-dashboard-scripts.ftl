@@ -27,7 +27,8 @@
 		            	      position: "right",
 		            	      labels: {
 		            	    	  boxWidth: 7,
-		            	          fontSize: 10
+		            	          fontSize: 12,
+		            	          fontColor: "#999"
 		            	      }
 		            	  },
 		            	  cutoutPercentage: 70
@@ -60,7 +61,8 @@
 			            	      position: "right",
 			            	      labels: {
 			            	    	  boxWidth: 7,
-			            	          fontSize: 10
+			            	          fontSize: 12,
+			            	          fontColor: "#999"
 			            	      }
 			            	  },
 			            	  cutoutPercentage: 70
@@ -94,7 +96,7 @@
 			            	      position: "right",
 			            	      labels: {
 			            	    	  boxWidth: 7,
-			            	          fontSize: 10
+			            	          fontSize: 12
 			            	      }
 			            	  },
 			            	  cutoutPercentage: 70

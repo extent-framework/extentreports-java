@@ -4,7 +4,7 @@
 			<div class="col-6 col-lg-3">
 				<div class="box p-3">
 					<div class="d-flex">
-						<span class="text-muted">${parentHeading}</span>
+						<span class="">${parentHeading}</span>
 					</div>
 					<div class="py-3 text-center text-md text-success">
 						${report.reportStatusStats.parentCount}
@@ -18,7 +18,7 @@
 			<div class="col-6 col-lg-3">
 				<div class="box p-3">
 					<div class="d-flex">
-						<span class="text-muted">${childHeading}</span>
+						<span class="">${childHeading}</span>
 					</div>
 					<div class="py-3 text-center text-md text-primary">
 						${report.reportStatusStats.childCount}
@@ -32,13 +32,13 @@
 			<div class="col-6 col-lg-3">
 				<div class="box p-3">
 					<div class="d-flex">
-						<span class="text-muted">Start</span>
+						<span class="">Start</span>
 					</div>
 					<div class="py-3 text-center text-md">
 						${report.startTime?datetime?string}
 					</div>
 					<div class="d-flex">
-						<span class="flex text-muted"></span>
+						<span class="flex"></span>
 						<span><i class="fa fa-circle text-primary"></i></span>
 					</div>
 				</div>
@@ -46,13 +46,13 @@
 			<div class="col-6 col-lg-3">
 				<div class="box p-3">
 					<div class="d-flex">
-						<span class="text-muted">Time Taken</span>
+						<span class="">Time Taken</span>
 					</div>
 					<div class="py-3 text-center text-md">
 						${report.longRunDuration}
 					</div>
 					<div class="d-flex">
-						<span class="flex text-muted"></span>
+						<span class="flex"></span>
 						<span><i class="fa fa-circle text-danger"></i></span>
 					</div>
 				</div>
@@ -74,20 +74,17 @@
 								<div class="list">
 									<#if report.reportStatusStats.parentCountPass!=0>
 									<div class="list-item">
-										<div><i class="badge badge-xs badge-o b-info"></i> ${report.reportStatusStats.parentPercentagePass}%</div>
-										<div class="list-body"><span class="text-muted">Passed</span></div>
+										<div><i class="badge badge-xs badge-o b-info"></i> &nbsp;Pass ${report.reportStatusStats.parentPercentagePass?string("#.00")}%</div>
 									</div>
 									</#if>
 									<#if report.reportStatusStats.parentCountFail!=0>
 									<div class="list-item">
-										<div><i class="badge badge-xs badge-o b-danger"></i> ${report.reportStatusStats.parentPercentageFail}%</div>
-										<div class="list-body"><span class="text-muted">Failed</span></div>
+										<div><i class="badge badge-xs badge-o b-danger"></i> &nbsp;Fail ${report.reportStatusStats.parentPercentageFail?string("#.00")}%</div>
 									</div>
 									</#if>
 									<#if report.reportStatusStats.parentCountSkip!=0>
 									<div class="list-item">
-										<div><i class="badge badge-xs badge-o b-warning"></i> ${report.reportStatusStats.parentPercentageSkip}%</div>
-										<div class="list-body"><span class="text-muted">Skipped</span></div>
+										<div><i class="badge badge-xs badge-o b-warning"></i> &nbsp;Skip ${report.reportStatusStats.parentPercentageSkip?string("#.00")}%</div>
 									</div>
 									</#if>
 								</div>
@@ -115,20 +112,17 @@
 								<div class="list">
 									<#if report.reportStatusStats.parentCountPass!=0>
 									<div class="list-item">
-										<div><i class="badge badge-xs badge-o b-info"></i> ${report.reportStatusStats.childPercentagePass}%</div>
-										<div class="list-body"><span class="text-muted">Passed</span></div>
+										<div><i class="badge badge-xs badge-o b-info"></i> &nbsp;Pass ${report.reportStatusStats.childPercentagePass?string("#.00")}%</div>
 									</div>
 									</#if>
 									<#if report.reportStatusStats.parentCountFail!=0>
 									<div class="list-item">
-										<div><i class="badge badge-xs badge-o b-danger"></i> ${report.reportStatusStats.childPercentageFail}%</div>
-										<div class="list-body"><span class="text-muted">Failed</span></div>
+										<div><i class="badge badge-xs badge-o b-danger"></i> &nbsp;Fail ${report.reportStatusStats.childPercentageFail?string("#.00")}%</div>
 									</div>
 									</#if>
 									<#if report.reportStatusStats.parentCountSkip!=0>
 									<div class="list-item">
-										<div><i class="badge badge-xs badge-o b-warning"></i> ${report.reportStatusStats.childPercentageSkip}%</div>
-										<div class="list-body"><span class="text-muted">Skipped</span></div>
+										<div><i class="badge badge-xs badge-o b-warning"></i> &nbsp;Skip ${report.reportStatusStats.childPercentageSkip?string("#.00")}%</div>
 									</div>
 									</#if>
 								</div>
@@ -213,7 +207,7 @@
 						<#list systemAttributeContext as sa>
 						<#if sa?? && sa.name?? && sa.value??>
 						<tr>
-							<td><span class="badge">${ sa.name }</span></td>
+							<td>${ sa.name }</td>
 							<td>${ sa.value }</td>
 						</tr>
 						</#if>
@@ -237,7 +231,7 @@
 						</tr>
 						<#list categoryContext as category>
 						<tr>
-							<td><span class="badge">${category.name}</span></td>
+							<td>${category.name}</td>
 							<td>${category.passed}</td>
 							<td>${category.failed}</td>
 							<td>${category.others}</td>
