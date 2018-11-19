@@ -35,9 +35,6 @@ body:not(.dark) .tt,body:not(.dark) .tn,body:not(.dark) .td,body:not(.dark) .dev
 body.dark .tt,body.dark .tn,body.dark .td,body.dark .device-list,body.dark .category-list,body.dark .author-list {
 	color: rgba(160,180,200,.95);
 }
-.dark .logger-content {
-	
-}
 .tsc {
 	margin-bottom: 5px;
 	background-color: #fff;
@@ -56,10 +53,25 @@ div.st {
 .ts {
 	text-transform: uppercase;
 }
-pre {
-	background-color: transparent;
-	margin-left: 250px;
-	margin-bottom: 0;
+pre, .code-block {
+    background-color: #f8f9fa;
+    border: 1px solid #ebedef;
+    border-radius: 4px;
+    color: #222 !important;
+    font-family: Consolas,monospace;
+    font-size: 13px;
+    margin: 0;
+    padding: 7px 10px;
+    white-space: pre-wrap;
+}
+.dark pre, .dark .code-block {
+	background: transparent;
+	border: 1px solid #555;
+	color: rgba(180,200,220,.95) !important;
+}
+textarea {
+	resize: auto;
+	width: 100%;
 }
 
 #content-aside > div {
@@ -111,6 +123,63 @@ pre {
 }
 .skip {
 	color: #64b5f6;
+}
+.fail-bg, .fatal-bg,.avatar.fail,.avatar.fatal {
+	background: #e57373;
+	color: black !important;
+}
+.pass-bg,.avatar.pass {
+	background: #9ccc65;
+	color: black !important;
+}
+.skip-bg,.avatar.skip {
+	background: #64b5f6;
+	color: black !important;
+}
+.error-bg,.avatar.skip {
+	background: #ffd54f;
+	color: black !important;
+}
+
+/*category,exception,attr*/
+.details {
+	display:none;
+	animation-duration: 1s;
+}
+.details td {
+	border-top: none;
+}
+.t + .details {
+	display: table-row;
+	animation-duration: 1s;
+}
+
+/*[darktheme]*/
+.dark {
+	color: rgba(195,215,235,.95);
+}
+
+/* JsonTree */
+.jstValue {
+	font-size: 11px;
+}
+.jstProperty, .jstFold {
+	color: #444;
+}
+.dark .jstProperty, .dark .jstFold {
+	color: #eee;
+}
+.jstStr {
+	color: #00b300;
+}
+.dark .jstStr {
+	color: #7ffaaa;
+}
+.dark .jstBool {
+	color: #668cff;
+}
+.dark .jstNum {
+	color: #ff66ff;
 }
 
 /* Breakpoint MD */
