@@ -46,11 +46,12 @@
 			${child.description}
 			</#if>
 			<#list child.logContext.all as log>
-			<#if log.exceptionInfo??>
-				<textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea>
-			<#else>
-				<div class="node-step">${log.details}</div>
-			</#if>
+				<#if log.exceptionInfo??>
+					<textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea>
+				<#else>
+					<div class="node-step">${log.details}</div>
+				</#if>
+				<#if log.hasScreenCapture()>${log.screenCaptureContext.last.source}</#if>
 			</#list>
 			<#if child.hasChildren()>
 			<ul class='gc steps'>
@@ -69,8 +70,8 @@
 						</#if>
 						<#list gc.logContext.all as log>
 							<#if log.exceptionInfo??><textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea>
-							<#else><div class="node-step">${log.details}</div>
-						</#if>
+							<#else><div class="node-step">${log.details}</div></#if>
+							<#if log.hasScreenCapture()>${log.screenCaptureContext.last.source}</#if>
 						</#list>
 					</li>
 				</#list>
