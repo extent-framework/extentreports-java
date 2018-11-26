@@ -42,7 +42,7 @@
         <div class='col ${ sizeLarge } np-h'>
             <div class='card-panel nm-v'>
                 <div class='left panel-name'>${ grandChildViewChartsHeading }</div>
-                <div class='chart-box' style="max-height:${chartBoxHeight}x;">
+                <div class='chart-box' style="max-height:${chartBoxHeight}px;">
                     <canvas id='grandchild-analysis' width='${chartWidth}' height='${chartHeight}'></canvas>
                 </div>
                 <div class='block text-small'>
