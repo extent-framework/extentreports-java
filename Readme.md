@@ -2,6 +2,7 @@
 
 [![Join the chat at https://gitter.im/anshooarora/extentreports](https://badges.gitter.im/anshooarora/extentreports.svg)](https://gitter.im/anshooarora/extentreports?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Maven Central](https://img.shields.io/maven-central/v/com.aventstack/extentreports.svg?maxAge=300)](http://search.maven.org/#search|ga|1|g:"com.aventstack")
+[![Build Status](https://travis-ci.com/extent-framework/extentreports.svg?branch=master)](https://travis-ci.com/extent-framework/extentreports)
 
 This version is Java8 only.
 
