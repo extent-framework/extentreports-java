@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -120,7 +120,7 @@ abstract class ExtentObservable
      * }
      * </pre>
 	 */
-	private List<String> testRunnerLogs = new ArrayList<>();;
+	private List<String> testRunnerLogs = new ArrayList<>();
     
 	/**
 	 * A list of all tests created
@@ -165,7 +165,7 @@ abstract class ExtentObservable
 	/**
 	 * Contains status as keys, which are translated over to <code>statusList</code>
 	 */
-	private Map<Status, Boolean> statusMap = new HashMap<>();
+	private Map<Status, Boolean> statusMap = new EnumMap<>(Status.class);
 	
     protected ExtentObservable() { }
     
@@ -204,16 +204,9 @@ abstract class ExtentObservable
      * 
      * @param test a {@link Test} object
      */
-    protected synchronized void saveTest(Test test) {
-    	reporterInitialized();        
+    protected synchronized void saveTest(Test test) {        
         testList.add(test);
         reporterList.forEach(x -> x.onTestStarted(test));
-    }
-    
-    private void reporterInitialized() {
-    	/*if (reporterList.isEmpty())
-            throw new IllegalStateException("No reporters started");
-            */
     }
 
     /**
@@ -431,8 +424,7 @@ abstract class ExtentObservable
      * 	<li>A database being updated (eg. case of KlovReporter)</li>
      * </ul>
      */
-    protected synchronized void flush() {
-    	reporterInitialized();    	
+    protected synchronized void flush() {    	
         collectRunInfo();
         notifyReporters();
     }
@@ -482,7 +474,7 @@ abstract class ExtentObservable
      * the timestamps assigned to tests
      */
     private void updateReportStartTimeForManualConfigurationSetting() {
-        if (usesManualConfiguration) {
+        if (usesManualConfiguration && !testList.isEmpty()) {
         	Date minDate = testList.stream()
         			.map(t -> t.getStartTime())
         			.min(Date::compareTo)

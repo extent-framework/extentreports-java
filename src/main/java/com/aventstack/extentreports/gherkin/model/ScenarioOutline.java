@@ -6,9 +6,10 @@ public class ScenarioOutline
 	implements IGherkinFormatterModel, Serializable {
 
 	private static final long serialVersionUID = -2058398543903906031L;
-
+	private static final String VALUE = "Scenario Outline";
+	
 	public static String getGherkinName() {
-		return "Scenario Outline";
+		return VALUE;
 	}
 	
 	@Override

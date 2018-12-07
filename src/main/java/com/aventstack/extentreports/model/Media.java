@@ -94,7 +94,7 @@ public class Media
 	}
 
     public void setBase64String(String string) {
-        string = "data:image/gif;base64," + string;
+        string = string.contains("data:") || string.contains("image/") ? string : "data:image/png;base64," + string;
         this.base64String = string;
     }
     

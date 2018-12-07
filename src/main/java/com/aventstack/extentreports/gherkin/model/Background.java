@@ -6,9 +6,10 @@ public class Background
 	implements IGherkinFormatterModel, Serializable {
 
 	private static final long serialVersionUID = -955371501488725151L;
+	private static final String VALUE = "Background";
 	
 	public static String getGherkinName() {
-		return "Background";
+		return VALUE;
 	}
 	
 	@Override

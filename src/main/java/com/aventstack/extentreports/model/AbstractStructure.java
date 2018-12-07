@@ -25,11 +25,12 @@ public class AbstractStructure<T> implements Serializable {
         return list.get(x);
     }
     
+    public T getFirst() {
+        return list.isEmpty() ? null : list.get(0);
+    }
+    
     public T getLast() {
-        if (list.size() == 0)
-            return null;
-        
-        return list.get(list.size() - 1);
+        return list.isEmpty() ? null : list.get(list.size()-1);
     }
 
     public List<T> getAll() {

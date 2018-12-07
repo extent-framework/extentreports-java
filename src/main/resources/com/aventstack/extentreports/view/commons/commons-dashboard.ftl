@@ -11,7 +11,7 @@
 					</div>
 					<div class="d-flex">
 						<span class="flex text-muted">Out of which ${report.reportStatusStats.parentCountPass} passed</span>
-						<span><i class="fa fa-circle-o text-success"></i> ${report.reportStatusStats.parentPercentagePass}%</span>
+						<span><i class="fa fa-circle-o text-success"></i> ${report.reportStatusStats.parentPercentagePass?string("#.00")}%</span>
 					</div>
 				</div>
 			</div>
@@ -25,7 +25,7 @@
 					</div>
 					<div class="d-flex">
 						<span class="flex text-muted">Out of which ${report.reportStatusStats.childCountPass} passed</span>
-						<span><i class="fa fa-circle-o text-primary"></i> ${report.reportStatusStats.childPercentagePass}%</span>
+						<span><i class="fa fa-circle-o text-primary"></i> ${report.reportStatusStats.childPercentagePass?string("#.00")}%</span>
 					</div>
 				</div>
 			</div>
@@ -35,7 +35,7 @@
 						<span class="">Start</span>
 					</div>
 					<div class="py-3 text-center text-md">
-						${report.startTime?datetime?string}
+						${report.startTime?datetime?string["${timeStampFormat}"]}
 					</div>
 					<div class="d-flex">
 						<span class="flex"></span>

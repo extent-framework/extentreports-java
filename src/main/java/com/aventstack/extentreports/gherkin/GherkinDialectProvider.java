@@ -25,7 +25,6 @@ public class GherkinDialectProvider {
     
     private static GherkinDialect currentDialect;
     private static Map<String, Map<String, List<String>>> dialects;
-    private static Map<String, List<String>> map;
     private static String language;
     
     static {
@@ -64,7 +63,7 @@ public class GherkinDialectProvider {
      */
     public static void setLanguage(String lang) throws UnsupportedEncodingException {
         language = lang;
-        map = dialects.get(GherkinDialectProvider.language);        
+        Map<String, List<String>> map = dialects.get(GherkinDialectProvider.language);        
         if (map == null)
             throw new UnsupportedEncodingException("Invalid language [" + language + "]. See list of supported languages: " + GHERKIN_LANGUAGES_JSON_URL);
         

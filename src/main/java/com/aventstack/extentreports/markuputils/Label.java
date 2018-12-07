@@ -2,6 +2,8 @@ package com.aventstack.extentreports.markuputils;
 
 class Label implements Markup {
 
+    private static final long serialVersionUID = 548763908072445261L;
+    
     private String text = "";
     private ExtentColor color = ExtentColor.TRANSPARENT;
     

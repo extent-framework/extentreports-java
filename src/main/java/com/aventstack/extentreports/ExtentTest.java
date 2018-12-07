@@ -49,7 +49,7 @@ public class ExtentTest
     /**
      * An instance of {@link ExtentReports} to which this {@link ExtentTest} belongs
      */
-    private ExtentReports extent;
+    private transient ExtentReports extent;
     
     /**
      * Internal model
@@ -1062,6 +1062,9 @@ public class ExtentTest
      * @return {@link ExtentTest} object
      */
     public ExtentTest assignCategory(String... category) {
+        if (category == null)
+            return this;
+        
     	Arrays.stream(category)
     		.filter(StringUtil::isNotNullOrEmpty)
     		.forEach(c -> {
@@ -1113,6 +1116,9 @@ public class ExtentTest
 
     @Override
     public ExtentTest addScreenCaptureFromPath(String imagePath, String title) throws IOException {
+        if (imagePath == null || imagePath.isEmpty())
+            throw new IllegalArgumentException("imagePath cannot be null or empty");
+        
     	ScreenCapture screenCapture = new ScreenCapture();
         screenCapture.setPath(imagePath);
         if (title != null) {
@@ -1139,6 +1145,28 @@ public class ExtentTest
     @Override
     public ExtentTest addScreenCaptureFromPath(String imagePath) throws IOException {
         return addScreenCaptureFromPath(imagePath, null);
+    }
+    
+    @Override
+    public ExtentTest addScreenCaptureFromBase64String(String s, String title) {
+        ScreenCapture screenCapture = new ScreenCapture();
+        screenCapture.setBase64String(s);
+        screenCapture.setName(title);
+        screenCapture.setMediaType(MediaType.IMG);
+        
+        if (test.getObjectId() != null)
+            screenCapture.setTestObjectId(test.getObjectId());
+        
+        try {
+            extent.addScreenCapture(test, screenCapture);
+        } catch (IOException e) {}
+        
+        return addScreenCapture(screenCapture);
+    }
+    
+    @Override
+    public ExtentTest addScreenCaptureFromBase64String(String s) {
+        return addScreenCaptureFromBase64String(s, null);
     }
 
     @Override

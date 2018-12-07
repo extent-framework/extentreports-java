@@ -107,7 +107,7 @@ public class ReportStatusStats {
         return p*100;
     }
     public float getParentPercentageOthers() {
-        float p = getParentCount() > 0 ? ((float)getParentCountWarning()+(float)getParentCountError()+(float)getParentCountSkip())/(float)getParentCount() : 0; 
+        float p = getParentCount() > 0 ? ((float)getParentCountWarning()+(float)getParentCountError())/(float)getParentCount() : 0; 
         return p*100;
     }
     public float getParentPercentageSkip() {
@@ -217,11 +217,8 @@ public class ReportStatusStats {
             test.getNodeContext().getAll().forEach(x -> {
                 incrementItemCountByStatus(ItemLevel.CHILD, x.getStatus());
 
-                if (x.hasChildren()) {
-                    x.getNodeContext().getAll().forEach(n -> {
-                        incrementItemCountByStatus(ItemLevel.GRANDCHILD, n.getStatus());
-                    });
-                }
+                if (x.hasChildren())
+                    x.getNodeContext().getAll().forEach(n -> incrementItemCountByStatus(ItemLevel.GRANDCHILD, n.getStatus()));
             });
         }
     }
@@ -241,8 +238,9 @@ public class ReportStatusStats {
                             
                             n.getNodeContext().getAll().forEach(z -> incrementItemCountByStatus(ItemLevel.GRANDCHILD, z.getStatus()));
                         }
-                        else
+                        else {
                             incrementItemCountByStatus(ItemLevel.GRANDCHILD, n.getStatus());
+                        }
                     });
                 }
             });

@@ -13,6 +13,8 @@ class TestRemover {
 	 */
 	private static boolean removed = false;
 	
+	private TestRemover() { }
+	
 	/**
 	 * Remove a test using its unique ID from a list
 	 * 

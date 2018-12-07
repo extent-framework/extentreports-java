@@ -88,7 +88,7 @@ $(".tf").click(function() {
 function attrToggle(t, attr) {
 	var e = t.text();
 	$(".test").addClass("d-none");
-	$(".test[" + attr + "*=" + e + "]").removeClass("d-none");
+	$(".test[" + attr + "*='" + e + "']").removeClass("d-none");
 }
 $(".cf").click(function() {
 	attrToggle(jQuery(this), "tags");

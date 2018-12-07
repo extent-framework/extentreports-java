@@ -42,7 +42,7 @@ public class TestAttributeTestContextProvider<T extends TestAttribute> {
             testOptionalTestContext.get().refreshTestStatusCounts();
         }
         else {
-            TestAttributeTestContext<T> testAttrContext = new TestAttributeTestContext<T>(attr);
+            TestAttributeTestContext<T> testAttrContext = new TestAttributeTestContext<>(attr);
             testAttrContext.setTest(test);
             testAttrCollection.add(testAttrContext);
         }

@@ -2,6 +2,8 @@ package com.aventstack.extentreports.markuputils;
 
 class Table implements Markup {
 
+    private static final long serialVersionUID = 7780527162407673294L;
+    
     private String[][] data;
     
     public void setData(String[][] data) {

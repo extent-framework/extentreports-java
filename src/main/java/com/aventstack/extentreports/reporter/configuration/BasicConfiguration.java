@@ -16,7 +16,7 @@ public abstract class BasicConfiguration {
     protected List<Status> levels;
     protected String reportName;
     protected String timeStampFormat;
-    protected Map<String, String> usedConfigs = new HashMap<>();;
+    protected Map<String, String> usedConfigs = new HashMap<>();
 
     protected BasicConfiguration() { }
     

@@ -31,3 +31,10 @@ $(window).keydown(function(e) {
 $("#lightsout,.lightsout").click(function() {
 	$("body").toggleClass("dark");
 });
+
+$("#tcp").click(function(evt) {
+	var t = $(evt.target);
+	if (t.is("textarea") && !t.hasClass("maxxed")) {
+		t.addClass("maxxed").height((t.prop("scrollHeight")) + "px");
+	}
+})

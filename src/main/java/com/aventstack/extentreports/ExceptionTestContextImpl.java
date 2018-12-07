@@ -29,9 +29,7 @@ public class ExceptionTestContextImpl {
             List<Test> testList = exOptionalTestContext.get().getTestList();
             
             boolean b = testList.stream()
-                    .filter(t -> t.getID() == test.getID())
-                    .findFirst()
-                    .isPresent();
+                    .anyMatch(t -> t.getID() == test.getID());
             
             if (!b) {
                 exOptionalTestContext.get().setTest(test);

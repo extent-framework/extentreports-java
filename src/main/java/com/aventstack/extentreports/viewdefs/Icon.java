@@ -1,12 +1,13 @@
 package com.aventstack.extentreports.viewdefs;
 
-import java.util.HashMap;
+import java.util.EnumMap;
+import java.util.Map;
 
 import com.aventstack.extentreports.Status;
 
 public class Icon {
 
-    private static HashMap<Status, String> map = new HashMap<>();
+    private static Map<Status, String> map = new EnumMap<>(Status.class);
     
     public void override(Status status, String icon) {
         map.put(status, icon);

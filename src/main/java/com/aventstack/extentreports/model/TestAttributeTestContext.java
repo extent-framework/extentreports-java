@@ -45,10 +45,6 @@ public class TestAttributeTestContext<T extends TestAttribute>
         testList.forEach(this::updateTestStatusCounts);
     }
     
-    public T getContextKey() {
-        return testAttribute;
-    }
-    
     public List<Test> getTestList() { 
     	return testList; 
 	}

@@ -48,8 +48,7 @@ public class FileUtil {
     }
     
     public static void createDirectory(String[] path) {
-    	Arrays.asList(path)
-    		.forEach(x -> createDirectory(x));
+    	Arrays.asList(path).forEach(FileUtil::createDirectory);
     }
     
     public static Boolean fileExists(String path) {

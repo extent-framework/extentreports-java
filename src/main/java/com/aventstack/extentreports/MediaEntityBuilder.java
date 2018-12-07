@@ -12,7 +12,7 @@ import com.aventstack.extentreports.model.ScreenCapture;
  */
 public class MediaEntityBuilder {
 
-	private static ThreadLocal<Media> media = new ThreadLocal<Media>();
+	private static ThreadLocal<Media> media = new ThreadLocal<>();
 	
 	private static class MediaBuilderInstance {
         static final MediaEntityBuilder INSTANCE = new MediaEntityBuilder();

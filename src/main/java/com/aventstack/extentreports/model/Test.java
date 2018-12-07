@@ -251,8 +251,7 @@ public class Test
     }
     
     public Long getRunDurationMillis() {
-    	long diff = endTime.getTime() - startTime.getTime();
-    	return diff;
+    	return endTime.getTime() - startTime.getTime();
     }
 
     // default status when the test starts

@@ -57,7 +57,7 @@ public abstract class BasicFileReporter
 	private static final String DEFAULT_MEDIA_SAVE_PROPERTY_NAME = "autoCreateRelativePathMedia";
 	private static final String TEMPLATE_LOCATION = "view/";
 	
-	private static String ENCODING = "UTF-8";
+	private static String encoding = "UTF-8";
 	
 	private String source;
     protected String filePath;
@@ -143,7 +143,7 @@ public abstract class BasicFileReporter
             return;
         }
         
-        templateMap = new HashMap<String, Object>();
+        templateMap = new HashMap<>();
         templateMap.put("report", this);
         templateMap.put("MaterialIcon", new MaterialIcon());
         templateMap.put("Icon", new Icon());
@@ -161,6 +161,7 @@ public abstract class BasicFileReporter
         }
     }
     
+    @Override
     public synchronized void flush(ReportAggregates reportAggregates) {
     	super.flush(reportAggregates);
     	this.authorContext = reportAggregates.getAuthorContext();
@@ -206,6 +207,7 @@ public abstract class BasicFileReporter
     	return stats;
     }
         
+	@Override
 	public List<Status> getStatusList() {
 		return statusList;
 	}
@@ -243,15 +245,13 @@ public abstract class BasicFileReporter
         autoCreateRelativePathMedia(screenCapture);
     }
     
-    private void mediaExists(Media m) throws IOException {
-    	if (m.getPath() != null && !new File(m.getPath()).exists()) {
-			//throw new IOException("Media was not found at [" + m.getPath() + "]");
-    	}
+    private void mediaExists(Media m) {
+    	if (m.getPath() != null && !new File(m.getPath()).exists()) { }
     }
     
     private void autoCreateRelativePathMedia(ScreenCapture screenCapture) throws IOException {
     	// if user has not specific a configuration, exit
-    	if (userConfig == null)
+    	if (userConfig == null || screenCapture.isBase64())
     		return;
     	
         String autoCreateRelativePathMedia = userConfig.getConfigMap().get(DEFAULT_MEDIA_SAVE_PROPERTY_NAME);
@@ -268,10 +268,12 @@ public abstract class BasicFileReporter
     @Override
 	public void stop() { }
 
+    @Override
 	public Date getStartTime() { 
         return super.getStartTime(); 
     }
 	
+    @Override
 	public Date getEndTime() { 
         return super.getEndTime(); 
     }
@@ -285,9 +287,7 @@ public abstract class BasicFileReporter
 	}
 	
 	public boolean containsStatus(Status status) {
-        return getStatusList() == null || getStatusList().isEmpty() 
-        		? false 
-				: getStatusList().contains(status);
+	    return getStatusList() != null && !getStatusList().isEmpty() && getStatusList().contains(status);
     }
     
 	protected void processTemplate(Template template, File outputFile) throws TemplateException, IOException {
@@ -305,7 +305,7 @@ public abstract class BasicFileReporter
 	protected Configuration getFreemarkerConfig() {
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_22);
         cfg.setClassForTemplateLoading(ExtentReports.class, TEMPLATE_LOCATION);
-        cfg.setDefaultEncoding(ENCODING);
+        cfg.setDefaultEncoding(encoding);
         return cfg;
     }
     

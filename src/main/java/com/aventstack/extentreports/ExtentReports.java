@@ -270,6 +270,7 @@ public class ExtentReports
      *  <li>ConsoleLogger: no action taken</li>
      * </ul>
      */
+    @Override
     public synchronized void flush() {
         super.flush();
     }
@@ -358,6 +359,7 @@ public class ExtentReports
      * @param strategy {@link AnalysisStrategy} determines the type of analysis (dashboard)
      * created for the reporter. Not all reporters will support this setting.
      */
+    @Override   
     public void setAnalysisStrategy(AnalysisStrategy strategy) {
         super.setAnalysisStrategy(strategy);
     }
@@ -393,6 +395,7 @@ public class ExtentReports
      * 
      * @return an instance of {@link ReportStatusStats}
      */
+    @Override
     public ReportStatusStats getStats() {
     	return super.getStats();
     }

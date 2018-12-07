@@ -10,7 +10,7 @@ public class ExceptionTestContext
     private static final long serialVersionUID = -2516200535748363722L;
     
     private ExceptionInfo exceptionInfo;
-    private List<Test> testList = new ArrayList<>();;
+    private List<Test> testList = new ArrayList<>();
     
     public ExceptionTestContext(ExceptionInfo exceptionInfo) { 
     	this.exceptionInfo = exceptionInfo; 

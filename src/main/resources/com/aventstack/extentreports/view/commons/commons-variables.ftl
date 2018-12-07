@@ -22,3 +22,5 @@
 <#if report.analysisStrategy=="CLASS">
 	<#assign parentHeading="Class" childHeading="Methods" grandChildHeading="" size=2>
 </#if>
+
+<#assign timeStampFormat=config.getValue('timeStampFormat')>

@@ -24,9 +24,17 @@ public class ReportAggregatesBuilder {
 	private List<Status> statusList;
 	
 	public ReportAggregates build() {
-		return new ReportAggregates(testList, testRunnerLogs, categoryContext, 
-    			authorContext, deviceContext, exceptionContext, systemAttributeContext, 
-    			reportStatusStats, statusList);
+	    ReportAggregates aggregates = new ReportAggregates();
+	    aggregates.setTestList(testList);
+	    aggregates.setTestRunnerLogs(testRunnerLogs);
+	    aggregates.setCategoryContext(categoryContext);
+	    aggregates.setAuthorContext(authorContext);
+	    aggregates.setDeviceContext(deviceContext);
+	    aggregates.setExceptionContext(exceptionContext);
+	    aggregates.setSystemAttributeContext(systemAttributeContext);
+	    aggregates.setReportStatusStats(reportStatusStats);
+	    aggregates.setStatusList(statusList);
+		return aggregates;
 	}
 
 	public ReportAggregatesBuilder setTestList(List<Test> testList) {

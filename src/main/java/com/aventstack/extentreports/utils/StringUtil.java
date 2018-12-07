@@ -9,6 +9,6 @@ public class StringUtil {
     }
     
     public static boolean isNotNullOrEmpty (String str) {
-		return str != null && !str.isEmpty();
+		return str != null && !str.trim().isEmpty();
     }
 }

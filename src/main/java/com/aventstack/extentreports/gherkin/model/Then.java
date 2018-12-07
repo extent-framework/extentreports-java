@@ -6,9 +6,10 @@ public class Then
 	implements IGherkinFormatterModel, Serializable {
 
 	private static final long serialVersionUID = 2493591502473169772L;
-
+	private static final String VALUE = "Then";
+	
 	public static String getGherkinName() {
-		return "Then";
+		return VALUE;
 	}
 	
 	@Override

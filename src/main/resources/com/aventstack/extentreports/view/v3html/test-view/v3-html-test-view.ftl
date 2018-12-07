@@ -113,17 +113,16 @@
 	<!-- subview left -->
 	<div class='subview-right left'>
 		<div class='view-summary'>
-			<h5 class='test-name'></h5>
-			<div id='step-filters' class="right">
-				<span class="blue-text" status="info" alt="info" title="info"><i class="material-icons">info_outline</i></span>
-				<span class="green-text" status="pass" alt="pass" title="pass"><i class="material-icons">check_circle</i></span>
-				<span class="red-text" status="fail" alt="fail" title="fail"><i class="material-icons">cancel</i></span>
-				<span class="red-text text-darken-4" status="fatal" alt="fatal" title="fatal"><i class="material-icons">cancel</i></span>
-				<span class="pink-text text-lighten-1" status="error" alt="error" title="error"><i class="material-icons">error</i></span>
-				<span class="orange-text" alt="warning" status="warning" title="warning"><i class="material-icons">warning</i></span>
-				<span class="teal-text" status="skip" alt="skip" title="skip"><i class="material-icons">redo</i></span>
-				<span status="clear" alt="Clear filters" title="Clear filters"><i class="material-icons">clear</i></span>
+			<div id='step-filters' class="right sr-filters">
+				<a class="btn-floating waves-effect waves-light green" status="pass" alt="pass" title="pass"><i class="material-icons">check_circle</i></a>
+				<a class="btn-floating waves-effect waves-light red" status="fail" alt="fail" title="fail"><i class="material-icons">cancel</i></a>
+				<a class="btn-floating waves-effect waves-light red darken-4" status="fatal" alt="fatal" title="fatal"><i class="material-icons">cancel</i></a>
+				<a class="btn-floating waves-effect waves-light pink text-lighten-1" status="error" alt="error" title="error"><i class="material-icons">error</i></a>
+				<a class="btn-floating waves-effect waves-light orange" alt="warning" status="warning" title="warning"><i class="material-icons">warning</i></a>
+				<a class="btn-floating waves-effect waves-light teal" status="skip" alt="skip" title="skip"><i class="material-icons">redo</i></a>
+				<a class="btn-floating waves-effect waves-light grey" status="clear" alt="Clear filters" title="Clear filters"><i class="material-icons">clear</i></a>
 			</div>
+			<h5 class='test-name'></h5>
 		</div>
 	</div>
 	<!-- subview right -->

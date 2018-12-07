@@ -26,6 +26,25 @@ public interface IAddsMedia<T> {
      * @throws IOException thrown if the <code>imagePath</code> of image is not found
      */
     T addScreenCaptureFromPath(String imagePath) throws IOException;
+    
+    /**
+     * Adds a base64 screenshot
+     * 
+     * @param s base64 string
+     * @param title Image title
+     * 
+     * @return Object this method is called from, generally {@link com.aventstack.extentreports.ExtentTest} or {@link Log}
+     */
+    T addScreenCaptureFromBase64String(String s, String title);
+    
+    /**
+     * Adds a base64 screenshot
+     * 
+     * @param s base64 string
+     * 
+     * @return Object this method is called from, generally {@link com.aventstack.extentreports.ExtentTest} or {@link Log}
+     */
+    T addScreenCaptureFromBase64String(String s);
 
     /**
      * Adds a screencast to test or log
