@@ -1,0 +1,4 @@
+ignore:
+  - "src/main/java/com/aventstack/extentreports/reporter/ExtentKlovReporter.java"
+  - "src/main/java/com/aventstack/extentreports/mediastorage/impl*"
+  
