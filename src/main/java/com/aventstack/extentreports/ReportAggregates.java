@@ -1,5 +1,6 @@
 package com.aventstack.extentreports;
 
+import java.util.Date;
 import java.util.List;
 
 import com.aventstack.extentreports.model.Author;
@@ -22,8 +23,26 @@ public class ReportAggregates {
 	private SystemAttributeContext systemAttributeContext;
 	private ReportStatusStats reportStatusStats;
 	private List<Status> statusList;
+	private Date startTime;
+    private Date endTime;
+    
+	public Date getStartTime() {
+        return startTime;
+    }
 
-	public Status getStatus() {
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Status getStatus() {
 		return Status.getHighestStatus(getStatusList());
 	}
 	

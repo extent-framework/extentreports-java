@@ -216,16 +216,12 @@ public class Test
     }
     
     private void setEndTimeFromChildren() {
-        if (hasLog()) {
-            int logSize = getLogContext().size();
-            Date lastLogEndTime = getLogContext().get(logSize - 1).getTimestamp(); 
-            setEndTime(lastLogEndTime);
-        }
-        
         if (hasChildren()) {
-            int nodeSize = getNodeContext().size();
-            Date lastNodeEndTime = getNodeContext().get(nodeSize - 1).getEndTime();
-            setEndTime(lastNodeEndTime);
+            setStartTime(getNodeContext().getFirst().getStartTime());
+            setEndTime(getNodeContext().getLast().getEndTime());
+        } else if (hasLog()) {
+            Date lastLogEndTime = getLogContext().getLast().getTimestamp(); 
+            setEndTime(lastLogEndTime);
         }
     }
 
@@ -286,7 +282,7 @@ public class Test
                 ? Status.PASS
                 : status;
         
-        if (!usesManualConfiguration || endTime == null)
+        if (usesManualConfiguration || endTime == null)
             setEndTimeFromChildren();
     }
 

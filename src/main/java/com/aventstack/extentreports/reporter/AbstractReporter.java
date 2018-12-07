@@ -23,7 +23,8 @@ public abstract class AbstractReporter
 	private AnalysisStrategy strategy = AnalysisStrategy.TEST;
 
 	public void flush(ReportAggregates reportAggregates) {
-		this.endTime = Calendar.getInstance().getTime();
+	    this.startTime = reportAggregates.getStartTime();
+		this.endTime = reportAggregates.getEndTime();
 		this.statusList = reportAggregates.getStatusList();
 	}
 	

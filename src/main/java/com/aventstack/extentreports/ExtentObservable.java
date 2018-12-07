@@ -439,11 +439,12 @@ abstract class ExtentObservable
             return;
         
         reportEndDate = Calendar.getInstance().getTime();
-        testList.forEach(this::endTest);
         
         refreshReportEntities();
         
         for (Test test : testList) {
+            endTest(test);
+            test.setUseManualConfiguration(getAllowManualConfig());
             if (test.hasCategory()) {
                 test.getCategoryContext().getAll()
                 	.forEach(x -> categoryContext.setAttributeContext((Category)x, test));
@@ -461,8 +462,10 @@ abstract class ExtentObservable
                 	.forEach(x -> exceptionContextBuilder.setExceptionContext(x, test));
             }
             if (test.hasChildren()) {
-                test.getNodeContext().getAll()
-                	.forEach(this::copyNodeAttributeAndRunTimeInfoToAttributeContexts);
+                for (Test node : test.getNodeContext().getAll()) {
+                    copyNodeAttributeAndRunTimeInfoToAttributeContexts(node);
+                    node.setUseManualConfiguration(getAllowManualConfig());
+                }
             }
         }
         
@@ -474,7 +477,7 @@ abstract class ExtentObservable
      * the timestamps assigned to tests
      */
     private void updateReportStartTimeForManualConfigurationSetting() {
-        if (usesManualConfiguration && !testList.isEmpty()) {
+        if (getAllowManualConfig() && !testList.isEmpty()) {
         	Date minDate = testList.stream()
         			.map(t -> t.getStartTime())
         			.min(Date::compareTo)
@@ -534,6 +537,8 @@ abstract class ExtentObservable
     			.setSystemAttributeContext(systemAttributeContext)
     			.setTestList(testList)
     			.setTestRunnerLogs(testRunnerLogs)
+    			.setStartTime(reportStartDate)
+    			.setEndTime(reportEndDate)
     			.build();
         reporterList.forEach(x -> x.setAnalysisStrategy(strategy));
     	reporterList.forEach(x -> x.flush(reportAggregates));

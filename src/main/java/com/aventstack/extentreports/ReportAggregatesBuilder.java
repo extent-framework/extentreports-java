@@ -1,5 +1,6 @@
 package com.aventstack.extentreports;
 
+import java.util.Date;
 import java.util.List;
 
 import com.aventstack.extentreports.model.Author;
@@ -22,6 +23,8 @@ public class ReportAggregatesBuilder {
 	private SystemAttributeContext systemAttributeContext;
 	private ReportStatusStats reportStatusStats;
 	private List<Status> statusList;
+	private Date startTime;
+	private Date endTime;
 	
 	public ReportAggregates build() {
 	    ReportAggregates aggregates = new ReportAggregates();
@@ -34,6 +37,8 @@ public class ReportAggregatesBuilder {
 	    aggregates.setSystemAttributeContext(systemAttributeContext);
 	    aggregates.setReportStatusStats(reportStatusStats);
 	    aggregates.setStatusList(statusList);
+	    aggregates.setStartTime(startTime);
+	    aggregates.setEndTime(endTime);
 		return aggregates;
 	}
 
@@ -81,5 +86,15 @@ public class ReportAggregatesBuilder {
 		this.statusList = statusList;
 		return this;
 	}
+
+    public ReportAggregatesBuilder setStartTime(Date startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+
+    public ReportAggregatesBuilder setEndTime(Date endTime) {
+        this.endTime = endTime;
+        return this;
+    }
 	
 }
