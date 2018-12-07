@@ -1,22 +1,30 @@
 package com.aventstack.extentreports.api;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 
-import com.aventstack.extentreports.gherkin.model.And;
-import com.aventstack.extentreports.gherkin.model.But;
-import com.aventstack.extentreports.gherkin.model.Given;
-import com.aventstack.extentreports.gherkin.model.Scenario;
-import com.aventstack.extentreports.gherkin.model.Then;
-import com.aventstack.extentreports.gherkin.model.When;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Base;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.GherkinKeyword;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.gherkin.GherkinDialectProvider;
+import com.aventstack.extentreports.gherkin.model.And;
+import com.aventstack.extentreports.gherkin.model.But;
+import com.aventstack.extentreports.gherkin.model.Given;
+import com.aventstack.extentreports.gherkin.model.Scenario;
+import com.aventstack.extentreports.gherkin.model.Then;
+import com.aventstack.extentreports.gherkin.model.When;
 
 public class BddWithStepStatusHierarchyTest extends Base {
+    
+    @BeforeClass
+    public void beforeClass() throws UnsupportedEncodingException {
+        GherkinDialectProvider.setLanguage("en");
+    }
     
     @Test(expectedExceptions = ClassNotFoundException.class)
     public void throwClassNotFoundExceptionWithInvalidKeyword(Method method) throws ClassNotFoundException {
