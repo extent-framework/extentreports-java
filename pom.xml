@@ -4,7 +4,7 @@
 
 	<groupId>com.aventstack</groupId>
 	<artifactId>extentreports</artifactId>
-	<version>4.0.5</version>
+	<version>4.0.6</version>
 
 	<name>extentreports</name>
 	<url>www.extentreports.com</url>
@@ -27,7 +27,7 @@
 		<developer>
 			<name>Anshoo Arora</name>
 			<url>https://github.com/anshooarora</url>
-			<id>anshoo.arora</id>
+			<id>anshooarora</id>
 			<roles>
 				<role>Owner</role>
 			</roles>
@@ -116,7 +116,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.2</version>
+				<version>0.7.9</version>
 				<executions>
 					<execution>
 						<goals>

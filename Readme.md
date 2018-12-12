@@ -7,7 +7,7 @@
 
 This version is Java8 only.
 
-[Klov](https://github.com/extent-framework/klov-server) report server 0.2.0 is supported with version 4.0.0+.
+[Klov](https://github.com/extent-framework/klov-server) report server 0.2+ is supported with version 4.0.0+.
 
 ### Documentation
 
@@ -15,4 +15,4 @@ View [extentreports.com](http://extentreports.com/docs/versions/4/java/) for com
 
 ### License
 
-Extent Framework Community is BSD-3 licensed.
+BSD-3 license
