@@ -282,7 +282,7 @@ public class Test
                 ? Status.PASS
                 : status;
         
-        if (usesManualConfiguration || endTime == null)
+        if (!usesManualConfiguration)
             setEndTimeFromChildren();
     }
 
