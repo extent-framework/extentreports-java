@@ -15,4 +15,4 @@ View [extentreports.com](http://extentreports.com/docs/versions/4/java/) for com
 
 ### License
 
-BSD-3 license
+Apache-2.0
