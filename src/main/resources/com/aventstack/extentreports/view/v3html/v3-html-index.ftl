@@ -97,7 +97,7 @@
 		<script>
 			<#macro listTestNameDuration testList>
 			   <#if report.testList??>
-			        <#list report.testList as t>"${t.name}":${t.runDurationMillis/1000}<#if t_has_next>,</#if></#list>
+			        <#list report.testList as t>"${t.name}":${(t.runDurationMillis/1000)?c?replace(",","")}<#if t_has_next>,</#if></#list>
 			   </#if>
 			</#macro>
 			var timeline = {
