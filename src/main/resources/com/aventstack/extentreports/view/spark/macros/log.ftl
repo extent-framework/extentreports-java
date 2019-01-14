@@ -17,7 +17,7 @@
 						${log.details}
 					</#if>
 					<#if log.hasScreenCapture()>
-						<span class="badge badge-primary">${log.screenCaptureContext.last.source}</span>
+						${log.screenCaptureContext.last.source}
 					</#if>
 				</td>
 			</tr>

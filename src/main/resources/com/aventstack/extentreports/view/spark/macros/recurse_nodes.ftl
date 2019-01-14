@@ -13,13 +13,16 @@
 						</div>
 					</h5>
 				</div>
-				<#if node.hasLog()>
-					<div class="collapse">
-						<div class="card-body">
+				<div class="collapse">
+					<div class="card-body">
+						<#if node.hasLog()>
 							<@log test=node />
-						</div>
+						</#if>
+						<#if node.hasScreenCapture()>
+							${node.screenCaptureList[0].source}
+						</#if>
 					</div>
-				</#if>
+				</div>
 				<#if node.hasChildren()>
 					<@recurse_nodes test=node />
 				</#if>
