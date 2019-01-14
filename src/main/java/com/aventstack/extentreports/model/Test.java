@@ -348,6 +348,10 @@ public class Test
     	return hierarchicalName; 
 	}
     
+    public boolean hasAttributes() {
+        return hasAuthor() || hasCategory() || hasDevice();
+    }
+    
     public AbstractStructure<TestAttribute> getCategoryContext() {
         if (category == null) {
             category = new AbstractStructure<>();

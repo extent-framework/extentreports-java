@@ -8,6 +8,16 @@ import java.util.Arrays;
 public class FileUtil {
     
     private FileUtil() { }
+
+    public static String getFileName(File f) {
+        if (f == null || !f.exists())
+            return "";
+        return f.getName();
+    }
+    
+    public static String getFileName(String path) {
+        return getFileName(new File(path));
+    }
     
     public static String getFileNameWithoutExtension(File f) {
         String name = f.getName();
@@ -54,6 +64,13 @@ public class FileUtil {
     public static Boolean fileExists(String path) {
     	File f = new File(path);
     	return f.exists() && !f.isDirectory();
+    }
+    
+    public static long getFileSize(String path) {
+        if (path == null)
+            return 0;
+        File f = new File(path);
+        return f.exists() ? f.length() : 0;
     }
     
 }

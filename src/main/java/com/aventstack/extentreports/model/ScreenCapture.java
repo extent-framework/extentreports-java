@@ -16,7 +16,7 @@ public class ScreenCapture
         return "<a href='#' class='indigo badge' data-featherlight='" + getScreenCapturePath() + "'>img</a>";
     }
     
-    private String getScreenCapturePath() {
+    public String getScreenCapturePath() {
         return getPath() != null ? getPath() : getBase64String();
     }
 

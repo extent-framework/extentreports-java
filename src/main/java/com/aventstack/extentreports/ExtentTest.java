@@ -1104,14 +1104,14 @@ public class ExtentTest
      */
     public ExtentTest assignDevice(String... device) {
     	Arrays.stream(device)
-		.filter(StringUtil::isNotNullOrEmpty)
-		.forEach(x -> {
-			Device d = new Device(x.replace(" ", ""));
-			test.setDevice(d);
-			extent.assignDevice(test, d);
-		}
-	);
-    return this;
+    		.filter(StringUtil::isNotNullOrEmpty)
+    		.forEach(x -> {
+    			Device d = new Device(x.replace(" ", ""));
+    			test.setDevice(d);
+    			extent.assignDevice(test, d);
+    		}
+    	);
+        return this;
     }
 
     @Override

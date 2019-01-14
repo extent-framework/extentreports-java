@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.bson.types.ObjectId;
 
+import com.aventstack.extentreports.utils.FileUtil;
+
 public class Media 
 	implements Serializable {
 
@@ -18,6 +20,7 @@ public class Media
     private String path;
     private String base64String;
     private int seq;
+    private long fileSize = 0;
 
     private MediaType mediaType;
     
@@ -71,11 +74,22 @@ public class Media
     
     public void setPath(String path) {
         this.path = path;
+        setFileSize(FileUtil.getFileSize(path));
+        if (getName() == null || getName().isEmpty())
+            setName(FileUtil.getFileName(path)); 
     }
     
     public String getPath() { 
     	return path; 
 	}
+
+    public long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(long fileSize) {
+        this.fileSize = fileSize;
+    }
 
     public void setMediaType(MediaType mediaType) {
         this.mediaType = mediaType;
