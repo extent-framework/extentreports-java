@@ -566,7 +566,11 @@ public class ExtentKlovReporter
                 .append("status", log.getStatus().toString())
                 .append("timestamp", log.getTimestamp())
                 .append("details", log.getDetails());
-
+		
+		if (log.hasScreenCapture() && log.getScreenCaptureContext().getFirst().isBase64()) {
+            doc.append("details", log.getDetails() + log.getScreenCaptureContext().getFirst().getSource());
+        }
+		
         logCollection.insertOne(doc);
         
         ObjectId logId = MongoUtil.getId(doc);
