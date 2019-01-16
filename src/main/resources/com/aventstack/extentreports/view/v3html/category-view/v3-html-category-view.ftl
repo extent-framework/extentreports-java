@@ -28,8 +28,8 @@
 						<#if category.failed != 0>
 						<span class='label fail'>${ category.failed }</span>
 						</#if>
-						<#if category.others != 0>
-						<span class='label others'>${ category.others }</span>
+						<#if category.skipped != 0>
+						<span class='label others'>${ category.skipped }</span>
 						</#if>
 						</span>
 					</div>
@@ -37,7 +37,7 @@
 						<div class='category-status-counts'>
 							<#if category.passed != 0><span class='label green accent-4 white-text'>Passed: ${ category.passed }</span></#if>
 							<#if category.failed != 0><span class='label red lighten-1 white-text'>Failed: ${ category.failed }</span></#if>
-							<#if category.others != 0><span class='label yellow darken-2 white-text'>Others: ${ category.others }</span></#if>
+							<#if category.skipped != 0><span class='label yellow darken-2 white-text'>Skipped: ${ category.skipped }</span></#if>
 						</div>
 						<div class='category-tests'>
 							<table class='bordered table-results'>
