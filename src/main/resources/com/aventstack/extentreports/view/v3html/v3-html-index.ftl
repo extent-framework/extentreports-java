@@ -35,6 +35,13 @@
 <#assign parentLabel='suite(s)' childLabel='test(s)' grandChildLabel='method(s)'>
 </#if>
 </#if>
+
+<#assign timeStampFormat = config.getValue('timeStampFormat')>
+<#assign resourceCDN=config.getValue('resourceCDN') cdnURI="cdn.rawgit.com/extent-framework/extent-github-cdn/" csscommit="8644a9c" jscommit="c23457b">
+<#if resourceCDN=="extentreports">
+    <#assign cdnURI="extentreports.com/resx" csscommit="" jscommit="">
+</#if>
+
 <!DOCTYPE html>
 <html>
 	<#include 'v3-html-head.ftl'>
@@ -108,7 +115,7 @@
 		<#if config.getValue('offline')?string == 'true'>
 		<script src='extent/js/extent.js' type='text/javascript'></script>
 		<#else>
-		<script src='${ config.getValue('protocol') }://cdn.rawgit.com/extent-framework/extent-github-cdn/c23457b/v3html/js/extent.js' type='text/javascript'></script>
+		<script src='${ config.getValue('protocol') }://${cdnURI}${jscommit}/v3html/js/extent.js' type='text/javascript'></script>
 		</#if>
 		<#assign hide=(chartVisibleOnOpen=='true')?then(false, true)>
 		<#if hide>

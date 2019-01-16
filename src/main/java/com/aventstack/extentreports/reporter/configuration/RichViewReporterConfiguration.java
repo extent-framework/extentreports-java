@@ -85,4 +85,12 @@ public abstract class RichViewReporterConfiguration
 		usedConfigs.put("autoCreateRelativePathMedia", String.valueOf(v));
 	}
 	
+	/**
+	 * Allows selecting a CDN/resource loader for your FileReporter
+	 * 
+	 * @param resourceCDN the {@link ResourceCDN}
+	 */
+	public void setResourceCDN(ResourceCDN resourceCDN) {
+        usedConfigs.put("resourceCDN", String.valueOf(resourceCDN).toLowerCase());
+    }
 }
