@@ -22,6 +22,13 @@
 		</#list>
 	</div>
 	</#if>
+	<#if test.hasDevice()>
+    <div class='device-list'>
+        <#list test.deviceContext.all as device>
+        <span class='device label'>${ device.name }</span>
+        </#list>
+    </div>
+    </#if>
 </div>
 </#if>
 <#if test.hasLog()>
