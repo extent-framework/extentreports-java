@@ -11,4 +11,5 @@
     <link rel="shortcut icon" href="https://${cdnURI}${iconcommit}/commons/img/logo.png">
     <link href="https://${cdnURI}${csscommit}/spark/css/style.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style><#include "../../commons/commons-inject-css.ftl"></style>
 </head>
