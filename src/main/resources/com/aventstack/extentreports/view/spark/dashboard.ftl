@@ -33,7 +33,7 @@
 <!DOCTYPE html>
 <html>
 	<#include "partials/head.ftl">
-	<body class="dashboard-view @Model.MasterConfig.GetValue("theme")">
+	<body class="dashboard-view ${theme}">
 		<div class="app header-dark side-nav-folded">
 			<div class="layout">
 				<#include "partials/navbar.ftl">
