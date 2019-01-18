@@ -13,6 +13,11 @@ This version is Java8 only.
 
 View [extentreports.com](http://extentreports.com/docs/versions/4/java/) for complete documentation.
 
+### Samples
+
+* [ExtentSparkReporter](http://extentreports.com/samples/spark/index.html)
+* [ExtentHtmlReporter](http://extentreports.com/samples/html/index.html)
+
 ### License
 
 Apache-2.0
