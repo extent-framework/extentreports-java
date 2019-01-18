@@ -1,3 +1,5 @@
+<#include "../commons/commons-variables.ftl">
+
 <#assign systemAttributeContext=report.getSystemAttributeContext().getSystemAttributeList()>
 <#assign authorContext=report.getAuthorContextInfo().getTestAttributeTestContextList()>
 <#assign categoryContext=report.getCategoryContextInfo().getTestAttributeTestContextList()>
