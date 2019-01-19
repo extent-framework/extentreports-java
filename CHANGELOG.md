@@ -1,3 +1,9 @@
+## [4.0.8](https://github.com/extent-framework/extentreports-java/compare/v4.0.7...v4.0.8)
+#### Fixes
+* [#31] ExtentHtmlReporter does not display devices
+* [#32] ExtentSparkReporter freemarker issue when injecting custom js
+* [#33] ExtentSparkReporter dark theme fix
+
 ## [4.0.7](https://github.com/extent-framework/extentreports-java/compare/v4.0.6...v4.0.7)
 #### New
 * ExtentSparkReporter
