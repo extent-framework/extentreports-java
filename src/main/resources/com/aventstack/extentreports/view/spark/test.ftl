@@ -123,7 +123,7 @@
                                                 </div>
                                             </div>
 	                                        <#if !isbdd>
-	                                            <#include "partails/standard-content.ftl">
+	                                            <#include "partials/standard-content.ftl">
 	                                        <#else>
 	                                            <#include "partials/bdd-content.ftl">
 	                                        </#if>
