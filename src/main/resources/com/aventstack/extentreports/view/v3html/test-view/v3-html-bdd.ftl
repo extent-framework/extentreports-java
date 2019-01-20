@@ -34,16 +34,13 @@
     <ul class='steps'>
         <#list node.nodeContext.all as child>
         <li test-id='${child.getID()}' class='node ${child.getBehaviorDrivenType().getSimpleName()?lower_case} ${child.status}' status='${child.status}'>
-            <div class="step-name"><span class='status ${child.status}' title='${child.status}'><i class='material-icons'>${MaterialIcon.getIcon(child.status)}</i></span>${child.name}</div>
+            <div class="step-name" title="${child.description}"><span class='status ${child.status}' title='${child.status}'><i class='material-icons'>${MaterialIcon.getIcon(child.status)}</i></span>${child.name}</div>
             <#if child.screenCaptureList?? && child.screenCaptureList?size != 0>
             <ul class='screenshots right'>
                 <#list child.screenCaptureList as sc>
                 <li><a data-featherlight="image" href="${sc.path}"><i class='material-icons'>panorama</i></a></li>
                 </#list>
             </ul>
-            </#if>
-            <#if child.description?? && child.description?has_content>
-            ${child.description}
             </#if>
             <#list child.logContext.all as log>
             <#if log.exceptionInfo??>
@@ -56,16 +53,13 @@
             <ul class='gc steps'>
                 <#list child.nodeContext.all as gc>
                     <li test-id='${gc.getID()}' class='gc ${gc.getBehaviorDrivenType().getSimpleName()?lower_case} ${gc.status}' status='${gc.status}'>
-                        <h6 class="step-name"><span class='status ${gc.status}' title='${gc.status}'><i class='material-icons'>${MaterialIcon.getIcon(gc.status)}</i></span>${gc.name}</h6>
+                        <h6 class="step-name" title="${gc.description}"><span class='status ${gc.status}' title='${gc.status}'><i class='material-icons'>${MaterialIcon.getIcon(gc.status)}</i></span>${gc.name}</h6>
                         <#if gc.screenCaptureList?? && gc.screenCaptureList?size != 0>
                         <ul class='screenshots right'>
                             <#list gc.screenCaptureList as sc>
                             <li><a data-featherlight="image" href="${sc.path}"><i class='material-icons'>panorama</i></a></li>
                             </#list>
                         </ul>
-                        </#if>
-                        <#if gc.description?? && gc.description?has_content>
-                        ${gc.description}
                         </#if>
                         <#list gc.logContext.all as log>
                             <#if log.exceptionInfo??><textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea>
