@@ -37,7 +37,7 @@
 </#if>
 
 <#assign timeStampFormat = config.getValue('timeStampFormat')>
-<#assign resourceCDN=config.getValue('resourceCDN') cdnURI="cdn.rawgit.com/extent-framework/extent-github-cdn/" csscommit="bde12a3" jscommit="c23457b">
+<#assign resourceCDN=config.getValue('resourceCDN') cdnURI="cdn.rawgit.com/extent-framework/extent-github-cdn/" csscommit="6bab5b6" jscommit="c23457b">
 <#if resourceCDN=="extentreports">
     <#assign cdnURI="extentreports.com/resx" csscommit="" jscommit="">
 </#if>
