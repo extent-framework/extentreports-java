@@ -35,9 +35,9 @@
 					</div>
 					<div class='category-content hide'>
 						<div class='category-status-counts'>
-							<#if category.passed != 0><span class='label green accent-4 white-text'>Passed: ${ category.passed }</span></#if>
-							<#if category.failed != 0><span class='label red lighten-1 white-text'>Failed: ${ category.failed }</span></#if>
-							<#if category.skipped != 0><span class='label yellow darken-2 white-text'>Skipped: ${ category.skipped }</span></#if>
+							<#if category.passed != 0><span status="pass" class='label green accent-4 white-text'>Passed: ${ category.passed }</span></#if>
+							<#if category.failed != 0><span status="fail" class='label red lighten-1 white-text'>Failed: ${ category.failed }</span></#if>
+							<#if category.skipped != 0><span status="skip" class='label yellow darken-2 white-text'>Skipped: ${ category.skipped }</span></#if>
 						</div>
 						<div class='category-tests'>
 							<table class='bordered table-results'>
