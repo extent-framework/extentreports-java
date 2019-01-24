@@ -1,3 +1,14 @@
+## [4.0.9](https://github.com/extent-framework/extentreports-java/compare/v4.0.8...v4.0.9)
+#### Improvements
+* [#35] HtmlReporter, BDD: description to appear as tooltip instead of newline
+* {#36] SparkReporter: display ScenarioOutline children as toggles
+* [#37] SparkReporter: auto-size textarea on click
+* [#42] CategoryView status toggles
+#### Fixes
+* [#39] Test case name overlap test case timestamp Spark Reporter
+* [#40] Author & device name don't have a background label
+* [#43] SparkReporter: issue with `setCSS` not working
+
 ## [4.0.8](https://github.com/extent-framework/extentreports-java/compare/v4.0.7...v4.0.8)
 #### Fixes
 * [#31] ExtentHtmlReporter does not display devices
