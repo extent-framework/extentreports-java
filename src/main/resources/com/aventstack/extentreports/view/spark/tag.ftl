@@ -46,9 +46,9 @@
 										  <div class="test-contents d-none">
 										    <div class="info">
 										      <h4>${context.name}</h4>
-										      <#if context.passed!=0><span class='badge badge-success'>${context.passed} passed</span></#if>
-										      <#if context.failed!=0><span class='badge badge-danger'>${context.failed} failed</span></#if>
-										      <#if context.skipped!=0><span class='badge badge-warning'>${context.skipped} skipped</span></#if>
+										      <#if context.passed!=0><span status="pass" class='badge badge-success'>${context.passed} passed</span></#if>
+										      <#if context.failed!=0><span status="fail" class='badge badge-danger'>${context.failed} failed</span></#if>
+										      <#if context.skipped!=0><span status="skip" class='badge badge-warning'>${context.skipped} skipped</span></#if>
 										    </div>
 										    <table class='table table-sm mt-4'>
 										      <thead>
@@ -60,7 +60,7 @@
 										      </thead>
 										      <tbody>
 										        <#list context.testList as test>
-										        <tr>
+										        <tr class="tag-test-status" status="${test.status}">
 										          <td>
 										            <div class='status-avatar ${test.status}-bg'>
 										              <i class="fa fa-${Icon.getIcon(test.status)} text-white"></i>
