@@ -18,7 +18,7 @@
                     <span class='tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.parentPercentagePass}%'><span class='strong'>${ report.reportStatusStats.parentCountPass }</span> ${parentLabel} passed</span>
                 </div>
                 <div class='block text-small'>
-                    <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.parentPercentageFail}%'>${ report.reportStatusStats.parentCountFail + report.reportStatusStats.parentCountFatal }</span> ${parentLabel} failed, <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.parentPercentageOthers}%'>${ report.reportStatusStats.parentCountError + report.reportStatusStats.parentCountWarning + report.reportStatusStats.parentCountSkip }</span> others
+                    <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.parentPercentageFail}%'>${ report.reportStatusStats.parentCountFail + report.reportStatusStats.parentCountFatal }</span> ${parentLabel} failed, <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.parentPercentageSkip}%'>${ report.reportStatusStats.parentCountSkip }</span> skipped
                 </div>
             </div>
         </div>
@@ -33,7 +33,9 @@
                     <span class='tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.childPercentagePass}%'><span class='strong'>${ report.reportStatusStats.childCountPass }</span> ${childLabel} passed</span>
                 </div>
                 <div class='block text-small'>
-                    <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.childPercentageFail}%'>${ report.reportStatusStats.childCountFail + report.reportStatusStats.childCountFatal }</span> ${childLabel} failed, <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.childPercentageOthers}%'>${ report.reportStatusStats.childCountError + report.reportStatusStats.childCountWarning + report.reportStatusStats.childCountSkip + report.reportStatusStats.childCountInfo }</span> others
+                    <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.childPercentageFail}%'>${ report.reportStatusStats.childCountFail + report.reportStatusStats.childCountFatal }</span> ${childLabel} failed, 
+                    <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.childPercentageSkip}%'>${report.reportStatusStats.childCountSkip}</span> skipped, 
+                    <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.childPercentageOthers}%'>${ report.reportStatusStats.childCountError + report.reportStatusStats.childCountWarning + report.reportStatusStats.childCountInfo }</span> others
                 </div>
             </div>
         </div>
@@ -49,7 +51,9 @@
                     <span class='tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.grandChildPercentagePass}%'><span class='strong'>${ report.reportStatusStats.grandChildCountPass }</span> ${grandChildLabel} passed</span>
                 </div>
                 <div class='block text-small'>
-                    <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.grandChildPercentageFail}%'>${ report.reportStatusStats.grandChildCountFail + report.reportStatusStats.grandChildCountFatal }</span> ${grandChildLabel} failed, <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.grandChildPercentageOthers}%'>${ report.reportStatusStats.grandChildCountSkip + report.reportStatusStats.grandChildCountError + report.reportStatusStats.grandChildCountWarning + report.reportStatusStats.grandChildCountInfo }</span> others
+                    <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.grandChildPercentageFail}%'>${ report.reportStatusStats.grandChildCountFail + report.reportStatusStats.grandChildCountFatal }</span> ${childLabel} failed, 
+                    <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.grandChildPercentageSkip}%'>${report.reportStatusStats.grandChildCountSkip}</span> skipped, 
+                    <span class='strong tooltipped' data-position='top' data-tooltip='${report.reportStatusStats.grandChildPercentageOthers}%'>${ report.reportStatusStats.grandChildCountError + report.reportStatusStats.grandChildCountWarning + report.reportStatusStats.grandChildCountInfo }</span> others
                 </div>
             </div>
         </div>
