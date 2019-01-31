@@ -441,7 +441,7 @@ public class ExtentKlovReporter
                         .append("errorParentLength", stats.getParentCountError())
                         .append("warningParentLength", stats.getParentCountWarning())
                         .append("skipParentLength", stats.getParentCountSkip())
-                        .append("exceptionsParentLength", stats.getChildCountExceptions())
+                        .append("exceptionsParentLength", stats.getParentCountExceptions())
                         .append("childLength", stats.getChildCount())
                         .append("passChildLength", stats.getChildCountPass())
                         .append("failChildLength", stats.getChildCountFail())
@@ -566,7 +566,12 @@ public class ExtentKlovReporter
                 .append("status", log.getStatus().toString())
                 .append("timestamp", log.getTimestamp())
                 .append("details", log.getDetails());
-		
+    	
+    	if (log.getExceptionInfo() != null) {
+    	    doc.append("exception", log.getExceptionInfo().getExceptionName())
+    	        .append("stacktrace", log.getExceptionInfo().getStackTrace());
+    	}
+    	
 		if (log.hasScreenCapture() && log.getScreenCaptureContext().getFirst().isBase64()) {
             doc.append("details", log.getDetails() + log.getScreenCaptureContext().getFirst().getSource());
         }
