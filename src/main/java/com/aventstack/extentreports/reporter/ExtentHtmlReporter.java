@@ -18,7 +18,7 @@ import freemarker.template.TemplateException;
 public class ExtentHtmlReporter extends BasicFileReporter {
 
     private static final Logger logger = Logger.getLogger(ExtentHtmlReporter.class.getName());
-    private static final String REPORTER_NAME = "html";
+    private static final String REPORTER_NAME = "v3html";
     private static final String TEMPLATE_NAME = "v3html/v3-html-index.ftl";
     private static final String[] DEFAULT_CONFIG_FILE_PATH = new String[] { "html.properties",
             "src/main/resources/html.properties" };
@@ -46,6 +46,10 @@ public class ExtentHtmlReporter extends BasicFileReporter {
         if (getTestList().isEmpty())
             return;
 
+        if (enforceOfflineMode()) {
+            userConfig.enableOfflineMode(true);
+        }
+        
         loadUserConfig();
 
         try {

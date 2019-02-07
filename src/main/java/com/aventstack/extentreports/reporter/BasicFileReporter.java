@@ -310,13 +310,13 @@ public abstract class BasicFileReporter
     }
     
     protected Boolean enforceOfflineMode() {
-    	if (configContext.containsKey("enableOfflineMode")) {
-        	String offlineMode = String.valueOf(configContext.getValue("enableOfflineMode"));
-        	if (!configContext.containsKey("offlineDirectory") && offlineMode.equals("true")) {
-        		return true;
-        	}
+        if (configContext.containsKey("enableOfflineMode")) {
+            String offlineMode = String.valueOf(configContext.getValue("enableOfflineMode"));
+            if (!configContext.containsKey("offlineDirectory") && offlineMode.equals("true")) {
+                return true;
+            }
         }
-    	return false;
+        return false;
     }
 
 }

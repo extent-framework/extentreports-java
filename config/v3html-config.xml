@@ -14,6 +14,9 @@
 		<!-- defaults to https -->
 		<protocol>https</protocol>
 		
+		<!-- offline report -->
+        <enableOfflineMode>false</enableOfflineMode>
+        
 		<!-- title of the document -->
 		<documentTitle>Extent Framework</documentTitle>
 		

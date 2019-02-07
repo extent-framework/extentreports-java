@@ -42,6 +42,8 @@
     <#assign cdnURI="extentreports.com/resx" csscommit="" jscommit="">
 </#if>
 
+<#include "../commons/commons-variables.ftl">
+
 <!DOCTYPE html>
 <html>
 	<#include 'v3-html-head.ftl'>
@@ -112,10 +114,11 @@
 			};
 		</script>
 		</#if>
-		<#if config.getValue('offline')?string == 'true'>
-		<script src='extent/js/extent.js' type='text/javascript'></script>
+	
+		<#if offline=="true">
+		  <script src='${config.getValue("offlineDirectory")}v3html-script.js' type='text/javascript'></script>
 		<#else>
-		<script src='${ config.getValue('protocol') }://${cdnURI}${jscommit}/v3html/js/extent.js' type='text/javascript'></script>
+		  <script src='${ config.getValue('protocol') }://${cdnURI}${jscommit}/v3html/js/extent.js' type='text/javascript'></script>
 		</#if>
 		<#assign hide=(chartVisibleOnOpen=='true')?then(false, true)>
 		<#if hide>

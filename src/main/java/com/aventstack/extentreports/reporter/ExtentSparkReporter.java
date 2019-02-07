@@ -49,6 +49,10 @@ public class ExtentSparkReporter extends BasicFileReporter {
         if (getTestList().isEmpty())
             return;
 
+        if (enforceOfflineMode()) {
+            userConfig.enableOfflineMode(true);
+        }
+        
         loadUserConfig();
 
         try {
