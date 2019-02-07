@@ -73,7 +73,7 @@
 							<th>Name</th>
 							<th>Passed</th>
 							<th>Failed</th>
-							<th>Others</th>
+							<th>Skipped</th>
 							<th>Passed %</th>
 						</tr>
 						<#list categoryContext as category>
@@ -81,7 +81,7 @@
 							<td>${category.name}</td>
 							<td>${category.passed}</td>
 							<td>${category.failed}</td>
-							<td>${category.others}</td>
+							<td>${category.skipped}</td>
 							<td>
 								<#if category.size()!=0>
 									${(category.passed/category.size())*100}%
