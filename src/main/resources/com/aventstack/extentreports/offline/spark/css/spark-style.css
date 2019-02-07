@@ -85,6 +85,9 @@ table > thead > tr > th {
     font-size: 11px;
     text-transform: uppercase;
 }
+td {
+	word-break: break-all;
+}
 
 
 /**
