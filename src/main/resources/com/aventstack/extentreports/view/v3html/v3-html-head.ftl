@@ -5,9 +5,14 @@
 	<meta name='viewport' content='width=device-width, initial-scale=1' />
 	<meta id="timeStampFormat" name="timeStampFormat" content='${timeStampFormat}'/>
 	
-	<link href='${ config.getValue('protocol') }://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
-	<link href="${ config.getValue('protocol') }://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-	<link href='${ config.getValue('protocol') }://${cdnURI}${csscommit}/v3html/css/extent.css' type='text/css' rel='stylesheet' />
+	<#if offline=="true">
+        <link rel="apple-touch-icon" href="${config.getValue("offlineDirectory")}material-icons.css">
+        <link rel="stylesheet" href="${config.getValue("offlineDirectory")}v3html-style.css">
+    <#else>
+        <link href='${ config.getValue('protocol') }://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
+        <link href="${ config.getValue('protocol') }://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link href='${ config.getValue('protocol') }://${cdnURI}${csscommit}/v3html/css/extent.css' type='text/css' rel='stylesheet' />
+    </#if>
 	
 	<title>${ config.getValue('documentTitle') }</title>
 

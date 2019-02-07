@@ -12,7 +12,11 @@
 <!DOCTYPE html>
 <html>
 <#include "partials/head.ftl">
-<script src="https://cdn.rawgit.com/extent-framework/extent-github-cdn/7cc78ce/spark/js/jsontree.js"></script>
+<#if offline=="true">
+    <link rel="stylesheet" href="${config.getValue("offlineDirectory")}jsontree.js">
+<#else>
+    <script src="https://cdn.rawgit.com/extent-framework/extent-github-cdn/7cc78ce/spark/js/jsontree.js"></script>
+</#if>
 <body class="test-view ${reportType}-report ${theme}">
     <div class="app header-dark side-nav-folded">
         <div class="layout">
