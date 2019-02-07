@@ -1,4 +1,4 @@
-<#assign resourceCDN=config.getValue('resourceCDN') cdnURI="cdn.rawgit.com/extent-framework/extent-github-cdn/" csscommit="24cb10e" jscommit="24cb10e" iconcommit="d74480e">
+<#assign resourceCDN=config.getValue('resourceCDN') cdnURI="cdn.rawgit.com/extent-framework/extent-github-cdn/" csscommit="9be0dad" jscommit="24cb10e" iconcommit="d74480e">
 <#if resourceCDN=="extentreports">
     <#assign cdnURI="extentreports.com/resx" csscommit="" jscommit="" iconcommit="">
 </#if>
