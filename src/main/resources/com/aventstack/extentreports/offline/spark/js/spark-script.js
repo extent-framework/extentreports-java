@@ -72,6 +72,15 @@ $(".test-item").click(function() {
 	$(".test-item").removeClass("active");
 	var content = $(this).addClass("active").find(".test-contents").clone();
 	$(".test-content-detail .detail-body").empty().append(content.removeClass("d-none"));
+	
+	var loc = window.location.href;
+	if (loc.indexOf("test-name")>0) {
+		var name = loc.match(/test-name.*/)[0].replace("test-name=", "");
+		name = name.replace(/%22/g, "").replace(/%20/, " ");
+		$(".test-detail .name").filter(function() {
+			return $(this).text() == name;
+		}).closest(".test-item").click();
+	}
 });
 
 $(document).ready(function() {
