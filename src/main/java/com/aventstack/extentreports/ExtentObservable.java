@@ -265,7 +265,7 @@ abstract class ExtentObservable
     /**
      * Refresh and notify all reports of distinct status assigned to tests
      */
-    private void refreshStatusList() {
+    private synchronized void refreshStatusList() {
     	statusMap.clear();
     	statusList.clear();
     	refreshStatusList(testList);
@@ -277,7 +277,7 @@ abstract class ExtentObservable
      * 
      * @param list a list of started {@link Test}
      */
-    private void refreshStatusList(List<Test> list) {
+    private synchronized void refreshStatusList(List<Test> list) {
     	if (list == null || list.isEmpty())
     		return;
     	
