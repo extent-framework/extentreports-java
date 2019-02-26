@@ -87,12 +87,7 @@ public class ConfigLoader {
 					value = el instanceof CharacterData 
 							? ((CharacterData) el).getData() 
 							: value;
-    				
-    				Config c = new Config();
-    				c.setKey(el.getNodeName());
-    				c.setValue(value);
-    				
-    				configContext.setConfig(c);
+    				configContext.setConfig(el.getNodeName(), value);
 				}
 			}
 			

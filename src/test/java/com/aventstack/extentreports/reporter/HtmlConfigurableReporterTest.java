@@ -28,37 +28,38 @@ public class HtmlConfigurableReporterTest extends Base {
     }
     
     @Test
-    public void testTheme(Method method) {
+    public void testTheme() {
         Assert.assertEquals(html.getConfigContext().getValue("theme"), THEME);
     }
     
     @Test
-    public void testEncoding(Method method) {
+    public void testEncoding() {
+    	html.getConfigContext().printMapForTest();
         Assert.assertTrue(String.valueOf(html.getConfigContext().getValue("encoding")).equalsIgnoreCase(ENCODING));
     }
     
     @Test
-    public void testDocumentTitle(Method method) {
+    public void testDocumentTitle() {
         Assert.assertEquals(html.getConfigContext().getValue("documentTitle"), DOCUMENT_TITLE);
     }
     
     @Test
-    public void testReportName(Method method) {
+    public void testReportName() {
         Assert.assertEquals(html.getConfigContext().getValue("reportName"), REPORT_NAME);
     }
     
     @Test
-    public void testTimestampFormat(Method method) {
+    public void testTimestampFormat() {
         Assert.assertEquals(html.getConfigContext().getValue("timeStampFormat"), TIMESTAMP_FORMAT);
     }
     
     @Test
-    public void testCSS(Method method) {
+    public void testCSS() {
         Assert.assertTrue(html.getConfigContext().getValue("styles").toString().contains(CSS));
     }
     
     @Test
-    public void testJS(Method method) {
+    public void testJS() {
         Assert.assertTrue(html.getConfigContext().getValue("scripts").toString().contains(JS));
     }
     

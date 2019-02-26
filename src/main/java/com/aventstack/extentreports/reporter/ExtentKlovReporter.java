@@ -309,12 +309,11 @@ public class ExtentKlovReporter
     }
     
     private void loadInitializationParams() {
-    	List<Config> configList = getConfigContext().getConfigList();
-    	
-    	String mongoUri = getConfigValue(configList, DEFAULT_MONGODB_URI_PROP);
+   	
+    	String mongoUri = getConfigValue(DEFAULT_MONGODB_URI_PROP);
     	if (mongoUri == null || mongoUri.isEmpty()) {
-        	String mongoHost = getConfigValue(configList, DEFAULT_MONGODB_HOST_PROP);
-        	String mongoPort = getConfigValue(configList, DEFAULT_MONGODB_PORT_PROP);
+        	String mongoHost = getConfigValue(DEFAULT_MONGODB_HOST_PROP);
+        	String mongoPort = getConfigValue(DEFAULT_MONGODB_PORT_PROP);
         	int mongoPortInt = IntUtils.tryParseInt(mongoPort) == true ? Integer.valueOf(mongoPort) : -1;
         	if (mongoHost != null && mongoPortInt != -1) {
                 initMongoDbConnection(mongoHost, mongoPortInt);
@@ -326,15 +325,15 @@ public class ExtentKlovReporter
     	}
 
     	String projectName = System.getProperty(DEFAULT_PROJECT_NAME_PROP);
-    	projectName = projectName == null || projectName.isEmpty() ? getConfigValue(configList, DEFAULT_PROJECT_NAME_PROP) : projectName;
+    	projectName = projectName == null || projectName.isEmpty() ? getConfigValue(DEFAULT_PROJECT_NAME_PROP) : projectName;
     	this.projectName = projectName == null || projectName.isEmpty() ? this.projectName : projectName;
     	
     	String reportName = System.getProperty(DEFAULT_REPORT_NAME_PROP);
-    	reportName = reportName == null || reportName.isEmpty() ? getConfigValue(configList, DEFAULT_REPORT_NAME_PROP) : reportName;
+    	reportName = reportName == null || reportName.isEmpty() ? getConfigValue( DEFAULT_REPORT_NAME_PROP) : reportName;
         this.reportName = reportName == null || reportName.isEmpty() ? this.reportName : reportName;
 
-        String klovHost = getConfigValue(configList, DEFAULT_KLOV_HOST_PROP);
-		String klovPort = getConfigValue(configList, DEFAULT_KLOV_PORT_PROP);
+        String klovHost = getConfigValue(DEFAULT_KLOV_HOST_PROP);
+		String klovPort = getConfigValue(DEFAULT_KLOV_PORT_PROP);
 
 		if (klovHost != null && klovPort != null) {
 			String uri = klovHost + ":" + klovPort;
@@ -344,14 +343,8 @@ public class ExtentKlovReporter
 		} else { }
     }
     
-    private String getConfigValue(List<Config> configList, String key) {
-    	Config c = configList.stream()
-			.filter(x -> x.getKey().equalsIgnoreCase(key))
-			.findFirst()
-			.get();
-    	if (c != null)
-    		return String.valueOf(c.getValue());
-    	return null;
+    private String getConfigValue(String key) {
+    	return String.valueOf(configContext.getValue(key));
     }
     
     @Override

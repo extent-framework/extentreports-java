@@ -12,7 +12,7 @@ public class LoggerBasicFileReporterConfigurationTest2 extends Base {
     @Test
     public void htmlReporterHasInitialConfig(Method method) {
         ExtentLoggerReporter logger = new ExtentLoggerReporter(method.getName() + ".html");
-        Assert.assertFalse(logger.getConfigContext().getConfigList().isEmpty());
+        Assert.assertFalse(logger.getConfigContext().isEmpty());
     }
     
     @Test

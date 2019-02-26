@@ -12,7 +12,7 @@ public class HtmlBasicFileReporterConfigurationTest extends Base {
     @Test
     public void htmlReporterHasInitialConfig(Method method) {
         ExtentHtmlReporter html = new ExtentHtmlReporter(method.getName() + ".html");
-        Assert.assertFalse(html.getConfigContext().getConfigList().isEmpty());
+        Assert.assertFalse(html.getConfigContext().isEmpty());
     }
     
     @Test

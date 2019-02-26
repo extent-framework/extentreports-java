@@ -120,10 +120,7 @@ public abstract class BasicFileReporter
     protected void loadUserConfig() {
     	for (Map.Entry<String, String> entry : userConfig.getConfigMap().entrySet()) {
     		if (entry.getValue() != null) {
-    			Config c = new Config();
-    			c.setKey(entry.getKey());
-                c.setValue(entry.getValue());
-                configContext.setConfig(c);     			
+                configContext.setConfig(entry.getKey().toString(), entry.getValue());     			
     		}
     	}
     }
