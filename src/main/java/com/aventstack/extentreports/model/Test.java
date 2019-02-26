@@ -200,7 +200,7 @@ public class Test
     }
     
     public boolean hasChildren() {
-        return node != null && node.getAll() != null && node.getAll().size() > 0;
+        return node != null && !node.isEmpty();
     }
 
     public void setStartTime(Date startTime) {
