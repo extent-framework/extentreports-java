@@ -20,83 +20,75 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.aventstack.extentreports.externalconfig.model.Config;
 import com.aventstack.extentreports.externalconfig.model.ConfigMap;
 
 public class ConfigLoader {
-    
-    private static final Logger logger = Logger.getLogger(ConfigLoader.class.getName());
-    
+
+	private static final Logger logger = Logger.getLogger(ConfigLoader.class.getName());
+
 	private ConfigMap configContext;
 	private InputStream stream;
 
 	ConfigLoader() {
-        configContext = new ConfigMap();
-    }
-    
-    public ConfigLoader(URL url) {
-        this();
-        
-        try {
-            stream = url.openStream();
-        } 
-        catch (IOException e) {
-            logger.log(Level.SEVERE, url.toString(), e);
-        }
-    }
-    
-    public ConfigLoader(File file, Boolean silent) {
-        this();
-        
-        try {
-        	if (silent && !file.exists())
-        		return;
-            stream = new FileInputStream(file);
-        } 
-        catch (FileNotFoundException e) {
-        	logger.log(Level.SEVERE, file.getPath(), e);
-        }
-    }
-    
+		configContext = new ConfigMap();
+	}
+
+	public ConfigLoader(URL url) {
+		this();
+
+		try {
+			stream = url.openStream();
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, url.toString(), e);
+		}
+	}
+
+	public ConfigLoader(File file, Boolean silent) {
+		this();
+
+		try {
+			if (silent && !file.exists())
+				return;
+			stream = new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			logger.log(Level.SEVERE, file.getPath(), e);
+		}
+	}
+
 	public ConfigMap getConfigurationHash() {
 		if (stream == null)
 			return null;
-		
+
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		String value;
-		
+
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
-			
+
 			Document doc = dBuilder.parse(stream);
 			doc.getDocumentElement().normalize();
-			
+
 			NodeList nodeList = doc.getElementsByTagName("configuration").item(0).getChildNodes();
-			
+
 			for (int ix = 0; ix < nodeList.getLength(); ix++) {
 				Node node = nodeList.item(ix);
-				
-				Element el = node.getNodeType() == Node.ELEMENT_NODE 
-						? (Element) node 
-						: null;
+
+				Element el = node.getNodeType() == Node.ELEMENT_NODE ? (Element) node : null;
 
 				if (el != null) {
 					value = el.getTextContent();
-					
-					value = el instanceof CharacterData 
-							? ((CharacterData) el).getData() 
-							: value;
-    				configContext.setConfig(el.getNodeName(), value);
+
+					value = el instanceof CharacterData ? ((CharacterData) el).getData() : value;
+					configContext.setConfig(el.getNodeName(), value);
 				}
 			}
-			
+
 			return configContext;
-		} 
-		catch (IOException|SAXException|ParserConfigurationException e) {
-		    logger.log(Level.SEVERE, "Config", e);
+		} catch (IOException | SAXException | ParserConfigurationException e) {
+			logger.log(Level.SEVERE, "Config", e);
 		}
-		
+
 		return null;
 	}
 }

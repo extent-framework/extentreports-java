@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 
 import com.aventstack.extentreports.ExtentReporter;
 import com.aventstack.extentreports.externalconfig.ConfigLoader;
-import com.aventstack.extentreports.externalconfig.model.Config;
 import com.aventstack.extentreports.externalconfig.model.ConfigMap;
 
 /**
