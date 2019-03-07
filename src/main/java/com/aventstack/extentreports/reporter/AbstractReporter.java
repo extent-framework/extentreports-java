@@ -15,7 +15,7 @@ import com.aventstack.extentreports.Status;
 public abstract class AbstractReporter 
 	extends ConfigurableReporter {
 
-	protected List<Status> levels;
+	//protected List<Status> levels;
 	protected Date startTime = Calendar.getInstance().getTime();
 	protected Date endTime = startTime;
 	//protected List<Status> statusList;
