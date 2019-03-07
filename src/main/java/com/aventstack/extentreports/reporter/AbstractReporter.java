@@ -15,17 +15,14 @@ import com.aventstack.extentreports.Status;
 public abstract class AbstractReporter 
 	extends ConfigurableReporter {
 
-	protected List<Status> levels;
 	protected Date startTime = Calendar.getInstance().getTime();
 	protected Date endTime = startTime;
-	protected List<Status> statusList;
     
 	private AnalysisStrategy strategy = AnalysisStrategy.TEST;
 
 	public void flush(ReportAggregates reportAggregates) {
 	    this.startTime = reportAggregates.getStartTime();
 		this.endTime = reportAggregates.getEndTime();
-		this.statusList = reportAggregates.getStatusList();
 	}
 	
 	protected Date getStartTime() {
@@ -66,9 +63,4 @@ public abstract class AbstractReporter
         
         return hours + "h " + mins + "m " + secs + "s+" + ms + "ms"; 
     }
-
-	public List<Status> getStatusList() {
-		return statusList;
-	}
-
 }

@@ -199,7 +199,6 @@ public abstract class BasicFileReporter extends AbstractReporter {
 		return stats;
 	}
 
-	@Override
 	public List<Status> getStatusList() {
 		return statusList;
 	}
