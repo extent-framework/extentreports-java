@@ -3,12 +3,16 @@ package com.aventstack.extentreports;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
+import com.aventstack.extentreports.concurrent.ReadWriteList;
+import com.aventstack.extentreports.concurrent.ReadWriteMap;
+import com.aventstack.extentreports.model.AbstractStructure;
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
 import com.aventstack.extentreports.model.Device;
@@ -18,6 +22,7 @@ import com.aventstack.extentreports.model.Screencast;
 import com.aventstack.extentreports.model.SystemAttribute;
 import com.aventstack.extentreports.model.Test;
 import com.aventstack.extentreports.reporter.BasicFileReporter;
+import com.aventstack.extentreports.utils.CollectionUtils;
 
 abstract class ExtentObservable 
 	implements ReportService {
@@ -125,7 +130,7 @@ abstract class ExtentObservable
 	/**
 	 * A list of all tests created
 	 */
-	private List<Test> testList = new ArrayList<>();    
+	private List<Test> testList = new ArrayList<>();
     
 	/**
 	 * Instance of {@link ReportStatusStats}
@@ -160,12 +165,15 @@ abstract class ExtentObservable
 	 * <li>FAIL</li>
 	 * </ol>
 	 */
-	private List<Status> statusList = new ArrayList<>();
+
+	private final ReadWriteList<Status> statusList =  new ReadWriteList<>();
 	
 	/**
 	 * Contains status as keys, which are translated over to <code>statusList</code>
 	 */
-	private Map<Status, Boolean> statusMap = new EnumMap<>(Status.class);
+	private final ReadWriteMap<Status, Boolean> statusMap = new ReadWriteMap<>(new EnumMap<>(Status.class));
+
+	private final Lock mutex = new ReentrantLock();
 	
     protected ExtentObservable() { }
     
@@ -265,30 +273,46 @@ abstract class ExtentObservable
     /**
      * Refresh and notify all reports of distinct status assigned to tests
      */
-    private synchronized void refreshStatusList() {
+    private void refreshStatusList() {
     	statusMap.clear();
     	statusList.clear();
     	refreshStatusList(testList);
     	statusMap.forEach((k,v) -> statusList.add(k));
     }
-    
-    /**
-     * Refreshes distinct status list
-     * 
-     * @param list a list of started {@link Test}
-     */
-    private synchronized void refreshStatusList(List<Test> list) {
-    	if (list == null || list.isEmpty())
-    		return;
-    	
-    	list.stream()
-			.map(Test::getStatus)
-			.distinct()
-			.collect(Collectors.toList())
-			.forEach(x -> statusMap.put(x, false));
-    	
-    	list.forEach(x -> refreshStatusList(x.getNodeContext().getAll()));
-    }
+
+
+	/**
+	 * Refreshes distinct status list
+	 *
+	 * @param list a list of started {@link Test}
+	 */
+	private void refreshStatusList(final List<Test> list) {
+		refreshStatusMap(list);
+		for (final Test test : list) {
+			final AbstractStructure<Test> nodeTest = test.getNodeContext();
+			if (nodeTest == null) {
+				return;
+			}
+			refreshStatusMap(nodeTest.getAll());
+		}
+	}
+
+	/**
+	 * Refresh status map to default
+	 *
+	 * @param list
+	 */
+	private void refreshStatusMap(final List<Test> list) {
+
+		if (CollectionUtils.isEmpty(list)) {
+			return;
+		}
+		list.stream()
+				.map(Test::getStatus)
+				.distinct()
+				.map(x -> statusMap.put(x, false));
+
+	}
     
     /**
      * Notify reporters of the added node 
@@ -357,7 +381,7 @@ abstract class ExtentObservable
     /**
      * Notifies reporters with information of added {@link ScreenCapture}
      * 
-     * @param test {@link Log} to which the ScreenCapture is added
+     * @param log {@link Log} to which the ScreenCapture is added
      * @param screenCapture {@link ScreenCapture}
      * 
      * @throws IOException thrown if the {@link ScreenCapture} is not found
@@ -367,12 +391,12 @@ abstract class ExtentObservable
             r.onScreenCaptureAdded(log, screenCapture);
         }
     }
-    
+
     /**
      * Notifies reporters with information of added {@link Screencast}
      * 
      * @param test {@link Test} to which the ScreenCast is added
-     * @param sc {@link Screencast}
+     * @param screencast {@link Screencast}
      * 
      * @throws IOException thrown if the {@link Screencast} is not found
      */
@@ -435,8 +459,9 @@ abstract class ExtentObservable
      * refreshes {@link ReportStatusStats} and the distinct list of {@link Status}
      */
     private synchronized void collectRunInfo() {
-        if (testList == null || testList.isEmpty())
-            return;
+        if (CollectionUtils.isEmpty(testList)) {
+			return;
+		}
         
         reportEndDate = Calendar.getInstance().getTime();
         
@@ -462,10 +487,11 @@ abstract class ExtentObservable
                 	.forEach(x -> exceptionContextBuilder.setExceptionContext(x, test));
             }
             if (test.hasChildren()) {
-                for (Test node : test.getNodeContext().getAll()) {
-                    copyNodeAttributeAndRunTimeInfoToAttributeContexts(node);
-                    node.setUseManualConfiguration(getAllowManualConfig());
-                }
+            	final List<Test> nodes = Collections.synchronizedList(test.getNodeContext().getAll());
+                nodes.forEach( node ->{
+					copyNodeAttributeAndRunTimeInfoToAttributeContexts(node);
+					node.setUseManualConfiguration(getAllowManualConfig());
+				});
             }
         }
         
@@ -479,11 +505,11 @@ abstract class ExtentObservable
     private void updateReportStartTimeForManualConfigurationSetting() {
         if (getAllowManualConfig() && !testList.isEmpty()) {
         	Date minDate = testList.stream()
-        			.map(t -> t.getStartTime())
+        			.map(Test::getStartTime)
         			.min(Date::compareTo)
         			.get();
         	Date maxDate = testList.stream()
-        			.map(t -> t.getEndTime())
+        			.map(Test::getEndTime)
         			.max(Date::compareTo)
         			.get();
         	reportStartDate = reportStartDate.getTime() > minDate.getTime() ? minDate : reportStartDate;
@@ -514,6 +540,7 @@ abstract class ExtentObservable
             node.getExceptionInfoList()
             	.forEach(x -> exceptionContextBuilder.setExceptionContext(x, node));
         }
+
         if (node.hasChildren()) {
             node.getNodeContext().getAll()
             	.forEach(this::copyNodeAttributeAndRunTimeInfoToAttributeContexts);
@@ -533,7 +560,7 @@ abstract class ExtentObservable
     			.setDeviceContext(deviceContext)
     			.setExceptionContext(exceptionContextBuilder)
     			.setReportStatusStats(stats)
-    			.setStatusList(statusList)
+    			.setStatusList(statusList.getList())
     			.setSystemAttributeContext(systemAttributeContext)
     			.setTestList(testList)
     			.setTestRunnerLogs(testRunnerLogs)

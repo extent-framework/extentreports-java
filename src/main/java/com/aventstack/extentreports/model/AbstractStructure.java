@@ -1,79 +1,47 @@
 package com.aventstack.extentreports.model;
 
+import com.aventstack.extentreports.concurrent.ReadWriteList;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class AbstractStructure<T> implements Serializable {
 
-    private static final long serialVersionUID = -2630417398255980331L;
-    
-    private transient List<T> list;
+	private static final long serialVersionUID = -2630417398255980331L;
+	private final ReadWriteList<T> readWriteList;
 
-    AbstractStructure() {
-        list = Collections.synchronizedList(new ArrayList<>());
-    }
-    
-    public void add(T t) {
-        list.add(t);
-    }
 
-    public T get(int x) {
-        return list.get(x);
-    }
-    
-    public T getFirst() {
-        return list.isEmpty() ? null : list.get(0);
-    }
-    
-    public T getLast() {
-        return list.isEmpty() ? null : list.get(list.size()-1);
-    }
+	AbstractStructure() {
+		readWriteList = new ReadWriteList<>();
+	}
 
-    public List<T> getAll() {
-        return list;
-    }
-    
-    public int size() {
-        if (list == null)
-            return 0;
-        return list.size();
-    }
-    
-    public boolean isEmpty() {
-    	return size() == 0;
-    }
+	public void add(T t) {
+		readWriteList.add(t);
+	}
 
-    public TIterator getIterator() { return new TIterator(); }
+	public T get(int x) {
+		return readWriteList.get(x);
+	}
 
-    private class TIterator implements Iterator<T> {
-        private int index;
+	public T getFirst() {
+		return readWriteList.get(0);
+	}
 
-        TIterator() {
-            index = 0;
-        }
+	public T getLast() {
+		return readWriteList.get(readWriteList.size() - 1);
+	}
 
-        @Override
-        public boolean hasNext() {
-            return list != null && list.size() >= index + 1;
-        }
+	public List<T> getAll() {
+		return readWriteList.getList();
+	}
 
-        @Override
-        public T next() {
-            if (hasNext()) {
-                return list.get(index++);
-            }
+	public boolean isEmpty() {
+		return readWriteList.isEmpty();
+	}
 
-            throw new NoSuchElementException();
-        }
-
-        @Override
-        public void remove() {
-            list.remove(index);
-        }
-    }
-    
+	public int size(){
+		return readWriteList.size();
+	}
 }

@@ -290,7 +290,8 @@ public class Test
         test.getLogContext().getAll().forEach(x -> updateStatus(x.getStatus()));
 
         if (test.hasChildren()) {
-            test.getNodeContext().getAll().forEach(this::updateTestStatusRecursive);
+            final List<Test>nodes = new ArrayList<>(test.getNodeContext().getAll());
+            nodes.forEach(this::updateTestStatusRecursive);
         }
         
         // if not all children are marked SKIP, then:
@@ -313,6 +314,7 @@ public class Test
     }
     
     private void endChildrenRecursive(Test test) {
+
         test.getNodeContext().getAll().forEach(Test::end);
     }
 

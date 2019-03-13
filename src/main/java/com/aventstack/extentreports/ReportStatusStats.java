@@ -2,6 +2,7 @@ package com.aventstack.extentreports;
 
 import java.util.List;
 
+import com.aventstack.extentreports.concurrent.ReadWriteList;
 import com.aventstack.extentreports.exceptions.InvalidAnalysisStrategyException;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.model.Test;
@@ -13,10 +14,10 @@ import com.aventstack.extentreports.model.Test;
  */
 public class ReportStatusStats {
     
-    private List<Test> testList;
-    private AnalysisStrategy strategy = AnalysisStrategy.TEST;
+    private ReadWriteList<Test> testList;
+    private AnalysisStrategy strategy;
     
-    private int parentPass = 0; 
+    private int parentPass = 0;
     private int parentFail = 0;
     private int parentFatal = 0;
     private int parentError = 0;
@@ -50,7 +51,7 @@ public class ReportStatusStats {
 
     public void refresh(List<Test> testList) {
         reset();
-        this.testList = testList;
+        this.testList = new ReadWriteList<>(testList);
         refreshStats();
     }
 
