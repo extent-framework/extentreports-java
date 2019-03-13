@@ -31,3 +31,6 @@ hs_err_pid*
 target/
 test-output/
 *.iml
+
+# IntelliJ #
+*.idea

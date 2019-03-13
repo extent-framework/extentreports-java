@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import com.aventstack.extentreports.concurrent.ReadWriteList;
 import com.aventstack.extentreports.concurrent.ReadWriteMap;
@@ -173,7 +171,6 @@ abstract class ExtentObservable
 	 */
 	private final ReadWriteMap<Status, Boolean> statusMap = new ReadWriteMap<>(new EnumMap<>(Status.class));
 
-	private final Lock mutex = new ReentrantLock();
 	
     protected ExtentObservable() { }
     
