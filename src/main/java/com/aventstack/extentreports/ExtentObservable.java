@@ -307,7 +307,7 @@ abstract class ExtentObservable
 		list.stream()
 				.map(Test::getStatus)
 				.distinct()
-				.map(x -> statusMap.put(x, false));
+				.forEach(x -> statusMap.put(x, false));
 
 	}
     
