@@ -24,6 +24,7 @@ class TestRemover {
 	public static void remove(List<Test> testList, Test test) {
 		removed = false;
 		findAndRemoveTest(testList, test);
+		testList.forEach(Test::end);
 	}
 	
 	/**

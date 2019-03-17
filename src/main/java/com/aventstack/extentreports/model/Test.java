@@ -275,6 +275,7 @@ public class Test
     }
 
     public void end() {
+        setStatus(Status.PASS);
         updateTestStatusRecursive(this);
         endChildrenRecursive(this);
         
