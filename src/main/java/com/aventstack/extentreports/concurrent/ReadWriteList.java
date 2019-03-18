@@ -1,5 +1,7 @@
 package com.aventstack.extentreports.concurrent;
 
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.model.Test;
 import com.aventstack.extentreports.utils.CollectionUtils;
 
 import java.util.ArrayList;
@@ -17,8 +19,8 @@ import java.util.function.Consumer;
  * @author www.codejava.net
  */
 public class ReadWriteList<E> {
-	private final List<E> list;
-	private final ReadWriteLock rwLock;
+	protected final List<E> list;
+	protected final ReadWriteLock rwLock;
 
 	public List<E> getList() {
 		return list;
@@ -91,6 +93,9 @@ public class ReadWriteList<E> {
 			rwLock.readLock().unlock();
 		}
 	}
+
+	public void streamWithLock(final ReadWriteMap<Status, Boolean> statusMap) {}
+
 
 	public void forEach(Consumer<? super E> action){
 		rwLock.writeLock().lock();

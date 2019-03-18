@@ -7,9 +7,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import com.aventstack.extentreports.concurrent.ReadWriteList;
 import com.aventstack.extentreports.concurrent.ReadWriteMap;
+import com.aventstack.extentreports.concurrent.ReadWriteTestList;
 import com.aventstack.extentreports.model.AbstractStructure;
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
@@ -129,6 +132,8 @@ abstract class ExtentObservable
 	 * A list of all tests created
 	 */
 	private List<Test> testList = new ArrayList<>();
+
+	private Lock mutex = new ReentrantLock();
     
 	/**
 	 * Instance of {@link ReportStatusStats}
@@ -234,7 +239,7 @@ abstract class ExtentObservable
     	TestRemover.remove(testList, test);
         refreshReportEntities();
     }
-    
+
     /**
      * Removes test from test list of each context
      * 
@@ -284,14 +289,29 @@ abstract class ExtentObservable
 	 * @param list a list of started {@link Test}
 	 */
 	private void refreshStatusList(final List<Test> list) {
+		//resolve parent
+		mutex.lock();
 		refreshStatusMap(list);
+		mutex.unlock();
 		for (final Test test : list) {
 			final AbstractStructure<Test> nodeTest = test.getNodeContext();
 			if (nodeTest == null) {
 				return;
 			}
-			refreshStatusMap(nodeTest.getAll());
+			refreshStatusMap(nodeTest.getReadWriteList());
 		}
+	}
+	/**
+	 * Refresh status map to default
+	 *
+	 * @param list
+	 */
+	private void refreshStatusMap(final ReadWriteList list) {
+
+		if (list.isEmpty()) {
+			return;
+		}
+		list.streamWithLock(statusMap);
 	}
 
 	/**
@@ -308,7 +328,6 @@ abstract class ExtentObservable
 				.map(Test::getStatus)
 				.distinct()
 				.forEach(x -> statusMap.put(x, false));
-
 	}
     
     /**

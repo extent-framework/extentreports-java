@@ -33,9 +33,16 @@ public class AbstractStructure<T> implements Serializable {
 		return readWriteList.get(readWriteList.size() - 1);
 	}
 
+	// TODO not perfectly because we want always to work with read write mechanism - but it is so much change
+	// getAll should rturn ReadWriteList ...
 	public List<T> getAll() {
 		return readWriteList.getList();
 	}
+
+	public ReadWriteList<T> getReadWriteList() {
+		return readWriteList;
+	}
+
 
 	public boolean isEmpty() {
 		return readWriteList.isEmpty();
