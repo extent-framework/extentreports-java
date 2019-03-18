@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ExtentTestMultipleDataset" parallel="methods" thread-count="50">
+    <test name="TestDatasetParallel">
+        <classes>
+            <class name="com.aventstack.extentreports.testng.components.TestWithMultipleDataset" />
+        </classes>
+    </test>
+</suite>

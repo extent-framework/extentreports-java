@@ -287,7 +287,7 @@ public class Test
     }
 
     private synchronized void updateTestStatusRecursive(Test test) {
-        test.getLogContext().getAll().forEach(x -> updateStatus(x.getStatus()));
+        test.getLogContext().getReadWriteList().forEach(x -> updateStatus(x.getStatus()));
 
         if (test.hasChildren()) {
             final List<Test>nodes = new ArrayList<>(test.getNodeContext().getAll());
