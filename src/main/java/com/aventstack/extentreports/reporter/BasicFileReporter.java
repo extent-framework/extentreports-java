@@ -288,7 +288,7 @@ public abstract class BasicFileReporter extends AbstractReporter {
 	}
 
 	public boolean containsStatus(Status status) {
-		return getStatusList() != null && !getStatusList().isEmpty() && getStatusList().contains(status);
+		return getStatusList() != null && getStatusList().contains(status);
 	}
 
 	protected void processTemplate(Template template, File outputFile) throws TemplateException, IOException {

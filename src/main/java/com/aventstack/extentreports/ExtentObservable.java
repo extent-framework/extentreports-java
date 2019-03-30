@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import com.aventstack.extentreports.model.Author;
@@ -162,11 +163,6 @@ abstract class ExtentObservable
 	 */
 	private List<Status> statusList = new ArrayList<>();
 	
-	/**
-	 * Contains status as keys, which are translated over to <code>statusList</code>
-	 */
-	private Map<Status, Boolean> statusMap = new EnumMap<>(Status.class);
-	
     protected ExtentObservable() { }
     
     /**
@@ -186,8 +182,11 @@ abstract class ExtentObservable
      * @param reporter {@link ExtentReporter} reporter to unsubscribe
      */
     protected void deregister(ExtentReporter reporter) {
-        reporter.stop();
-        reporterList.remove(reporter);
+    	
+    	if(reporterList.contains((Object) reporter)){
+    		reporter.stop();
+    		reporterList.remove(reporter);
+    	}
     }
     
     /**
@@ -266,10 +265,8 @@ abstract class ExtentObservable
      * Refresh and notify all reports of distinct status assigned to tests
      */
     private synchronized void refreshStatusList() {
-    	statusMap.clear();
     	statusList.clear();
     	refreshStatusList(testList);
-    	statusMap.forEach((k,v) -> statusList.add(k));
     }
     
     /**
@@ -281,11 +278,17 @@ abstract class ExtentObservable
     	if (list == null || list.isEmpty())
     		return;
     	
-    	list.stream()
-			.map(Test::getStatus)
-			.distinct()
-			.collect(Collectors.toList())
-			.forEach(x -> statusMap.put(x, false));
+    	// It is not necessary to go through the stream support of 
+    	// Java 8 here. This brings in a hard binding with Java version.
+    	// As we have used streams all across, this should be fine.
+    	list.stream().forEach(new Consumer<Test>() {
+    		@Override
+    		public void accept(Test t) {
+    			if(!statusList.contains((Object) t)){
+    				statusList.add(t.getStatus());
+    				}
+    			}
+    		});
     	
     	list.forEach(x -> refreshStatusList(x.getNodeContext().getAll()));
     }
