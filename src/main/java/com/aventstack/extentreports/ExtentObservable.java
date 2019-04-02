@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -134,7 +136,7 @@ abstract class ExtentObservable
 	private ReportStatusStats stats = new ReportStatusStats(strategy);
 	
 	/**
-	 * A unique list of status tests are marked with
+	 * A Set of status tests are marked with
 	 * 
 	 * <p>
 	 * Consider a report having 10 tests:
@@ -161,7 +163,7 @@ abstract class ExtentObservable
 	 * <li>FAIL</li>
 	 * </ol>
 	 */
-	private List<Status> statusList = new ArrayList<>();
+	private Set<Status> statusSet = new HashSet<Status>();
 	
     protected ExtentObservable() { }
     
@@ -265,7 +267,7 @@ abstract class ExtentObservable
      * Refresh and notify all reports of distinct status assigned to tests
      */
     private synchronized void refreshStatusList() {
-    	statusList.clear();
+    	statusSet.clear();
     	refreshStatusList(testList);
     }
     
@@ -277,19 +279,8 @@ abstract class ExtentObservable
     private synchronized void refreshStatusList(List<Test> list) {
     	if (list == null || list.isEmpty())
     		return;
-    	
-    	// It is not necessary to go through the stream support of 
-    	// Java 8 here. This brings in a hard binding with Java version.
-    	// As we have used streams all across, this should be fine.
-    	list.stream().forEach(new Consumer<Test>() {
-    		@Override
-    		public void accept(Test t) {
-    			if(!statusList.contains((Object) t)){
-    				statusList.add(t.getStatus());
-    				}
-    			}
-    		});
-    	
+
+    	list.forEach(x -> statusSet.add(x.getStatus()));   	
     	list.forEach(x -> refreshStatusList(x.getNodeContext().getAll()));
     }
     
@@ -536,7 +527,7 @@ abstract class ExtentObservable
     			.setDeviceContext(deviceContext)
     			.setExceptionContext(exceptionContextBuilder)
     			.setReportStatusStats(stats)
-    			.setStatusList(statusList)
+    			.setStatusCollection(statusSet)
     			.setSystemAttributeContext(systemAttributeContext)
     			.setTestList(testList)
     			.setTestRunnerLogs(testRunnerLogs)

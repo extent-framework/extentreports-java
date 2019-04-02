@@ -1,5 +1,6 @@
 package com.aventstack.extentreports;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ReportAggregatesBuilder {
 	private ExceptionTestContextImpl exceptionContext;
 	private SystemAttributeContext systemAttributeContext;
 	private ReportStatusStats reportStatusStats;
-	private List<Status> statusList;
+	private Collection<Status> statusCollection;
 	private Date startTime;
 	private Date endTime;
 	
@@ -36,7 +37,7 @@ public class ReportAggregatesBuilder {
 	    aggregates.setExceptionContext(exceptionContext);
 	    aggregates.setSystemAttributeContext(systemAttributeContext);
 	    aggregates.setReportStatusStats(reportStatusStats);
-	    aggregates.setStatusList(statusList);
+	    aggregates.setStatusCollection(statusCollection);
 	    aggregates.setStartTime(startTime);
 	    aggregates.setEndTime(endTime);
 		return aggregates;
@@ -82,8 +83,8 @@ public class ReportAggregatesBuilder {
 		return this;
 	}
 
-	public ReportAggregatesBuilder setStatusList(List<Status> statusList) {
-		this.statusList = statusList;
+	public ReportAggregatesBuilder setStatusCollection(Collection<Status> statusCollection) {
+		this.statusCollection = statusCollection;
 		return this;
 	}
 

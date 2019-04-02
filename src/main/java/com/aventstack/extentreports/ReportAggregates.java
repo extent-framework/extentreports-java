@@ -1,7 +1,9 @@
 package com.aventstack.extentreports;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
@@ -22,7 +24,7 @@ public class ReportAggregates {
 	private ExceptionTestContextImpl exceptionContext;
 	private SystemAttributeContext systemAttributeContext;
 	private ReportStatusStats reportStatusStats;
-	private List<Status> statusList;
+	private Collection<Status> statusCollection;
 	private Date startTime;
     private Date endTime;
     
@@ -43,7 +45,7 @@ public class ReportAggregates {
     }
 
     public Status getStatus() {
-		return Status.getHighestStatus(getStatusList());
+		return Status.getHighestStatus(getStatusCollection());
 	}
 	
 	public List<Test> getTestList() {
@@ -110,12 +112,12 @@ public class ReportAggregates {
         this.reportStatusStats = reportStatusStats;
     }
 
-    public List<Status> getStatusList() {
-        return statusList;
+    public Collection<Status> getStatusCollection() {
+        return statusCollection;
     }
 
-    public void setStatusList(List<Status> statusList) {
-        this.statusList = statusList;
+    public void setStatusCollection(Collection<Status> statusCollection) {
+        this.statusCollection = statusCollection;
     }
 	
 }
