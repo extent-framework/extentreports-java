@@ -4,13 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
@@ -136,7 +132,7 @@ abstract class ExtentObservable
 	private ReportStatusStats stats = new ReportStatusStats(strategy);
 	
 	/**
-	 * A Set of status tests are marked with
+	 * A unique collection of statuses tests are marked with
 	 * 
 	 * <p>
 	 * Consider a report having 10 tests:

@@ -3,7 +3,6 @@ package com.aventstack.extentreports;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
