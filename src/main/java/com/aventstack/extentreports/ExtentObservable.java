@@ -4,10 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
@@ -133,7 +132,7 @@ abstract class ExtentObservable
 	private ReportStatusStats stats = new ReportStatusStats(strategy);
 	
 	/**
-	 * A unique list of status tests are marked with
+	 * A unique collection of statuses tests are marked with
 	 * 
 	 * <p>
 	 * Consider a report having 10 tests:
@@ -160,12 +159,7 @@ abstract class ExtentObservable
 	 * <li>FAIL</li>
 	 * </ol>
 	 */
-	private List<Status> statusList = new ArrayList<>();
-	
-	/**
-	 * Contains status as keys, which are translated over to <code>statusList</code>
-	 */
-	private Map<Status, Boolean> statusMap = new EnumMap<>(Status.class);
+	private Set<Status> statusSet = new HashSet<Status>();
 	
     protected ExtentObservable() { }
     
@@ -186,8 +180,11 @@ abstract class ExtentObservable
      * @param reporter {@link ExtentReporter} reporter to unsubscribe
      */
     protected void deregister(ExtentReporter reporter) {
-        reporter.stop();
-        reporterList.remove(reporter);
+    	
+    	if(reporterList.contains((Object) reporter)){
+    		reporter.stop();
+    		reporterList.remove(reporter);
+    	}
     }
     
     /**
@@ -266,10 +263,8 @@ abstract class ExtentObservable
      * Refresh and notify all reports of distinct status assigned to tests
      */
     private synchronized void refreshStatusList() {
-    	statusMap.clear();
-    	statusList.clear();
+    	statusSet.clear();
     	refreshStatusList(testList);
-    	statusMap.forEach((k,v) -> statusList.add(k));
     }
     
     /**
@@ -280,13 +275,8 @@ abstract class ExtentObservable
     private synchronized void refreshStatusList(List<Test> list) {
     	if (list == null || list.isEmpty())
     		return;
-    	
-    	list.stream()
-			.map(Test::getStatus)
-			.distinct()
-			.collect(Collectors.toList())
-			.forEach(x -> statusMap.put(x, false));
-    	
+
+    	list.forEach(x -> statusSet.add(x.getStatus()));   	
     	list.forEach(x -> refreshStatusList(x.getNodeContext().getAll()));
     }
     
@@ -533,7 +523,7 @@ abstract class ExtentObservable
     			.setDeviceContext(deviceContext)
     			.setExceptionContext(exceptionContextBuilder)
     			.setReportStatusStats(stats)
-    			.setStatusList(statusList)
+    			.setStatusCollection(statusSet)
     			.setSystemAttributeContext(systemAttributeContext)
     			.setTestList(testList)
     			.setTestRunnerLogs(testRunnerLogs)

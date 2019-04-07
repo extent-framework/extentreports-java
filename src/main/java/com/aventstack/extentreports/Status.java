@@ -2,6 +2,7 @@ package com.aventstack.extentreports;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -48,12 +49,12 @@ public enum Status implements Serializable {
         return statusHierarchy;
     }
     
-    public static Status getHighestStatus(List<Status> statusList) {
+    public static Status getHighestStatus(Collection<Status> statusCollection) {
     	Status highestStatus = Status.PASS;
-    	if (statusList == null || statusList.isEmpty()) {
+    	if (statusCollection == null || statusCollection.isEmpty()) {
     		return highestStatus;
     	}
-    	for (Status status : statusList) {
+    	for (Status status : statusCollection) {
     		highestStatus = Status.getStatusHierarchy().indexOf(status) < Status.getStatusHierarchy().indexOf(highestStatus) 
     				? status
 					: highestStatus;

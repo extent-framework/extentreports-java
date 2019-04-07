@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -72,7 +73,7 @@ public abstract class BasicFileReporter extends AbstractReporter {
 	private TestAttributeTestContextProvider<Device> deviceContext;
 	private SystemAttributeContext systemAttributeContext;
 	private ReportStatusStats stats;
-	private List<Status> statusList;
+	private Collection<Status> statusCollection;
 
 	protected BasicFileReporter(String path) {
 		this.filePath = path;
@@ -164,7 +165,7 @@ public abstract class BasicFileReporter extends AbstractReporter {
 		this.systemAttributeContext = reportAggregates.getSystemAttributeContext();
 		this.testList = reportAggregates.getTestList();
 		this.testRunnerLogs = reportAggregates.getTestRunnerLogs();
-		this.statusList = reportAggregates.getStatusList();
+		this.statusCollection = reportAggregates.getStatusCollection();
 	}
 
 	public List<Test> getTestList() {
@@ -199,8 +200,8 @@ public abstract class BasicFileReporter extends AbstractReporter {
 		return stats;
 	}
 
-	public List<Status> getStatusList() {
-		return statusList;
+	public Collection<Status> getStatusCollection() {
+		return statusCollection;
 	}
 
 	@Override
@@ -288,7 +289,7 @@ public abstract class BasicFileReporter extends AbstractReporter {
 	}
 
 	public boolean containsStatus(Status status) {
-		return getStatusList() != null && !getStatusList().isEmpty() && getStatusList().contains(status);
+		return getStatusCollection() != null && getStatusCollection().contains(status);
 	}
 
 	protected void processTemplate(Template template, File outputFile) throws TemplateException, IOException {
