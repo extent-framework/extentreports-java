@@ -1201,7 +1201,16 @@ public class ExtentTest
     public Test getModel() {
         return test;
     }
-    
+
+    /**
+     * Convenience method for setting the description of the internal test model
+     *
+     * @param desc The description of the test case in the logs
+     */
+    public void setDescription(String desc) {
+        test.setDescription(desc);
+    }
+
     /**
      * Returns the {@link ExtentReports} instance associated with this test
      * 
