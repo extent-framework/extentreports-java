@@ -296,7 +296,6 @@ abstract class ExtentObservable
      * @param log {@link Log}
      */
     synchronized void addLog(Test test, Log log) {
-        //collectRunInfo();
         reporterList.forEach(x -> x.onLogAdded(test, log));
     }
     
