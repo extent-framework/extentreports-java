@@ -112,7 +112,8 @@ public class BddWithStepStatusHierarchyTest extends Base {
         ExtentTest when = scenario.createNode(new GherkinKeyword("When"), "When").pass("pass");
         ExtentTest then = scenario.createNode(new GherkinKeyword("Then"), "Then").skip("skip");
         ExtentTest but = scenario.createNode(new GherkinKeyword("But"), "But").skip("skip");
-
+        extent.flush();
+        
         Assert.assertEquals(given.getStatus(), Status.PASS);
         Assert.assertEquals(and.getStatus(), Status.PASS);
         Assert.assertEquals(when.getStatus(), Status.PASS);
@@ -131,6 +132,7 @@ public class BddWithStepStatusHierarchyTest extends Base {
         ExtentTest when = scenario.createNode(When.class, "When").pass("pass");
         ExtentTest then = scenario.createNode(Then.class, "Then").skip("skip");
         ExtentTest but = scenario.createNode(But.class, "But").skip("skip");
+        extent.flush();
 
         Assert.assertEquals(given.getStatus(), Status.PASS);
         Assert.assertEquals(and.getStatus(), Status.PASS);
@@ -150,7 +152,8 @@ public class BddWithStepStatusHierarchyTest extends Base {
         ExtentTest when = scenario.createNode(new GherkinKeyword("When"), "When").skip("skip");
         ExtentTest then = scenario.createNode(new GherkinKeyword("Then"), "Then").warning("warning");
         ExtentTest but = scenario.createNode(new GherkinKeyword("But"), "But").warning("warning");
-
+        extent.flush();
+        
         Assert.assertEquals(given.getStatus(), Status.SKIP);
         Assert.assertEquals(and.getStatus(), Status.SKIP);
         Assert.assertEquals(when.getStatus(), Status.SKIP);
@@ -169,7 +172,8 @@ public class BddWithStepStatusHierarchyTest extends Base {
         ExtentTest when = scenario.createNode(When.class, "When").skip("skip");
         ExtentTest then = scenario.createNode(Then.class, "Then").warning("warning");
         ExtentTest but = scenario.createNode(But.class, "But").warning("warning");
-
+        extent.flush();
+        
         Assert.assertEquals(given.getStatus(), Status.SKIP);
         Assert.assertEquals(and.getStatus(), Status.SKIP);
         Assert.assertEquals(when.getStatus(), Status.SKIP);
@@ -188,7 +192,8 @@ public class BddWithStepStatusHierarchyTest extends Base {
         ExtentTest when = scenario.createNode(new GherkinKeyword("When"), "When").warning("warning");
         ExtentTest then = scenario.createNode(new GherkinKeyword("Then"), "Then").error("error");
         ExtentTest but = scenario.createNode(new GherkinKeyword("But"), "But").error("error");
-
+        extent.flush();
+        
         Assert.assertEquals(given.getStatus(), Status.WARNING);
         Assert.assertEquals(and.getStatus(), Status.WARNING);
         Assert.assertEquals(when.getStatus(), Status.WARNING);
@@ -207,7 +212,8 @@ public class BddWithStepStatusHierarchyTest extends Base {
         ExtentTest when = scenario.createNode(When.class, "When").warning("warning");
         ExtentTest then = scenario.createNode(Then.class, "Then").error("error");
         ExtentTest but = scenario.createNode(But.class, "But").error("error");
-
+        extent.flush();
+        
         Assert.assertEquals(given.getStatus(), Status.WARNING);
         Assert.assertEquals(and.getStatus(), Status.WARNING);
         Assert.assertEquals(when.getStatus(), Status.WARNING);
@@ -226,7 +232,8 @@ public class BddWithStepStatusHierarchyTest extends Base {
         ExtentTest when = scenario.createNode(new GherkinKeyword("When"), "When").error("error");
         ExtentTest then = scenario.createNode(new GherkinKeyword("Then"), "Then").fail("fail");
         ExtentTest but = scenario.createNode(new GherkinKeyword("But"), "But").fail("fail");
-
+        extent.flush();
+        
         Assert.assertEquals(given.getStatus(), Status.ERROR);
         Assert.assertEquals(and.getStatus(), Status.ERROR);
         Assert.assertEquals(when.getStatus(), Status.ERROR);
@@ -245,7 +252,8 @@ public class BddWithStepStatusHierarchyTest extends Base {
         ExtentTest when = scenario.createNode(When.class, "When").error("error");
         ExtentTest then = scenario.createNode(Then.class, "Then").fail("fail");
         ExtentTest but = scenario.createNode(But.class, "But").fail("fail");
-
+        extent.flush();
+        
         Assert.assertEquals(given.getStatus(), Status.ERROR);
         Assert.assertEquals(and.getStatus(), Status.ERROR);
         Assert.assertEquals(when.getStatus(), Status.ERROR);
@@ -264,7 +272,8 @@ public class BddWithStepStatusHierarchyTest extends Base {
         ExtentTest when = scenario.createNode(new GherkinKeyword("When"), "When").fail("fail");
         ExtentTest then = scenario.createNode(new GherkinKeyword("Then"), "Then").fatal("fatal");
         ExtentTest but = scenario.createNode(new GherkinKeyword("But"), "But").fatal("fatal");
-
+        extent.flush();
+        
         Assert.assertEquals(given.getStatus(), Status.FAIL);
         Assert.assertEquals(and.getStatus(), Status.FAIL);
         Assert.assertEquals(when.getStatus(), Status.FAIL);
@@ -283,7 +292,8 @@ public class BddWithStepStatusHierarchyTest extends Base {
         ExtentTest when = scenario.createNode(When.class, "When").fail("fail");
         ExtentTest then = scenario.createNode(Then.class, "Then").fatal("fatal");
         ExtentTest but = scenario.createNode(But.class, "But").fatal("fatal");
-
+        extent.flush();
+        
         Assert.assertEquals(given.getStatus(), Status.FAIL);
         Assert.assertEquals(and.getStatus(), Status.FAIL);
         Assert.assertEquals(when.getStatus(), Status.FAIL);

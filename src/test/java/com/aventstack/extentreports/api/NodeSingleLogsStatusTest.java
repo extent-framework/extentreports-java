@@ -26,6 +26,7 @@ public class NodeSingleLogsStatusTest extends Base {
     public void verifyIfTestHasStatusSkip(Method method) {
         ExtentTest test = extent.createTest(method.getName());
         ExtentTest node = test.createNode("Child").skip("skip");
+        extent.flush();
 
         Assert.assertEquals(node.getModel().getLevel(), 1);
         Assert.assertEquals(node.getModel().getLogContext().size(), 1);
@@ -37,6 +38,7 @@ public class NodeSingleLogsStatusTest extends Base {
     public void verifyIfTestHasStatusWarning(Method method) {
         ExtentTest test = extent.createTest(method.getName());
         ExtentTest node = test.createNode("Child").warning("warning");
+        extent.flush();
 
         Assert.assertEquals(node.getModel().getLevel(), 1);
         Assert.assertEquals(node.getModel().getLogContext().size(), 1);
@@ -48,7 +50,8 @@ public class NodeSingleLogsStatusTest extends Base {
     public void verifyIfTestHasStatusError(Method method) {
         ExtentTest test = extent.createTest(method.getName());
         ExtentTest node = test.createNode("Child").error("error");
-
+        extent.flush();
+        
         Assert.assertEquals(node.getModel().getLevel(), 1);
         Assert.assertEquals(node.getModel().getLogContext().size(), 1);
         Assert.assertEquals(node.getStatus(), Status.ERROR);
@@ -59,7 +62,8 @@ public class NodeSingleLogsStatusTest extends Base {
     public void verifyIfTestHasStatusFail(Method method) {
         ExtentTest test = extent.createTest(method.getName());
         ExtentTest node = test.createNode("Child").fail("fail");
-
+        extent.flush();
+        
         Assert.assertEquals(node.getModel().getLevel(), 1);
         Assert.assertEquals(node.getModel().getLogContext().size(), 1);
         Assert.assertEquals(node.getStatus(), Status.FAIL);
@@ -70,7 +74,8 @@ public class NodeSingleLogsStatusTest extends Base {
     public void verifyIfTestHasStatusFatal(Method method) {
         ExtentTest test = extent.createTest(method.getName());
         ExtentTest node = test.createNode("Child").fatal("fatal");
-
+        extent.flush();
+        
         Assert.assertEquals(node.getModel().getLevel(), 1);
         Assert.assertEquals(node.getModel().getLogContext().size(), 1);
         Assert.assertEquals(node.getStatus(), Status.FATAL);
