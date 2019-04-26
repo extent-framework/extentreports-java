@@ -594,6 +594,7 @@ abstract class ExtentObservable
      * @return a {@link ReportStatusStats} object
      */
     protected ReportStatusStats getStats() {
+    	flush();
     	return stats;
     }
     
