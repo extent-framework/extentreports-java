@@ -44,7 +44,6 @@ public class NodesStatusHierarchyTest extends Base {
 		ExtentTest child = parent.createNode("Child");
 		child.pass("pass");
 		child.skip("skip");
-		extent.flush();
 
 		Assert.assertEquals(child.getModel().getLevel(), 1);
 		Assert.assertEquals(parent.getStatus(), Status.SKIP);
@@ -58,7 +57,6 @@ public class NodesStatusHierarchyTest extends Base {
 		ExtentTest grandchild = child.createNode("GrandChild");
 		grandchild.pass("pass");
 		grandchild.skip("skip");
-		extent.flush();
 
 		Assert.assertEquals(child.getModel().getLevel(), 1);
 		Assert.assertEquals(grandchild.getModel().getLevel(), 2);
@@ -73,7 +71,6 @@ public class NodesStatusHierarchyTest extends Base {
 		ExtentTest child = parent.createNode("Child");
 		child.skip("skip");
 		child.warning("warning");
-		extent.flush();
 
 		Assert.assertEquals(child.getModel().getLevel(), 1);
 		Assert.assertEquals(parent.getStatus(), Status.WARNING);
@@ -87,7 +84,6 @@ public class NodesStatusHierarchyTest extends Base {
 		ExtentTest grandchild = child.createNode("GrandChild");
 		grandchild.skip("skip");
 		grandchild.warning("warning");
-		extent.flush();
 
 		Assert.assertEquals(child.getModel().getLevel(), 1);
 		Assert.assertEquals(grandchild.getModel().getLevel(), 2);
@@ -102,7 +98,6 @@ public class NodesStatusHierarchyTest extends Base {
 		ExtentTest child = parent.createNode("Child");
 		child.warning("warning");
 		child.error("error");
-		extent.flush();
 
 		Assert.assertEquals(child.getModel().getLevel(), 1);
 		Assert.assertEquals(parent.getStatus(), Status.ERROR);
@@ -116,7 +111,6 @@ public class NodesStatusHierarchyTest extends Base {
 		ExtentTest grandchild = child.createNode("GrandChild");
 		grandchild.warning("warning");
 		grandchild.error("error");
-		extent.flush();
 
 		Assert.assertEquals(child.getModel().getLevel(), 1);
 		Assert.assertEquals(grandchild.getModel().getLevel(), 2);
@@ -131,7 +125,6 @@ public class NodesStatusHierarchyTest extends Base {
 		ExtentTest child = parent.createNode("Child");
 		child.error("error");
 		child.fail("fail");
-		extent.flush();
 
 		Assert.assertEquals(child.getModel().getLevel(), 1);
 		Assert.assertEquals(parent.getStatus(), Status.FAIL);
@@ -145,7 +138,6 @@ public class NodesStatusHierarchyTest extends Base {
 		ExtentTest grandchild = child.createNode("GrandChild");
 		grandchild.error("error");
 		grandchild.fail("fail");
-		extent.flush();
 
 		Assert.assertEquals(child.getModel().getLevel(), 1);
 		Assert.assertEquals(grandchild.getModel().getLevel(), 2);
@@ -160,7 +152,6 @@ public class NodesStatusHierarchyTest extends Base {
 		ExtentTest child = parent.createNode("Child");
 		child.fail("fail");
 		child.fatal("fatal");
-		extent.flush();
 
 		Assert.assertEquals(child.getModel().getLevel(), 1);
 		Assert.assertEquals(parent.getStatus(), Status.FATAL);
@@ -174,7 +165,6 @@ public class NodesStatusHierarchyTest extends Base {
 		ExtentTest grandchild = child.createNode("GrandChild");
 		grandchild.fail("fail");
 		grandchild.fatal("fatal");
-		extent.flush();
 
 		Assert.assertEquals(child.getModel().getLevel(), 1);
 		Assert.assertEquals(grandchild.getModel().getLevel(), 2);
