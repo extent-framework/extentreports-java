@@ -1190,21 +1190,7 @@ public class ExtentTest
      * @return {@link Status}
      */
     public Status getStatus() {
-    	/*
-    	 * Flushing the report here seems counter intuitive. However,
-    	 * the status of the report is not updated till we get a
-    	 * call to read something the current status of the report.
-    	 * This allows us to delay the work which we would have done
-    	 * on every update to the status.
-    	 * @viren: Think of a better design to store and update the status
-    	 * 
-    	 * For the time being we will resort to flush here as it still
-    	 * avoid the additional work we used to do with every log addition
-    	 * and it also minimizes the risk of getting Concurrent modification
-    	 * error.
-    	 * Done as part of: pull request #75	
-    	 */
-    	extent.flush();
+    	extent.generateRecentStatus();
         return getModel().getStatus();
     }
 
@@ -1229,5 +1215,4 @@ public class ExtentTest
     void setUseManualConfiguration(Boolean b) {
         getModel().setUseManualConfiguration(b);
     }
-    
 }
