@@ -414,7 +414,7 @@ abstract class ExtentObservable
      * </ul>
      */
     protected synchronized void flush() {    	
-        collectRunInfo();
+    	generateRecentStatus();
         notifyReporters();
     }
     
@@ -423,7 +423,7 @@ abstract class ExtentObservable
      * Exception, Nodes. This also ends and updates all internal test information and 
      * refreshes {@link ReportStatusStats} and the distinct list of {@link Status}
      */
-    private synchronized void collectRunInfo() {
+    public synchronized void generateRecentStatus() {
         if (testList == null || testList.isEmpty())
             return;
         
@@ -596,19 +596,5 @@ abstract class ExtentObservable
     protected ReportStatusStats getStats() {
     	generateRecentStatus();
     	return stats;
-    }
-    
-    /**
-     * Calculates the current status of the report and
-     * updates the internal status. After using this we
-     * 
-     * Note: Internal methods to get status like
-     * - ExtentTest.getStatus 
-     * - ExtentReport.getStatus
-     * call this method to calculate the most recent status
-     * before returning the status.
-     */
-    public void generateRecentStatus() {
-    	collectRunInfo();
     }
 }
