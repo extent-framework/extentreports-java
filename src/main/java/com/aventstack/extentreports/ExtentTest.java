@@ -1190,6 +1190,7 @@ public class ExtentTest
      * @return {@link Status}
      */
     public Status getStatus() {
+    	extent.generateRecentStatus();
         return getModel().getStatus();
     }
 
@@ -1214,5 +1215,4 @@ public class ExtentTest
     void setUseManualConfiguration(Boolean b) {
         getModel().setUseManualConfiguration(b);
     }
-    
 }

@@ -296,7 +296,6 @@ abstract class ExtentObservable
      * @param log {@link Log}
      */
     synchronized void addLog(Test test, Log log) {
-        collectRunInfo();
         reporterList.forEach(x -> x.onLogAdded(test, log));
     }
     
@@ -415,7 +414,7 @@ abstract class ExtentObservable
      * </ul>
      */
     protected synchronized void flush() {    	
-        collectRunInfo();
+    	generateRecentStatus();
         notifyReporters();
     }
     
@@ -424,7 +423,7 @@ abstract class ExtentObservable
      * Exception, Nodes. This also ends and updates all internal test information and 
      * refreshes {@link ReportStatusStats} and the distinct list of {@link Status}
      */
-    private synchronized void collectRunInfo() {
+    public synchronized void generateRecentStatus() {
         if (testList == null || testList.isEmpty())
             return;
         
@@ -595,7 +594,7 @@ abstract class ExtentObservable
      * @return a {@link ReportStatusStats} object
      */
     protected ReportStatusStats getStats() {
+    	generateRecentStatus();
     	return stats;
     }
-    
 }

@@ -51,7 +51,7 @@ public class TestStartEndDateTimeTest extends Base {
         ExtentTest node = test.createNode(method.getName());
         Thread.sleep(wait);
         node.pass("pass");
-        
+        test.getModel().end();
         Assert.assertTrue(test.getModel().getEndTime().getTime() >= (init.getTime() + wait));
     }
     

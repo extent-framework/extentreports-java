@@ -10,7 +10,7 @@ import com.aventstack.extentreports.reporter.configuration.ExtentHtmlReporterCon
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-
+	
 /**
  * The ExtentHtmlReporter creates a rich standalone HTML file. It allows several
  * configuration options via the <code>config()</code> method.

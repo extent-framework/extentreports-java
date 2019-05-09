@@ -8,6 +8,7 @@ import com.aventstack.extentreports.reporter.AbstractReporter;
  */
 public interface ReportService {
     
-	void attachReporter(ExtentReporter... reporter);	
+	void attachReporter(ExtentReporter... reporter);
+	void generateRecentStatus();
 	
 }
