@@ -277,7 +277,7 @@ public class ExtentTest
     private void applyCommonNodeSettings(ExtentTest extentTest) {
         extentTest.getModel().setLevel(test.getLevel() + 1);
         extentTest.getModel().setParent(getModel());
-        test.getNodeContext().add(extentTest.getModel());
+        test.addChildNode(extentTest.getModel());
     }
     
     private void addNodeToReport(ExtentTest extentNode) {

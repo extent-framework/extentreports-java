@@ -192,7 +192,7 @@ public class ReportStatusStats {
     }
     
     private void addTestForStatusStatsUpdate(Test test) {
-        if (test.isBehaviorDrivenType() || (test.hasChildren() && test.getNodeContext().get(0).isBehaviorDrivenType())) {
+        if (test.isBehaviorDrivenType() || (test.hasChildren() && test.getChildrenNodes().get(0).isBehaviorDrivenType())) {
             updateGroupCountsBDD(test);
             return;
         }
@@ -214,11 +214,11 @@ public class ReportStatusStats {
         incrementItemCountByStatus(ItemLevel.PARENT, test.getStatus());
         
         if (test.hasChildren()) {
-            test.getNodeContext().getAll().forEach(x -> {
+            test.getChildrenNodes().getAll().forEach(x -> {
                 incrementItemCountByStatus(ItemLevel.CHILD, x.getStatus());
 
                 if (x.hasChildren())
-                    x.getNodeContext().getAll().forEach(n -> incrementItemCountByStatus(ItemLevel.GRANDCHILD, n.getStatus()));
+                    x.getChildrenNodes().getAll().forEach(n -> incrementItemCountByStatus(ItemLevel.GRANDCHILD, n.getStatus()));
             });
         }
     }
@@ -227,16 +227,16 @@ public class ReportStatusStats {
         incrementItemCountByStatus(ItemLevel.PARENT, test.getStatus());
         
         if (test.hasChildren()) {
-            test.getNodeContext().getAll().forEach(x -> {
+            test.getChildrenNodes().getAll().forEach(x -> {
                 if (x.getBehaviorDrivenType() == Scenario.class)
                     incrementItemCountByStatus(ItemLevel.CHILD, x.getStatus());
 
                 if (x.hasChildren()) {
-                    x.getNodeContext().getAll().forEach(n -> {
+                    x.getChildrenNodes().getAll().forEach(n -> {
                         if (n.getBehaviorDrivenType() == Scenario.class) {
                             incrementItemCountByStatus(ItemLevel.CHILD, n.getStatus());
                             
-                            n.getNodeContext().getAll().forEach(z -> incrementItemCountByStatus(ItemLevel.GRANDCHILD, z.getStatus()));
+                            n.getChildrenNodes().getAll().forEach(z -> incrementItemCountByStatus(ItemLevel.GRANDCHILD, z.getStatus()));
                         }
                         else {
                             incrementItemCountByStatus(ItemLevel.GRANDCHILD, n.getStatus());
@@ -256,7 +256,7 @@ public class ReportStatusStats {
     }
     
     private void updateGroupCountsTestStrategyChildren(Test test) {
-    	test.getNodeContext().getAll().forEach(x -> {
+    	test.getChildrenNodes().getAll().forEach(x -> {
     		if (!x.hasChildren()) {
     			incrementItemCountByStatus(ItemLevel.CHILD, x.getStatus());
     		} else {

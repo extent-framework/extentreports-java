@@ -277,7 +277,7 @@ abstract class ExtentObservable
     		return;
 
     	list.forEach(x -> statusSet.add(x.getStatus()));   	
-    	list.forEach(x -> refreshStatusList(x.getNodeContext().getAll()));
+    	list.forEach(x -> refreshStatusList(x.getChildrenNodes().getAll()));
     }
     
     /**
@@ -451,7 +451,7 @@ abstract class ExtentObservable
                 	.forEach(x -> exceptionContextBuilder.setExceptionContext(x, test));
             }
             if (test.hasChildren()) {
-                for (Test node : test.getNodeContext().getAll()) {
+                for (Test node : test.getChildrenNodes().getAll()) {
                     copyNodeAttributeAndRunTimeInfoToAttributeContexts(node);
                     node.setUseManualConfiguration(getAllowManualConfig());
                 }
@@ -504,7 +504,7 @@ abstract class ExtentObservable
             	.forEach(x -> exceptionContextBuilder.setExceptionContext(x, node));
         }
         if (node.hasChildren()) {
-            node.getNodeContext().getAll()
+            node.getChildrenNodes().getAll()
             	.forEach(this::copyNodeAttributeAndRunTimeInfoToAttributeContexts);
         }
     }

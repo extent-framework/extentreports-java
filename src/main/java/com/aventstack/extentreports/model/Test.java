@@ -184,14 +184,13 @@ public class Test
         this.level = level;
     }
 
-   
     public void setParent(Test parent) {
         this.parent = parent;
     }
     
     public Test getParent() { return parent; }
 
-    public AbstractStructure<Test> getNodeContext() {
+    public AbstractStructure<Test> getChildrenNodes() {
         if (node == null) {
             node = new AbstractStructure<>();
         }
@@ -203,6 +202,10 @@ public class Test
         return node != null && !node.isEmpty();
     }
 
+    public void addChildNode(Test childTest) {
+    	getChildrenNodes().add(childTest);
+    }
+    
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
@@ -217,8 +220,8 @@ public class Test
     
     private void setEndTimeFromChildren() {
         if (hasChildren()) {
-            setStartTime(getNodeContext().getFirst().getStartTime());
-            setEndTime(getNodeContext().getLast().getEndTime());
+            setStartTime(getChildrenNodes().getFirst().getStartTime());
+            setEndTime(getChildrenNodes().getLast().getEndTime());
         } else if (hasLog()) {
             Date lastLogEndTime = getLogContext().getLast().getTimestamp(); 
             setEndTime(lastLogEndTime);
@@ -275,7 +278,6 @@ public class Test
     }
 
     public void end() {
-        setStatus(Status.PASS);
         updateTestStatusRecursive(this);
         endChildrenRecursive(this);
         
@@ -288,33 +290,19 @@ public class Test
     }
 
     private synchronized void updateTestStatusRecursive(Test test) {
-        test.getLogContext().getAll().forEach(x -> updateStatus(x.getStatus()));
-
+    	
+    	// Recursively update the status of all the children in the tree
         if (test.hasChildren()) {
-            test.getNodeContext().getAll().forEach(this::updateTestStatusRecursive);
+            test.getChildrenNodes().getAll().forEach(this::updateTestStatusRecursive); // First recursion here
         }
         
-        // if not all children are marked SKIP, then:
-        // ensure the parent has a status that is not SKIP
-        if (!test.isBehaviorDrivenType()) {
-        	boolean hasNodeNotSkipped = test.getNodeContext().getAll()
-        		.stream()
-        		.anyMatch(x -> x.getStatus() != Status.SKIP);
-	        
-	        if (status == Status.SKIP && hasNodeNotSkipped) {
-	            // reset status
-	            status = Status.PASS;
-	            // compute new status
-	            test.getNodeContext().getAll()
-	            	.stream()
-            		.filter(x -> x.getStatus() != Status.SKIP)
-            		.forEach(this::updateTestStatusRecursive);
-	        }
-        }
+        // At this point the subtree should be updated. Now we have to update the status
+        // of current node.
+        test.getLogContext().getAll().forEach(x -> updateStatus(x.getStatus()));
     }
     
     private void endChildrenRecursive(Test test) {
-        test.getNodeContext().getAll().forEach(Test::end);
+        test.getChildrenNodes().getAll().forEach(Test::end);
     }
 
     public AbstractStructure<Log> getLogContext() {
@@ -368,7 +356,7 @@ public class Test
     }
     
     public boolean hasCategoryNode(String name) {
-    	return getNodeContext().getAll()
+    	return getChildrenNodes().getAll()
 				.stream()
 				.anyMatch(x -> x.hasCategory(name));
     }
