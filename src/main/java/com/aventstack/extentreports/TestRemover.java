@@ -50,7 +50,7 @@ class TestRemover {
         	if (removed) {
         		return;
         	}
-        	findAndRemoveTest(t.getNodeContext().getAll(), test);
+        	findAndRemoveTest(t.getChildrenNodes().getAll(), test);
         }
     }
     

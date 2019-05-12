@@ -38,21 +38,21 @@ public class TestModelTest extends Base {
     @Test
     public void testNodeContextIsEmpty(Method method) {
         ExtentTest t = extent.createTest(method.getName());
-        Assert.assertTrue(t.getModel().getNodeContext().isEmpty());
+        Assert.assertTrue(t.getModel().getChildrenNodes().isEmpty());
     }
     
     @Test
     public void testNodeContextIsNotEmpty(Method method) {
         ExtentTest t = extent.createTest(method.getName());
         t.createNode(method.getName());
-        Assert.assertFalse(t.getModel().getNodeContext().isEmpty());
+        Assert.assertFalse(t.getModel().getChildrenNodes().isEmpty());
     }
     
     @Test
     public void testNodeContextFirstNotNull(Method method) {
         ExtentTest t = extent.createTest(method.getName());
         t.createNode(method.getName());
-        Assert.assertTrue(t.getModel().getNodeContext().getFirst()!=null);
+        Assert.assertTrue(t.getModel().getChildrenNodes().getFirst()!=null);
     }
     
     @Test
@@ -60,7 +60,7 @@ public class TestModelTest extends Base {
         ExtentTest t = extent.createTest(method.getName());
         String name = method.getName() + "x";
         t.createNode(name);
-        Assert.assertTrue(t.getModel().getNodeContext().getFirst().getName().equals(name));
+        Assert.assertTrue(t.getModel().getChildrenNodes().getFirst().getName().equals(name));
     }
     
     @Test
@@ -68,7 +68,7 @@ public class TestModelTest extends Base {
         ExtentTest t = extent.createTest(method.getName());
         String name = method.getName() + "x";
         t.createNode(name);
-        Assert.assertTrue(t.getModel().getNodeContext().getLast().getName().equals(name));
+        Assert.assertTrue(t.getModel().getChildrenNodes().getLast().getName().equals(name));
     }
     
     @Test
@@ -78,8 +78,8 @@ public class TestModelTest extends Base {
         t.createNode(name1);
         String name2 = method.getName() + "x2";
         t.createNode(name2);
-        Assert.assertTrue(t.getModel().getNodeContext().getFirst().getName().equals(name1));
-        Assert.assertTrue(t.getModel().getNodeContext().getLast().getName().equals(name2));
+        Assert.assertTrue(t.getModel().getChildrenNodes().getFirst().getName().equals(name1));
+        Assert.assertTrue(t.getModel().getChildrenNodes().getLast().getName().equals(name2));
     }
     
     @Test
@@ -89,8 +89,8 @@ public class TestModelTest extends Base {
         t.createNode(name1);
         String name2 = method.getName() + "x2";
         t.createNode(name2);
-        Assert.assertTrue(t.getModel().getNodeContext().get(0).getName().equals(name1));
-        Assert.assertTrue(t.getModel().getNodeContext().get(1).getName().equals(name2));
+        Assert.assertTrue(t.getModel().getChildrenNodes().get(0).getName().equals(name1));
+        Assert.assertTrue(t.getModel().getChildrenNodes().get(1).getName().equals(name2));
     }
     
     @Test

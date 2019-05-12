@@ -496,8 +496,8 @@ public class ExtentKlovReporter extends AbstractReporter {
 				.append("level", test.getLevel()).append("name", test.getName())
 				.append("status", test.getStatus().toString()).append("description", test.getDescription())
 				.append("startTime", test.getStartTime()).append("endTime", test.getEndTime())
-				.append("bdd", test.isBehaviorDrivenType()).append("leaf", test.getNodeContext().size() == 0)
-				.append("childNodesLength", test.getNodeContext().size());
+				.append("bdd", test.isBehaviorDrivenType()).append("leaf", test.getChildrenNodes().size() == 0)
+				.append("childNodesLength", test.getChildrenNodes().size());
 
 		if (test.isBehaviorDrivenType()) {
 			doc.append("bddType", test.getBehaviorDrivenType().getSimpleName());
@@ -520,7 +520,7 @@ public class ExtentKlovReporter extends AbstractReporter {
 	}
 
 	private void updateTestChildrenCount(Test test) {
-		Document doc = new Document("childNodesLength", test.getNodeContext().size());
+		Document doc = new Document("childNodesLength", test.getChildrenNodes().size());
 		testCollection.updateOne(new Document("_id", test.getObjectId()), new Document("$set", doc));
 	}
 
@@ -596,8 +596,8 @@ public class ExtentKlovReporter extends AbstractReporter {
 
 	private void endTestRecursive(Test test) {
 		Document doc = new Document("status", test.getStatus().toString()).append("endTime", test.getEndTime())
-				.append("duration", test.getRunDurationMillis()).append("leaf", test.getNodeContext().size() == 0)
-				.append("childNodesLength", test.getNodeContext().size()).append("categorized", test.hasCategory())
+				.append("duration", test.getRunDurationMillis()).append("leaf", test.getChildrenNodes().size() == 0)
+				.append("childNodesLength", test.getChildrenNodes().size()).append("categorized", test.hasCategory())
 				.append("description", test.getDescription());
 
 		testCollection.updateOne(new Document("_id", test.getObjectId()), new Document("$set", doc));

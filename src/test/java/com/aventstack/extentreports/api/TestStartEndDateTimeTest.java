@@ -116,7 +116,7 @@ public class TestStartEndDateTimeTest extends Base {
         ExtentTest node = test.createNode(method.getName());
         Thread.sleep(wait);
         node.pass("pass");
-        test.getModel().setStartTime(test.getModel().getNodeContext().getLast().getEndTime());
+        test.getModel().setStartTime(test.getModel().getChildrenNodes().getLast().getEndTime());
         
         Assert.assertTrue(test.getModel().getStartTime().getTime() >= (init.getTime() + wait));
     }
@@ -145,7 +145,7 @@ public class TestStartEndDateTimeTest extends Base {
         ExtentTest node = test.createNode(method.getName());
         Thread.sleep(wait);
         node.pass("pass");
-        test.getModel().setEndTime(test.getModel().getNodeContext().getLast().getEndTime());
+        test.getModel().setEndTime(test.getModel().getChildrenNodes().getLast().getEndTime());
         
         Assert.assertTrue(test.getModel().getEndTime().getTime() >= (init.getTime() + wait));
     }
