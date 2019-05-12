@@ -290,6 +290,9 @@ public class Test
     }
 
     private synchronized void updateTestStatusRecursive(Test test) {
+    	// Update this test first, based on the logs
+        test.getLogContext().getAll().forEach(x -> updateStatus(x.getStatus()));
+    	
     	
     	// Recursively update the status of all the children in the tree
         if (test.hasChildren()) {
@@ -298,7 +301,7 @@ public class Test
         
         // At this point the subtree should be updated. Now we have to update the status
         // of current node.
-        test.getLogContext().getAll().forEach(x -> updateStatus(x.getStatus()));
+        test.getChildrenNodes().getAll().forEach(x -> updateStatus(x.getStatus()));
     }
     
     private void endChildrenRecursive(Test test) {
