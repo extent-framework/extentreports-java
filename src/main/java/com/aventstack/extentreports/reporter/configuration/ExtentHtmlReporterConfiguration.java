@@ -74,10 +74,16 @@ public class ExtentHtmlReporterConfiguration
     private String[] getIconFiles() {
         String path = "commons/css/icons/";
         String iconDirPath = "material/";
+        String ficonDirPath = "fontawesome/";
         String[] files = { path + "material-icons.css", path + iconDirPath + "MaterialIcons-Regular.eot",
                 path + iconDirPath + "MaterialIcons-Regular.ijmap", path + iconDirPath + "MaterialIcons-Regular.svg",
                 path + iconDirPath + "MaterialIcons-Regular.ttf", path + iconDirPath + "MaterialIcons-Regular.woff",
-                path + iconDirPath + "MaterialIcons-Regular.woff2" };
+                path + iconDirPath + "MaterialIcons-Regular.woff2",
+
+                path + "font-awesome.min.css", path + ficonDirPath + "fontawesome-webfont.eot",
+                path + ficonDirPath + "FontAwesome.otf", path + ficonDirPath + "fontawesome-webfont.svg",
+                path + ficonDirPath + "fontawesome-webfont.ttf", path + ficonDirPath + "fontawesome-webfont.woff",
+                path + ficonDirPath + "fontawesome-webfont.woff2"};
         return files;
     }
 

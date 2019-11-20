@@ -8,6 +8,7 @@
 	<#if offline=="true">
         <link rel="apple-touch-icon" href="${config.getValue("offlineDirectory")}material-icons.css">
         <link rel="stylesheet" href="${config.getValue("offlineDirectory")}v3html-style.css">
+        <link rel="fontstylesheet" href="${config.getValue("offlineDirectory")}font-awesome.min.css">
     <#else>
         <link href='${ config.getValue('protocol') }://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
         <link href="${ config.getValue('protocol') }://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
