@@ -4,7 +4,7 @@
 
 	<groupId>com.aventstack</groupId>
 	<artifactId>extentreports</artifactId>
-	<version>4.0.9</version>
+	<version>4.0.10-SNAPSHOT</version>
 
 	<name>extentreports</name>
 	<url>www.extentreports.com</url>
@@ -159,7 +159,7 @@
 				</property>
 			</activation>
 			<properties>
-				<gpg.keyname>7A7DAF8A</gpg.keyname>
+				<gpg.keyname>41414BBD</gpg.keyname>
 				<!-- GPG Key ID to use for signing -->
 				<release.username>anshooarora</release.username>
 				<!-- username for our svn repository -->
