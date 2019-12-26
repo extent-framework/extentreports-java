@@ -2,11 +2,9 @@ package com.aventstack.extentreports.reporter;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import com.aventstack.extentreports.AnalysisStrategy;
 import com.aventstack.extentreports.ReportAggregates;
-import com.aventstack.extentreports.Status;
 
 /**
  * A base class for all Reporter types
