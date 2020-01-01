@@ -1,3 +1,3 @@
 <script type="text/javascript">
-${config.getValue("scripts")}
+${config.getConfig("js")}
 </script>

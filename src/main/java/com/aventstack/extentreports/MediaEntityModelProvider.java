@@ -2,10 +2,6 @@ package com.aventstack.extentreports;
 
 import com.aventstack.extentreports.model.Media;
 
-/**
- * Media singleton
- *
- */
 public class MediaEntityModelProvider {
 
 	private Media m;

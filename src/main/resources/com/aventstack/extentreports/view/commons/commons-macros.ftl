@@ -33,7 +33,7 @@
 <#assign n=test level=n.level>
 <#if level!=0><#assign n=test.parent><#if n.level!=0><#assign n=n.parent><#if n.level!=0><#assign n=n.parent></#if></#if></#if>
 	
-<tr class="s-${test.status}" test-id="${test.getID()}" parent-id="${n.getID()}">
+<tr class="s-${test.status}" test-id="${test.getId()}" parent-id="${n.getID()}">
 	<td><span class="w-32 avatar circle ${test.status}"><span class="badge">${test.status}</span></span></td>
 	<td class="_600">${test.name} <#if level!=0><br/><span class="text-muted text-sm">${test.parent.name}</span></#if></td>
 	<td>${test.runDuration}c</td>

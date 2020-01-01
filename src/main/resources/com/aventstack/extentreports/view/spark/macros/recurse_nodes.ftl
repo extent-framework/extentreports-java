@@ -1,7 +1,7 @@
 <#include "log.ftl">
 
 <#macro recurse_nodes test>
-<#if test.hasChildren()>
+<#if TestService.testHasChildren(test)>
 	<div class="accordion">
 		<#list test.nodeContext.all as node>
 			<div class="card">
@@ -15,15 +15,15 @@
 				</div>
 				<div class="collapse">
 					<div class="card-body">
-						<#if node.hasLog()>
+						<#if TestService.testHasLog(node)>
 							<@log test=node />
 						</#if>
-						<#if node.hasScreenCapture()>
-							${node.screenCaptureList[0].source}
-						</#if>
+						<#list node.screenCaptureContext.all as sc>
+							${sc.source}
+						</#list>
 					</div>
 				</div>
-				<#if node.hasChildren()>
+				<#if TestService.testHasChildren(node)>
 					<@recurse_nodes test=node />
 				</#if>
 			</div>

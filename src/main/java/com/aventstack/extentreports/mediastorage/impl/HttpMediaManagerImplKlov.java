@@ -16,6 +16,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.aventstack.extentreports.mediastorage.MediaStorage;
 import com.aventstack.extentreports.model.Media;
+import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.utils.FileUtil;
 
 public class HttpMediaManagerImplKlov 
@@ -36,9 +37,12 @@ public class HttpMediaManagerImplKlov
     
     @Override
     public void storeMedia(Media m) throws IOException {
-        if (m.getPath() == null || m.getBase64String() != null)
+        if (m.getPath() == null) {
             return;
-        
+        }
+        if (m instanceof ScreenCapture && ((ScreenCapture)m).getBase64String() != null) {
+        	return;
+        }
         File f = new File(m.getPath());
         if (!f.exists()) {
             throw new IOException("The system cannot find the file specified " + m.getPath());
@@ -54,14 +58,13 @@ public class HttpMediaManagerImplKlov
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();        
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
         builder.addPart("name",new StringBody(m.getSequence() + "." + ext, ContentType.TEXT_PLAIN));
-        builder.addPart("id", new StringBody(m.getObjectId().toString(), ContentType.TEXT_PLAIN));
-        builder.addPart("reportId", new StringBody(m.getReportObjectId().toString(), ContentType.TEXT_PLAIN));
-        builder.addPart("testId", new StringBody(m.getTestObjectId().toString(), ContentType.TEXT_PLAIN));
-        builder.addPart("mediaType", new StringBody(String.valueOf(m.getMediaType()).toLowerCase(), ContentType.TEXT_PLAIN));
+        builder.addPart("id", new StringBody(m.getBsonId().get("id").toString(), ContentType.TEXT_PLAIN));
+        builder.addPart("reportId", new StringBody(m.getBsonId().get("reportId").toString(), ContentType.TEXT_PLAIN));
+        builder.addPart("testId", new StringBody(m.getBsonId().get("testId").toString(), ContentType.TEXT_PLAIN));
         builder.addPart("f", new FileBody(new File(m.getPath())));
         post.setEntity(builder.build());
 
-        String logId = m.getLogObjectId() == null ? "" : m.getLogObjectId().toString();
+        String logId = m.getBsonId().get("logId") == null ? "" : m.getBsonId().get("logId").toString();
         builder.addPart("logId", new StringBody(logId, ContentType.TEXT_PLAIN));
         
         HttpClient client = HttpClientBuilder.create().build();
@@ -76,7 +79,7 @@ public class HttpMediaManagerImplKlov
     }
     
     private boolean isResponseValid(int responseCode) {
-        return 200 <= responseCode && responseCode <= 399;
+        return responseCode >= 200 && responseCode < 400;
     }
 
 }

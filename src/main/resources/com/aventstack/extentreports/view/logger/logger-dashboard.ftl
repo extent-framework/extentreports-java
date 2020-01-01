@@ -26,9 +26,9 @@
 			</div>
 		</div>
 		<#assign p="https://cdn.rawgit.com/extent-framework/extent-github-cdn/d74480e/commons/js/">
-		<#if offline=="true"><#assign p=config.getValue("offlineDirectory")></#if>
+		<#if offline=="true"><#assign p=config.getConfig("offlineDirectory")></#if>
 		<script src="${p}dashboard.js"></script>
-		<#if config.containsKey("scripts") && config.getValue("scripts")?has_content>
+		<#if config.containsKey("scripts") && config.getConfig("scripts")?has_content>
 		<#include "../commons/commons-inject-js.ftl">
 		</#if>
 		<#include "../commons/commons-dashboard-scripts.ftl">

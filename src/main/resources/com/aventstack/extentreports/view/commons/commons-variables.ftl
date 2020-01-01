@@ -1,13 +1,13 @@
-<#assign config=report.configContext>
+<#assign config=report.configurationStore>
 <#assign offline="false">
-<#if config.getValue("enableOfflineMode")??><#assign offline=config.getValue("enableOfflineMode")></#if>
+<#if config.getConfig("enableOfflineMode")??><#assign offline=config.getConfig("enableOfflineMode")></#if>
 
-<#assign theme=config.containsKey('theme')?then(config.getValue('theme')?lower_case, '')>
+<#assign theme=config.containsConfig('theme')?then(config.getConfig('theme')?lower_case, '')>
 <#assign systemAttributeContext=report.getSystemAttributeContext().getSystemAttributeList()>
-<#assign categoryContext=report.getCategoryContextInfo().getTestAttributeTestContextList()>
-<#assign authorContext=report.getAuthorContextInfo().getTestAttributeTestContextList()>
-<#assign deviceContext=report.getDeviceContextInfo().getTestAttributeTestContextList()>
-<#assign exceptionContext=report.getExceptionContextInfo().getExceptionTestContextList()>
+<#assign categoryContext=report.getCategoryContextInfo().getTestAttributeTestContext()>
+<#assign authorContext=report.getAuthorContextInfo().getTestAttributeTestContext()>
+<#assign deviceContext=report.getDeviceContextInfo().getTestAttributeTestContext()>
+<#assign exceptionContext=report.getExceptionContextInfo().getExceptionTestContext()>
 
 <#assign reportType="" parentHeading="Tests" childHeading="Steps" grandChildHeading="" size=2>
 <#if report.analysisStrategy=="SUITE">
@@ -23,4 +23,4 @@
 	<#assign parentHeading="Class" childHeading="Methods" grandChildHeading="" size=2>
 </#if>
 
-<#assign timeStampFormat=config.getValue('timeStampFormat')>
+<#assign timeStampFormat=config.getConfig('timeStampFormat')>

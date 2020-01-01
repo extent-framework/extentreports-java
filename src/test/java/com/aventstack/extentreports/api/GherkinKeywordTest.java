@@ -28,12 +28,12 @@ public class GherkinKeywordTest extends Base {
         ExtentTest when = scenario.createNode(new GherkinKeyword("When"), "he returns the microwave").pass("pass");
         ExtentTest then = scenario.createNode(new GherkinKeyword("Then"), "Jeff should be refunded $100").error("error");
         
-        Assert.assertEquals(feature.getModel().getBehaviorDrivenType(), Feature.class);
-        Assert.assertEquals(scenario.getModel().getBehaviorDrivenType(), Scenario.class);
-        Assert.assertEquals(given.getModel().getBehaviorDrivenType(), Given.class);
-        Assert.assertEquals(and.getModel().getBehaviorDrivenType(), And.class);
-        Assert.assertEquals(when.getModel().getBehaviorDrivenType(), When.class);
-        Assert.assertEquals(then.getModel().getBehaviorDrivenType(), Then.class);
+        Assert.assertEquals(feature.getModel().getBddType(), Feature.class);
+        Assert.assertEquals(scenario.getModel().getBddType(), Scenario.class);
+        Assert.assertEquals(given.getModel().getBddType(), Given.class);
+        Assert.assertEquals(and.getModel().getBddType(), And.class);
+        Assert.assertEquals(when.getModel().getBddType(), When.class);
+        Assert.assertEquals(then.getModel().getBddType(), Then.class);
     }
     
     @Test
@@ -47,12 +47,12 @@ public class GherkinKeywordTest extends Base {
         ExtentTest when = scenario.createNode(new GherkinKeyword("Wenn"), "he returns the microwave").pass("pass");
         ExtentTest then = scenario.createNode(new GherkinKeyword("Dann"), "Jeff should be refunded $100").error("error");
         
-        Assert.assertEquals(feature.getModel().getBehaviorDrivenType(), Feature.class);
-        Assert.assertEquals(scenario.getModel().getBehaviorDrivenType(), Scenario.class);
-        Assert.assertEquals(given.getModel().getBehaviorDrivenType(), Given.class);
-        Assert.assertEquals(and.getModel().getBehaviorDrivenType(), And.class);
-        Assert.assertEquals(when.getModel().getBehaviorDrivenType(), When.class);
-        Assert.assertEquals(then.getModel().getBehaviorDrivenType(), Then.class);
+        Assert.assertEquals(feature.getModel().getBddType(), Feature.class);
+        Assert.assertEquals(scenario.getModel().getBddType(), Scenario.class);
+        Assert.assertEquals(given.getModel().getBddType(), Given.class);
+        Assert.assertEquals(and.getModel().getBddType(), And.class);
+        Assert.assertEquals(when.getModel().getBddType(), When.class);
+        Assert.assertEquals(then.getModel().getBddType(), Then.class);
     }
     
     @Test
@@ -67,9 +67,9 @@ public class GherkinKeywordTest extends Base {
         ExtentTest scenario = feature.createNode(new GherkinKeyword("Szenario"), "Jeff returns a faulty microwave");
         ExtentTest given = scenario.createNode(new GherkinKeyword("Angenommen"), "Jeff has bought a microwave for $100").skip("skip");
         
-        Assert.assertEquals(feature.getModel().getBehaviorDrivenType(), Feature.class);
-        Assert.assertEquals(scenario.getModel().getBehaviorDrivenType(), Scenario.class);
-        Assert.assertEquals(given.getModel().getBehaviorDrivenType(), Given.class);
+        Assert.assertEquals(feature.getModel().getBddType(), Feature.class);
+        Assert.assertEquals(scenario.getModel().getBddType(), Scenario.class);
+        Assert.assertEquals(given.getModel().getBddType(), Given.class);
         
         // all below tests should fail since all GherkinKeywords are not valid German words
         // each ExtentTest object should equal NULL

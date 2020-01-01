@@ -5,8 +5,7 @@ import java.io.File;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.reporter.impl.ConsoleLogger;
+import com.aventstack.extentreports.reporter.ConsoleLogger;
 
 public abstract class Base {
     

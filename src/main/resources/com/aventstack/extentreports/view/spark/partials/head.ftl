@@ -1,4 +1,4 @@
-<#assign resourceCDN=config.getValue('resourceCDN') cdnURI="cdn.rawgit.com/extent-framework/extent-github-cdn/" csscommit="4dd3b1c" jscommit="24cb10e" iconcommit="d74480e">
+<#assign resourceCDN=config.getConfig('resourceCDN') cdnURI="cdn.rawgit.com/extent-framework/extent-github-cdn/" csscommit="4dd3b1c" jscommit="24cb10e" iconcommit="d74480e">
 <#if resourceCDN=="extentreports">
     <#assign cdnURI="extentreports.com/resx" csscommit="" jscommit="" iconcommit="">
 </#if>
@@ -6,12 +6,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>${config.getValue("documentTitle")}</title>
+    <title>${config.getConfig("documentTitle")}</title>
     <#if offline=="true">
-        <link rel="apple-touch-icon" href="${config.getValue("offlineDirectory")}logo.png">
-        <link rel="shortcut icon" href="${config.getValue("offlineDirectory")}logo.png">
-	    <link rel="stylesheet" href="${config.getValue("offlineDirectory")}spark-style.css">
-	    <link rel="stylesheet" href="${config.getValue("offlineDirectory")}font-awesome.min.css">
+        <link rel="apple-touch-icon" href="${config.getConfig("offlineDirectory")}logo.png">
+        <link rel="shortcut icon" href="${config.getConfig("offlineDirectory")}logo.png">
+	    <link rel="stylesheet" href="${config.getConfig("offlineDirectory")}spark-style.css">
+	    <link rel="stylesheet" href="${config.getConfig("offlineDirectory")}font-awesome.min.css">
 	<#else>
         <link rel="apple-touch-icon" href="https://${cdnURI}${iconcommit}/commons/img/logo.png">
         <link rel="shortcut icon" href="https://${cdnURI}${iconcommit}/commons/img/logo.png">

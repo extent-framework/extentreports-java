@@ -8,6 +8,9 @@ import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
 import com.aventstack.extentreports.model.Device;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.model.context.ExceptionTestContextStore;
+import com.aventstack.extentreports.model.context.SystemAttributeContext;
+import com.aventstack.extentreports.model.context.TestAttributeTestContextStore;
 
 /**
  * Aggregator for report elements and collections
@@ -17,16 +20,16 @@ public class ReportAggregates {
 
 	private List<Test> testList;
     private List<String> testRunnerLogs;
-	private TestAttributeTestContextProvider<Category> categoryContext;
-	private TestAttributeTestContextProvider<Author> authorContext;
-	private TestAttributeTestContextProvider<Device> deviceContext;
-	private ExceptionTestContextImpl exceptionContext;
+	private TestAttributeTestContextStore<Category> categoryContext;
+	private TestAttributeTestContextStore<Author> authorContext;
+	private TestAttributeTestContextStore<Device> deviceContext;
+	private ExceptionTestContextStore exceptionContext;
 	private SystemAttributeContext systemAttributeContext;
 	private ReportStatusStats reportStatusStats;
 	private Collection<Status> statusCollection;
 	private Date startTime;
     private Date endTime;
-    
+
 	public Date getStartTime() {
         return startTime;
     }
@@ -63,35 +66,35 @@ public class ReportAggregates {
         this.testRunnerLogs = testRunnerLogs;
     }
 
-    public TestAttributeTestContextProvider<Category> getCategoryContext() {
+    public TestAttributeTestContextStore<Category> getCategoryContext() {
         return categoryContext;
     }
 
-    public void setCategoryContext(TestAttributeTestContextProvider<Category> categoryContext) {
+    public void setCategoryContext(TestAttributeTestContextStore<Category> categoryContext) {
         this.categoryContext = categoryContext;
     }
 
-    public TestAttributeTestContextProvider<Author> getAuthorContext() {
+    public TestAttributeTestContextStore<Author> getAuthorContext() {
         return authorContext;
     }
 
-    public void setAuthorContext(TestAttributeTestContextProvider<Author> authorContext) {
+    public void setAuthorContext(TestAttributeTestContextStore<Author> authorContext) {
         this.authorContext = authorContext;
     }
 
-    public TestAttributeTestContextProvider<Device> getDeviceContext() {
+    public TestAttributeTestContextStore<Device> getDeviceContext() {
         return deviceContext;
     }
 
-    public void setDeviceContext(TestAttributeTestContextProvider<Device> deviceContext) {
+    public void setDeviceContext(TestAttributeTestContextStore<Device> deviceContext) {
         this.deviceContext = deviceContext;
     }
 
-    public ExceptionTestContextImpl getExceptionContext() {
+    public ExceptionTestContextStore getExceptionContext() {
         return exceptionContext;
     }
 
-    public void setExceptionContext(ExceptionTestContextImpl exceptionContext) {
+    public void setExceptionContext(ExceptionTestContextStore exceptionContext) {
         this.exceptionContext = exceptionContext;
     }
 

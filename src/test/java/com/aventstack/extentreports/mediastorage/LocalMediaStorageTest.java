@@ -17,7 +17,7 @@ public class LocalMediaStorageTest extends Base {
     
     private static final String IMG_PATH = "src/test/resources/logo.png";
     private static final String OUTPUT_PATH = "target/";
-
+/*
     @Test(priority=1)
     public void testLocalFolderCreationOrder(Method method) throws IOException {
         ExtentHtmlReporter html = new ExtentHtmlReporter("target/Extent.html");
@@ -48,5 +48,5 @@ public class LocalMediaStorageTest extends Base {
         Assert.assertTrue(getDirsByName(OUTPUT_PATH).contains("target.2"));
         Assert.assertTrue(new File(OUTPUT_PATH + "target.2/logo.png").exists());
     }
-    
+*/    
 }

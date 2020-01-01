@@ -38,7 +38,7 @@
 				</a>
 				<ul id='category-toggle' class='dropdown-content'>
 					<#list categoryContext as category>
-					<li><a href='#'>${ category.getName() }</a></li>
+					<li><a href='#'>${ category.name }</a></li>
 					</#list>
 					<li class='divider'></li>
 					<li class='clear'><a href='#!' clear='true'>Clear Filters</a></li>
@@ -80,12 +80,12 @@
 		<div class='view-summary'>
 			<ul id='test-collection' class='test-collection'>
 				<#list report.testList as test>
-				<#assign isBdd = (test.hasChildren() && test.nodeContext.get(0).isBehaviorDrivenType())>
+				<#assign isBdd = (TestService.testHasChildren(test) && test.nodeContext.get(0).isBehaviorDrivenType())>
 				<#assign hasChildrenClass = ''>
 				<#if test.nodeContext?? && test.nodeContext.all?size != 0>
 				<#assign hasChildrenClass = 'has-leaf'>
 				</#if>
-				<li class='test displayed active ${ hasChildrenClass } ${ test.status }' status='${ test.status }' bdd='${ isBdd?string }' test-id='${ test.getID() }'>
+				<li class='test displayed active ${ hasChildrenClass } ${ test.status }' status='${ test.status }' bdd='${ isBdd?string }' test-id='${ test.getId() }'>
 					<div class='test-heading'>
 						<span class='test-name'>${ test.name }</span>
 						<span class='test-time'>${ test.startTime?datetime?string["${timeStampFormat}"] }</span>

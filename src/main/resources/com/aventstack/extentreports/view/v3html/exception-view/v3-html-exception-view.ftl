@@ -39,7 +39,7 @@
 									<#if testException.getExceptionName() == exception.exceptionInfo.getExceptionName()>
 									<tr>
 										<td>${ test.startTime?datetime?string["${timeStampFormat}"] }</td>
-										<td class='linked' test-id='${ test.getID() }'>${ test.hierarchicalName }</td>
+										<td class='linked' test-id='${ test.getId() }'>${ test.hierarchicalName }</td>
 										<td>
 											<textarea disabled class="code-block">${ testException.getStackTrace() }</textarea>
 										</td>

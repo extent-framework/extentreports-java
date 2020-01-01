@@ -8,6 +8,9 @@ import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
 import com.aventstack.extentreports.model.Device;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.model.context.ExceptionTestContextStore;
+import com.aventstack.extentreports.model.context.SystemAttributeContext;
+import com.aventstack.extentreports.model.context.TestAttributeTestContextStore;
 
 /**
  * Builds {@link ReportAggregates}
@@ -17,29 +20,29 @@ public class ReportAggregatesBuilder {
 
 	private List<Test> testList;
 	private List<String> testRunnerLogs;
-	private TestAttributeTestContextProvider<Category> categoryContext;
-	private TestAttributeTestContextProvider<Author> authorContext;
-	private TestAttributeTestContextProvider<Device> deviceContext;
-	private ExceptionTestContextImpl exceptionContext;
+	private TestAttributeTestContextStore<Category> categoryContext;
+	private TestAttributeTestContextStore<Author> authorContext;
+	private TestAttributeTestContextStore<Device> deviceContext;
+	private ExceptionTestContextStore exceptionContext;
 	private SystemAttributeContext systemAttributeContext;
 	private ReportStatusStats reportStatusStats;
 	private Collection<Status> statusCollection;
 	private Date startTime;
 	private Date endTime;
-	
+
 	public ReportAggregates build() {
-	    ReportAggregates aggregates = new ReportAggregates();
-	    aggregates.setTestList(testList);
-	    aggregates.setTestRunnerLogs(testRunnerLogs);
-	    aggregates.setCategoryContext(categoryContext);
-	    aggregates.setAuthorContext(authorContext);
-	    aggregates.setDeviceContext(deviceContext);
-	    aggregates.setExceptionContext(exceptionContext);
-	    aggregates.setSystemAttributeContext(systemAttributeContext);
-	    aggregates.setReportStatusStats(reportStatusStats);
-	    aggregates.setStatusCollection(statusCollection);
-	    aggregates.setStartTime(startTime);
-	    aggregates.setEndTime(endTime);
+		ReportAggregates aggregates = new ReportAggregates();
+		aggregates.setTestList(testList);
+		aggregates.setTestRunnerLogs(testRunnerLogs);
+		aggregates.setCategoryContext(categoryContext);
+		aggregates.setAuthorContext(authorContext);
+		aggregates.setDeviceContext(deviceContext);
+		aggregates.setExceptionContext(exceptionContext);
+		aggregates.setSystemAttributeContext(systemAttributeContext);
+		aggregates.setReportStatusStats(reportStatusStats);
+		aggregates.setStatusCollection(statusCollection);
+		aggregates.setStartTime(startTime);
+		aggregates.setEndTime(endTime);
 		return aggregates;
 	}
 
@@ -53,22 +56,22 @@ public class ReportAggregatesBuilder {
 		return this;
 	}
 
-	public ReportAggregatesBuilder setCategoryContext(TestAttributeTestContextProvider<Category> categoryContext) {
+	public ReportAggregatesBuilder setCategoryContext(TestAttributeTestContextStore<Category> categoryContext) {
 		this.categoryContext = categoryContext;
 		return this;
 	}
 
-	public ReportAggregatesBuilder setAuthorContext(TestAttributeTestContextProvider<Author> authorContext) {
+	public ReportAggregatesBuilder setAuthorContext(TestAttributeTestContextStore<Author> authorContext) {
 		this.authorContext = authorContext;
 		return this;
 	}
 
-	public ReportAggregatesBuilder setDeviceContext(TestAttributeTestContextProvider<Device> deviceContext) {
+	public ReportAggregatesBuilder setDeviceContext(TestAttributeTestContextStore<Device> deviceContext) {
 		this.deviceContext = deviceContext;
 		return this;
 	}
 
-	public ReportAggregatesBuilder setExceptionContext(ExceptionTestContextImpl exceptionContext) {
+	public ReportAggregatesBuilder setExceptionContext(ExceptionTestContextStore exceptionContext) {
 		this.exceptionContext = exceptionContext;
 		return this;
 	}
@@ -88,14 +91,14 @@ public class ReportAggregatesBuilder {
 		return this;
 	}
 
-    public ReportAggregatesBuilder setStartTime(Date startTime) {
-        this.startTime = startTime;
-        return this;
-    }
+	public ReportAggregatesBuilder setStartTime(Date startTime) {
+		this.startTime = startTime;
+		return this;
+	}
 
-    public ReportAggregatesBuilder setEndTime(Date endTime) {
-        this.endTime = endTime;
-        return this;
-    }
-	
+	public ReportAggregatesBuilder setEndTime(Date endTime) {
+		this.endTime = endTime;
+		return this;
+	}
+
 }

@@ -30,8 +30,7 @@ public class KlovMediaStorageHandler {
     	Document doc = new Document("project", klovMedia.getProjectId())
                 .append("report", klovMedia.getReportId())
                 .append("sequence", media.getSequence())
-                .append("mediaType", media.getMediaType().toString().toLowerCase())
-                .append("test", media.getTestObjectId());
+                .append("test", media.getBsonId().get("testId"));
 
         if (el.getClass() != Test.class) {
             doc.append("log", el.getObjectId());
@@ -41,9 +40,8 @@ public class KlovMediaStorageHandler {
         
         klovMedia.getMediaCollection().insertOne(doc);
         ObjectId mediaId = MongoUtil.getId(doc);
-        media.setObjectId(mediaId);
-        
-        media.setReportObjectId(klovMedia.getReportId());
+        media.getBsonId().put("id", mediaId);
+        media.getBsonId().put("reportId", klovMedia.getReportId());
         mediaStorage.storeMedia((ScreenCapture)media);
     }
 	

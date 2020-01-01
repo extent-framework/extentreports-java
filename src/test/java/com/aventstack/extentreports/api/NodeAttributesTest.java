@@ -9,8 +9,8 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Base;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.model.Attribute;
 import com.aventstack.extentreports.model.Category;
-import com.aventstack.extentreports.model.TestAttribute;
 
 public class NodeAttributesTest extends Base {
 
@@ -36,7 +36,7 @@ public class NodeAttributesTest extends Base {
                 .pass("pass");
         
         Assert.assertEquals(node.getModel().getCategoryContext().size(), 1);
-        Category c = (Category) node.getModel().getCategory(0);
+        Category c = (Category) node.getModel().getCategoryContext().get(0);
         Assert.assertEquals(c.getName(), categories[0]);
     }
     
@@ -47,7 +47,7 @@ public class NodeAttributesTest extends Base {
                
         Assert.assertEquals(node.getModel().getCategoryContext().size(), categories.length);
         
-        List<TestAttribute> categoryCollection = node.getModel().getCategoryContext().getAll();
+        List<Attribute> categoryCollection = node.getModel().getCategoryContext().getAll();
         Arrays.stream(categories).forEach(c -> {
             Boolean result = categoryCollection.stream().anyMatch(x -> x.getName() == c); 
             Assert.assertTrue(result);
@@ -63,7 +63,7 @@ public class NodeAttributesTest extends Base {
                 .pass("pass");
         
         Assert.assertEquals(node.getModel().getAuthorContext().size(), 1);
-        Assert.assertEquals(node.getModel().getAuthor(0).getName(), authors[0]);
+        Assert.assertEquals(node.getModel().getAuthorContext().get(0).getName(), authors[0]);
     }
     
     @Test
@@ -76,7 +76,7 @@ public class NodeAttributesTest extends Base {
                
         Assert.assertEquals(node.getModel().getAuthorContext().size(), authors.length);
         
-        List<TestAttribute> authorCollection = node.getModel().getAuthorContext().getAll();
+        List<Attribute> authorCollection = node.getModel().getAuthorContext().getAll();
         Arrays.stream(authors).forEach(a -> {
             Boolean result = authorCollection.stream().anyMatch(x -> x.getName() == a); 
             Assert.assertTrue(result);

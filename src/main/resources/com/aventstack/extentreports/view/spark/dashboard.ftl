@@ -1,13 +1,5 @@
 <#include "../commons/commons-variables.ftl">
 
-<#assign systemAttributeContext=report.getSystemAttributeContext().getSystemAttributeList()>
-<#assign authorContext=report.getAuthorContextInfo().getTestAttributeTestContextList()>
-<#assign categoryContext=report.getCategoryContextInfo().getTestAttributeTestContextList()>
-<#assign deviceContext=report.getDeviceContextInfo().getTestAttributeTestContextList()>
-<#assign exceptionContext=report.getExceptionContextInfo().getExceptionTestContextList()>
-<#assign config=report.getConfigContext()>
-<#assign timeStampFormat = config.getValue('timeStampFormat')>
-
 <#assign boxsize='col-md-12'>
 <#if report.reportStatusStats.childCount!=0>
     <#assign boxsize='col-sm-12 col-md-6'>
@@ -185,7 +177,7 @@
 									</div>
 								</div>
 							</div>
-							<#if config.getValue("enableTimeline")=='true'>
+							<#if config.getConfig("enableTimeline")=='true'>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="card">
@@ -259,7 +251,7 @@
 													</tr>
 												</thead>
 												<tbody>
-													<#list report.categoryContextInfo.testAttributeTestContextList as category>
+													<#list categoryContext as category>
 													<tr>
 														<td>${category.name}</td>
 														<td>${category.passed}</td>
@@ -386,11 +378,11 @@
 				exceptionsGrandChild: ${ report.reportStatusStats.grandChildCountExceptions?c },
 			};
 		</script>
-		<#if config.getValue("enableTimeline")=='true'>
+		<#if config.getConfig("enableTimeline")=='true'>
 		<script>
 			<#macro listTestNameDuration testList>
 			   <#if report.testList??>
-			        <#list report.testList as t>"${t.name}":${(t.runDurationMillis/1000)?c?replace(",","")}<#if t_has_next>,</#if></#list>
+			        <#list report.testList as t>"${t.name}":${(TestService.getRunDurationMillis(t)/1000)?c?replace(",","")}<#if t_has_next>,</#if></#list>
 			   </#if>
 			</#macro>
 			var timeline = {

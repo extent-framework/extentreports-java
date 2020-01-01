@@ -59,7 +59,7 @@
 										        </tr>
 										      </thead>
 										      <tbody>
-										        <#list context.testList as test>
+										        <#list context.tests as test>
 										        <tr class="tag-test-status" status="${test.status}">
 										          <td>
 										            <div class='status-avatar ${test.status}-bg'>
@@ -67,7 +67,7 @@
 										            </div>
 										          </td>
 										          <td>${test.startTime?string[("HH:mm:ss a")]}</td>
-										          <td class='linked' test-id='${test.getID()}'>
+										          <td class='linked' test-id='${test.getId()}'>
 										            ${test.name}
 										            <#if test.parent??>
 										            <div class="">

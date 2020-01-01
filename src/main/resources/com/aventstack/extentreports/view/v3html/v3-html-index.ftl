@@ -1,23 +1,19 @@
-<#assign config=report.getConfigContext()>
+<#include "../commons/commons-variables.ftl">
+
 <#assign parentCount=report.reportStatusStats.parentCount>
 <#assign childCount=report.reportStatusStats.childCount>
 <#assign grandChildCount=report.reportStatusStats.grandChildCount>
-<#assign theme=config.containsKey('theme')?then(config.getValue('theme')?lower_case, 'standard')>
-<#assign testViewChartLocation=config.containsKey('chartLocation')?then(config.getValue('chartLocation')?lower_case, 'top')>
-<#assign chartVisibleOnOpen=config.containsKey('chartVisibilityOnOpen')?then(config.getValue('chartVisibilityOnOpen'), 'false')>
-<#assign extentxUrl=config.containsKey('extentx-url')?then(config.getValue('extentx-url'), '')>
-<#assign klovUrl=config.containsKey('klov-url')?then(config.getValue('klov-url'), '')>
-<#assign disableToggleActionForPassedNode=config.containsKey('disableToggleActionForPassedNode')?then(config.getValue('disableToggleActionForPassedNode'), '')>
-<#assign enableTimeline=config.containsKey('enableTimeline')?then(config.getValue('enableTimeline'), 'true')>
-<#assign systemAttributeContext=report.getSystemAttributeContext().getSystemAttributeList()>
-<#assign categoryContext=report.getCategoryContextInfo().getTestAttributeTestContextList()>
-<#assign authorContext=report.getAuthorContextInfo().getTestAttributeTestContextList()>
-<#assign exceptionContext=report.getExceptionContextInfo().getExceptionTestContextList()>
+<#assign theme=config.containsConfig('theme')?then(config.getConfig('theme')?lower_case, 'standard')>
+<#assign testViewChartLocation=config.containsConfig('chartLocation')?then(config.getConfig('chartLocation')?lower_case, 'top')>
+<#assign chartVisibleOnOpen=config.containsConfig('chartVisibilityOnOpen')?then(config.getConfig('chartVisibilityOnOpen'), 'false')>
+<#assign klovUrl=config.containsConfig('klov-url')?then(config.getConfig('klov-url'), '')>
+<#assign disableToggleActionForPassedNode=config.containsConfig('disableToggleActionForPassedNode')?then(config.getConfig('disableToggleActionForPassedNode'), '')>
+<#assign enableTimeline=config.containsConfig('enableTimeline')?then(config.getConfig('enableTimeline'), 'true')>
 <#assign bddReport=false>
 <#assign bddClass=''>
 <#if report.testList?? && report.testList?size != 0>
 <#assign firstTest=report.testList[0]>
-<#assign bddReport = (firstTest.hasChildren() && firstTest.nodeContext.get(0).isBehaviorDrivenType())?then(true, false)>
+<#assign bddReport = (TestService.testHasChildren(firstTest) && firstTest.nodeContext.get(0).isBehaviorDrivenType())?then(true, false)>
 </#if>
 <#assign parentViewChartsHeading='Classes' childViewChartsHeading='Tests' grandChildViewChartsHeading='Steps'>
 <#assign parentLabel='class(es)' childLabel='test(s)' grandChildLabel='log(s)'>
@@ -36,8 +32,8 @@
 </#if>
 </#if>
 
-<#assign timeStampFormat = config.getValue('timeStampFormat')>
-<#assign resourceCDN=config.getValue('resourceCDN') cdnURI="cdn.rawgit.com/extent-framework/extent-github-cdn/" csscommit="b65cd69" jscommit="b65cd69">
+<#assign timeStampFormat = config.getConfig('timeStampFormat')>
+<#assign resourceCDN=config.getConfig('resourceCDN') cdnURI="cdn.rawgit.com/extent-framework/extent-github-cdn/" csscommit="b65cd69" jscommit="b65cd69">
 <#if resourceCDN=="extentreports">
     <#assign cdnURI="extentreports.com/resx" csscommit="" jscommit="">
 </#if>
@@ -55,17 +51,17 @@
 		<!-- container -->
 		<div class='container'>
 			<#include 'test-view/v3-html-test-view.ftl'>
-			<#if config.getValue('enableCategoryView')?? && config.getValue('enableCategoryView') == 'true'>
+			<#if config.getConfig('enableCategoryView')?? && config.getConfig('enableCategoryView') == 'true'>
 			<#include 'category-view/v3-html-category-view.ftl'>
 			</#if>
-			<#if config.getValue('enableExceptionView')?? && config.getValue('enableExceptionView') == 'true'>
+			<#if config.getConfig('enableExceptionView')?? && config.getConfig('enableExceptionView') == 'true'>
 			<#include 'exception-view/v3-html-exception-view.ftl'>
 			</#if>
-			<#if config.getValue('enableAuthorView')?? && config.getValue('enableAuthorView') == 'true'>
+			<#if config.getConfig('enableAuthorView')?? && config.getConfig('enableAuthorView') == 'true'>
 			<#include 'author-view/v3-html-author-view.ftl'>			
 			</#if>
 			<#include 'dashboard-view/v3-html-dashboard-view.ftl'>
-			<#if config.getValue('enableTestRunnerLogsView')?? && config.getValue('enableTestRunnerLogsView') == 'true'>
+			<#if config.getConfig('enableTestRunnerLogsView')?? && config.getConfig('enableTestRunnerLogsView') == 'true'>
 			<#include 'logs-view/v3-html-testrunner-logs-view.ftl'>
 			</#if>
 		</div>
@@ -106,7 +102,7 @@
 		<script>
 			<#macro listTestNameDuration testList>
 			   <#if report.testList??>
-			        <#list report.testList as t>"${t.name}":${(t.runDurationMillis/1000)?c?replace(",","")}<#if t_has_next>,</#if></#list>
+			        <#list report.testList as t>"${t.name}":${(TestService.getRunDurationMillis(t)/1000)?c?replace(",","")}<#if t_has_next>,</#if></#list>
 			   </#if>
 			</#macro>
 			var timeline = {
@@ -116,9 +112,9 @@
 		</#if>
 	
 		<#if offline=="true">
-		  <script src='${config.getValue("offlineDirectory")}v3html-script.js' type='text/javascript'></script>
+		  <script src='${config.getConfig("offlineDirectory")}v3html-script.js' type='text/javascript'></script>
 		<#else>
-		  <script src='${ config.getValue('protocol') }://${cdnURI}${jscommit}/v3html/js/extent.js' type='text/javascript'></script>
+		  <script src='${ config.getConfig('protocol') }://${cdnURI}${jscommit}/v3html/js/extent.js' type='text/javascript'></script>
 		</#if>
 		<#assign hide=(chartVisibleOnOpen=='true')?then(false, true)>
 		<#if hide>
@@ -129,11 +125,11 @@
 		</script>
 		</#if>
 		<script type='text/javascript'>
-			<#if config.containsKey('js')>
-				${ config.getValue('js') }
+			<#if config.containsConfig('js')>
+				${ config.getConfig('js') }
 			</#if>
-			<#if config.containsKey('scripts')>
-			${ config.getValue('scripts') }
+			<#if config.containsConfig('scripts')>
+			${ config.getConfig('scripts') }
 			</#if>
 		</script>
 	</body>

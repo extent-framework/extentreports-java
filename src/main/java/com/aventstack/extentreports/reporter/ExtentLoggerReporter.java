@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.aventstack.extentreports.ReportAggregates;
-import com.aventstack.extentreports.reporter.configuration.ExtentLoggerFormatterConfiguration;
+import com.aventstack.extentreports.reporter.configuration.ExtentLoggerReporterConfiguration;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -26,7 +26,7 @@ public class ExtentLoggerReporter extends BasicFileReporter {
     private static final String[] DEFAULT_CONFIG_FILE_PATH = new String[] { "logger.properties",
             "src/main/resources/logger.properties" };
 
-    private ExtentLoggerFormatterConfiguration userConfig = new ExtentLoggerFormatterConfiguration(this);
+    private ExtentLoggerReporterConfiguration userConfig = new ExtentLoggerReporterConfiguration(this);
 
     public ExtentLoggerReporter(String path) {
         super(path);
@@ -38,7 +38,7 @@ public class ExtentLoggerReporter extends BasicFileReporter {
         init(DEFAULT_CONFIG_FILE_PATH, config());
     }
 
-    public ExtentLoggerFormatterConfiguration config() {
+    public ExtentLoggerReporterConfiguration config() {
         return userConfig;
     }
 
@@ -56,18 +56,18 @@ public class ExtentLoggerReporter extends BasicFileReporter {
 
         try {
             Template template = getFreemarkerConfig().getTemplate(TEMPLATE_NAME);
-            processTemplate(template, new File(destination + "index.html"));
-            if (String.valueOf(configContext.getValue("enableDashboard")).equalsIgnoreCase("true")) {
+            processTemplate(template, new File(getDestinationPath() + "index.html"));
+            if (String.valueOf(getConfigurationStore().getConfig("enableDashboard")).equalsIgnoreCase("true")) {
                 template = getFreemarkerConfig().getTemplate(DASHBOARD_TEMPLATE_NAME);
-                processTemplate(template, new File(destination + "dashboard.html"));
+                processTemplate(template, new File(getDestinationPath() + "dashboard.html"));
             }
-            if (!getCategoryContextInfo().getTestAttributeTestContextList().isEmpty()) {
+            if (!getCategoryContextInfo().getTestAttributeTestContext().isEmpty()) {
                 template = getFreemarkerConfig().getTemplate(CATEGORY_TEMPLATE_NAME);
-                processTemplate(template, new File(destination + "tag.html"));
+                processTemplate(template, new File(getDestinationPath() + "tag.html"));
             }
-            if (!getExceptionContextInfo().getExceptionTestContextList().isEmpty()) {
+            if (!getExceptionContextInfo().getExceptionTestContext().isEmpty()) {
                 template = getFreemarkerConfig().getTemplate(EXCEPTION_TEMPLATE_NAME);
-                processTemplate(template, new File(destination + "exception.html"));
+                processTemplate(template, new File(getDestinationPath() + "exception.html"));
             }
         } catch (IOException | TemplateException e) {
             logger.log(Level.SEVERE, "An exception occurred", e);

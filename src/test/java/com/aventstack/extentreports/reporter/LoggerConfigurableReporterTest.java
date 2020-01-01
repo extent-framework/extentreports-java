@@ -29,37 +29,37 @@ public class LoggerConfigurableReporterTest extends Base {
     
     @Test
     public void testTheme(Method method) {
-        Assert.assertEquals(logger.getConfigContext().getValue("theme"), THEME);
+        Assert.assertEquals(logger.getConfigurationStore().getConfig("theme"), THEME);
     }
     
     @Test
     public void testEncoding(Method method) {
-        Assert.assertTrue(String.valueOf(logger.getConfigContext().getValue("encoding")).equalsIgnoreCase(ENCODING));
+        Assert.assertTrue(String.valueOf(logger.getConfigurationStore().getConfig("encoding")).equalsIgnoreCase(ENCODING));
     }
     
     @Test
     public void testDocumentTitle(Method method) {
-        Assert.assertEquals(logger.getConfigContext().getValue("documentTitle"), DOCUMENT_TITLE);
+        Assert.assertEquals(logger.getConfigurationStore().getConfig("documentTitle"), DOCUMENT_TITLE);
     }
     
     @Test
     public void testReportName(Method method) {
-        Assert.assertEquals(logger.getConfigContext().getValue("reportName"), REPORT_NAME);
+        Assert.assertEquals(logger.getConfigurationStore().getConfig("reportName"), REPORT_NAME);
     }
     
     @Test
     public void testTimestampFormat(Method method) {
-        Assert.assertEquals(logger.getConfigContext().getValue("timeStampFormat"), TIMESTAMP_FORMAT);
+        Assert.assertEquals(logger.getConfigurationStore().getConfig("timeStampFormat"), TIMESTAMP_FORMAT);
     }
     
     @Test
     public void testCSS(Method method) {
-        Assert.assertTrue(logger.getConfigContext().getValue("styles").toString().contains(CSS));
+        Assert.assertTrue(logger.getConfigurationStore().getConfig("styles").toString().contains(CSS));
     }
     
     @Test
     public void testJS(Method method) {
-        Assert.assertTrue(logger.getConfigContext().getValue("scripts").toString().contains(JS));
+        Assert.assertTrue(logger.getConfigurationStore().getConfig("scripts").toString().contains(JS));
     }
     
 }

@@ -16,7 +16,7 @@
 					<#else>
 						${log.details}
 					</#if>
-					<#if log.hasScreenCapture()>
+					<#if LogService.logHasScreenCapture(log)>
 						${log.screenCaptureContext.last.source}
 					</#if>
 				</td>

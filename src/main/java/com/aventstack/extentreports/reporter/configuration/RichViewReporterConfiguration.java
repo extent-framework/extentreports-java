@@ -6,91 +6,56 @@ import com.aventstack.extentreports.reporter.AbstractReporter;
  * Contains configuration for rich reporters such as Avent, Tabular, Cards etc.
  *
  */
-public abstract class RichViewReporterConfiguration
-	extends BasicFileConfiguration 
-	implements IReporterConfiguration {
-	
-	private Protocol protocol;
-	private Theme theme;
-	
+public abstract class RichViewReporterConfiguration extends BasicFileConfiguration implements IReporterConfiguration {
+
 	protected RichViewReporterConfiguration(AbstractReporter reporter) {
 		super(reporter);
 	}
-	
+
 	/**
-     * Sets the protocol of accessing CSS/JS resources from CDN
-     * 
-     * <p>
-     * Default protocol value: HTTPS
-     * </p>
-     * 
-     * @param protocol Protocol, HTTPS or HTTP
-     */
-    public void setProtocol(Protocol protocol) {
-        usedConfigs.put("protocol", String.valueOf(protocol).toLowerCase());
-        this.protocol = protocol; 
-    }
-    
-    public Protocol getProtocol() {
-    	return protocol; 
+	 * Sets the protocol of accessing CSS/JS resources from CDN
+	 * 
+	 * <p>
+	 * Default protocol value: HTTPS
+	 * </p>
+	 * 
+	 * @param protocol Protocol, HTTPS or HTTP
+	 */
+	public void setProtocol(Protocol protocol) {
+		getConfigurationStore().storeConfig("protocol", String.valueOf(protocol).toLowerCase());
 	}
-    
-    /**
-     * Sets the {@link Theme} of the report
-     * 
-     * @param theme {@link Theme}
-     */
-    public void setTheme(Theme theme) {
-        usedConfigs.put("theme", String.valueOf(theme).toLowerCase());
-        this.theme = theme; 
-    }
-    
-    public Theme getTheme() { 
-    	return theme; 
+
+	public Protocol getProtocol() {
+		if (getConfigurationStore().containsConfig("protocol")) {
+			return (Protocol) getConfigurationStore().getConfig("protocol");
+		}
+		return null;
 	}
-    
-    /**
+
+	/**
+	 * Sets the {@link Theme} of the report
+	 * 
+	 * @param theme {@link Theme}
+	 */
+	public void setTheme(Theme theme) {
+		getConfigurationStore().storeConfig("theme", String.valueOf(theme).toLowerCase());
+	}
+
+	public Theme getTheme() {
+		if (getConfigurationStore().containsConfig("theme")) {
+			return Theme.valueOf(getConfigurationStore().getConfig("theme").toString());
+		}
+		return null;
+	}
+
+	/**
 	 * Enable or disable the Timeline section in the Dashboard view
 	 *
 	 * @param v Setting to enable or disable the Timeline section in the Dashboard
 	 *          view
 	 */
 	public void enableTimeline(boolean v) {
-		usedConfigs.put("enableTimeline", String.valueOf(v));
+		getConfigurationStore().storeConfig("enableTimeline", String.valueOf(v).toLowerCase());
 	}
-	
-	/**
-	 * Setting to automatically store screen shots relative to the path. This method
-	 * also sets the new relative path as a link from the report. Example:
-	 * 
-	 * <pre>
-	 * /
-	 *   Report.html
-	 *   Report.0
-	 *     - 1.png
-	 *     - 2.png
-	 *   Report.1
-	 *     - 1.png
-	 *     - 2.png
-	 * </pre>
-	 * 
-	 * <p>
-	 * Report.0 directory will contain media from the 1st run. Report.1 directory
-	 * will contain media from the 2nd run.
-	 * </p>
-	 * 
-	 * @param v Setting to enable this feature
-	 */
-	public void setAutoCreateRelativePathMedia(boolean v) {
-		usedConfigs.put("autoCreateRelativePathMedia", String.valueOf(v));
-	}
-	
-	/**
-	 * Allows selecting a CDN/resource loader for your FileReporter
-	 * 
-	 * @param resourceCDN the {@link ResourceCDN}
-	 */
-	public void setResourceCDN(ResourceCDN resourceCDN) {
-        usedConfigs.put("resourceCDN", String.valueOf(resourceCDN).toLowerCase());
-    }
+
 }

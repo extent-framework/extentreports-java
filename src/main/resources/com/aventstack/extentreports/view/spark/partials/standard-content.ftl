@@ -1,12 +1,12 @@
-<#if test.hasLog()>
+<#if TestService.testHasLog(test)>
 <div class="detail-body mt-4">                                              
 	<@log test=test />
 </div>
 </#if>
-<#if test.hasScreenCapture()>
+<#if TestService.testHasScreenCapture(test)>
 <div class="detail-foot">
 	<ul class="attachments">
-		<#list test.screenCaptureList as sc>
+		<#list test.screenCaptureContext.all as sc>
 		<li>
 			<a href="${sc.screenCapturePath}" data-featherlight="image">
 				<div class="file-icon">
@@ -27,7 +27,7 @@
 	</ul>
 </div>
 </#if>
-<#if test.hasChildren()>
+<#if TestService.testHasChildren(test)>
 <div class="mt-4">
 	<@recurse_nodes test=test />
 </div>

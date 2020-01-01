@@ -13,7 +13,7 @@
 <html>
 <#include "partials/head.ftl">
 <#if offline=="true">
-    <link rel="stylesheet" href="${config.getValue("offlineDirectory")}jsontree.js">
+    <link rel="stylesheet" href="${config.getConfig("offlineDirectory")}jsontree.js">
 <#else>
     <script src="https://cdn.rawgit.com/extent-framework/extent-github-cdn/7cc78ce/spark/js/jsontree.js"></script>
 </#if>
@@ -91,7 +91,7 @@
                             <div class="test-list-wrapper scrollable">
                                 <ul class="test-list-item">
                                 	<#list report.testList as test>
-                                    <li class="test-item"  status="${test.status}" test-id="${test.getID()}"
+                                    <li class="test-item"  status="${test.status}" test-id="${test.getId()}"
                                             author="<#list test.authorContext.all as auth>${auth.name}<#if auth_has_next> </#if></#list>"
                                             tag="<#list test.categoryContext.all as tag>${tag.name}<#if tag_has_next> </#if></#list>"
                                             device="<#list test.deviceContext.all as device>${device.name}<#if device_has_next> </#if></#list>">
@@ -101,7 +101,7 @@
                                         <div class="open-test">
                                             <div class="test-detail"> 
                                                 <p class="name">${test.name}</p> 
-                                                <p class="duration text-sm">${test.runDuration}</p> 
+                                                <p class="duration text-sm">${TestService.getRunDuration(test)}</p> 
                                                 <span class="datetime">${test.startTime?string("HH:mm:ss a")}</span>
                                             </div>
                                         </div>
@@ -112,9 +112,9 @@
                                                         <h5 class="test-status text-${test.status}">${test.name}</h5>
                                                         <span class='badge badge-success'>${test.startTime?string("MM.dd.yyyy HH:mm:ss")}</span>
                                                         <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy HH:mm:ss")}</span>
-                                                        <span class='badge badge-default'>${test.runDuration}</span>
+                                                        <span class='badge badge-default'>${TestService.getRunDuration(test)}</span>
                                                     </div>
-                                                    <#if test.hasAttributes()>
+                                                    <#if TestService.testHasAttributes(test)>
                                                     <div class="m-t-15">
                                                         <@attributes test=test />
                                                     </div>

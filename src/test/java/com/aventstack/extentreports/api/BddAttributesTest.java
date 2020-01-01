@@ -17,30 +17,31 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.gherkin.model.ScenarioOutline;
 import com.aventstack.extentreports.gherkin.model.Then;
 import com.aventstack.extentreports.gherkin.model.When;
+import com.aventstack.extentreports.model.service.TestService;
 
 public class BddAttributesTest extends Base {
 
     @Test
     public void featureIsOfBddType(Method method) {
         ExtentTest feature = extent.createTest(Feature.class, method.getName());
-        Assert.assertTrue(feature.getModel().isBehaviorDrivenType());
-        Assert.assertEquals(feature.getModel().getBehaviorDrivenType(), Feature.class);
+        Assert.assertTrue(TestService.isTestBehaviorDriven(feature.getModel()));
+        Assert.assertEquals(feature.getModel().getBddType(), Feature.class);
     }
     
     @Test
     public void scenarioIsOfBddTypeWithBddChild(Method method) {
         ExtentTest feature = extent.createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
-        Assert.assertTrue(scenario.getModel().isBehaviorDrivenType());
-        Assert.assertEquals(scenario.getModel().getBehaviorDrivenType(), Scenario.class);
+        Assert.assertTrue(TestService.isTestBehaviorDriven(scenario.getModel()));
+        Assert.assertEquals(scenario.getModel().getBddType(), Scenario.class);
     }
     
     @Test
     public void scenarioOutlineIsOfBddTypeWithBddChild(Method method) {
         ExtentTest feature = extent.createTest(Feature.class, method.getName());
         ExtentTest scenarioOutline = feature.createNode(ScenarioOutline.class, "ScenarioOutline");
-        Assert.assertTrue(scenarioOutline.getModel().isBehaviorDrivenType());
-        Assert.assertEquals(scenarioOutline.getModel().getBehaviorDrivenType(), ScenarioOutline.class);
+        Assert.assertTrue(TestService.isTestBehaviorDriven(scenarioOutline.getModel()));
+        Assert.assertEquals(scenarioOutline.getModel().getBddType(), ScenarioOutline.class);
     }
     
     @Test
@@ -48,8 +49,8 @@ public class BddAttributesTest extends Base {
         ExtentTest feature = extent.createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest and = scenario.createNode(And.class, "And");
-        Assert.assertTrue(and.getModel().isBehaviorDrivenType());
-        Assert.assertEquals(and.getModel().getBehaviorDrivenType(), And.class);
+        Assert.assertTrue(TestService.isTestBehaviorDriven(and.getModel()));
+        Assert.assertEquals(and.getModel().getBddType(), And.class);
     }
     
     @Test
@@ -57,8 +58,8 @@ public class BddAttributesTest extends Base {
         ExtentTest feature = extent.createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest asterisk = scenario.createNode(Asterisk.class, "Asterisk");
-        Assert.assertTrue(asterisk.getModel().isBehaviorDrivenType());
-        Assert.assertEquals(asterisk.getModel().getBehaviorDrivenType(), Asterisk.class);
+        Assert.assertTrue(TestService.isTestBehaviorDriven(asterisk.getModel()));
+        Assert.assertEquals(asterisk.getModel().getBddType(), Asterisk.class);
     }
     
     @Test
@@ -66,8 +67,8 @@ public class BddAttributesTest extends Base {
         ExtentTest feature = extent.createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest background = scenario.createNode(Background.class, "Background");
-        Assert.assertTrue(background.getModel().isBehaviorDrivenType());
-        Assert.assertEquals(background.getModel().getBehaviorDrivenType(), Background.class);
+        Assert.assertTrue(TestService.isTestBehaviorDriven(background.getModel()));
+        Assert.assertEquals(background.getModel().getBddType(), Background.class);
     }
     
     @Test
@@ -75,8 +76,8 @@ public class BddAttributesTest extends Base {
         ExtentTest feature = extent.createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest but = scenario.createNode(But.class, "But");
-        Assert.assertTrue(but.getModel().isBehaviorDrivenType());
-        Assert.assertEquals(but.getModel().getBehaviorDrivenType(), But.class);
+        Assert.assertTrue(TestService.isTestBehaviorDriven(but.getModel()));
+        Assert.assertEquals(but.getModel().getBddType(), But.class);
     }
     
     @Test
@@ -84,8 +85,8 @@ public class BddAttributesTest extends Base {
         ExtentTest feature = extent.createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest given = scenario.createNode(Given.class, "Given");
-        Assert.assertTrue(given.getModel().isBehaviorDrivenType());
-        Assert.assertEquals(given.getModel().getBehaviorDrivenType(), Given.class);
+        Assert.assertTrue(TestService.isTestBehaviorDriven(given.getModel()));
+        Assert.assertEquals(given.getModel().getBddType(), Given.class);
     }
     
     @Test
@@ -93,8 +94,8 @@ public class BddAttributesTest extends Base {
         ExtentTest feature = extent.createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest then = scenario.createNode(Then.class, "Then");
-        Assert.assertTrue(then.getModel().isBehaviorDrivenType());
-        Assert.assertEquals(then.getModel().getBehaviorDrivenType(), Then.class);
+        Assert.assertTrue(TestService.isTestBehaviorDriven(then.getModel()));
+        Assert.assertEquals(then.getModel().getBddType(), Then.class);
     }
     
     @Test
@@ -102,8 +103,8 @@ public class BddAttributesTest extends Base {
         ExtentTest feature = extent.createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest when = scenario.createNode(When.class, "When");
-        Assert.assertTrue(when.getModel().isBehaviorDrivenType());
-        Assert.assertEquals(when.getModel().getBehaviorDrivenType(), When.class);
+        Assert.assertTrue(TestService.isTestBehaviorDriven(when.getModel()));
+        Assert.assertEquals(when.getModel().getBddType(), When.class);
     }
     
 }

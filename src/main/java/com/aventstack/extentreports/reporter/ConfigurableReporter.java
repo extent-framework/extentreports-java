@@ -5,29 +5,22 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.aventstack.extentreports.ExtentReporter;
-import com.aventstack.extentreports.externalconfig.ConfigLoader;
-import com.aventstack.extentreports.externalconfig.model.ConfigMap;
+import com.aventstack.extentreports.configuration.ConfigurationBuilder;
+import com.aventstack.extentreports.configuration.ConfigurationStore;
+import com.aventstack.extentreports.reporter.configuration.BasicConfiguration;
 
-/**
- * A base class to provide bootstrapping for loading custom configuration for
- * the Reporter using XML or Properties file
- * 
- */
-public abstract class ConfigurableReporter implements ExtentReporter {
+public abstract class ConfigurableReporter extends AbstractReporter {
 
 	private static final Logger logger = Logger.getLogger(ConfigurableReporter.class.getName());
-
-	/**
-	 * A key-value pair holding information from default and the user-provided
-	 * configuration
-	 */
-	protected ConfigMap configContext = new ConfigMap();
-
+	
+	private BasicConfiguration basicConfiguration;
+	
 	/**
 	 * Loads configuration from an XML file
 	 * 
@@ -55,9 +48,9 @@ public abstract class ConfigurableReporter implements ExtentReporter {
 	 * @param silent If silent, no errors will be thrown
 	 */
 	public void loadXMLConfig(File file, Boolean silent) {
-		ConfigLoader configLoader = new ConfigLoader(file, silent);
-		ConfigMap config = configLoader.getConfigurationHash();
-		configContext.appendConfig(config);
+		ConfigurationBuilder builder = new ConfigurationBuilder(file, silent);
+		ConfigurationStore store = builder.getConfigurationStore();
+		basicConfiguration.getConfigurationStore().extendConfig(store);
 	}
 
 	/**
@@ -68,7 +61,7 @@ public abstract class ConfigurableReporter implements ExtentReporter {
 	public void loadConfig(Properties properties) {
 		properties.entrySet().forEach(o -> {
 			if (o.getKey() != null) {
-				configContext.setConfig(o.getKey().toString(), o.getValue());
+				basicConfiguration.getConfigurationStore().storeConfig(o.getKey().toString(), o.getValue());
 			}
 		});
 	}
@@ -105,14 +98,32 @@ public abstract class ConfigurableReporter implements ExtentReporter {
 			logger.log(Level.SEVERE, "Default Properties file not found", e);
 		}
 	}
+	
+	protected void loadUserConfig() {
+		for (Map.Entry<String, Object> entry : getConfigurationStore().getStore().entrySet()) {
+			getConfigurationStore().storeConfig(entry.getKey(), entry.getValue());
+		}
+	}
+	
+	protected void init(String[] configFilePath, BasicConfiguration userConfig) {
+		basicConfiguration = userConfig;
+		loadInternalReporterConfiguration(configFilePath);
+	}
+
+	protected void loadInternalReporterConfiguration(String[] configFilePath) {
+		ClassLoader loader = getClass().getClassLoader();
+		Arrays.stream(configFilePath).map(x -> loader.getResourceAsStream(x)).filter(x -> x != null).findFirst()
+				.ifPresent(x -> loadConfig(x));
+	}
 
 	/**
 	 * Returns the current configuration (default and user-defined)
 	 * 
-	 * @return a {@link ConfigMap} containing key-value pairs of config entries
+	 * @return a {@link ConfigurationStore} containing key-value pairs of config
+	 *         entries
 	 */
-	public ConfigMap getConfigContext() {
-		return configContext;
+	public ConfigurationStore getConfigurationStore() {
+		return basicConfiguration.getConfigurationStore();
 	}
 
 }

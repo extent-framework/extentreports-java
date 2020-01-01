@@ -74,7 +74,7 @@
 						        </li>
 						        </#if>
 						        <li class="nav-item lightsout"><a class="nav-link b-l" href="#"><span><i class="fa fa-desktop"></i></span></a></li>
-								<li><a href="#" class="b-l"><span class="badge badge-pull">${config.getValue("reportName")}</span></a></li>
+								<li><a href="#" class="b-l"><span class="badge badge-pull">${config.getConfig("reportName")}</span></a></li>
 								<li><a href="#" class="b-l"><span class="badge badge-pull">4.0</span></a></li>
 							</ul>
 						</div>
@@ -160,9 +160,9 @@
 			</div>
 		</div>
 		<#assign p="https://cdn.rawgit.com/extent-framework/extent-github-cdn/d74480e/logger/js/">
-		<#if offline=="true"><#assign p=config.getValue("offlineDirectory")></#if>
+		<#if offline=="true"><#assign p=config.getConfig("offlineDirectory")></#if>
 		<script src="${p}logger-scripts.js"></script>
-		<#if config.containsKey("scripts") && config.getValue("scripts")?has_content>
+		<#if config.containsKey("scripts") && config.getConfig("scripts")?has_content>
 		<#include "../commons/commons-inject-js.ftl">
 		</#if>
 	</body>
