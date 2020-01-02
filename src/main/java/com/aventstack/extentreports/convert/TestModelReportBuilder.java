@@ -17,7 +17,7 @@ public class TestModelReportBuilder {
 		extent.setReportUsesManualConfiguration(true);
 		List<Test> tests = JsonDeserializer.deserialize(jsonFile);
 		for (Test test : tests) {
-			recreateTest(test, extent.createTest(test.getName() + "json", test.getDescription()));
+			recreateTest(test, extent.createTest(test.getName(), test.getDescription()));
 		}
 		extent.setReportUsesManualConfiguration(false);
 	}
