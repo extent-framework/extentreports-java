@@ -89,7 +89,7 @@ $(document).ready(function() {
 	}
 	
 	// SPA only: hide all views except test on document load
-	$(".dashboard-view,.tag-view,.exception-view").addClass("d-none");
+	$(".spa .dashboard-view,.spa .tag-view,.spa .exception-view").addClass("d-none");
 	
 	// remove links for spa page
 	// this prevents invalid navigation to external html files

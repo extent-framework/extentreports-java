@@ -1,4 +1,4 @@
-<#assign resourceCDN=config.getConfig('resourceCDN') cdnURI="cdn.rawgit.com/extent-framework/extent-github-cdn/" csscommit="4dd3b1c" jscommit="24cb10e" iconcommit="d74480e">
+<#assign resourceCDN=config.getConfig('resourceCDN') cdnURI="cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@" csscommit="ff53917fbbdb5ef820abbbe4d199a6942dc771ff" jscommit="832f979664f9d68bf618db3ac87498ac6c1a6390" iconcommit="ff53917fbbdb5ef820abbbe4d199a6942dc771ff">
 <#if resourceCDN=="extentreports">
     <#assign cdnURI="extentreports.com/resx" csscommit="" jscommit="" iconcommit="">
 </#if>
@@ -15,7 +15,7 @@
 	<#else>
         <link rel="apple-touch-icon" href="https://${cdnURI}${iconcommit}/commons/img/logo.png">
         <link rel="shortcut icon" href="https://${cdnURI}${iconcommit}/commons/img/logo.png">
-	    <link href="https://${cdnURI}${csscommit}/spark/css/style.css" rel="stylesheet" />
+	    <link href="https://${cdnURI}${csscommit}/spark/css/spark-style.css" rel="stylesheet" />
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	</#if>
     <#include "../../commons/commons-inject-css.ftl">
