@@ -11,6 +11,9 @@ import com.aventstack.extentreports.model.Test;
 public class TestModelReportBuilder {
 
 	public void recreateModelFromJson(ExtentReports extent, File jsonFile) throws IOException {
+		if (!jsonFile.exists()) {
+			return;
+		}
 		extent.setReportUsesManualConfiguration(true);
 		List<Test> tests = JsonDeserializer.deserialize(jsonFile);
 		for (Test test : tests) {
