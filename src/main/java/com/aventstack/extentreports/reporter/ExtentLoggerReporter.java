@@ -15,6 +15,7 @@ import freemarker.template.TemplateException;
  * The ExtentHtmlReporter creates a rich standalone HTML file. It allows several
  * configuration options via the <code>config()</code> method.
  */
+@Deprecated
 public class ExtentLoggerReporter extends BasicFileReporter {
 
     private static final Logger logger = Logger.getLogger(ExtentLoggerReporter.class.getName());
