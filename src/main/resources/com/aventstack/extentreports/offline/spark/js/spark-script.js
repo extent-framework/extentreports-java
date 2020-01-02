@@ -88,6 +88,9 @@ $(document).ready(function() {
 		$(".test-item").get(0).click();
 	}
 	
+	// SPA only: hide all views except test on document load
+	$(".dashboard-view,.tag-view,.exception-view").addClass("d-none");
+	
 	// remove links for spa page
 	// this prevents invalid navigation to external html files
 	$(".spa .side-nav .nav-item>a").attr("href", "#");
@@ -321,6 +324,32 @@ function drawChart(ctx, config) {
         drawChart(ctx, config);
     }
 })();
+
+/* -- [ events chart ] -- */
+(function drawEventsChart() {
+    if ($('#events-analysis').length > 0 && typeof statusGroup !== "undefined" && statusGroup.eventsCount > 0) {
+        var config = {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    borderColor: 'transparent',
+                    data: [
+                        statusGroup.passEvents, statusGroup.failEvents, statusGroup.fatalEvents, statusGroup.errorEvents, statusGroup.warningEvents, statusGroup.skipEvents, statusGroup.infoEvents
+                    ],
+                    backgroundColor: [
+                        "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#1e90ff", "#46BFBD"
+                    ]
+                }],
+                labels: [ "Pass", "Fail", "Fatal", "Error", "Warning", "Skip", "Info" ]
+            },
+            options: options
+        };
+
+        var ctx = document.getElementById("events-analysis").getContext('2d');
+        drawChart(ctx, config);
+    }
+})();
+
 
 /* -- [ timeline ] -- */
 function getRandomColor() {

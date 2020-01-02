@@ -9,16 +9,6 @@
     <#assign pageClass="bdd-report" isbdd=true>
 </#if>
 
-<#assign boxsize='col-md-12'>
-<#if report.reportStatusStats.childCount!=0>
-    <#assign boxsize='col-sm-12 col-md-6'>
-</#if>
-<#if (report.analysisStrategy=="BDD") || (report.reportStatusStats.childCount != 0 && report.reportStatusStats.grandChildCount != 0)>
-    <#assign boxsize='col-sm-12 col-md-4'>
-</#if>
-
-<#assign chartWidth="115" chartHeight="90" chartBoxHeight="94">
-
 <!DOCTYPE html>
 <html>
 <#include "partials/head.ftl">

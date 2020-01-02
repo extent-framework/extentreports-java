@@ -3,6 +3,7 @@ package com.aventstack.extentreports;
 import java.util.List;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
+import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Test;
 
 /**
@@ -43,6 +44,16 @@ public class ReportStatusStats {
 	private int grandChildDebug = 0;
 	private int grandChildExceptions = 0;
 
+	private int eventsPass = 0;
+	private int eventsFail = 0;
+	private int eventsFatal = 0;
+	private int eventsError = 0;
+	private int eventsWarning = 0;
+	private int eventsSkip = 0;
+	private int eventsInfo = 0;
+	private int eventsDebug = 0;
+	private int eventsExceptions = 0;
+
 	public ReportStatusStats(AnalysisStrategy strategy) {
 		this.strategy = strategy;
 	}
@@ -79,6 +90,16 @@ public class ReportStatusStats {
 		grandChildSkip = 0;
 		grandChildInfo = 0;
 		grandChildExceptions = 0;
+
+		eventsPass = 0;
+		eventsFail = 0;
+		eventsFatal = 0;
+		eventsError = 0;
+		eventsWarning = 0;
+		eventsSkip = 0;
+		eventsInfo = 0;
+		eventsDebug = 0;
+		eventsExceptions = 0;
 	}
 
 	public int getParentCount() {
@@ -271,13 +292,84 @@ public class ReportStatusStats {
 		float p = getGrandChildCount() > 0 ? (float) getGrandChildCountSkip() / (float) getGrandChildCount() : 0;
 		return p * 100;
 	}
+	
+	public int getEventsCount() {
+		return getEventsCountPass() + getEventsCountFail() + getEventsCountFatal()
+				+ getEventsCountError() + getEventsCountWarning() + getEventsCountSkip()
+				+ getEventsCountInfo();
+	}
+
+	public int getEventsCountPass() {
+		return eventsPass;
+	}
+
+	public int getEventsCountFail() {
+		return eventsFail;
+	}
+
+	public int getEventsCountFatal() {
+		return eventsFatal;
+	}
+
+	public int getEventsCountError() {
+		return eventsError;
+	}
+
+	public int getEventsCountWarning() {
+		return eventsWarning;
+	}
+
+	public int getEventsCountSkip() {
+		return eventsSkip;
+	}
+
+	public int getEventsCountInfo() {
+		return eventsInfo;
+	}
+
+	public int getEventsCountDebug() {
+		return eventsDebug;
+	}
+
+	public int getEventsCountExceptions() {
+		return eventsExceptions;
+	}
+
+	public float getEventsPercentagePass() {
+		float p = getEventsCount() > 0 ? (float) getEventsCountPass() / (float) getEventsCount() : 0;
+		return p * 100;
+	}
+
+	public float getEventsPercentageFail() {
+		float p = getEventsCount() > 0
+				? ((float) getEventsCountFail() + (float) getEventsCountFatal()) / (float) getEventsCount()
+				: 0;
+		return p * 100;
+	}
+
+	public float getEventsPercentageOthers() {
+		float p = getEventsCount() > 0
+				? (((float) getEventsCountWarning() + (float) getEventsCountError()
+						+ (float) getEventsCountSkip() + (float) getEventsCountInfo())
+						/ (float) getEventsCount())
+				: 0;
+		return p * 100;
+	}
+
+	public float getEventsPercentageSkip() {
+		float p = getEventsCount() > 0 ? (float) getEventsCountSkip() / (float) getEventsCount() : 0;
+		return p * 100;
+	}
 
 	private void refreshStats() {
 		testList.forEach(this::addTestForStatusStatsUpdate);
 	}
 
 	private void addTestForStatusStatsUpdate(Test test) {
-		if (test.getBddType() != null || (!test.getNodeContext().isEmpty() && test.getNodeContext().get(0).getBddType() != null)) {
+		updateEventsCount(test);
+
+		if (test.getBddType() != null
+				|| (!test.getNodeContext().isEmpty() && test.getNodeContext().get(0).getBddType() != null)) {
 			updateGroupCountsBDD(test);
 			return;
 		}
@@ -295,6 +387,15 @@ public class ReportStatusStats {
 		throw new InvalidAnalysisStrategyException("No such strategy found: " + strategy);
 	}
 
+	private void updateEventsCount(Test test) {
+		test.getLogContext().getAll().stream()
+			.map(Log::getStatus)
+			.forEach(this::incrementEvent);
+		for (Test node : test.getNodeContext().getAll()) {
+			updateEventsCount(node);
+		}
+	}
+
 	private void updateGroupCountsSuiteStrategy(Test test) {
 		incrementItemCountByStatus(ItemLevel.PARENT, test.getStatus());
 
@@ -302,7 +403,8 @@ public class ReportStatusStats {
 			for (Test x : test.getNodeContext().getAll()) {
 				incrementItemCountByStatus(ItemLevel.CHILD, x.getStatus());
 				if (!x.getNodeContext().isEmpty()) {
-					x.getNodeContext().getAll().forEach(n -> incrementItemCountByStatus(ItemLevel.GRANDCHILD, n.getStatus()));
+					x.getNodeContext().getAll()
+							.forEach(n -> incrementItemCountByStatus(ItemLevel.GRANDCHILD, n.getStatus()));
 				}
 			}
 		}
@@ -358,15 +460,12 @@ public class ReportStatusStats {
 		case PARENT:
 			incrementParent(status);
 			break;
-
 		case CHILD:
 			incrementChild(status);
 			break;
-
 		case GRANDCHILD:
 			incrementGrandChild(status);
 			break;
-
 		default:
 			break;
 		}
@@ -465,5 +564,36 @@ public class ReportStatusStats {
 
 		if (status != Status.PASS && status != Status.INFO)
 			grandChildExceptions++;
+	}
+
+	private void incrementEvent(Status status) {
+		switch (status) {
+		case PASS:
+			eventsPass++;
+			break;
+		case FAIL:
+			eventsFail++;
+			break;
+		case FATAL:
+			eventsFatal++;
+			break;
+		case ERROR:
+			eventsError++;
+			break;
+		case WARNING:
+			eventsWarning++;
+			break;
+		case SKIP:
+			eventsSkip++;
+			break;
+		case INFO:
+			eventsInfo++;
+			break;
+		case DEBUG:
+			eventsDebug++;
+			break;
+		default:
+			break;
+		}
 	}
 }

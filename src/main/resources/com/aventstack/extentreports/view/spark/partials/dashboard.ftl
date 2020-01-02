@@ -67,6 +67,28 @@
 			</div>
 		</div>
 		</#if>
+		<#if report.reportStatusStats.eventsCount != 0 && displayEvents>
+		<div class="${boxsize}">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Log events</h6>
+				</div>
+				<div class="card-body">
+					<div class="">
+						<canvas id='events-analysis' width='${chartWidth}' height='${chartHeight}'></canvas>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div><small data-tooltip='${report.reportStatusStats.eventsPercentagePass}%'><b>${report.reportStatusStats.eventsCountPass}</b> events passed</small></div>
+					<div>
+						<small data-tooltip='${report.reportStatusStats.eventsPercentageFail}%'><b>${report.reportStatusStats.eventsCountFail + report.reportStatusStats.eventsCountFatal}</b> events failed, 
+						<b data-tooltip='${report.reportStatusStats.eventsPercentageOthers}%'>${report.reportStatusStats.eventsCountError + report.reportStatusStats.eventsCountWarning + report.reportStatusStats.eventsCountSkip + report.reportStatusStats.eventsCountInfo}</b> others
+						</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		</#if>
 	</div>
 	<div class="row">
 		<div class="col-md-3">
@@ -337,6 +359,16 @@
 		infoGrandChild: ${ report.reportStatusStats.grandChildCountInfo?c },
 		debugGrandChild: ${ report.reportStatusStats.grandChildCountDebug?c },
 		exceptionsGrandChild: ${ report.reportStatusStats.grandChildCountExceptions?c },
+		eventsCount: ${ report.reportStatusStats.eventsCount?c },
+		passEvents: ${ report.reportStatusStats.eventsCountPass?c },
+		failEvents: ${ report.reportStatusStats.eventsCountFail?c },
+		fatalEvents: ${ report.reportStatusStats.eventsCountFatal?c },
+		errorEvents: ${ report.reportStatusStats.eventsCountError?c },
+		warningEvents: ${ report.reportStatusStats.eventsCountWarning?c },
+		skipEvents: ${ report.reportStatusStats.eventsCountSkip?c },
+		infoEvents: ${ report.reportStatusStats.eventsCountInfo?c },
+		debugEvents: ${ report.reportStatusStats.eventsCountDebug?c },
+		exceptionsEvents: ${ report.reportStatusStats.eventsCountExceptions?c }
 	};
 </script>
 <#if config.getConfig("enableTimeline")=='true'>
