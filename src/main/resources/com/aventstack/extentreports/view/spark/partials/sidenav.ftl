@@ -1,7 +1,7 @@
 <div class="side-nav side-nav-folded">
   <div class="side-nav-inner">
     <ul class="side-nav-menu scrollable">
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" onclick="toggleView('test-view')">
         <a id="nav-test" class="dropdown-toggle" href="index.html">
           <span class="icon-holder">
             <i class="fa fa-align-left"></i>
@@ -10,7 +10,7 @@
         </a>
       </li>
       <#if categoryContext?? && categoryContext?size != 0>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" onclick="toggleView('tag-view')">
         <a id="nav-tag" class="dropdown-toggle" href="tag.html">
           <span class="icon-holder">
             <i class="fa fa-tag"></i>
@@ -20,7 +20,7 @@
       </li>
       </#if>
       <#if exceptionContext?? && exceptionContext?size != 0>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" onclick="toggleView('exception-view')">
         <a id="nav-ex" class="dropdown-toggle" href="exception.html">
           <span class="icon-holder">
             <i class="fa fa-bug"></i>
@@ -29,7 +29,7 @@
         </a>
       </li>
       </#if>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
         <a id="nav-dashboard" class="dropdown-toggle" href="dashboard.html">
           <span class="icon-holder">
             <i class="fa fa-bar-chart"></i>

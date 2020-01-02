@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.aventstack.extentreports.ReportAggregates;
 import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfiguration;
+import com.aventstack.extentreports.reporter.configuration.ViewStyle;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -19,6 +20,7 @@ public class ExtentSparkReporter extends BasicFileReporter {
 
 	private static final Logger logger = Logger.getLogger(ExtentSparkReporter.class.getName());
 	private static final String REPORTER_NAME = "spark";
+	private static final String SPA_TEMPLATE_NAME = REPORTER_NAME + "/spark.spa.ftl";
 	private static final String TEST_TEMPLATE_NAME = REPORTER_NAME + "/test.ftl";
 	private static final String TAG_TEMPLATE_NAME = REPORTER_NAME + "/tag.ftl";
 	private static final String EXCEPTION_TEMPLATE_NAME = REPORTER_NAME + "/exception.ftl";
@@ -27,6 +29,7 @@ public class ExtentSparkReporter extends BasicFileReporter {
 			"src/main/resources/spark.properties" };
 
 	private ExtentSparkReporterConfiguration externalUserConfiguration = new ExtentSparkReporterConfiguration(this);
+	private ViewStyle viewStyle;
 
 	public ExtentSparkReporter(String path) {
 		super(path);
@@ -40,14 +43,20 @@ public class ExtentSparkReporter extends BasicFileReporter {
 
 	public ExtentSparkReporter(String path, ViewStyle viewStyle) {
 		this(path);
+		setViewStyle(viewStyle);
 	}
 
 	public ExtentSparkReporter(File file, ViewStyle viewStyle) {
 		this(file);
+		setViewStyle(viewStyle);
 	}
 
 	public ExtentSparkReporterConfiguration config() {
 		return externalUserConfiguration;
+	}
+
+	private void setViewStyle(ViewStyle viewStyle) {
+		this.viewStyle = viewStyle;
 	}
 
 	@Override
@@ -63,6 +72,11 @@ public class ExtentSparkReporter extends BasicFileReporter {
 		loadUserConfig();
 
 		try {
+			if (viewStyle == ViewStyle.SPA) {
+				Template template = getFreemarkerConfig().getTemplate(SPA_TEMPLATE_NAME);
+				processTemplate(template, new File(getDestinationPath() + "index.html"));
+				return;
+			}
 			Template template = getFreemarkerConfig().getTemplate(TEST_TEMPLATE_NAME);
 			processTemplate(template, new File(getDestinationPath() + "index.html"));
 			if (!getCategoryContextInfo().getTestAttributeTestContext().isEmpty()) {

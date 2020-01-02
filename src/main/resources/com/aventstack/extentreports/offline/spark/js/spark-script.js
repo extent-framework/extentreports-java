@@ -84,8 +84,13 @@ $(".test-item").click(function() {
 });
 
 $(document).ready(function() {
-	if ($(".test-item").length)
+	if ($(".test-item").length) {
 		$(".test-item").get(0).click();
+	}
+	
+	// remove links for spa page
+	// this prevents invalid navigation to external html files
+	$(".spa .side-nav .nav-item>a").attr("href", "#");
 });
 
 $(".test-content").click(function(evt) {
@@ -144,6 +149,18 @@ $("#tag-toggle>a").click(function() {
 	attrToggle("tag", $(this).text());
 });
 
+/* ------------------------------------ */
+/* SPA side-nav */
+/* ------------------------------------ */
+var currentView = 'tests-view';
+function toggleView(v) {
+	if ($(".spa").length && v !== currentView) {
+		$(".main-content>*").addClass("d-none");
+		$("."+v).removeClass("d-none");
+		$("."+v+" .test-item:not(.d-none)").first().click();
+	}
+	currentView = v;
+}
 
 /* ------------------------------------ */
 /* search */
@@ -206,3 +223,149 @@ $(window).keydown(function(e) {
 $(".lightsout").click(function() {
 	$("body").toggleClass("dark");
 });
+
+/* -- [ chart options ] -- */
+var options = {
+  responsive: true,
+  maintainAspectRatio: false,
+  legend: {
+      position: "right",
+      labels: {
+          boxWidth: 10,
+          fontSize: 11,
+          lineHeight: 1,
+          fontFamily: ["Source Sans Pro", "Segoe UI", "Arial"],
+          padding: 1
+      }
+  },
+  cutoutPercentage: 65
+};
+
+function drawChart(ctx, config) {
+    ctx.width = 100;
+    ctx.height = 80;
+    new Chart(ctx, config);
+}
+
+/* -- [ parent chart ] -- */
+(function drawParentChart() {
+    if (typeof statusGroup !== "undefined") {
+        var config = {
+            type: 'doughnut',
+                data: {
+                    datasets: [{
+                        borderColor: 'transparent',
+                        data: [
+                            statusGroup.passParent, statusGroup.failParent, statusGroup.fatalParent, statusGroup.errorParent, statusGroup.warningParent, statusGroup.skipParent
+                        ],
+                        backgroundColor: [
+                            "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#1e90ff"
+                        ]
+                    }],
+                    labels: [ "Pass", "Fail", "Fatal", "Error", "Warning", "Skip" ]
+                },
+                options: options
+            };
+
+            var ctx = document.getElementById("parent-analysis").getContext('2d');
+            drawChart(ctx, config);
+    }
+})();
+
+/* -- [ children chart ] -- */
+(function drawChildChart() {
+    if (typeof statusGroup !== "undefined" && statusGroup.childCount > 0) {
+        var config = {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    borderColor: 'transparent',
+                    data: [
+                        statusGroup.passChild, statusGroup.failChild, statusGroup.fatalChild, statusGroup.errorChild, statusGroup.warningChild, statusGroup.skipChild,statusGroup.infoChild
+                    ],
+                    backgroundColor: [
+                        "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#1e90ff", "#46BFBD"
+                    ]
+                }],
+                labels: [ "Pass", "Fail", "Fatal", "Error", "Warning", "Skip", "Info" ]
+            },
+            options: options
+        };
+
+        var ctx = document.getElementById("child-analysis").getContext('2d');
+        drawChart(ctx, config);
+    }
+})();
+
+/* -- [ grand-children chart ] -- */
+(function drawGrandChildChart() {
+    if ($('#grandchild-analysis').length > 0 && typeof statusGroup !== "undefined" && statusGroup.grandChildCount > 0) {
+        var config = {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    borderColor: 'transparent',
+                    data: [
+                        statusGroup.passGrandChild, statusGroup.failGrandChild, statusGroup.fatalGrandChild, statusGroup.errorGrandChild, statusGroup.warningGrandChild, statusGroup.skipGrandChild, statusGroup.infoGrandChild
+                    ],
+                    backgroundColor: [
+                        "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#1e90ff", "#46BFBD"
+                    ]
+                }],
+                labels: [ "Pass", "Fail", "Fatal", "Error", "Warning", "Skip", "Info" ]
+            },
+            options: options
+        };
+
+        var ctx = document.getElementById("grandchild-analysis").getContext('2d');
+        drawChart(ctx, config);
+    }
+})();
+
+/* -- [ timeline ] -- */
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+(function drawTimelineChart() {
+    if (typeof timeline !== "undefined") {
+        var datasets = [];
+        for (var key in timeline) {
+            datasets.push({ label:key, data:[timeline[key]], backgroundColor: getRandomColor(), borderWidth: 1 });
+        }
+        var ctx = document.getElementById('timeline').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                tooltips: {
+                    mode: 'point'
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        gridLines: false
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        gridLines: false,
+                        barThickness: 25
+                    }]
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+    }
+})();

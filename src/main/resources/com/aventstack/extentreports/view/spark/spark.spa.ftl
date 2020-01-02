@@ -9,6 +9,16 @@
     <#assign pageClass="bdd-report" isbdd=true>
 </#if>
 
+<#assign boxsize='col-md-12'>
+<#if report.reportStatusStats.childCount!=0>
+    <#assign boxsize='col-sm-12 col-md-6'>
+</#if>
+<#if (report.analysisStrategy=="BDD") || (report.reportStatusStats.childCount != 0 && report.reportStatusStats.grandChildCount != 0)>
+    <#assign boxsize='col-sm-12 col-md-4'>
+</#if>
+
+<#assign chartWidth="115" chartHeight="90" chartBoxHeight="94">
+
 <!DOCTYPE html>
 <html>
 <#include "partials/head.ftl">
@@ -17,7 +27,7 @@
 <#else>
     <script src="https://cdn.rawgit.com/extent-framework/extent-github-cdn/7cc78ce/spark/js/jsontree.js"></script>
 </#if>
-<body class="${reportType}-report ${theme}">
+<body class="spa ${reportType}-report ${theme}">
     <div class="app header-dark side-nav-folded">
         <div class="layout">
             <#include "partials/navbar.ftl">
@@ -25,10 +35,18 @@
             <div class="page-container">
                 <div class="main-content">
                     <#include "partials/test.ftl">
+                    <#if categoryContext?? && categoryContext?size != 0>
+                    	<#include "partials/tag.ftl">
+                    </#if>
+                    <#if exceptionContext?? && exceptionContext?size != 0>
+                    	<#include "partials/exception.ftl">
+                    </#if>
+                    <!-- dashboard -->
+                    <#include "partials/dashboard.ftl">
                 </div>
             </div>
         </div>
     </div>
-    <#include "partials/scripts.ftl">
+	<#include "partials/scripts.ftl">
 </body>
 </html>

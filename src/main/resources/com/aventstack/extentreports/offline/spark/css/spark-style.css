@@ -156,7 +156,7 @@ td {
 	display: block;
 	padding-left: 5px;
 }
-.test-view .test-wrapper .test-list .test-list-wrapper .test-list-item .test-item .test-detail {
+.test-view.test-wrapper .test-list .test-list-wrapper .test-list-item .test-item .test-detail {
 	padding-left: 40px;
 }
 .status-avatar {
@@ -439,7 +439,7 @@ img.r-img {
 .dark .test-detail .name {
 	color: rgba(141,164,191,.95) !important;
 }
-.dark .test-wrapper, .dark .test-content, .dark.dashboard-view .container-fluid {
+.dark .test-wrapper, .dark .test-content, .dark .dashboard-view .container-fluid {
 	background-color: #243140;
 }
 .dark .card, .dark .attachments>li, .dark .badge-default {
