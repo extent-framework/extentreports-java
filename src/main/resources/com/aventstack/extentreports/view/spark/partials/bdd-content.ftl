@@ -6,7 +6,7 @@
 			<#else>
 				<div class="details">${log.details}</div>
 			</#if>
-			<#if log.hasScreenCapture()>
+			<#if LogService.logHasScreenCapture(log)>
 				<span class="badge badge-primary">${log.screenCaptureContext.last.source}</span>
 			</#if>
 		</#list>

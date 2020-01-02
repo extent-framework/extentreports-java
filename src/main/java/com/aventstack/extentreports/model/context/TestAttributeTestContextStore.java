@@ -10,11 +10,11 @@ import com.aventstack.extentreports.model.Test;
 import com.aventstack.extentreports.model.context.helpers.TestRemover;
 
 /**
- * Uses an attribute context for {@link TestAttribute} (Category, Device, Author
+ * Uses an attribute context for {@link Attribute} (Category, Device, Author
  * etc.) and tracks the collection of tests segregated by the type
- * {@link TestAttribute}
+ * {@link Attribute}
  *
- * @param <T> A {@link TestAttribute} type
+ * @param <T> A {@link Attribute} type
  */
 public class TestAttributeTestContextStore<T extends Attribute> {
 

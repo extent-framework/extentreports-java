@@ -19,7 +19,7 @@ public class TestRemover {
 	/**
 	 * Remove a test using its unique ID from a list
 	 * 
-	 * @param list a list of {@link Test}
+	 * @param testList a list of {@link Test}
 	 * @param test {@link Test} to be removed
 	 */
 	public static void remove(List<Test> testList, Test test) {

@@ -287,7 +287,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an event with {@link Status}, details and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -384,7 +384,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an event with {@link Status}, an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -426,7 +426,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.INFO</code> event with details and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -459,7 +459,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.INFO</code> event with an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -512,7 +512,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.PASS</code> event with details and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -545,7 +545,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.PASS</code> event with an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -598,7 +598,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.FAIL</code> event with details and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * @param details  Details
 	 * @param provider A {@link MediaEntityModelProvider} object
@@ -623,7 +623,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.FAIL</code> event with an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -676,7 +676,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.DATAL</code> event with an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * @param details  Details
 	 * @param provider A {@link MediaEntityModelProvider} object
@@ -702,7 +702,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.FATAL</code> event with an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -756,7 +756,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.WARNING</code> event with an exception and a media
-	 * object: {@link Screencast} or {@link ScreenCapture}
+	 * object: {@link ScreenCapture}
 	 * 
 	 * @param details  Details
 	 * @param provider A {@link MediaEntityModelProvider} object
@@ -781,7 +781,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.WARNING</code> event with an exception and a media
-	 * object: {@link Screencast} or {@link ScreenCapture}
+	 * object: {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -834,7 +834,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.ERROR</code> event with an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * @param details  Details
 	 * @param provider A {@link MediaEntityModelProvider} object
@@ -859,7 +859,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.ERROR</code> event with an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -935,7 +935,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.SKIP</code> event with an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:
@@ -988,7 +988,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.DEBUG</code> event with an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * @param details  Details
 	 * @param provider A {@link MediaEntityModelProvider} object
@@ -1013,7 +1013,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 	/**
 	 * Logs an <code>Status.DEBUG</code> event with an exception and a media object:
-	 * {@link Screencast} or {@link ScreenCapture}
+	 * {@link ScreenCapture}
 	 * 
 	 * <p>
 	 * Example:

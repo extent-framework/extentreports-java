@@ -58,12 +58,12 @@ public class GherkinDialectProvider {
 	/**
 	 * Sets/changes the default language
 	 * 
-	 * @param lang A valid dialect from <a href=
-	 *             "https://github.com/cucumber/cucumber/blob/master/gherkin/gherkin-languages.json</a>
+	 * @param lang A valid dialect from 
+	 *             https://github.com/cucumber/cucumber/blob/master/gherkin/gherkin-languages.json
 	 * 
 	 * @throws UnsupportedEncodingException Thrown if the language is one of the
-	 *                                      supported language from <a href=
-	 *                                      "https://github.com/cucumber/cucumber/blob/master/gherkin/gherkin-languages.json</a>
+	 *                                      supported language from 
+	 *                                      https://github.com/cucumber/cucumber/blob/master/gherkin/gherkin-languages.json
 	 */
 	public static void setLanguage(String lang) throws UnsupportedEncodingException {
 		language = lang;

@@ -11,7 +11,7 @@ public interface IAddsMedia<T> {
 	 * @param title     Image title
 	 * 
 	 * @return Object this method is called from, generally
-	 *         {@link com.aventstack.extentreports.ExtentTest} or {@link Log}
+	 *         {@link com.aventstack.extentreports.ExtentTest} or {@link com.aventstack.extentreports.model.Log}
 	 * 
 	 * @throws IOException thrown if the <code>imagePath</code> of image is not
 	 *                     found
@@ -24,7 +24,7 @@ public interface IAddsMedia<T> {
 	 * @param mediaPath Image path
 	 * 
 	 * @return Object this method is called from, generally
-	 *         {@link com.aventstack.extentreports.ExtentTest} or {@link Log}
+	 *         {@link com.aventstack.extentreports.ExtentTest} or {@link com.aventstack.extentreports.model.Log}
 	 * 
 	 * @throws IOException thrown if the <code>imagePath</code> of image is not
 	 *                     found
@@ -38,7 +38,7 @@ public interface IAddsMedia<T> {
 	 * @param title Image title
 	 * 
 	 * @return Object this method is called from, generally
-	 *         {@link com.aventstack.extentreports.ExtentTest} or {@link Log}
+	 *         {@link com.aventstack.extentreports.ExtentTest} or {@link com.aventstack.extentreports.model.Log}
 	 */
 	T addScreenCaptureFromBase64String(String base64, String title);
 
@@ -48,7 +48,7 @@ public interface IAddsMedia<T> {
 	 * @param base64 base64 string
 	 * 
 	 * @return Object this method is called from, generally
-	 *         {@link com.aventstack.extentreports.ExtentTest} or {@link Log}
+	 *         {@link com.aventstack.extentreports.ExtentTest} or {@link com.aventstack.extentreports.model.Log}
 	 */
 	T addScreenCaptureFromBase64String(String base64);
 
