@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.bson.types.ObjectId;
+
 import com.aventstack.extentreports.RunResult;
 import com.aventstack.extentreports.Status;
 
-public class Log implements Serializable, RunResult {
+public class Log implements Serializable, RunResult, BasicMongoReportElement {
 
 	private static final long serialVersionUID = 8072065800800347981L;
 	private Date timestamp = Calendar.getInstance().getTime();
@@ -18,6 +20,7 @@ public class Log implements Serializable, RunResult {
 	private Status status;
 	private String details;
 	private int sequence;
+	private ObjectId objectId;
 	
 	public Log(Test test) {
 		this.test = test;
@@ -80,6 +83,16 @@ public class Log implements Serializable, RunResult {
 
 	public void setSequence(int sequence) {
 		this.sequence = sequence;
+	}
+
+	@Override
+	public ObjectId getObjectId() {
+		return objectId;
+	}
+
+	@Override
+	public void setObjectId(ObjectId id) {
+		this.objectId = id;
 	}
 	
 }
