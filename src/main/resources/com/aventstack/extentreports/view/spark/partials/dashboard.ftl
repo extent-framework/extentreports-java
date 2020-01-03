@@ -95,9 +95,9 @@
 			<div class="card">
 				<div class="card-body box-height-150">
 					<div class="media justify-content-between">
-						<div>
-							<p class="">${parentHeading}</p>
-							<h2 class="font-size-28 font-weight-light">${report.reportStatusStats.parentCount}</h2>
+						<div class="card-header">
+							<h6 class="card-title">${parentHeading}</h6>
+							<h2 class="font-size-28 font-weight-light mt-3">${report.reportStatusStats.parentCount}</h2>
 							<span class="text-semibold text-success font-size-15">
 							<i class="ti-arrow-up font-size-11"></i> 
 							<span>${report.reportStatusStats.parentPercentagePass?string("#.00")}%</span>
@@ -115,9 +115,9 @@
 			<div class="card">
 				<div class="card-body box-height-150">
 					<div class="media justify-content-between">
-						<div>
-							<p class="">${childHeading}</p>
-							<h2 class="font-size-28 font-weight-light">${report.reportStatusStats.childCount}</h2>
+						<div class="card-header">
+							<h6 class="card-title">${childHeading}</h6>
+							<h2 class="font-size-28 font-weight-light mt-3">${report.reportStatusStats.childCount}</h2>
 							<span class="text-semibold text-success font-size-15">
 							<i class="ti-arrow-up font-size-11"></i> 
 							<span>${report.reportStatusStats.childPercentagePass?string("#.00")}%</span>
@@ -135,9 +135,9 @@
 			<div class="card">
 				<div class="card-body box-height-150">
 					<div class="media justify-content-between">
-						<div>
-							<p class="">Start</p>
-							<h6 class="font-weight-light">${report.startTime?datetime?string["${timeStampFormat}"]}</h6>
+						<div class="card-header">
+							<h6 class="card-title">Start</h6>
+							<h4 class="font-weight-light mt-4">${report.startTime?datetime?string["${timeStampFormat}"]}</h4>
 							<span class="text-semibold text-success font-size-15">
 						</div>
 						<div class="align-self-end">
@@ -151,9 +151,9 @@
 			<div class="card">
 				<div class="card-body box-height-150">
 					<div class="media justify-content-between">
-						<div>
-							<p class="">Duration</p>
-							<h6 class="font-weight-light">${report.longRunDuration}</h6>
+						<div class="card-header">
+							<h6 class="card-title">Duration</h6>
+							<h4 class="font-weight-light mt-4">${report.longRunDuration}</h4>
 							<span class="text-semibold font-size-15">
 						</div>
 						<div class="align-self-end">

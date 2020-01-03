@@ -108,7 +108,7 @@
 			}
 		})();
 	})
-	<#macro listTestNameDuration testList><#if report.testList??><#list report.testList as t>"${t.name}":${(t.runDurationMillis/1000)?c?replace(",","")}<#if t_has_next>,</#if></#list></#if></#macro>
+	<#macro listTestNameDuration testList><#if report.testList??><#list report.testList as t>"${t.name}":${(TestService.getRunDurationMillis(t)/1000)?c?replace(",","")}<#if t_has_next>,</#if></#list></#if></#macro>
     var timeline = {
         <@listTestNameDuration testList=report.testList />
     };

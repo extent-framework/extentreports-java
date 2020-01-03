@@ -37,7 +37,7 @@
 										<th>Source</th>
 									</tr></thead>
 									<tbody>
-										<#list category.getTestList() as test>
+										<#list category.tests as test>
 										<@row test=test level=test.level />
 										</#list>
 									</tbody>

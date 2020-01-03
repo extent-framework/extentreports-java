@@ -1,19 +1,19 @@
 <#macro attributes test>
-	<#if test.hasCategory()>
+	<#if TestService.testHasCategory(test)>
 		<span class="category-list attr-x">
 		<#list test.categoryContext.all as category>
 		<span class="category badge"><i class="fa fa-tag"></i> ${category.name}</span>
 		</#list>
 		</span>
 	</#if>
-	<#if test.hasAuthor()>
+	<#if TestService.testHasAuthor(test)>
 		<span class="author-list attr-x">
 		<#list test.authorContext.all as author>
 		<span class="author badge"><i class="fa fa-user"></i> ${author.name}</span>
 		</#list>
 		</span>
 	</#if>
-	<#if test.hasDevice()>
+	<#if TestService.testHasDevice(test)>
 		<span class="device-list attr-x">
 		<#list test.deviceContext.all as device>
 		<span class="device badge"><i class="fa fa-tablet text-sm"></i> ${device.name}</span>
@@ -23,9 +23,8 @@
 </#macro>
 
 <#macro media el>
-	<#if el.hasScreenCapture()>
-		<#if el.screenCaptureContext??>${el.screenCaptureContext.last.source}
-		<#else>${el.screenCaptureList[0].source}</#if>
+	<#if el.screenCaptureContext?? && !el.screenCaptureContext.isEmpty()>
+		${el.screenCaptureContext.last.source}
 	</#if>
 </#macro>
 
@@ -33,10 +32,10 @@
 <#assign n=test level=n.level>
 <#if level!=0><#assign n=test.parent><#if n.level!=0><#assign n=n.parent><#if n.level!=0><#assign n=n.parent></#if></#if></#if>
 	
-<tr class="s-${test.status}" test-id="${test.getId()}" parent-id="${n.getID()}">
+<tr class="s-${test.status}" test-id="${test.getId()}" parent-id="${n.getId()}">
 	<td><span class="w-32 avatar circle ${test.status}"><span class="badge">${test.status}</span></span></td>
 	<td class="_600">${test.name} <#if level!=0><br/><span class="text-muted text-sm">${test.parent.name}</span></#if></td>
-	<td>${test.runDuration}c</td>
+	<td>${TestService.getRunDuration(test)}c</td>
 	<td><@attributes test=test /></td>
 	<td>
 		<@media el=test />
