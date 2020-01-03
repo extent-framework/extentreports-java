@@ -9,7 +9,7 @@ import org.bson.types.ObjectId;
 public class Media implements Serializable {
 
 	private static final long serialVersionUID = 2620739620884939951L;
-	private String name;
+	private String name = "";
 	private String description;
 	private String path;
 	private int sequence;

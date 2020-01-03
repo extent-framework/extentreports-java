@@ -13,7 +13,7 @@ public class Log implements Serializable, RunResult {
 	private Date timestamp = Calendar.getInstance().getTime();
 	
 	private ExceptionInfo exceptionInfo;
-	private AbstractStructure<ScreenCapture> screenCapture;
+	private AbstractStructure<ScreenCapture> screenCaptureContext;
 	private transient Test test;
 	private Status status;
 	private String details;
@@ -39,15 +39,15 @@ public class Log implements Serializable, RunResult {
 		this.exceptionInfo = exceptionInfo;
 	}
 
-	public AbstractStructure<ScreenCapture> getScreenCapture() {
-		if (screenCapture == null) {
-			screenCapture = new AbstractStructure<>();
+	public AbstractStructure<ScreenCapture> getScreenCaptureContext() {
+		if (screenCaptureContext == null) {
+			screenCaptureContext = new AbstractStructure<>();
 		}
-		return screenCapture;
+		return screenCaptureContext;
 	}
 
-	public void setScreenCapture(AbstractStructure<ScreenCapture> screenCapture) {
-		this.screenCapture = screenCapture;
+	public void setScreenCaptureContext(AbstractStructure<ScreenCapture> screenCapture) {
+		this.screenCaptureContext = screenCapture;
 	}
 
 	public Test getTest() {

@@ -9,7 +9,7 @@
           <span class="title">Tests</span>
         </a>
       </li>
-      <#if categoryContext?? && categoryContext?size != 0>
+      <#if categoryContext?has_content>
       <li class="nav-item dropdown" onclick="toggleView('tag-view')">
         <a id="nav-tag" class="dropdown-toggle" href="tag.html">
           <span class="icon-holder">
@@ -19,7 +19,7 @@
         </a>
       </li>
       </#if>
-      <#if exceptionContext?? && exceptionContext?size != 0>
+      <#if exceptionContext?has_content>
       <li class="nav-item dropdown" onclick="toggleView('exception-view')">
         <a id="nav-ex" class="dropdown-toggle" href="exception.html">
           <span class="icon-holder">

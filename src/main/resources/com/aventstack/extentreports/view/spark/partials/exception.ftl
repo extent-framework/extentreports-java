@@ -23,7 +23,7 @@
 					<div class="open-test">
 						<div class="test-detail">
 							<p class="name">${context.exceptionInfo.exceptionName}</p>
-							<p class="duration text-sm">${context.testList?size} tests</p>
+							<p class="duration text-sm">${context.tests?size} tests</p>
 						</div>
 					</div>
 					<div class="test-contents d-none">
@@ -39,7 +39,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<#list context.testList as test>
+								<#list context.tests as test>
 								<tr>
 									<td>
 										<div class='status-avatar ${test.status}-bg'>
@@ -47,7 +47,7 @@
 										</div>
 									</td>
 									<td>${test.startTime?string[("HH:mm:ss a")]}</td>
-									<td class='linked' test-id='${test.getID()}'>
+									<td class='linked' test-id='${test.getId()}'>
 										${test.name}
 										<#if test.parent??>
 										<div class="">

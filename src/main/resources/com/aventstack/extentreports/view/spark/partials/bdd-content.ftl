@@ -26,7 +26,7 @@
 			</h5>
 		</div>
 		<#if TestService.testHasChildren(node)>
-			<#if node.bddType.toString()=="Scenario Outline">
+			<#if node.bddType?? && node.behaviorDrivenTypeName=="Scenario Outline">
 				<div class="collapse scenario_outline">
 					<#list node.nodeContext.all as child>
 						<div class="card-body l1">
@@ -56,7 +56,7 @@
 				<div class="collapse">
 					<div class="card-body">
 						<#list node.nodeContext.all as child>
-							<div class="d-flex align-items-center justify-content-start ${child.behaviorDrivenTypeName?replace(' ','')?replace('*','asterisk')?lower_case}" title="${child.description}">
+							<div class="d-flex align-items-center justify-content-start <#if child.bddType??>${child.behaviorDrivenTypeName?replace(' ','')?replace('*','asterisk')?lower_case}</#if>" title="${child.description}">
 								<span class="alert-icon ${child.status}-bg">
 									<i class="fa fa-${Icon.getIcon(child.status)} text-white"></i>
 								</span>

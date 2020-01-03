@@ -5,7 +5,7 @@ import com.aventstack.extentreports.model.Log;
 public class LogService {
 
 	public static Boolean logHasScreenCapture(Log log) {
-		return !log.getScreenCapture().isEmpty();
+		return !log.getScreenCaptureContext().isEmpty();
 	}
 	
 }

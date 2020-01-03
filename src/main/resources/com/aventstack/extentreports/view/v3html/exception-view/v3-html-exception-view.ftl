@@ -21,7 +21,7 @@
 				<li class='exception displayed active'>
 					<div class='exception-heading'>
 						<span class='exception-name'>${ exception.exceptionInfo.getExceptionName() }</span>
-						<span class='exception-count right'><span class='label red lighten-1 white-text'>${ exception.testList?size }</span></span>
+						<span class='exception-count right'><span class='label red lighten-1 white-text'>${ exception.tests?size }</span></span>
 					</div>
 					<div class='exception-content hide'>
 						<div class='exception-tests'>
@@ -34,14 +34,14 @@
 									</tr>
 								</thead>
 								<tbody>
-									<#list exception.getTestList() as test>
-									<#list test.getExceptionInfoList() as testException>
+									<#list exception.tests as test>
+									<#list test.exceptionInfoContext.all as testException>
 									<#if testException.getExceptionName() == exception.exceptionInfo.getExceptionName()>
 									<tr>
 										<td>${ test.startTime?datetime?string["${timeStampFormat}"] }</td>
-										<td class='linked' test-id='${ test.getId() }'>${ test.hierarchicalName }</td>
+										<td class='linked' test-id='${ test.getId() }'>${ test.name }</td>
 										<td>
-											<textarea disabled class="code-block">${ testException.getStackTrace() }</textarea>
+											<textarea disabled class="code-block">${ testException.stackTrace }</textarea>
 										</td>
 									</tr>
 									</#if>

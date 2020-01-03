@@ -95,7 +95,7 @@ abstract class ReportObservable implements ReportService {
 	/**
 	 * A collection of tests arranged by exception
 	 */
-	private ExceptionTestContextStore exceptionContextBuilder = new ExceptionTestContextStore();
+	private ExceptionTestContextStore exceptionContext = new ExceptionTestContextStore();
 
 	/**
 	 * A context of all system or environment variables
@@ -441,7 +441,7 @@ abstract class ReportObservable implements ReportService {
 				test.getDeviceContext().getAll().forEach(x -> deviceContext.setAttributeContext((Device) x, test));
 			}
 			if (TestService.testHasException(test)) {
-				test.getExceptionInfoContext().getAll().forEach(x -> exceptionContextBuilder.setExceptionContext(x, test));
+				test.getExceptionInfoContext().getAll().forEach(x -> exceptionContext.setExceptionContext(x, test));
 			}
 			if (TestService.testHasChildren(test)) {
 				for (Test node : test.getNodeContext().getAll()) {
@@ -484,7 +484,7 @@ abstract class ReportObservable implements ReportService {
 			node.getDeviceContext().getAll().forEach(x -> deviceContext.setAttributeContext((Device) x, node));
 		}
 		if (TestService.testHasException(node)) {
-			node.getExceptionInfoContext().getAll().forEach(x -> exceptionContextBuilder.setExceptionContext(x, node));
+			node.getExceptionInfoContext().getAll().forEach(x -> exceptionContext.setExceptionContext(x, node));
 		}
 		if (TestService.testHasChildren(node)) {
 			node.getNodeContext().getAll().forEach(this::copyNodeAttributeAndRunTimeInfoToAttributeContexts);
@@ -498,11 +498,19 @@ abstract class ReportObservable implements ReportService {
 		if (!testList.isEmpty() && TestService.isTestBehaviorDriven(testList.get(0))) {
 			strategy = AnalysisStrategy.BDD;
 		}
-		ReportAggregates reportAggregates = new ReportAggregatesBuilder().setAuthorContext(authorContext)
-				.setCategoryContext(categoryContext).setDeviceContext(deviceContext)
-				.setExceptionContext(exceptionContextBuilder).setReportStatusStats(stats).setStatusCollection(statusSet)
-				.setSystemAttributeContext(systemAttributeContext).setTestList(testList)
-				.setTestRunnerLogs(testRunnerLogs).setStartTime(reportStartDate).setEndTime(reportEndDate).build();
+		ReportAggregates reportAggregates = new ReportAggregatesBuilder()
+				.setAuthorContext(authorContext)
+				.setCategoryContext(categoryContext)
+				.setDeviceContext(deviceContext)
+				.setExceptionContext(exceptionContext)
+				.setReportStatusStats(stats)
+				.setStatusCollection(statusSet)
+				.setSystemAttributeContext(systemAttributeContext)
+				.setTestList(testList)
+				.setTestRunnerLogs(testRunnerLogs)
+				.setStartTime(reportStartDate)
+				.setEndTime(reportEndDate)
+				.build();
 		reporterList.forEach(x -> x.setAnalysisStrategy(strategy));
 		reporterList.forEach(x -> x.flush(reportAggregates));
 	}

@@ -18,7 +18,7 @@
 						<div class="list-body">
 							<a href="#" class="item-title _500">${exception.exceptionInfo.exceptionName}</a>
 							<div class="item-except text-sm text-muted h-1x">
-								${exception.testList?size} tests
+								${exception.tests?size} tests
 							</div>
 							<div class="tc d-none">
 								<h5 class="mb-4">${exception.exceptionInfo.exceptionName}</h5>
@@ -32,7 +32,7 @@
 										<th>Source</th>
 									</tr></thead>
 									<tbody>
-										<#list exception.getTestList() as test>
+										<#list exception.tests as test>
 										<@row test=test level=test.level />
 										</#list>
 									</tbody>

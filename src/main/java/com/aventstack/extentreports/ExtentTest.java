@@ -315,7 +315,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 
 			if (clazz.equals(ScreenCapture.class)) {
 				ScreenCapture c = (ScreenCapture) provider.getMedia();
-				evt.getScreenCapture().add(c);
+				evt.getScreenCaptureContext().add(c);
 			} else {
 
 			}
@@ -358,9 +358,9 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 		getModel().end();
 		extent.addLog(getModel(), evt);
 
-		if (!evt.getScreenCapture().isEmpty()) {
+		if (!evt.getScreenCaptureContext().isEmpty()) {
 			try {
-				extent.addScreenCapture(evt, evt.getScreenCapture().getLast());
+				extent.addScreenCapture(evt, evt.getScreenCaptureContext().getLast());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -408,6 +408,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 		exceptionInfo.setStackTrace(ExceptionUtil.getStackTrace(t));
 		Log evt = createLog(status);
 		evt.setExceptionInfo(exceptionInfo);
+		getModel().getExceptionInfoContext().add(exceptionInfo);
 		addMedia(evt, provider);
 		return addLog(evt);
 	}

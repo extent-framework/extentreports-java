@@ -17,7 +17,7 @@
 					</div>
 					<div>
 						<small data-tooltip='${report.reportStatusStats.parentPercentageFail}%'><b>${report.reportStatusStats.parentCountFail + report.reportStatusStats.parentCountFatal}</b> ${parentHeading?lower_case} failed, 
-						<b data-tooltip='${report.reportStatusStats.parentPercentageOthers}%'>${report.reportStatusStats.parentCountError + report.reportStatusStats.parentCountWarning + report.reportStatusStats.parentCountSkip}</b> others
+						<b>${report.reportStatusStats.parentCountSkip}</b> skipped, <b data-tooltip='${report.reportStatusStats.parentPercentageOthers}%'>${report.reportStatusStats.parentCountError + report.reportStatusStats.parentCountWarning}</b> others
 						</small>
 					</div>
 				</div>
@@ -38,7 +38,7 @@
 					<div><small data-tooltip='${report.reportStatusStats.childPercentagePass}%'><b>${report.reportStatusStats.childCountPass}</b> ${childHeading?lower_case} passed</small></div>
 					<div>
 						<small data-tooltip='${report.reportStatusStats.childPercentageFail}%'><b>${report.reportStatusStats.childCountFail + report.reportStatusStats.childCountFatal}</b> ${childHeading?lower_case} failed, 
-						<b data-tooltip='${report.reportStatusStats.childPercentageOthers}%'>${report.reportStatusStats.childCountError + report.reportStatusStats.childCountWarning + report.reportStatusStats.childCountSkip + report.reportStatusStats.childCountInfo}</b> others
+						<b>${report.reportStatusStats.childCountSkip}</b> skipped, <b data-tooltip='${report.reportStatusStats.childPercentageOthers}%'>${report.reportStatusStats.childCountError + report.reportStatusStats.childCountWarning + report.reportStatusStats.childCountInfo}</b> others
 						</small>
 					</div>
 				</div>
@@ -60,7 +60,7 @@
 					<div><small data-tooltip='${report.reportStatusStats.grandChildPercentagePass}%'><b>${report.reportStatusStats.grandChildCountPass}</b> ${grandChildHeading?lower_case} passed</small></div>
 					<div>
 						<small data-tooltip='${report.reportStatusStats.grandChildPercentageFail}%'><b>${report.reportStatusStats.grandChildCountFail + report.reportStatusStats.grandChildCountFatal}</b> ${grandChildHeading?lower_case} failed, 
-						<b data-tooltip='${report.reportStatusStats.grandChildPercentageOthers}%'>${report.reportStatusStats.grandChildCountError + report.reportStatusStats.grandChildCountWarning + report.reportStatusStats.grandChildCountSkip + report.reportStatusStats.grandChildCountInfo}</b> others
+						<b>${report.reportStatusStats.grandChildCountSkip}</b> skipped, <b data-tooltip='${report.reportStatusStats.grandChildPercentageOthers}%'>${report.reportStatusStats.grandChildCountError + report.reportStatusStats.grandChildCountWarning + report.reportStatusStats.grandChildCountInfo}</b> others
 						</small>
 					</div>
 				</div>

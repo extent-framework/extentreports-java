@@ -7,7 +7,7 @@
 <#assign categoryContext=report.getCategoryContextInfo().getTestAttributeTestContext()>
 <#assign authorContext=report.getAuthorContextInfo().getTestAttributeTestContext()>
 <#assign deviceContext=report.getDeviceContextInfo().getTestAttributeTestContext()>
-<#assign exceptionContext=report.getExceptionContextInfo().getExceptionTestContext()>
+<#assign exceptionContext=report.exceptionContextInfo.exceptionTestContext>
 
 <#assign reportType="" parentHeading="Tests" childHeading="Steps" grandChildHeading="" size=2>
 <#if report.analysisStrategy=="SUITE">
