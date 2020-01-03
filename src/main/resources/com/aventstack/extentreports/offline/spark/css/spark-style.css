@@ -408,6 +408,14 @@ img.r-img {
 	color: #ff66ff;
 }
 
+/**
+ * dashboard
+ *
+**/
+.dashboard-view .media>.card-header {
+	padding:0
+}
+
 
 /**
  * Themes
