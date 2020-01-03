@@ -43,7 +43,7 @@ public class HttpMediaManagerImplKlov
         if (m instanceof ScreenCapture && ((ScreenCapture)m).getBase64String() != null) {
         	return;
         }
-        File f = new File(m.getPath());
+        File f = new File(m.getResolvedPath());
         if (!f.exists()) {
             throw new IOException("The system cannot find the file specified " + m.getPath());
         }
@@ -61,7 +61,7 @@ public class HttpMediaManagerImplKlov
         builder.addPart("id", new StringBody(m.getBsonId().get("id").toString(), ContentType.TEXT_PLAIN));
         builder.addPart("reportId", new StringBody(m.getBsonId().get("reportId").toString(), ContentType.TEXT_PLAIN));
         builder.addPart("testId", new StringBody(m.getBsonId().get("testId").toString(), ContentType.TEXT_PLAIN));
-        builder.addPart("f", new FileBody(new File(m.getPath())));
+        builder.addPart("f", new FileBody(new File(m.getResolvedPath())));
         post.setEntity(builder.build());
 
         String logId = m.getBsonId().get("logId") == null ? "" : m.getBsonId().get("logId").toString();

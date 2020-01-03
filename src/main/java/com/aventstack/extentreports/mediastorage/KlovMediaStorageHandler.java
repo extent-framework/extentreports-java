@@ -32,6 +32,9 @@ public class KlovMediaStorageHandler {
                 .append("sequence", media.getSequence())
                 .append("test", media.getBsonId().get("testId"));
 
+    	if (media.isBase64()) {
+    		doc.append("base64String", media.getBase64String());
+    	}
         if (el.getClass() != Test.class) {
             doc.append("log", el.getObjectId());
         } else {

@@ -19,6 +19,7 @@ import com.aventstack.extentreports.model.context.ExceptionTestContextStore;
 import com.aventstack.extentreports.model.context.SystemAttributeContext;
 import com.aventstack.extentreports.model.context.TestAttributeTestContextStore;
 import com.aventstack.extentreports.model.context.helpers.TestRemover;
+import com.aventstack.extentreports.model.service.ScreenCaptureService;
 import com.aventstack.extentreports.model.service.TestService;
 import com.aventstack.extentreports.reporter.BasicFileReporter;
 import com.aventstack.extentreports.reporter.ExtentReporter;
@@ -171,7 +172,12 @@ abstract class ReportObservable implements ReportService {
 	 * </ol>
 	 */
 	private Set<Status> statusSet = new HashSet<Status>();
-
+	
+	/**
+	 * Path of dirs to resolve relative image path so there is a direct access
+	 */
+	private String[] imagePathResolveDir;
+	
 	protected ReportObservable() {
 	}
 
@@ -351,6 +357,7 @@ abstract class ReportObservable implements ReportService {
 	 * @throws IOException thrown if the {@link ScreenCapture} is not found
 	 */
 	void addScreenCapture(Test test, ScreenCapture screenCapture) throws IOException {
+		ScreenCaptureService.resolvePath(screenCapture, imagePathResolveDir);
 		for (ExtentReporter r : reporterList) {
 			r.onScreenCaptureAdded(test, screenCapture);
 		}
@@ -365,6 +372,7 @@ abstract class ReportObservable implements ReportService {
 	 * @throws IOException thrown if the {@link ScreenCapture} is not found
 	 */
 	void addScreenCapture(Log log, ScreenCapture screenCapture) throws IOException {
+		ScreenCaptureService.resolvePath(screenCapture, imagePathResolveDir);
 		for (ExtentReporter r : reporterList) {
 			r.onScreenCaptureAdded(log, screenCapture);
 		}
@@ -550,6 +558,10 @@ abstract class ReportObservable implements ReportService {
 	protected void setAnalysisStrategy(AnalysisStrategy strategy) {
 		this.strategy = strategy;
 		stats = new ReportStatusStats(strategy);
+	}
+	
+	protected void setImagePathResolveDir(String[] imagePathResolveDir) {
+		this.imagePathResolveDir = imagePathResolveDir;
 	}
 
 	/**

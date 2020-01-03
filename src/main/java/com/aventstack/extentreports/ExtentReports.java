@@ -6,7 +6,10 @@ import java.util.List;
 
 import com.aventstack.extentreports.gherkin.GherkinDialectProvider;
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
+import com.aventstack.extentreports.model.Media;
+import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.SystemAttribute;
+import com.aventstack.extentreports.reporter.ExtentKlovReporter;
 import com.aventstack.extentreports.reporter.ExtentReporter;
 
 /**
@@ -52,6 +55,8 @@ import com.aventstack.extentreports.reporter.ExtentReporter;
  */
 public class ExtentReports extends ReportObservable {
 
+	private static final String[] IMAGE_PATH_RESOLVER_DIR = new String[] { "target/", "test-output/" };
+	
 	/**
 	 * Attach a {@link ExtentReporter} reporter, allowing it to access all started
 	 * tests, nodes and logs
@@ -337,6 +342,38 @@ public class ExtentReports extends ReportObservable {
 	 */
 	public void setTestRunnerOutput(String log) {
 		setTestRunnerLogs(log);
+	}
+	
+	/**
+	 * Tries to resolve a {@link ScreenCapture} location if the supplied path is not found using
+	 * default locations. This can resolve cases where the default path was supplied to be relative 
+	 * for a FileReporter. If the absolute path is not determined, the supplied will be used. 
+	 * below paths are used to locate the image:
+	 * 
+	 * <ul>
+	 * 	<li>target/</li>
+	 * 	<li>test-output//</li>
+	 * </ul>
+	 * 
+	 *  @return {@link ExtentKlovReporter}
+	 */
+	public ExtentReports tryResolveScreenCapturePath() {
+		setImagePathResolveDir(IMAGE_PATH_RESOLVER_DIR);
+		return this;
+	}
+	
+	/**
+	 * Tries to resolve a {@link ScreenCapture} location if the supplied path is not found using
+	 * supplied locations. This can resolve cases where the default path was supplied to be relative 
+	 * for a FileReporter. If the absolute path is not determined, the supplied will be used.
+	 * 
+	 * @param paths Dirs used to create absolute path of the {@link Media} object
+	 * 
+	 * @return {@link ExtentKlovReporter}
+	 */
+	public ExtentReports tryResolveScreenCapturePath(String[] paths) {
+		setImagePathResolveDir(paths);
+		return this;
 	}
 
 	/**

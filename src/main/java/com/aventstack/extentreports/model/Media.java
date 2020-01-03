@@ -15,6 +15,7 @@ public class Media implements Serializable {
 	private int sequence;
 	private long fileSize = 0;
 	private Map<String, ObjectId> bsonId;
+	private String resolvedPath;
 
 	public String getName() {
 		return name;
@@ -65,6 +66,14 @@ public class Media implements Serializable {
 
 	public void setBsonId(Map<String, ObjectId> bsonId) {
 		this.bsonId = bsonId;
+	}
+
+	public String getResolvedPath() {
+		return resolvedPath == null ? getPath() : resolvedPath;
+	}
+
+	public void setResolvedPath(String resolvedPath) {
+		this.resolvedPath = resolvedPath;
 	}
 
 }

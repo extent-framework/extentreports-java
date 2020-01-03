@@ -311,7 +311,6 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 	}
 
 	private void loadInitializationParams() {
-
 		String mongoUri = getConfigValue(DEFAULT_MONGODB_URI_PROP);
 		if (mongoUri == null || mongoUri.isEmpty()) {
 			String mongoHost = getConfigValue(DEFAULT_MONGODB_HOST_PROP);
@@ -343,7 +342,6 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 			initKlovServerConnection(uri);
 		} else if (klovHost != null) {
 			initKlovServerConnection(klovHost);
-		} else {
 		}
 	}
 
