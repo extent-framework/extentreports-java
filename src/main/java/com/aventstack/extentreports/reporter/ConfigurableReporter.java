@@ -123,7 +123,7 @@ public abstract class ConfigurableReporter extends AbstractReporter {
 	 *         entries
 	 */
 	public ConfigurationStore getConfigurationStore() {
-		return basicConfiguration.getConfigurationStore();
+		return basicConfiguration == null ? null : basicConfiguration.getConfigurationStore();
 	}
 
 }

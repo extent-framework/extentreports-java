@@ -129,6 +129,8 @@ public abstract class BasicFileReporter extends ConfigurableReporter {
 	}
 
 	private void onScreenCaptureAdded(ScreenCapture screenCapture) throws IOException {
+		if (getConfigurationStore() == null)
+			return;
 		String autoCreateRelativePathMedia = (String) getConfigurationStore()
 				.getConfig(DEFAULT_MEDIA_SAVE_PROPERTY_NAME);
 		if (autoCreateRelativePathMedia != null && Boolean.valueOf(autoCreateRelativePathMedia)) {

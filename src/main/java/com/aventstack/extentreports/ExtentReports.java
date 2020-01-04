@@ -392,6 +392,10 @@ public class ExtentReports extends ReportObservable {
 	public void setReportUsesManualConfiguration(boolean useManualConfig) {
 		setAllowManualConfig(useManualConfig);
 	}
+	
+	public Boolean getReportUsesManualConfiguration() {
+		return getAllowManualConfig();
+	}
 
 	/**
 	 * Type of AnalysisStrategy for the reporter. Not all reporters support this

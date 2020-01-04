@@ -29,11 +29,10 @@ public class JsonFormatter extends BasicFileReporter {
 	public synchronized void flush(ReportAggregates reportAggregates) {
 		super.flush(reportAggregates);
 		GsonBuilder builder = new GsonBuilder(); 
-		//builder.registerTypeAdapter(Given.class, new GherkinModelSerializer());
 		Gson gson = builder.create();
 		try (FileWriter writer = new FileWriter(getFilePath())) {
-			List<Test> l = reportAggregates.getTestList();
-			gson.toJson(l, writer);
+			List<Test> list = reportAggregates.getTestList();
+			gson.toJson(list, writer);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

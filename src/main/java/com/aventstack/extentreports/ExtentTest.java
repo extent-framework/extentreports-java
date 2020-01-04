@@ -424,6 +424,21 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 	public ExtentTest log(Status status, Throwable t) {
 		return log(status, t, null);
 	}
+	
+	/**
+	 * Logs an event with {@link ExceptionInfo}
+	 * 
+	 * @param status {@link Status}
+	 * @param exceptionInfo{@link ExceptionInfo}
+	 * 
+	 * @return An {@link ExtentTest} object
+	 */
+	public ExtentTest log(Status status, ExceptionInfo exceptionInfo) {
+		Log evt = createLog(status);
+		evt.setExceptionInfo(exceptionInfo);
+		getModel().getExceptionInfoContext().add(exceptionInfo);
+		return addLog(evt);
+	}
 
 	/**
 	 * Logs an <code>Status.INFO</code> event with details and a media object:
@@ -1205,4 +1220,5 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 	void setUseManualConfiguration(Boolean b) {
 		getModel().setUsesManualConfiguration(b);
 	}
+
 }

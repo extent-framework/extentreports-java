@@ -314,7 +314,7 @@ public class Test implements Serializable, RunResult, BasicMongoReportElement {
 		endChildrenRecursive(this);
 		status = (status == Status.INFO || status == Status.DEBUG) ? Status.PASS : status;
 		if (!usesManualConfiguration) {
-			setEndTimeFromChildren();
+			computeEndTimeFromChildren();
 		}
 	}
 
@@ -345,7 +345,7 @@ public class Test implements Serializable, RunResult, BasicMongoReportElement {
 		test.getNodeContext().getAll().forEach(Test::end);
 	}
 
-	private void setEndTimeFromChildren() {
+	public void computeEndTimeFromChildren() {
 		if (!getNodeContext().isEmpty()) {
 			setStartTime(getNodeContext().getFirst().getStartTime());
 			setEndTime(getNodeContext().getLast().getEndTime());
@@ -356,6 +356,9 @@ public class Test implements Serializable, RunResult, BasicMongoReportElement {
 	}
 
 	public String getBehaviorDrivenTypeName() {
+		if (bddTypeName != null) {
+			return bddTypeName;
+		}
 		try {
 			Method method = bddType.getMethod("getGherkinName");
 			Object o = method.invoke(null, (Object[]) null);
