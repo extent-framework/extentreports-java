@@ -12,7 +12,7 @@ import com.aventstack.extentreports.model.Test;
 
 public class TestModelReportBuilder {
 
-	public void recreateModelFromJson(ExtentReports extent, File jsonFile) throws IOException {
+	public void createDomainFromJsonArchive(ExtentReports extent, File jsonFile) throws IOException {
 		if (!jsonFile.exists()) {
 			return;
 		}
