@@ -41,7 +41,6 @@ import com.aventstack.extentreports.utils.MongoUtil;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -207,34 +206,6 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 
 	/**
 	 * Initializes the Mongo DB connection with a list of {@link ServerAddress} and
-	 * {@link MongoCredential}
-	 * 
-	 * @param seeds           A list of {@link ServerAddress} server addresses
-	 * @param credentialsList A list of {@link MongoCredential} credentials
-	 * @return a {@link ExtentKlovReporter} object
-	 */
-	public ExtentKlovReporter initMongoDbConnection(List<ServerAddress> seeds, List<MongoCredential> credentialsList) {
-		mongoClient = new MongoClient(seeds, credentialsList);
-		return this;
-	}
-
-	/**
-	 * Initializes the Mongo DB connection with a list of {@link ServerAddress},
-	 * {@link MongoCredential} and {@link MongoClientOptions}
-	 * 
-	 * @param seeds           A list of {@link ServerAddress} server addresses
-	 * @param credentialsList A list of {@link MongoCredential} credentials
-	 * @param options         {@link MongoClientOptions} options
-	 * @return a {@link ExtentKlovReporter} object
-	 */
-	public ExtentKlovReporter initMongoDbConnection(List<ServerAddress> seeds, List<MongoCredential> credentialsList,
-			MongoClientOptions options) {
-		mongoClient = new MongoClient(seeds, credentialsList, options);
-		return this;
-	}
-
-	/**
-	 * Initializes the Mongo DB connection with a list of {@link ServerAddress} and
 	 * {@link MongoClientOptions}
 	 * 
 	 * @param seeds   A list of {@link ServerAddress} server addresses
@@ -243,34 +214,6 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 	 */
 	public ExtentKlovReporter initMongoDbConnection(List<ServerAddress> seeds, MongoClientOptions options) {
 		mongoClient = new MongoClient(seeds, options);
-		return this;
-	}
-
-	/**
-	 * Initializes the Mongo DB connection with {@link ServerAddress} and a list of
-	 * {@link MongoCredential} credentials
-	 * 
-	 * @param addr            {@link ServerAddress} server address
-	 * @param credentialsList A list of {@link MongoCredential} credentials
-	 * @return a {@link ExtentKlovReporter} object
-	 */
-	public ExtentKlovReporter initMongoDbConnection(ServerAddress addr, List<MongoCredential> credentialsList) {
-		mongoClient = new MongoClient(addr, credentialsList);
-		return this;
-	}
-
-	/**
-	 * Initializes the Mongo DB connection with a list of {@link ServerAddress},
-	 * {@link MongoCredential} and {@link MongoClientOptions}
-	 * 
-	 * @param addr            A list of {@link ServerAddress} server addresses
-	 * @param credentialsList A list of {@link MongoCredential} credentials
-	 * @param options         {@link MongoClientOptions} options
-	 * @return a {@link ExtentKlovReporter} object
-	 */
-	public ExtentKlovReporter initMongoDbConnection(ServerAddress addr, List<MongoCredential> credentialsList,
-			MongoClientOptions options) {
-		mongoClient = new MongoClient(addr, credentialsList, options);
 		return this;
 	}
 
