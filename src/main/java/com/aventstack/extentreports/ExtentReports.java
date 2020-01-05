@@ -1,9 +1,12 @@
 package com.aventstack.extentreports;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
+import com.aventstack.extentreports.convert.TestModelReportBuilder;
 import com.aventstack.extentreports.gherkin.GherkinDialectProvider;
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 import com.aventstack.extentreports.model.Media;
@@ -357,7 +360,7 @@ public class ExtentReports extends ReportObservable {
 	 * 
 	 *  @return {@link ExtentKlovReporter}
 	 */
-	public ExtentReports tryResolveScreenCapturePath() {
+	public ExtentReports tryResolveMediaPath() {
 		setImagePathResolveDir(IMAGE_PATH_RESOLVER_DIR);
 		return this;
 	}
@@ -376,6 +379,33 @@ public class ExtentReports extends ReportObservable {
 		return this;
 	}
 
+	/**
+	 * Creates the internal models by consuming a JSON archive from a previous run
+	 * session. This provides the same functionality as available in earlier versions
+	 * via <code>appendExisting</code>, with the exception of being accessible by
+	 * all reporters instead of just one.  
+	 * 
+	 * @param jsonFile The JSON archive file
+	 * @throws IOException Exception thrown if the jsonFile is not found
+	 */
+	public void createDomainFromJsonArchive(File jsonFile) throws IOException {
+		TestModelReportBuilder modelBuilder = new TestModelReportBuilder();
+		modelBuilder.createDomainFromJsonArchive(this, jsonFile);
+	}
+	
+	/**
+	 * Creates the internal models by consuming a JSON archive from a previous run
+	 * session. This provides the same functionality as available in earlier versions
+	 * via <code>appendExisting</code>, with the exception of being accessible by
+	 * all reporters instead of just one.  
+	 * 
+	 * @param jsonFile The JSON archive file
+	 * @throws jsonFilePath Exception thrown if the jsonFilePath is not found
+	 */
+	public void createDomainFromJsonArchive(String jsonFilePath) throws IOException {
+		createDomainFromJsonArchive(new File(jsonFilePath));
+	}
+	
 	/**
 	 * Use this setting when building post-execution reports, such as from TestNG
 	 * IReporter. This setting allows setting test with your own time-stamps. With
