@@ -119,6 +119,7 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 	 * Sets the project name
 	 * 
 	 * @param projectName Name of the project
+	 * @return a {@link ExtentKlovReporter} object
 	 */
 	public ExtentKlovReporter setProjectName(String projectName) {
 		this.projectName = projectName;
@@ -129,6 +130,7 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 	 * Sets the report name
 	 * 
 	 * @param reportName Name of the report
+	 * @return a {@link ExtentKlovReporter} object
 	 */
 	public ExtentKlovReporter setReportName(String reportName) {
 		this.reportName = reportName;

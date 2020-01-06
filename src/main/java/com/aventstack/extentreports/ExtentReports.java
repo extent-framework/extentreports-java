@@ -399,8 +399,8 @@ public class ExtentReports extends ReportObservable {
 	 * via <code>appendExisting</code>, with the exception of being accessible by
 	 * all reporters instead of just one.  
 	 * 
-	 * @param jsonFile The JSON archive file
-	 * @throws jsonFilePath Exception thrown if the jsonFilePath is not found
+	 * @param jsonFilePath The JSON archive file
+	 * @throws IOException Exception thrown if the jsonFilePath is not found
 	 */
 	public void createDomainFromJsonArchive(String jsonFilePath) throws IOException {
 		createDomainFromJsonArchive(new File(jsonFilePath));
