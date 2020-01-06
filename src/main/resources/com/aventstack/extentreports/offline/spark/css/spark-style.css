@@ -109,7 +109,9 @@ td {
 .side-nav-controls li {
   list-style: none;
 }
-
+.side-nav .side-nav-inner .side-nav-menu>li>a {
+	font-size: inherit;
+}
 
 /**
  * Wrappers
