@@ -1,3 +1,20 @@
+## [4.10.0](https://github.com/extent-framework/extentreports-java/compare/v4.0.9...v4.1.0)
+#### Improvements
+* [#18] Steps count in dashboard displays 0 even though there are logged steps
+* [#94] Cleanup tag view naming
+* [#103] AppendExisting functionality similar to version 3 API, via `JsonFormatter` and `ExtentReports::createDomainFromJsonArchive`:
+```java
+JsonFormatter json = new JsonFormatter("target/test.json");
+extent.attachReporter(json);
+extent.createDomainFromJsonArchive("target/test.json");
+```
+* [#107] ExtentSparkReporter's default view is SPA, similar to V3HtmlReporter. This can be changed by instantiating as `new ExtentSparkReporter("dir", ViewStyle.DEFAULT);`
+* [#108] All resources migrated to jsDelivr
+
+#### Fixes
+* [#57] ExtentKlovReporter: Screenshot cannot be saved in base64 format
+* [#101] Fixes Freemarker templating error
+
 ## [4.0.9](https://github.com/extent-framework/extentreports-java/compare/v4.0.8...v4.0.9)
 #### Improvements
 * [#35] HtmlReporter, BDD: description to appear as tooltip instead of newline
