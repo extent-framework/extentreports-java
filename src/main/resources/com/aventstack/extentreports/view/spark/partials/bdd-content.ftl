@@ -7,7 +7,7 @@
 				<div class="details">${log.details}</div>
 			</#if>
 			<#if LogService.logHasScreenCapture(log)>
-				<span class="badge badge-primary">${log.screenCaptureContext.last.source}</span>
+				<div class="details">${log.screenCaptureContext.last.source}</div>
 			</#if>
 		</#list>
 	</#if>
@@ -18,12 +18,12 @@
 	<#list test.nodeContext.all as node>
 	<div class="card">
 		<div class="card-header" role="tab">
-			<h5 class="card-title pl-3">
+			<div class="card-title pl-3">
 				<div class="node">${node.name}</div>
 				<div class="status-avatar float-left ${node.status}-bg">
 					<i class="fa fa-${Icon.getIcon(node.status)} text-white"></i>
 				</div>
-			</h5>
+			</div>
 		</div>
 		<#if TestService.testHasChildren(node)>
 			<#if node.bddType?? && node.behaviorDrivenTypeName=="Scenario Outline">

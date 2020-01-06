@@ -6,12 +6,12 @@
 		<#list test.nodeContext.all as node>
 			<div class="card">
 				<div class="card-header" role="tab">
-					<h5 class="card-title">
+					<div class="card-title">
 						<div class="node">${node.name}</div> 
 						<div class="status-avatar float-right ${node.status}-bg">
 						    <i class="fa fa-${Icon.getIcon(node.status)} text-white"></i>
 						</div>
-					</h5>
+					</div>
 				</div>
 				<div class="collapse">
 					<div class="card-body">
