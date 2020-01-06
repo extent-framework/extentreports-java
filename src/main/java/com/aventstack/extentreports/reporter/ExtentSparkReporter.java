@@ -29,7 +29,7 @@ public class ExtentSparkReporter extends BasicFileReporter {
 			"src/main/resources/spark.properties" };
 
 	private ExtentSparkReporterConfiguration externalUserConfiguration = new ExtentSparkReporterConfiguration(this);
-	private ViewStyle viewStyle;
+	private ViewStyle viewStyle = ViewStyle.SPA;
 
 	public ExtentSparkReporter(String path) {
 		super(path);
