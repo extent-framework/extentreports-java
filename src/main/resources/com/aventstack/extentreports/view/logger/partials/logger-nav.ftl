@@ -37,7 +37,7 @@
 							</a>
 						</li>
 						</#if>
-						<#if config.getValue("enableDashboard")=="true">
+						<#if config.getConfig("enableDashboard")=="true">
 						<li>
 							<a href="dashboard.html">
 							<span class="nav-icon">

@@ -11,12 +11,8 @@ public class AbstractStructure<T> implements Serializable {
 
     private static final long serialVersionUID = -2630417398255980331L;
     
-    private transient List<T> list;
+    private List<T> list = Collections.synchronizedList(new ArrayList<>());
 
-    AbstractStructure() {
-        list = Collections.synchronizedList(new ArrayList<>());
-    }
-    
     public void add(T t) {
         list.add(t);
     }
@@ -38,8 +34,9 @@ public class AbstractStructure<T> implements Serializable {
     }
     
     public int size() {
-        if (list == null)
+        if (list == null) {
             return 0;
+        }
         return list.size();
     }
     

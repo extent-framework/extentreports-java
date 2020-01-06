@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Base;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.model.TestAttribute;
+import com.aventstack.extentreports.model.Attribute;
 
 public class TestAttributesTest extends Base {
 
@@ -32,7 +32,7 @@ public class TestAttributesTest extends Base {
         test.pass("pass");
         
         Assert.assertEquals(test.getModel().getCategoryContext().size(), 1);
-        Assert.assertEquals(test.getModel().getCategory(0).getName(), categories[0]);
+        Assert.assertEquals(test.getModel().getCategoryContext().get(0).getName(), categories[0]);
     }
     
     @Test
@@ -43,7 +43,7 @@ public class TestAttributesTest extends Base {
                
         Assert.assertEquals(test.getModel().getCategoryContext().size(), categories.length);
         
-        List<TestAttribute> categoryCollection = test.getModel().getCategoryContext().getAll();
+        List<Attribute> categoryCollection = test.getModel().getCategoryContext().getAll();
         Arrays.stream(categories).forEach(c -> {
             Boolean result = categoryCollection.stream().anyMatch(x -> x.getName() == c); 
             Assert.assertTrue(result);
@@ -56,7 +56,7 @@ public class TestAttributesTest extends Base {
         test.pass("pass");
         
         Assert.assertEquals(test.getModel().getAuthorContext().size(), 1);
-        Assert.assertEquals(test.getModel().getAuthor(0).getName(), authors[0]);
+        Assert.assertEquals(test.getModel().getAuthorContext().get(0).getName(), authors[0]);
     }
     
     @Test
@@ -67,7 +67,7 @@ public class TestAttributesTest extends Base {
                
         Assert.assertEquals(test.getModel().getAuthorContext().size(), authors.length);
         
-        List<TestAttribute> authorCollection = test.getModel().getAuthorContext().getAll();
+        List<Attribute> authorCollection = test.getModel().getAuthorContext().getAll();
         Arrays.stream(authors).forEach(a -> {
             Boolean result = authorCollection.stream().anyMatch(x -> x.getName() == a); 
             Assert.assertTrue(result);

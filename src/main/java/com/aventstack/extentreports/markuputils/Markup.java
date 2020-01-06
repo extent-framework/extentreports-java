@@ -4,5 +4,5 @@ import java.io.Serializable;
 
 @FunctionalInterface
 public interface Markup extends Serializable {
-    String getMarkup();
+	String getMarkup();
 }

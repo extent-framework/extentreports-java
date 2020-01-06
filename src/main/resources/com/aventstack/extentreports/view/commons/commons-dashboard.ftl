@@ -178,7 +178,7 @@
 			</div>
 			</#if>
 		</div>
-		<#if config.getValue("enableTimeline")=='true'>
+		<#if config.getConfig("enableTimeline")=='true'>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box">

@@ -8,20 +8,20 @@
 <div class='test-desc'>${test.description}</div>
 </#if>
 <#list test.nodeContext.all as node>
-<div class='${node.getBehaviorDrivenType().getSimpleName()?lower_case} node' test-id='${node.getID()}' status='${node.status}'>
-    <#if node.hasCategory()>
+<div class='${node.behaviorDrivenTypeName?lower_case} node' test-id='${node.getId()}' status='${node.status}'>
+    <#if TestService.testHasCategory(node)>
     <div class='category-list'>
         <#list node.categoryContext.all as category>
         <span class='category label'>${category.name}</span>
         </#list>
     </div>
     </#if>
-    <span class='duration right label'>${node.runDuration}</span>
+    <span class='duration right label'>${TestService.getRunDuration(node)}</span>
     <div class="bdd-test">
-        <div class="scenario-name"><span class='status ${node.status}' title='${node.status}'><i class='material-icons'>${MaterialIcon.getIcon(node.status)}</i></span> ${node.getBehaviorDrivenType().getSimpleName()}: ${node.name}</div>
-        <#if node.screenCaptureList?? && node.screenCaptureList?size != 0>
+        <div class="scenario-name"><span class='status ${node.status}' title='${node.status}'><i class='material-icons'>${MaterialIcon.getIcon(node.status)}</i></span> ${node.behaviorDrivenTypeName}: ${node.name}</div>
+        <#if TestService.testHasScreenCapture(node)>
         <ul class='screenshots right'>
-            <#list node.screenCaptureList as sc>
+            <#list node.screenCaptureContext.all as sc>
             <li><a data-featherlight="image" href="${sc.path}"><i class='material-icons'>panorama</i></a></li>
             </#list>
         </ul>
@@ -30,14 +30,14 @@
         ${node.description}
         </#if>
     </div>
-    <#if node.hasChildren()>
+    <#if TestService.testHasChildren(node)>
     <ul class='steps'>
         <#list node.nodeContext.all as child>
-        <li test-id='${child.getID()}' class='node ${child.getBehaviorDrivenType().getSimpleName()?lower_case} ${child.status}' status='${child.status}'>
+        <li test-id='${child.getId()}' class='node ${child.behaviorDrivenTypeName?lower_case} ${child.status}' status='${child.status}'>
             <div class="step-name" title="${child.description}"><span class='status ${child.status}' title='${child.status}'><i class='material-icons'>${MaterialIcon.getIcon(child.status)}</i></span>${child.name}</div>
-            <#if child.screenCaptureList?? && child.screenCaptureList?size != 0>
+            <#if TestService.testHasScreenCapture(child)>
             <ul class='screenshots right'>
-                <#list child.screenCaptureList as sc>
+                <#list child.screenCaptureContext.all as sc>
                 <li><a data-featherlight="image" href="${sc.path}"><i class='material-icons'>panorama</i></a></li>
                 </#list>
             </ul>
@@ -49,14 +49,14 @@
                 <div class="node-step">${log.details}</div>
             </#if>
             </#list>
-            <#if child.hasChildren()>
+            <#if TestService.testHasChildren(child)>
             <ul class='gc steps'>
                 <#list child.nodeContext.all as gc>
-                    <li test-id='${gc.getID()}' class='gc ${gc.getBehaviorDrivenType().getSimpleName()?lower_case} ${gc.status}' status='${gc.status}'>
+                    <li test-id='${gc.getId()}' class='gc ${gc.behaviorDrivenTypeName?lower_case} ${gc.status}' status='${gc.status}'>
                         <h6 class="step-name" title="${gc.description}"><span class='status ${gc.status}' title='${gc.status}'><i class='material-icons'>${MaterialIcon.getIcon(gc.status)}</i></span>${gc.name}</h6>
-                        <#if gc.screenCaptureList?? && gc.screenCaptureList?size != 0>
+                        <#if TestService.testHasScreenCapture(gc)>
                         <ul class='screenshots right'>
-                            <#list gc.screenCaptureList as sc>
+                            <#list gc.screenCaptureContext.all as sc>
                             <li><a data-featherlight="image" href="${sc.path}"><i class='material-icons'>panorama</i></a></li>
                             </#list>
                         </ul>

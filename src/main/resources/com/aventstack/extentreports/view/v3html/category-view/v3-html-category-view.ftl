@@ -49,10 +49,10 @@
 									</tr>
 								</thead>
 								<tbody>
-									<#list category.getTestList() as test>
+									<#list category.tests as test>
 									<tr>
 										<td>${ test.startTime?datetime?string["${timeStampFormat}"] }</td>
-										<td class='linked' test-id='${ test.getID() }'>${ test.hierarchicalName }</td>
+										<td class='linked' test-id='${ test.getId() }'>${ test.name }</td>
 										<td><span class='test-status ${ test.status }'>${ test.status }</span></td>
 									</tr>
 									</#list>

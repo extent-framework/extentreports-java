@@ -1,32 +1,32 @@
 <#macro stepdetails test>
-	<#if test.hasLog()>
+	<#if TestService.testHasLog(test)>
 		<#list test.logContext.all as log>
 			<#if log.exceptionInfo??>
 				<textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea>
 			<#else>
 				<div class="details">${log.details}</div>
 			</#if>
-			<#if log.hasScreenCapture()>
-				<span class="badge badge-primary">${log.screenCaptureContext.last.source}</span>
+			<#if LogService.logHasScreenCapture(log)>
+				<div class="details">${log.screenCaptureContext.last.source}</div>
 			</#if>
 		</#list>
 	</#if>
 </#macro>
 
-<#if test.hasChildren()>
+<#if TestService.testHasChildren(test)>
 <div class="accordion mt-4">
 	<#list test.nodeContext.all as node>
 	<div class="card">
 		<div class="card-header" role="tab">
-			<h5 class="card-title pl-3">
+			<div class="card-title pl-3">
 				<div class="node">${node.name}</div>
 				<div class="status-avatar float-left ${node.status}-bg">
 					<i class="fa fa-${Icon.getIcon(node.status)} text-white"></i>
 				</div>
-			</h5>
+			</div>
 		</div>
-		<#if node.hasChildren()>
-			<#if node.behaviorDrivenTypeName=="Scenario Outline">
+		<#if TestService.testHasChildren(node)>
+			<#if node.bddType?? && node.behaviorDrivenTypeName=="Scenario Outline">
 				<div class="collapse scenario_outline">
 					<#list node.nodeContext.all as child>
 						<div class="card-body l1">
@@ -56,7 +56,7 @@
 				<div class="collapse">
 					<div class="card-body">
 						<#list node.nodeContext.all as child>
-							<div class="d-flex align-items-center justify-content-start ${child.behaviorDrivenTypeName?replace(' ','')?replace('*','asterisk')?lower_case}" title="${child.description}">
+							<div class="d-flex align-items-center justify-content-start <#if child.bddType??>${child.behaviorDrivenTypeName?replace(' ','')?replace('*','asterisk')?lower_case}</#if>" title="${child.description}">
 								<span class="alert-icon ${child.status}-bg">
 									<i class="fa fa-${Icon.getIcon(child.status)} text-white"></i>
 								</span>

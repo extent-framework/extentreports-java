@@ -1,3 +1,3 @@
 <style type="text/css">
-<#if config.getValue("styles")??>${config.getValue("styles")}</#if>
+<#if config.getConfig("styles")??>${config.getConfig("styles")}</#if>
 </style>

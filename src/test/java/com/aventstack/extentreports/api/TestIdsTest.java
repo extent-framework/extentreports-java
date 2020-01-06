@@ -19,7 +19,7 @@ public class TestIdsTest extends Base {
         
         // create [times] tests to ensure test-id is not duplicate 
         for (int ix = 0; ix < times; ix++) {
-            int testId = extent.createTest(method.getName() + "." + ix).info("test # " + ix).getModel().getID();
+            int testId = extent.createTest(method.getName() + "." + ix).info("test # " + ix).getModel().getId();
 
             Assert.assertFalse(idCollection.contains(testId));
             

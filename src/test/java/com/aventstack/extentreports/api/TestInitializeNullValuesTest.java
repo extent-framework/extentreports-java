@@ -87,7 +87,7 @@ public class TestInitializeNullValuesTest extends Base {
         ExtentTest test = extent.createTest(method.getName()).fail("fail");
         ExtentTest node = test.createNode(null);
         
-        Assert.assertEquals(test.getModel().getChildrenNodes().size(), 0);
+        Assert.assertEquals(test.getModel().getNodeContext().size(), 0);
         Assert.assertNull(node);
     }
     
@@ -96,7 +96,7 @@ public class TestInitializeNullValuesTest extends Base {
         ExtentTest test = extent.createTest(method.getName()).fail("fail");
         ExtentTest node = test.createNode("");
         
-        Assert.assertEquals(test.getModel().getChildrenNodes().size(), 0);
+        Assert.assertEquals(test.getModel().getNodeContext().size(), 0);
         Assert.assertNull(node);
     }
     

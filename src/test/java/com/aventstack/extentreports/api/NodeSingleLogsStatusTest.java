@@ -48,7 +48,7 @@ public class NodeSingleLogsStatusTest extends Base {
     public void verifyIfTestHasStatusError(Method method) {
         ExtentTest test = extent.createTest(method.getName());
         ExtentTest node = test.createNode("Child").error("error");
-        
+
         Assert.assertEquals(node.getModel().getLevel(), 1);
         Assert.assertEquals(node.getModel().getLogContext().size(), 1);
         Assert.assertEquals(node.getStatus(), Status.ERROR);
@@ -59,7 +59,7 @@ public class NodeSingleLogsStatusTest extends Base {
     public void verifyIfTestHasStatusFail(Method method) {
         ExtentTest test = extent.createTest(method.getName());
         ExtentTest node = test.createNode("Child").fail("fail");
-        
+
         Assert.assertEquals(node.getModel().getLevel(), 1);
         Assert.assertEquals(node.getModel().getLogContext().size(), 1);
         Assert.assertEquals(node.getStatus(), Status.FAIL);
@@ -70,7 +70,7 @@ public class NodeSingleLogsStatusTest extends Base {
     public void verifyIfTestHasStatusFatal(Method method) {
         ExtentTest test = extent.createTest(method.getName());
         ExtentTest node = test.createNode("Child").fatal("fatal");
-        
+
         Assert.assertEquals(node.getModel().getLevel(), 1);
         Assert.assertEquals(node.getModel().getLogContext().size(), 1);
         Assert.assertEquals(node.getStatus(), Status.FATAL);

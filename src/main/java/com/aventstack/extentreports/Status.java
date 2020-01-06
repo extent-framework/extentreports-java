@@ -1,5 +1,4 @@
 package com.aventstack.extentreports;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;

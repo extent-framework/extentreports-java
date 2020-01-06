@@ -1,28 +1,28 @@
 <div class='test-time-info'>
 	<span class='label start-time'>${ test.startTime?datetime?string["${timeStampFormat}"] }</span>
 	<span class='label end-time'>${ test.endTime?datetime?string["${timeStampFormat}"] }</span>
-	<span class='label time-taken grey lighten-1 white-text'>${ test.getRunDuration()?string }</span>
+	<span class='label time-taken grey lighten-1 white-text'>${ TestService.getRunDuration(test)?string }</span>
 </div>
 <#if test.description?? && test.description?has_content>
 <div class='test-desc'>${ test.description} </div>
 </#if>
-<#if test.hasAuthor() || test.hasCategory()>
+<#if TestService.testHasAttributes(test)>
 <div class='test-attributes'>
-	<#if test.hasCategory()>
+	<#if TestService.testHasCategory(test)>
 	<div class='category-list'>
 		<#list test.categoryContext.all as category>
 		<span class='category label'>${ category.name }</span>
 		</#list>
 	</div>
 	</#if>
-	<#if test.hasAuthor()>
+	<#if TestService.testHasAuthor(test)>
 	<div class='author-list'>
 		<#list test.authorContext.all as author>
 		<span class='author label'>${ author.name }</span>
 		</#list>
 	</div>
 	</#if>
-	<#if test.hasDevice()>
+	<#if TestService.testHasDevice(test)>
     <div class='device-list'>
         <#list test.deviceContext.all as device>
         <span class='device label'>${ device.name }</span>
@@ -31,7 +31,7 @@
     </#if>
 </div>
 </#if>
-<#if test.hasLog()>
+<#if TestService.testHasLog(test)>
 <div class='test-steps'>
 	<table class='bordered table-results'>
 		<thead>
@@ -58,7 +58,7 @@
 					<#else>
 						${log.details}
 					</#if>
-					<#if log.hasScreenCapture()>${log.screenCaptureContext.last.source}</#if>
+					<#if LogService.logHasScreenCapture(log)>${log.screenCaptureContext.last.source}</#if>
 				</td>
 			</tr>
 			</#list>
@@ -66,18 +66,18 @@
 	</table>
 </div>
 </#if>
-<#if test.nodeContext?? && test.nodeContext.all?size != 0>
+<#if TestService.testHasChildren(test)>
 <ul class='collapsible node-list' data-collapsible='accordion'>
 	<#macro recurse_nodes nodeList>
 	<#list nodeList as node>
-	<#assign leaf=(node.hasChildren())?then('','leaf')>
-	<li class='node level-${ node.level } ${ leaf } ${ node.status }' status='${ node.status }' test-id='${ node.getID() }'>
+	<#assign leaf=(TestService.testHasChildren(node))?then('','leaf')>
+	<li class='node level-${ node.level } ${ leaf } ${ node.status }' status='${ node.status }' test-id='${ node.getId() }'>
 		<div class='collapsible-header'>
 			<div class='node-name'>${ node.name }</div>
 			<span class='node-time'>${ node.startTime?datetime?string["${timeStampFormat}"] }</span>
-			&middot; <span class='node-duration'>${ node.runDuration }</span>
+			&middot; <span class='node-duration'>${ TestService.getRunDuration(node) }</span>
 			<span class='test-status right ${ node.status }'>${ node.status }</span>
-			<#if node.hasCategory()>
+			<#if TestService.testHasCategory(node)>
 			<div class='category-list'>
 				<#list node.categoryContext.all as category>
 				<span class='category label'>${ category.name }</span>
@@ -89,13 +89,13 @@
 		<#if node.getStatus()=='pass' && disableToggleActionForPassedNode=='true'>
 		<#assign displayContent=false>
 		</#if>
-		<#if node.hasLog() && displayContent>
+		<#if TestService.testHasLog(node) && displayContent>
 		<div class='collapsible-body'>
-			<#if node.hasLog()>
+			<#if TestService.testHasLog(node)>
 			<#if node.description?? && node.description?has_content>
 			<div class='node-desc'>${ node.description}</div>
 			</#if>
-			<#if node.hasAuthor()>
+			<#if TestService.testHasAuthor(node)>
 			<div class='author-list right'>
 				<#list node.authorContext.all as author>
 				<span class='author label white-text'>${ author.name }</span>
@@ -128,15 +128,15 @@
 								<#else>
 									${log.details}
 								</#if>
-								<#if log.hasScreenCapture()>${log.screenCaptureContext.last.source}</#if>
+								<#if LogService.logHasScreenCapture(log)>${log.screenCaptureContext.last.source}</#if>
 							</td>
 						</tr>
 						</#list>
 					</tbody>
 				</table>
-				<#if node.screenCaptureList?? && node.screenCaptureList?size != 0>
+				<#if TestService.testHasScreenCapture(node)>
 				<ul class='screenshots'>
-					<#list node.screenCaptureList as sc>
+					<#list node.screenCaptureContext.all as sc>
 					<li>${ sc.source }</li>
 					</#list>
 				</ul>
@@ -145,7 +145,7 @@
 			</#if>
 		</div>
 		</#if>
-		<#if node.hasChildren()>
+		<#if TestService.testHasChildren(node)>
 		<ul class='collapsible node-list' data-collapsible='accordion'>
 			<@recurse_nodes nodeList=node.nodeContext.all />
 		</ul>

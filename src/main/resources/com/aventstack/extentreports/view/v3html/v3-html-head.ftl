@@ -1,29 +1,29 @@
 <head>
-	<meta charset='${ config.getValue('encoding') }' /> 
+	<meta charset='${ config.getConfig('encoding') }' /> 
 	<meta name='description' content='' />
 	<meta name='robots' content='noodp, noydir' />
 	<meta name='viewport' content='width=device-width, initial-scale=1' />
 	<meta id="timeStampFormat" name="timeStampFormat" content='${timeStampFormat}'/>
 	
 	<#if offline=="true">
-        <link rel="apple-touch-icon" href="${config.getValue("offlineDirectory")}material-icons.css">
-        <link rel="stylesheet" href="${config.getValue("offlineDirectory")}v3html-style.css">
+        <link rel="apple-touch-icon" href="${config.getConfig("offlineDirectory")}material-icons.css">
+        <link rel="stylesheet" href="${config.getConfig("offlineDirectory")}v3html-style.css">
     <#else>
-        <link href='${ config.getValue('protocol') }://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
-        <link href="${ config.getValue('protocol') }://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-        <link href='${ config.getValue('protocol') }://${cdnURI}${csscommit}/v3html/css/extent.css' type='text/css' rel='stylesheet' />
+        <link href='${ config.getConfig('protocol') }://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
+        <link href="${ config.getConfig('protocol') }://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link href='${ config.getConfig('protocol') }://${cdnURI}${csscommit}/v3html/css/extent.css' type='text/css' rel='stylesheet' />
     </#if>
 	
-	<title>${ config.getValue('documentTitle') }</title>
+	<title>${ config.getConfig('documentTitle') }</title>
 
 	<style type='text/css'>
 		/* json-tree */
 		.jstBracket,.jstComma,.jstValue{white-space:pre-wrap}.jstValue{font-size:10px;font-weight:400;font-family:"Lucida Console",Monaco,monospace}.jstProperty{color:#666;word-wrap:break-word}.jstBool{color:#2525CC}.jstNum{color:#D036D0}.jstNull{color:gray}.jstStr{color:#2DB669}.jstFold:after{content:' -';cursor:pointer}.jstExpand{white-space:normal}.jstExpand:after{content:' +';cursor:pointer}.jstFolded{white-space:normal!important}.jstHiddenBlock{display:none}
-		<#if config.containsKey('css')>
-			${ config.getValue('css') }
+		<#if config.containsConfig('css')>
+			${ config.getConfig('css') }
 		</#if>
-		<#if config.containsKey('styles')>
-			${ config.getValue('styles') }
+		<#if config.containsConfig('styles')>
+			${ config.getConfig('styles') }
 		</#if>
 	</style>
 	

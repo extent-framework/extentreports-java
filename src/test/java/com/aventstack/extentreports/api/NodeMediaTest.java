@@ -24,7 +24,7 @@ public class NodeMediaTest extends Base {
                 .addScreenCaptureFromPath(imgPath)
                 .fail("fail");
         
-        Assert.assertEquals(node.getModel().getScreenCaptureList().size(), 1);
+        Assert.assertEquals(node.getModel().getScreenCaptureContext().size(), 1);
     }
     
     @Test
@@ -35,8 +35,8 @@ public class NodeMediaTest extends Base {
                 .addScreenCaptureFromPath(imgPath, imgName)
                 .fail("fail");
         
-        Assert.assertEquals(node.getModel().getScreenCaptureList().size(), 1);
-        Assert.assertEquals(node.getModel().getScreenCaptureList().get(0).getName(), imgName);
+        Assert.assertEquals(node.getModel().getScreenCaptureContext().size(), 1);
+        Assert.assertEquals(node.getModel().getScreenCaptureContext().get(0).getName(), imgName);
     }
     
     @Test
@@ -52,9 +52,9 @@ public class NodeMediaTest extends Base {
             node.addScreenCaptureFromPath(imgPath, imgName);
         }
         
-        Assert.assertEquals(node.getModel().getScreenCaptureList().size(), times);
+        Assert.assertEquals(node.getModel().getScreenCaptureContext().size(), times);
         for (int ix = 0; ix < times; ix++) {
-            Assert.assertEquals(node.getModel().getScreenCaptureList().get(ix).getName(), imgName);
+            Assert.assertEquals(node.getModel().getScreenCaptureContext().get(ix).getName(), imgName);
         }
     }
     

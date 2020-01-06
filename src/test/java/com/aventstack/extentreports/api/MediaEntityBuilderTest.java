@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.Base;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.model.service.LogService;
 
 public class MediaEntityBuilderTest extends Base {
 
@@ -17,19 +18,19 @@ public class MediaEntityBuilderTest extends Base {
     @Test
     public void testLogMediaEntity(Method method) throws IOException {
         ExtentTest t = extent.createTest(method.getName()).pass("details", MediaEntityBuilder.createScreenCaptureFromPath(IMG_PATH).build());
-        Assert.assertTrue(t.getModel().getLogContext().getFirst().hasScreenCapture());
+        Assert.assertTrue(LogService.logHasScreenCapture(t.getModel().getLogContext().getFirst()));
     }
     
     @Test
     public void testLogMediaEntityWithTitle(Method method) throws IOException {
         ExtentTest t = extent.createTest(method.getName()).pass("details", MediaEntityBuilder.createScreenCaptureFromPath(IMG_PATH, "title").build());
-        Assert.assertTrue(t.getModel().getLogContext().getFirst().hasScreenCapture());
+        Assert.assertTrue(LogService.logHasScreenCapture(t.getModel().getLogContext().getFirst()));
     }
     
     @Test
     public void testLogMediaEntityBase64(Method method) throws IOException {
         ExtentTest t = extent.createTest(method.getName()).pass("details", MediaEntityBuilder.createScreenCaptureFromBase64String("base64").build());
-        Assert.assertTrue(t.getModel().getLogContext().getFirst().hasScreenCapture());
+        Assert.assertTrue(LogService.logHasScreenCapture(t.getModel().getLogContext().getFirst()));
     }
     
 }

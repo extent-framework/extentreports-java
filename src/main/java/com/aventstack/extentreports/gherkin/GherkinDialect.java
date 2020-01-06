@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * <p>
- * Modified version of GherkinKeyword.java from cucumber/gherkin. Source url:  
+ * Modified version of GherkinKeyword.java from cucumber/gherkin. Source url:
  * https://raw.githubusercontent.com/cucumber/cucumber/master/gherkin/java/src/main/java/gherkin/GherkinDialect.java
  * 
  * <p>
@@ -13,21 +13,23 @@ import java.util.Map;
  *
  */
 public class GherkinDialect {
-    private final Map<String, List<String>> keywords;
-    private String language;
+	
+	private final Map<String, List<String>> keywords;
+	private String language;
 
-    public GherkinDialect(String language, Map<String, List<String>> keywords) {
-        this.language = language;
-        this.keywords = keywords;
-    }
+	public GherkinDialect(String language, Map<String, List<String>> keywords) {
+		keywords.remove("name");
+		keywords.remove("native");
+		this.language = language;
+		this.keywords = keywords;
+	}
 
-    public Map<String, List<String>> getKeywords() {
-        keywords.remove("name");
-        keywords.remove("native");
-        return keywords;
-    }
+	public Map<String, List<String>> getKeywords() {
+		return keywords;
+	}
 
-    public String getLanguage() {
-        return language;
-    }
+	public String getLanguage() {
+		return language;
+	}
+	
 }

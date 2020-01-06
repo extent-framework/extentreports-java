@@ -25,10 +25,10 @@
 				</div>
 			</div>
 		</div>
-		<#assign p="https://cdn.rawgit.com/extent-framework/extent-github-cdn/d74480e/commons/js/">
-		<#if offline=="true"><#assign p=config.getValue("offlineDirectory")></#if>
+		<#assign p="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@832f979664f9d68bf618db3ac87498ac6c1a6390/commons/js/">
+		<#if offline=="true"><#assign p=config.getConfig("offlineDirectory")></#if>
 		<script src="${p}dashboard.js"></script>
-		<#if config.containsKey("scripts") && config.getValue("scripts")?has_content>
+		<#if config.containsConfig("scripts") && config.getConfig("scripts")?has_content>
 		<#include "../commons/commons-inject-js.ftl">
 		</#if>
 		<#include "../commons/commons-dashboard-scripts.ftl">

@@ -20,10 +20,9 @@ import org.bson.types.ObjectId;
 import com.aventstack.extentreports.ReportAggregates;
 import com.aventstack.extentreports.ReportStatusStats;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.SystemAttributeContext;
-import com.aventstack.extentreports.TestAttributeTestContextProvider;
 import com.aventstack.extentreports.mediastorage.KlovMediaStorageHandler;
 import com.aventstack.extentreports.mediastorage.model.KlovMedia;
+import com.aventstack.extentreports.model.Attribute;
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.BasicMongoReportElement;
 import com.aventstack.extentreports.model.Category;
@@ -31,16 +30,17 @@ import com.aventstack.extentreports.model.Device;
 import com.aventstack.extentreports.model.ExceptionInfo;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.ScreenCapture;
-import com.aventstack.extentreports.model.Screencast;
 import com.aventstack.extentreports.model.SystemAttribute;
 import com.aventstack.extentreports.model.Test;
-import com.aventstack.extentreports.model.TestAttribute;
-import com.aventstack.extentreports.utils.IntUtils;
+import com.aventstack.extentreports.model.context.SystemAttributeContext;
+import com.aventstack.extentreports.model.context.TestAttributeTestContextStore;
+import com.aventstack.extentreports.model.service.LogService;
+import com.aventstack.extentreports.model.service.TestService;
+import com.aventstack.extentreports.utils.IntUtil;
 import com.aventstack.extentreports.utils.MongoUtil;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -51,7 +51,7 @@ import com.mongodb.client.MongoDatabase;
  * information in the database which is then used by the ExtentX server to
  * display in-depth analysis.
  */
-public class ExtentKlovReporter extends AbstractReporter {
+public class ExtentKlovReporter extends ConfigurableReporter {
 
 	private static final String DEFAULT_PROJECT_NAME_PROP = "klov.project.name";
 	private static final String DEFAULT_REPORT_NAME_PROP = "klov.report.name";
@@ -65,25 +65,21 @@ public class ExtentKlovReporter extends AbstractReporter {
 	private static final String DEFAULT_PROJECT_NAME = "Default";
 
 	private String url;
-
 	private List<Test> testList;
 	private ReportStatusStats stats;
 	private SystemAttributeContext systemAttributeContext;
-	private TestAttributeTestContextProvider<Category> categoryContext;
-	private TestAttributeTestContextProvider<Author> authorContext;
-	private TestAttributeTestContextProvider<Device> deviceContext;
+	private TestAttributeTestContextStore<Category> categoryContext;
+	private TestAttributeTestContextStore<Author> authorContext;
+	private TestAttributeTestContextStore<Device> deviceContext;
 	private Map<String, ObjectId> categoryNameObjectIdCollection = new HashMap<>();
 	private Map<String, ObjectId> authorNameObjectIdCollection = new HashMap<>();
 	private Map<String, ObjectId> deviceNameObjectIdCollection = new HashMap<>();
 	private Map<String, ObjectId> exceptionNameObjectIdCollection = new HashMap<>();
-
 	private ObjectId reportId;
 	private String reportName;
 	private ObjectId projectId;
 	private String projectName;
-
 	private MongoClient mongoClient;
-
 	private MongoCollection<Document> projectCollection;
 	private MongoCollection<Document> reportCollection;
 	private MongoCollection<Document> testCollection;
@@ -94,7 +90,8 @@ public class ExtentKlovReporter extends AbstractReporter {
 	private MongoCollection<Document> authorCollection;
 	private MongoCollection<Document> deviceCollection;
 	private MongoCollection<Document> environmentCollection;
-
+	private KlovMediaStorageHandler mediaStorageHandler;
+	
 	static {
 		/* use mongodb reporting for only critical/severe events */
 		Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
@@ -122,20 +119,24 @@ public class ExtentKlovReporter extends AbstractReporter {
 	 * Sets the project name
 	 * 
 	 * @param projectName Name of the project
+	 * @return a {@link ExtentKlovReporter} object
 	 */
-	public void setProjectName(String projectName) {
+	public ExtentKlovReporter setProjectName(String projectName) {
 		this.projectName = projectName;
+		return this;
 	}
 
 	/**
 	 * Sets the report name
 	 * 
 	 * @param reportName Name of the report
+	 * @return a {@link ExtentKlovReporter} object
 	 */
-	public void setReportName(String reportName) {
+	public ExtentKlovReporter setReportName(String reportName) {
 		this.reportName = reportName;
+		return this;
 	}
-
+	
 	/**
 	 * Initialize Mongo DB connection with host and default port: 27017
 	 * 
@@ -207,34 +208,6 @@ public class ExtentKlovReporter extends AbstractReporter {
 
 	/**
 	 * Initializes the Mongo DB connection with a list of {@link ServerAddress} and
-	 * {@link MongoCredential}
-	 * 
-	 * @param seeds           A list of {@link ServerAddress} server addresses
-	 * @param credentialsList A list of {@link MongoCredential} credentials
-	 * @return a {@link ExtentKlovReporter} object
-	 */
-	public ExtentKlovReporter initMongoDbConnection(List<ServerAddress> seeds, List<MongoCredential> credentialsList) {
-		mongoClient = new MongoClient(seeds, credentialsList);
-		return this;
-	}
-
-	/**
-	 * Initializes the Mongo DB connection with a list of {@link ServerAddress},
-	 * {@link MongoCredential} and {@link MongoClientOptions}
-	 * 
-	 * @param seeds           A list of {@link ServerAddress} server addresses
-	 * @param credentialsList A list of {@link MongoCredential} credentials
-	 * @param options         {@link MongoClientOptions} options
-	 * @return a {@link ExtentKlovReporter} object
-	 */
-	public ExtentKlovReporter initMongoDbConnection(List<ServerAddress> seeds, List<MongoCredential> credentialsList,
-			MongoClientOptions options) {
-		mongoClient = new MongoClient(seeds, credentialsList, options);
-		return this;
-	}
-
-	/**
-	 * Initializes the Mongo DB connection with a list of {@link ServerAddress} and
 	 * {@link MongoClientOptions}
 	 * 
 	 * @param seeds   A list of {@link ServerAddress} server addresses
@@ -243,34 +216,6 @@ public class ExtentKlovReporter extends AbstractReporter {
 	 */
 	public ExtentKlovReporter initMongoDbConnection(List<ServerAddress> seeds, MongoClientOptions options) {
 		mongoClient = new MongoClient(seeds, options);
-		return this;
-	}
-
-	/**
-	 * Initializes the Mongo DB connection with {@link ServerAddress} and a list of
-	 * {@link MongoCredential} credentials
-	 * 
-	 * @param addr            {@link ServerAddress} server address
-	 * @param credentialsList A list of {@link MongoCredential} credentials
-	 * @return a {@link ExtentKlovReporter} object
-	 */
-	public ExtentKlovReporter initMongoDbConnection(ServerAddress addr, List<MongoCredential> credentialsList) {
-		mongoClient = new MongoClient(addr, credentialsList);
-		return this;
-	}
-
-	/**
-	 * Initializes the Mongo DB connection with a list of {@link ServerAddress},
-	 * {@link MongoCredential} and {@link MongoClientOptions}
-	 * 
-	 * @param addr            A list of {@link ServerAddress} server addresses
-	 * @param credentialsList A list of {@link MongoCredential} credentials
-	 * @param options         {@link MongoClientOptions} options
-	 * @return a {@link ExtentKlovReporter} object
-	 */
-	public ExtentKlovReporter initMongoDbConnection(ServerAddress addr, List<MongoCredential> credentialsList,
-			MongoClientOptions options) {
-		mongoClient = new MongoClient(addr, credentialsList, options);
 		return this;
 	}
 
@@ -311,12 +256,11 @@ public class ExtentKlovReporter extends AbstractReporter {
 	}
 
 	private void loadInitializationParams() {
-
 		String mongoUri = getConfigValue(DEFAULT_MONGODB_URI_PROP);
 		if (mongoUri == null || mongoUri.isEmpty()) {
 			String mongoHost = getConfigValue(DEFAULT_MONGODB_HOST_PROP);
 			String mongoPort = getConfigValue(DEFAULT_MONGODB_PORT_PROP);
-			int mongoPortInt = IntUtils.tryParseInt(mongoPort) == true ? Integer.valueOf(mongoPort) : -1;
+			int mongoPortInt = IntUtil.tryParseInt(mongoPort) == true ? Integer.valueOf(mongoPort) : -1;
 			if (mongoHost != null && mongoPortInt != -1) {
 				initMongoDbConnection(mongoHost, mongoPortInt);
 			} else if (mongoHost != null) {
@@ -343,12 +287,11 @@ public class ExtentKlovReporter extends AbstractReporter {
 			initKlovServerConnection(uri);
 		} else if (klovHost != null) {
 			initKlovServerConnection(klovHost);
-		} else {
 		}
 	}
 
 	private String getConfigValue(String key) {
-		return String.valueOf(configContext.getValue(key));
+		return String.valueOf(getConfigurationStore().getConfig(key));
 	}
 
 	@Override
@@ -466,7 +409,9 @@ public class ExtentKlovReporter extends AbstractReporter {
 		Document doc;
 
 		for (SystemAttribute attr : systemAttrList) {
-			doc = new Document("project", projectId).append("report", reportId).append("name", attr.getName());
+			doc = new Document("project", projectId)
+					.append("report", reportId)
+					.append("name", attr.getName());
 
 			Document envSingle = environmentCollection.find(doc).first();
 
@@ -492,19 +437,26 @@ public class ExtentKlovReporter extends AbstractReporter {
 	}
 
 	private void onTestStartedHelper(Test test) {
-		Document doc = new Document("project", projectId).append("report", reportId).append("reportName", reportName)
-				.append("level", test.getLevel()).append("name", test.getName())
-				.append("status", test.getStatus().toString()).append("description", test.getDescription())
-				.append("startTime", test.getStartTime()).append("endTime", test.getEndTime())
-				.append("bdd", test.isBehaviorDrivenType()).append("leaf", test.getChildrenNodes().size() == 0)
-				.append("childNodesLength", test.getChildrenNodes().size());
+		Document doc = new Document("project", projectId)
+				.append("report", reportId)
+				.append("reportName", reportName)
+				.append("level", test.getLevel())
+				.append("name", test.getName())
+				.append("status", test.getStatus().toString())
+				.append("description", test.getDescription())
+				.append("startTime", test.getStartTime())
+				.append("endTime", test.getEndTime())
+				.append("bdd", test.isBehaviorDrivenType())
+				.append("leaf", test.getNodeContext().isEmpty())
+				.append("childNodesLength", test.getNodeContext().size());
 
 		if (test.isBehaviorDrivenType()) {
-			doc.append("bddType", test.getBehaviorDrivenType().getSimpleName());
+			doc.append("bddType", test.getBehaviorDrivenTypeName());
 		}
 
 		if (test.getParent() != null) {
-			doc.append("parent", test.getParent().getObjectId()).append("parentName", test.getParent().getName());
+			doc.append("parent", test.getParent().getObjectId())
+				.append("parentName", test.getParent().getName());
 			updateTestChildrenCount(test.getParent());
 			updateTestDesc(test.getParent());
 		}
@@ -520,15 +472,19 @@ public class ExtentKlovReporter extends AbstractReporter {
 	}
 
 	private void updateTestChildrenCount(Test test) {
-		Document doc = new Document("childNodesLength", test.getChildrenNodes().size());
+		Document doc = new Document("childNodesLength", test.getNodeContext().size());
 		testCollection.updateOne(new Document("_id", test.getObjectId()), new Document("$set", doc));
 	}
 
 	@Override
 	public synchronized void onLogAdded(Test test, Log log) {
-		Document doc = new Document("test", test.getObjectId()).append("project", projectId).append("report", reportId)
-				.append("testName", test.getName()).append("sequence", log.getSequence())
-				.append("status", log.getStatus().toString()).append("timestamp", log.getTimestamp())
+		Document doc = new Document("test", test.getObjectId())
+				.append("project", projectId)
+				.append("report", reportId)
+				.append("testName", test.getName())
+				.append("sequence", log.getSequence())
+				.append("status", log.getStatus().toString())
+				.append("timestamp", log.getTimestamp())
 				.append("details", log.getDetails());
 
 		if (log.getExceptionInfo() != null) {
@@ -536,7 +492,7 @@ public class ExtentKlovReporter extends AbstractReporter {
 					log.getExceptionInfo().getStackTrace());
 		}
 
-		if (log.hasScreenCapture() && log.getScreenCaptureContext().getFirst().isBase64()) {
+		if (LogService.logHasScreenCapture(log) && log.getScreenCaptureContext().getFirst().isBase64()) {
 			doc.append("details", log.getDetails() + log.getScreenCaptureContext().getFirst().getSource());
 		}
 
@@ -546,11 +502,11 @@ public class ExtentKlovReporter extends AbstractReporter {
 		log.setObjectId(logId);
 
 		// check for exceptions..
-		if (test.hasException()) {
+		if (TestService.testHasException(test)) {
 			if (exceptionNameObjectIdCollection == null)
 				exceptionNameObjectIdCollection = new HashMap<>();
 
-			ExceptionInfo ex = test.getExceptionInfoList().get(0);
+			ExceptionInfo ex = test.getExceptionInfoContext().get(0);
 
 			ObjectId exceptionId;
 			doc = new Document("report", reportId).append("project", projectId).append("name", ex.getExceptionName());
@@ -566,8 +522,10 @@ public class ExtentKlovReporter extends AbstractReporter {
 				if (docException != null) {
 					exceptionNameObjectIdCollection.put(ex.getExceptionName(), docException.getObjectId("_id"));
 				} else {
-					doc = new Document("project", projectId).append("report", reportId)
-							.append("name", ex.getExceptionName()).append("stacktrace", ex.getStackTrace())
+					doc = new Document("project", projectId)
+							.append("report", reportId)
+							.append("name", ex.getExceptionName())
+							.append("stacktrace", ex.getStackTrace())
 							.append("testCount", 0);
 
 					exceptionCollection.insertOne(doc);
@@ -596,8 +554,10 @@ public class ExtentKlovReporter extends AbstractReporter {
 
 	private void endTestRecursive(Test test) {
 		Document doc = new Document("status", test.getStatus().toString()).append("endTime", test.getEndTime())
-				.append("duration", test.getRunDurationMillis()).append("leaf", test.getChildrenNodes().size() == 0)
-				.append("childNodesLength", test.getChildrenNodes().size()).append("categorized", test.hasCategory())
+				.append("duration", TestService.getRunDurationMillis(test))
+				.append("leaf", test.getNodeContext().isEmpty())
+				.append("childNodesLength", test.getNodeContext().size())
+				.append("categorized", TestService.testHasCategory(test))
 				.append("description", test.getDescription());
 
 		testCollection.updateOne(new Document("_id", test.getObjectId()), new Document("$set", doc));
@@ -607,9 +567,9 @@ public class ExtentKlovReporter extends AbstractReporter {
 		}
 	}
 
-	public <T extends TestAttribute> void assignAttribute(Test test, TestAttribute attribute,
+	public <T extends Attribute> void assignAttribute(Test test, Attribute attribute,
 			Map<String, ObjectId> nameObjectIdCollection, MongoCollection<Document> mongoCollection,
-			TestAttributeTestContextProvider<T> attributeContext) {
+			TestAttributeTestContextStore<T> attributeContext) {
 	}
 
 	@Override
@@ -620,18 +580,18 @@ public class ExtentKlovReporter extends AbstractReporter {
 	@Override
 	public void onAuthorAssigned(Test test, Author author) {
 		assignAttribute(test, author, authorNameObjectIdCollection, authorCollection, authorContext);
-	}
-
-	private KlovMediaStorageHandler mediaStorageHandler;
+	}	
 
 	@Override
 	public void onScreenCaptureAdded(Test test, ScreenCapture screenCapture) throws IOException {
+		screenCapture.getBsonId().put("testId", test.getObjectId());
 		saveScreenCapture(test, screenCapture);
 	}
 
 	@Override
 	public void onScreenCaptureAdded(Log log, ScreenCapture screenCapture) throws IOException {
-		screenCapture.setLogObjectId(log.getObjectId());
+		screenCapture.getBsonId().put("logId", log.getObjectId());
+		screenCapture.getBsonId().put("testId", log.getTest().getObjectId());
 		saveScreenCapture(log, screenCapture);
 	}
 
@@ -641,10 +601,6 @@ public class ExtentKlovReporter extends AbstractReporter {
 			mediaStorageHandler = new KlovMediaStorageHandler(url, klovMedia);
 		}
 		mediaStorageHandler.saveScreenCapture(el, screenCapture);
-	}
-
-	@Override
-	public void onScreencastAdded(Test test, Screencast screencast) throws IOException {
 	}
 
 	/**

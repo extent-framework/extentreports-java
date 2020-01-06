@@ -28,7 +28,7 @@
         <ul class="nav-right">
           <li class="m-r-10">
             <a href="#">
-              <span class="badge badge-primary">${config.getValue("reportName")}</span>
+              <span class="badge badge-primary">${config.getConfig("reportName")}</span>
             </a>
           </li>
             <li class="m-r-10">
