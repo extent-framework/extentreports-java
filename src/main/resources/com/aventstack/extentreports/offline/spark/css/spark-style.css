@@ -382,7 +382,7 @@ img.r-img {
 	background: #9ccc65;
 }
 .skip-bg,.avatar.skip {
-	background: #64b5f6;
+	background: #ff9900;
 }
 .error-bg,.avatar.skip {
 	background: #ffd54f;
@@ -393,6 +393,10 @@ img.r-img {
 .b-skip {
 	border-color: #64b5f6;
 }
+	.badge-skip {
+		background-color: #ff9900 !important;
+		color: #fff;
+	}
 .badge.status {
 	background: transparent !important;
 }

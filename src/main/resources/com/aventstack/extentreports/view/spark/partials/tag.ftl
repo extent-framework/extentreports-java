@@ -27,7 +27,8 @@
 							<span class="datetime">
 							<#if context.passed!=0><span class='badge badge-success'>${context.passed}</span></#if>
 							<#if context.failed!=0><span class='badge badge-danger'>${context.failed}</span></#if>
-							<#if context.skipped!=0><span class='badge badge-warning'>${context.skipped}</span></#if>
+							<#if context.skipped!=0><span class='badge badge-skip'>${context.skipped}</span></#if>
+							<#if context.others!=0><span class='badge badge-warning'>${context.others}</span></#if>
 							</span>
 						</div>
 					</div>
@@ -36,7 +37,8 @@
 							<h4>${context.name}</h4>
 							<#if context.passed!=0><span status="pass" class='badge badge-success'>${context.passed} passed</span></#if>
 							<#if context.failed!=0><span status="fail" class='badge badge-danger'>${context.failed} failed</span></#if>
-							<#if context.skipped!=0><span status="skip" class='badge badge-warning'>${context.skipped} skipped</span></#if>
+							<#if context.skipped!=0><span status="skip" class='badge badge-skip'>${context.skipped} skipped</span></#if>
+							<#if context.others!=0><span status="skip" class='badge badge-warning'>${context.others} others</span></#if>
 						</div>
 						<table class='table table-sm mt-4'>
 							<thead>
