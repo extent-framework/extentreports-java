@@ -40,6 +40,15 @@ public abstract class ConfigurableReporter extends AbstractReporter {
 	public void loadXMLConfig(String filePath) {
 		loadXMLConfig(filePath, false);
 	}
+	
+	/**
+	 * Loads configuration from an XML file
+	 * 
+	 * @param file configuration {@link File}
+	 */
+	public void loadXMLConfig(File file) {
+		loadXMLConfig(file, false);
+	}
 
 	/**
 	 * Loads configuration from an XML file
