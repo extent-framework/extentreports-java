@@ -25,9 +25,7 @@ public class ScreenCapture extends Media {
 	public String getSource() {
         if (getBase64String() != null)
             return "<a href='" + getScreenCapturePath() + "' data-featherlight='image'><span class='label grey badge white-text text-white'>base64-img</span></a>";
-        String path = "file:///";
-        path += getScreenCapturePath().replace("\\","/");
-        return "<img class='r-img' onerror='this.style.display=\"none\"' data-featherlight='" + path + "' src='" + path + "'>";
+        return "<img class='r-img' onerror='this.style.display=\"none\"' data-featherlight='" + getScreenCapturePath() + "' src='" + getScreenCapturePath() + "'>";
     }
         
 }
