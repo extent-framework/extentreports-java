@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -418,7 +419,7 @@ abstract class ReportObservable implements ReportService {
 	 * <li>A database being updated (eg. case of KlovReporter)</li>
 	 * </ul>
 	 */
-	protected void flush() {
+	protected synchronized void flush() {
 		generateRecentStatus();
 		notifyReporters();
 	}
@@ -452,7 +453,9 @@ abstract class ReportObservable implements ReportService {
 				test.getExceptionInfoContext().getAll().forEach(x -> exceptionContext.setExceptionContext(x, test));
 			}
 			if (TestService.testHasChildren(test)) {
-				for (Test node : test.getNodeContext().getAll()) {
+				Iterator<Test> iter = test.getNodeContext().getIterator();
+				while (iter.hasNext()) {
+					Test node = iter.next();
 					copyNodeAttributeAndRunTimeInfoToAttributeContexts(node);
 					node.setUsesManualConfiguration(getAllowManualConfig());
 				}

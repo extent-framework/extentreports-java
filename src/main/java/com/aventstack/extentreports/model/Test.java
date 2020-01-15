@@ -305,7 +305,6 @@ public class Test implements Serializable, RunResult, BasicMongoReportElement {
 	private synchronized void updateStatus(Status logStatus) {
 		int logStatusIndex = Status.getStatusHierarchy().indexOf(logStatus);
 		int testStatusIndex = Status.getStatusHierarchy().indexOf(status);
-
 		status = logStatusIndex < testStatusIndex ? logStatus : status;
 	}
 

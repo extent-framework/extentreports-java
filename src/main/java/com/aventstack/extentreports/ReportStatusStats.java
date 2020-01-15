@@ -1,5 +1,6 @@
 package com.aventstack.extentreports;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.aventstack.extentreports.gherkin.model.Scenario;
@@ -387,11 +388,13 @@ public class ReportStatusStats {
 		throw new InvalidAnalysisStrategyException("No such strategy found: " + strategy);
 	}
 
-	private synchronized void updateEventsCount(Test test) {
+	private void updateEventsCount(Test test) {
 		test.getLogContext().getAll().stream()
 			.map(Log::getStatus)
 			.forEach(this::incrementEvent);
-		for (Test node : test.getNodeContext().getAll()) {
+		Iterator<Test> iter = test.getNodeContext().getIterator();
+		while (iter.hasNext()) {
+			Test node = iter.next();
 			updateEventsCount(node);
 		}
 	}

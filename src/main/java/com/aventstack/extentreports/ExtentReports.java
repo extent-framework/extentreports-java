@@ -286,7 +286,7 @@ public class ExtentReports extends ReportObservable {
 	 * </ul>
 	 */
 	@Override
-	public synchronized void flush() {
+	public void flush() {
 		super.flush();
 	}
 
