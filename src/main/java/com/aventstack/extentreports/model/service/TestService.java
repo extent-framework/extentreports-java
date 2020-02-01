@@ -71,5 +71,14 @@ public class TestService {
 	public static Long getRunDurationMillis(Test test) {
 		return test.getEndTime().getTime() - test.getStartTime().getTime();
 	}
+	
+	public static String getHierarchicalName(Test test) {
+		StringBuilder sb = new StringBuilder(test.getName());
+		while (test.getParent() != null) {
+			test = test.getParent();
+			sb.insert(0, test.getName() + ".");
+		}
+		return sb.toString();
+	}
 
 }
