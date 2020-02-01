@@ -563,7 +563,7 @@ abstract class ReportObservable implements ReportService {
 		stats = new ReportStatusStats(strategy);
 	}
 	
-	protected void setImagePathResolveDir(String[] imagePathResolveDir) {
+	protected void setMediaPathResolveDir(String[] imagePathResolveDir) {
 		this.imagePathResolveDir = imagePathResolveDir;
 	}
 

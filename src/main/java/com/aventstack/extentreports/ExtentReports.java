@@ -361,7 +361,7 @@ public class ExtentReports extends ReportObservable {
 	 *  @return {@link ExtentKlovReporter}
 	 */
 	public ExtentReports tryResolveMediaPath() {
-		setImagePathResolveDir(IMAGE_PATH_RESOLVER_DIR);
+		setMediaPathResolveDir(IMAGE_PATH_RESOLVER_DIR);
 		return this;
 	}
 	
@@ -374,8 +374,8 @@ public class ExtentReports extends ReportObservable {
 	 * 
 	 * @return {@link ExtentKlovReporter}
 	 */
-	public ExtentReports tryResolveScreenCapturePath(String[] paths) {
-		setImagePathResolveDir(paths);
+	public ExtentReports tryResolveMediaPath(String[] paths) {
+		setMediaPathResolveDir(paths);
 		return this;
 	}
 
