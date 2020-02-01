@@ -435,7 +435,6 @@ abstract class ReportObservable implements ReportService {
 			return;
 
 		reportEndDate = Calendar.getInstance().getTime();
-		refreshReportEntities();
 
 		for (Test test : testList) {
 			endTest(test);
@@ -462,6 +461,7 @@ abstract class ReportObservable implements ReportService {
 			}
 		}
 
+		refreshReportEntities();
 		updateReportStartTimeForManualConfigurationSetting();
 	}
 
