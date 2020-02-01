@@ -99,9 +99,16 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 	}
 
 	/**
-	 * Initializes the KlovReporter
+	 * Initializes the KlovReporter with the project name and default report name
+	 * 
+	 * <p>
+	 * The reportName will be created using the current timestamp
+	 * 
+	 * @param projectName Name of the project
+	 * 
 	 */
-	public ExtentKlovReporter() {
+	public ExtentKlovReporter(String projectName) {
+		this.projectName = projectName;
 	}
 
 	/**
