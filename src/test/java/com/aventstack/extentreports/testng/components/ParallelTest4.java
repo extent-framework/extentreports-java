@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 
-public class ParallelTest2 extends ExtentTestNGReportBuilder {
+public class ParallelTest4 extends ExtentTestNGReportBuilder {
 
 	@Test(groups = "pass")
     public void passTest2() {

@@ -3,18 +3,18 @@
     <test name="ExtentWithParallelClasses">
         <classes>
             <class name="com.aventstack.extentreports.api.BddAttributesTest" />
-            <class name="com.aventstack.extentreports.api.BddLevelsTests" />
-            <class name="com.aventstack.extentreports.api.BddWithStepStatusHierarchyTests" />
-            <class name="com.aventstack.extentreports.api.BuildReportWithoutAttachedReportersTests" />
-            <class name="com.aventstack.extentreports.api.BuildsReportWithoutTests" />
+            <class name="com.aventstack.extentreports.api.BddLevelsTest" />
+            <class name="com.aventstack.extentreports.api.BddWithStepStatusHierarchyTest" />
+            <class name="com.aventstack.extentreports.api.BuildReportWithoutAttachedReportersTest" />
+            <class name="com.aventstack.extentreports.api.TestWithoutLogsTest" />
             <class name="com.aventstack.extentreports.api.NodeAttributesTest" />
-            <class name="com.aventstack.extentreports.api.NodeMediaTests" />
-            <class name="com.aventstack.extentreports.api.NodeSingleLogsStatusTests" />
-            <class name="com.aventstack.extentreports.api.NodesStatusHierarchyTests" />
+            <class name="com.aventstack.extentreports.api.NodeMediaTest" />
+            <class name="com.aventstack.extentreports.api.NodeSingleLogsStatusTest" />
+            <class name="com.aventstack.extentreports.api.NodesStatusHierarchyTest" />
             <class name="com.aventstack.extentreports.api.NodeWithoutLogs" />
-            <class name="com.aventstack.extentreports.api.TestAttributesTests" />
-            <class name="com.aventstack.extentreports.api.TestIdsTests" />
-            <class name="com.aventstack.extentreports.api.TestInitializeNullValuesTests" />
+            <class name="com.aventstack.extentreports.api.TestAttributesTest" />
+            <class name="com.aventstack.extentreports.api.TestIdsTest" />
+            <class name="com.aventstack.extentreports.api.TestInitializeNullValuesTest" />
         </classes>
     </test>
 </suite>
