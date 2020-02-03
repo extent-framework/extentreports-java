@@ -5,7 +5,7 @@
 
 	<groupId>com.aventstack</groupId>
 	<artifactId>extentreports</artifactId>
-	<version>4.1.2-SNAPSHOT</version>
+	<version>4.1.2</version>
 
 	<name>extentreports</name>
 	<url>www.extentreports.com</url>

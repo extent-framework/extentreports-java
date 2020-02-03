@@ -1,4 +1,15 @@
-## [4.10.0](https://github.com/extent-framework/extentreports-java/compare/v4.0.9...v4.1.0)
+## [4.1.2](https://github.com/extent-framework/extentreports-java/compare/v4.1.1...v4.1.2)
+#### Improvements
+* [#114] Tags tab lost a display of a full name of test
+* ExtentKlovReporter can not be initialized with the `projectName`
+
+#### Fixes
+* [#115] Fixes issue with Base64 strings not displaying
+* [#121] Fixes BDD SessionStats bug causing feature aggregates to be miscalculated
+
+## [4.1.1](https://github.com/extent-framework/extentreports-java/compare/v4.1.0...v4.1.1)
+
+## [4.1.0](https://github.com/extent-framework/extentreports-java/compare/v4.0.9...v4.1.0)
 #### Improvements
 * [#18] Steps count in dashboard displays 0 even though there are logged steps
 * [#94] Cleanup tag view naming
