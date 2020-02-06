@@ -5,8 +5,8 @@ import java.util.stream.Stream;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.offline.OfflineResxDelegate;
+import com.aventstack.extentreports.reporter.BasicFileReporter;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.utils.FileUtil;
 
 /**
@@ -28,7 +28,7 @@ public class ExtentHtmlReporterConfiguration extends RichViewReporterConfigurati
 		getConfigurationStore().storeConfig("enableOfflineMode", String.valueOf(offline));
 		getConfigurationStore().storeConfig("offlineDirectory", getReporter().getReporterName() + "/");
 		if (offline) {
-			File f = getTargetDirectory(((ExtentSparkReporter) getReporter()).getFileFile());
+			File f = getTargetDirectory(((BasicFileReporter) getReporter()).getFileFile());
 			String s = "/";
 			String resourcePackagePath = ExtentReports.class.getPackage().getName().replace(".", s);
 			resourcePackagePath += s + "offline" + s;
