@@ -167,8 +167,8 @@ public abstract class BasicFileReporter extends ConfigurableReporter {
 
 	protected Boolean enforceOfflineMode() {
 		if (getConfigurationStore().containsConfig("enableOfflineMode")) {
-			String offlineMode = String.valueOf(getConfigurationStore().containsConfig("enableOfflineMode"));
-			if (!getConfigurationStore().containsConfig("offlineDirectory") && offlineMode.equals("true")) {
+			String offlineMode = String.valueOf(getConfigurationStore().getConfig("enableOfflineMode"));
+			if (!getConfigurationStore().containsConfig("offlineDirectory") && Boolean.parseBoolean(offlineMode)) {
 				return true;
 			}
 		}
