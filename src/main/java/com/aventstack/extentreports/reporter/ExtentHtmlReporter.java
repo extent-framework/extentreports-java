@@ -15,6 +15,7 @@ import freemarker.template.TemplateException;
  * The ExtentSparkReporter creates a rich standalone spark file. It allows
  * several configuration options via the <code>config()</code> method.
  */
+@Deprecated
 public class ExtentHtmlReporter extends BasicFileReporter {
 
 	private static final Logger logger = Logger.getLogger(ExtentHtmlReporter.class.getName());
