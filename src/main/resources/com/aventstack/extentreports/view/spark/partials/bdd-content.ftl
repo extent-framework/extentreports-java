@@ -31,12 +31,12 @@
 					<#list node.nodeContext.all as child>
 						<div class="card-body l1">
 							<div class="card-header" role="tab">
-								<h5 class="card-title outline-child">
+								<div class="card-title outline-child">
 									<div class="node">${child.name}</div>
 									<div class="status-avatar float-left ${child.status}-bg">
 										<i class="fa fa-${Icon.getIcon(child.status)} text-white"></i>
 									</div>
-								</h5>
+								</div>
 							</div>
 							<div class="card-body collapse mt-3">
 								<#list child.nodeContext.all as step>

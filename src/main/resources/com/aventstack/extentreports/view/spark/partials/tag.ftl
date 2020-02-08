@@ -61,7 +61,7 @@
 										${test.name}
 										<#if test.parent??>
 										<div class="">
-											<span class="badge badge-default">${test.parent.name}</span>
+											<span class="badge badge-default">${TestService.getHierarchicalName(test)}</span>
 										</div>
 										</#if>
 									</td>

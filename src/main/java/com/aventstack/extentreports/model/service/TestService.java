@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
+import com.aventstack.extentreports.gherkin.model.ScenarioOutline;
 import com.aventstack.extentreports.model.Test;
 
 public class TestService {
@@ -76,7 +77,8 @@ public class TestService {
 		StringBuilder sb = new StringBuilder(test.getName());
 		while (test.getParent() != null) {
 			test = test.getParent();
-			sb.insert(0, test.getName() + ".");
+			if (!test.isBehaviorDrivenType() || test.getBddType() != ScenarioOutline.class)
+				sb.insert(0, test.getName() + ".");
 		}
 		return sb.toString();
 	}
