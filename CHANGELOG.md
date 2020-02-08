@@ -1,3 +1,14 @@
+## [4.1.3](https://github.com/extent-framework/extentreports-java/compare/v4.1.2...v4.1.3)
+#### Improvements
+* [#119] `ExtentSparkReporter` now displays thumbnails as default 
+
+#### Fixes
+* [#123] Prevent class cast exception in `ExtentHtmlReporterConfiguration`  
+* [#124] Fixes issue with `ExtentHtmlReporter` throwing freemarker errors due to image path being empty
+ 
+#### Deprecation
+* ExtentHtmlReporter has been deprecated. ExtentSparkReporter is the default reporter starting version 4 and it now supports SPA-style view by default. 
+
 ## [4.1.2](https://github.com/extent-framework/extentreports-java/compare/v4.1.1...v4.1.2)
 #### Improvements
 * [#114] Tags tab lost a display of a full name of test
