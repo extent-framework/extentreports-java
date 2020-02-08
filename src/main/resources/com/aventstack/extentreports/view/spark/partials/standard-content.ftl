@@ -8,19 +8,8 @@
 	<ul class="attachments">
 		<#list test.screenCaptureContext.all as sc>
 		<li>
-			<a href="${sc.screenCapturePath}" data-featherlight="image">
-				<div class="file-icon">
-					<i class="fa fa-file-image-o"></i> 
-				</div>
-				<div class="file-info">
-					<#if sc.isBase64()>
-					<span class="file-name">base64</span>
-					<span class="file-size">0Kb</span>
-					<#else>
-					<span class="file-name">${sc.name}</span>
-					<span class="file-size"> ${sc.fileSize}Kb</span>
-					</#if>
-				</div>
+			<a href="#" data-featherlight="image">
+				${sc.source}
 			</a>
 		</li>
 		</#list>
