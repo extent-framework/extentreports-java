@@ -305,7 +305,7 @@ abstract class ReportObservable implements ReportService {
 	 * 
 	 * @param node a {@link Test} node
 	 */
-	void addNode(Test node) {
+	synchronized void addNode(Test node) {
 		reporterList.forEach(x -> x.onNodeStarted(node));
 	}
 
@@ -315,7 +315,7 @@ abstract class ReportObservable implements ReportService {
 	 * @param test {@link Test} to which the event is added
 	 * @param log  {@link Log}
 	 */
-	void addLog(Test test, Log log) {
+	synchronized void addLog(Test test, Log log) {
 		reporterList.forEach(x -> x.onLogAdded(test, log));
 	}
 
@@ -325,7 +325,7 @@ abstract class ReportObservable implements ReportService {
 	 * @param test     {@link Test} to which the Category is added
 	 * @param category {@link Category}
 	 */
-	void assignCategory(Test test, Category category) {
+	synchronized void assignCategory(Test test, Category category) {
 		reporterList.forEach(x -> x.onCategoryAssigned(test, category));
 	}
 
@@ -335,7 +335,7 @@ abstract class ReportObservable implements ReportService {
 	 * @param test   {@link Test} to which the Author is added
 	 * @param author {@link Author}
 	 */
-	void assignAuthor(Test test, Author author) {
+	synchronized void assignAuthor(Test test, Author author) {
 		reporterList.forEach(x -> x.onAuthorAssigned(test, author));
 	}
 
@@ -345,7 +345,7 @@ abstract class ReportObservable implements ReportService {
 	 * @param test   {@link Test} to which the Device is added
 	 * @param device {@link Device}
 	 */
-	void assignDevice(Test test, Device device) {
+	synchronized void assignDevice(Test test, Device device) {
 		reporterList.forEach(x -> x.onDeviceAssigned(test, device));
 	}
 
@@ -357,7 +357,7 @@ abstract class ReportObservable implements ReportService {
 	 * 
 	 * @throws IOException thrown if the {@link ScreenCapture} is not found
 	 */
-	void addScreenCapture(Test test, ScreenCapture screenCapture) throws IOException {
+	synchronized void addScreenCapture(Test test, ScreenCapture screenCapture) throws IOException {
 		ScreenCaptureService.resolvePath(screenCapture, imagePathResolveDir);
 		for (ExtentReporter r : reporterList) {
 			r.onScreenCaptureAdded(test, screenCapture);
@@ -372,7 +372,7 @@ abstract class ReportObservable implements ReportService {
 	 * 
 	 * @throws IOException thrown if the {@link ScreenCapture} is not found
 	 */
-	void addScreenCapture(Log log, ScreenCapture screenCapture) throws IOException {
+	synchronized void addScreenCapture(Log log, ScreenCapture screenCapture) throws IOException {
 		ScreenCaptureService.resolvePath(screenCapture, imagePathResolveDir);
 		for (ExtentReporter r : reporterList) {
 			r.onScreenCaptureAdded(log, screenCapture);
@@ -393,7 +393,7 @@ abstract class ReportObservable implements ReportService {
 	 * 
 	 * @param status a {@link Status}
 	 */
-	private void updateReportStatus(Status status) {
+	synchronized private void updateReportStatus(Status status) {
 		int statusIndex = Status.getStatusHierarchy().indexOf(status);
 		int reportStatusIndex = Status.getStatusHierarchy().indexOf(reportStatus);
 

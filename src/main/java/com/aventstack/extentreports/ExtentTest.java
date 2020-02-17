@@ -136,7 +136,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 	 * 
 	 * @return {@link ExtentTest} object
 	 */
-	public ExtentTest createNode(Class<? extends IGherkinFormatterModel> type, String name, String description) {
+	public synchronized ExtentTest createNode(Class<? extends IGherkinFormatterModel> type, String name, String description) {
 		if (name == null || name.isEmpty())
 			throw new IllegalArgumentException("nodeName cannot be null or empty");
 
@@ -160,7 +160,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 	 * 
 	 * @return {@link ExtentTest} object
 	 */
-	public ExtentTest createNode(String name, String description) {
+	public synchronized ExtentTest createNode(String name, String description) {
 		if (name == null || name.isEmpty())
 			throw new IllegalArgumentException("nodeName cannot be null or empty");
 
@@ -197,7 +197,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 	 * 
 	 * @return {@link ExtentTest} object
 	 */
-	public ExtentTest createNode(Class<? extends IGherkinFormatterModel> type, String name) {
+	public synchronized ExtentTest createNode(Class<? extends IGherkinFormatterModel> type, String name) {
 		return createNode(type, name, null);
 	}
 
@@ -229,7 +229,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 	 * 
 	 * @return {@link ExtentTest}
 	 */
-	public ExtentTest createNode(GherkinKeyword gherkinKeyword, String name, String description) {
+	public synchronized ExtentTest createNode(GherkinKeyword gherkinKeyword, String name, String description) {
 		Class<? extends IGherkinFormatterModel> clazz = gherkinKeyword.getKeyword().getClass();
 		return createNode(clazz, name, description);
 	}
@@ -260,7 +260,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 	 * 
 	 * @return {@link ExtentTest} object
 	 */
-	public ExtentTest createNode(GherkinKeyword gherkinKeyword, String name) {
+	public synchronized ExtentTest createNode(GherkinKeyword gherkinKeyword, String name) {
 		return createNode(gherkinKeyword, name, null);
 	}
 
@@ -271,7 +271,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 	 * 
 	 * @return {@link ExtentTest} object
 	 */
-	public ExtentTest createNode(String name) {
+	public synchronized ExtentTest createNode(String name) {
 		return createNode(name, null);
 	}
 
