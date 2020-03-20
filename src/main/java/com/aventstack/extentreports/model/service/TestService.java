@@ -40,6 +40,18 @@ public class TestService {
 	public static Boolean testHasScreenCapture(Test test) {
 		return !test.getScreenCaptureContext().isEmpty();
 	}
+	
+	public static Boolean testHasScreenCapture(Test test, Boolean deep) {
+		if (deep) {
+			Boolean hasScreenCapture = !test.getScreenCaptureContext().isEmpty() 
+				|| test.getLogContext().getAll().stream().anyMatch(LogService::logHasScreenCapture);
+			if (!hasScreenCapture) {
+				hasScreenCapture = test.getNodeContext().getAll().stream().anyMatch(x -> testHasScreenCapture(x, deep));
+			}
+			return hasScreenCapture;
+		}
+		return testHasScreenCapture(test);
+	}
 
 	public static Boolean isTestBehaviorDriven(Test test) {
 		return test.getBddType() != null;

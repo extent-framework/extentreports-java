@@ -23,6 +23,11 @@
 				<div class="status-avatar float-left ${node.status}-bg">
 					<i class="fa fa-${Icon.getIcon(node.status)} text-white"></i>
 				</div>
+				<#if TestService.testHasScreenCapture(node, true)>
+					<div class="status-avatar float-right mr-4">
+						<i class="fa fa-paperclip"></i>
+					</div>
+				</#if>
 			</div>
 		</div>
 		<#if TestService.testHasChildren(node)>
@@ -36,6 +41,11 @@
 									<div class="status-avatar float-left ${child.status}-bg">
 										<i class="fa fa-${Icon.getIcon(child.status)} text-white"></i>
 									</div>
+									<#if TestService.testHasScreenCapture(child, true)>
+										<div class="status-avatar float-right">
+											<i class="fa fa-paperclip"></i>
+										</div>
+									</#if>
 								</div>
 							</div>
 							<div class="card-body collapse mt-3">
