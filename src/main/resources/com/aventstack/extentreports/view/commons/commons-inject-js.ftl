@@ -1,3 +1,3 @@
 <script type="text/javascript">
-${config.getConfig("js")}
+<#if config.getConfig("js")??>${config.getConfig("js")}</#if>
 </script>

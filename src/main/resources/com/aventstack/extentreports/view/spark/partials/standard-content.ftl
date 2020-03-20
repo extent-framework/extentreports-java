@@ -7,11 +7,7 @@
 <div class="detail-foot">
 	<ul class="attachments">
 		<#list test.screenCaptureContext.all as sc>
-		<li>
-			<a href="#" data-featherlight="image">
-				${sc.source}
-			</a>
-		</li>
+			${sc.source}
 		</#list>
 	</ul>
 </div>

@@ -312,7 +312,8 @@ textarea {
 	width: 110px;
 }
 img.r-img {
-	width: 5%;
+	width: 120px;
+	height: 75px;
 }
 
 /* nodes */
