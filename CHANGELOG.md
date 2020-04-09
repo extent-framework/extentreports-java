@@ -1,3 +1,13 @@
+## [4.1.4](https://github.com/extent-framework/extentreports-java/compare/v4.1.3...v4.1.4)
+#### Improvements
+* [#114] ExtentSparkReporter to display hierarchical name in tags view 
+* [#119] ExtentSparkReporter to display thumbnail screenshots 
+* [#125] ExtentSparkReporter displays clip icon for tests with leaf containing screenshots 
+* [#132] ExtentSparkReporter to accept file-name instead of Index.html default  
+
+#### Fixes
+* [#135] ExtentSparkReporter issue with not parsing the `scripts` tag in config.xml  
+
 ## [4.1.3](https://github.com/extent-framework/extentreports-java/compare/v4.1.2...v4.1.3)
 #### Improvements
 * [#119] `ExtentSparkReporter` now displays thumbnails as default 
