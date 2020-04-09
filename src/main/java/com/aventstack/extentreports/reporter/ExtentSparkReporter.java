@@ -73,8 +73,9 @@ public class ExtentSparkReporter extends BasicFileReporter {
 
 		try {
 			if (viewStyle == ViewStyle.SPA) {
+				String fileName = getFileFile().isDirectory() ? getDestinationPath() + "Index.html" : getFilePath();
 				Template template = getFreemarkerConfig().getTemplate(SPA_TEMPLATE_NAME);
-				processTemplate(template, new File(getDestinationPath() + "index.html"));
+				processTemplate(template, new File(fileName));
 				return;
 			}
 			Template template = getFreemarkerConfig().getTemplate(TEST_TEMPLATE_NAME);
