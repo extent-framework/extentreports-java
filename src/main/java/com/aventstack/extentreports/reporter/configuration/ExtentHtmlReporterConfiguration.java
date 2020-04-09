@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.offline.OfflineResxDelegate;
 import com.aventstack.extentreports.reporter.BasicFileReporter;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.utils.FileUtil;
 
 /**
@@ -14,7 +13,8 @@ import com.aventstack.extentreports.utils.FileUtil;
  */
 public class ExtentHtmlReporterConfiguration extends RichViewReporterConfiguration {
 
-	public ExtentHtmlReporterConfiguration(ExtentHtmlReporter reporter) {
+	@SuppressWarnings("deprecation")
+	public ExtentHtmlReporterConfiguration(com.aventstack.extentreports.reporter.ExtentHtmlReporter reporter) {
 		super(reporter);
 	}
 
