@@ -136,7 +136,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 	 * 
 	 * @return {@link ExtentTest} object
 	 */
-	public ExtentTest createNode(Class<? extends IGherkinFormatterModel> type, String name, String description) {
+	public synchronized ExtentTest createNode(Class<? extends IGherkinFormatterModel> type, String name, String description) {
 		if (name == null || name.isEmpty())
 			throw new IllegalArgumentException("nodeName cannot be null or empty");
 
@@ -160,7 +160,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 	 * 
 	 * @return {@link ExtentTest} object
 	 */
-	public ExtentTest createNode(String name, String description) {
+	public synchronized ExtentTest createNode(String name, String description) {
 		if (name == null || name.isEmpty())
 			throw new IllegalArgumentException("nodeName cannot be null or empty");
 
@@ -275,7 +275,7 @@ public class ExtentTest implements IAddsMedia<ExtentTest>, RunResult, Serializab
 		return createNode(name, null);
 	}
 
-	private void applyCommonNodeSettings(ExtentTest extentTest) {
+	private synchronized void applyCommonNodeSettings(ExtentTest extentTest) {
 		extentTest.getModel().setLevel(test.getLevel() + 1);
 		extentTest.getModel().setParent(getModel());
 		test.getNodeContext().add(extentTest.getModel());
