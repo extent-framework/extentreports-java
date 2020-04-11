@@ -7,6 +7,7 @@ import java.util.List;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.Attribute;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.model.context.filter.TestAttributeContextFilters;
 
 public class TestAttributeTestContext<T extends Attribute> implements Serializable {
 
@@ -29,6 +30,8 @@ public class TestAttributeTestContext<T extends Attribute> implements Serializab
 	}
 
 	private void updateTestStatusCounts(Test test) {
+		if (!TestAttributeContextFilters.testHasStatusIncrEligibility(test))
+			return;
 		if (test.getStatus() == Status.PASS) {
 			passed++;
 		} else if (test.getStatus() == Status.FAIL || test.getStatus() == Status.FATAL) {
