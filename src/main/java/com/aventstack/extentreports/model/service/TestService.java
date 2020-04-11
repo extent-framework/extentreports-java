@@ -14,31 +14,31 @@ public class TestService {
 	}
 
 	public static Boolean testHasAuthor(Test test) {
-		return !test.getAuthorContext().isEmpty();
+		return test != null && !test.getAuthorContext().isEmpty();
 	}
 
 	public static Boolean testHasCategory(Test test) {
-		return !test.getCategoryContext().isEmpty();
+		return test != null && !test.getCategoryContext().isEmpty();
 	}
 
 	public static Boolean testHasDevice(Test test) {
-		return !test.getDeviceContext().isEmpty();
+		return test != null && !test.getDeviceContext().isEmpty();
 	}
 
 	public static Boolean testHasException(Test test) {
-		return !test.getExceptionInfoContext().isEmpty();
+		return test != null && !test.getExceptionInfoContext().isEmpty();
 	}
 
 	public static Boolean testHasChildren(Test test) {
-		return !test.getNodeContext().isEmpty();
+		return test != null && !test.getNodeContext().isEmpty();
 	}
 
 	public static Boolean testHasLog(Test test) {
-		return !test.getLogContext().isEmpty();
+		return test != null && !test.getLogContext().isEmpty();
 	}
 
 	public static Boolean testHasScreenCapture(Test test) {
-		return !test.getScreenCaptureContext().isEmpty();
+		return test != null && !test.getScreenCaptureContext().isEmpty();
 	}
 	
 	public static Boolean testHasScreenCapture(Test test, Boolean deep) {
@@ -54,7 +54,7 @@ public class TestService {
 	}
 
 	public static Boolean isTestBehaviorDriven(Test test) {
-		return test.getBddType() != null;
+		return test != null && test.getBddType() != null;
 	}
 
 	public static String getBehaviorDrivenTypeName(Class<? extends IGherkinFormatterModel> bddType)
