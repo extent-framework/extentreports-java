@@ -120,8 +120,14 @@ public abstract class ConfigurableReporter extends AbstractReporter {
 	}
 
 	protected void loadInternalReporterConfiguration(String[] configFilePath) {
+		if (configFilePath == null || configFilePath.length == 0)
+			return;
+		
 		ClassLoader loader = getClass().getClassLoader();
-		Arrays.stream(configFilePath).map(x -> loader.getResourceAsStream(x)).filter(x -> x != null).findFirst()
+		Arrays.stream(configFilePath)
+			.map(x -> loader.getResourceAsStream(x))
+				.filter(x -> x != null)
+				.findFirst()
 				.ifPresent(x -> loadConfig(x));
 	}
 

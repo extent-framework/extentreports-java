@@ -36,6 +36,7 @@ import com.aventstack.extentreports.model.context.SystemAttributeContext;
 import com.aventstack.extentreports.model.context.TestAttributeTestContextStore;
 import com.aventstack.extentreports.model.service.LogService;
 import com.aventstack.extentreports.model.service.TestService;
+import com.aventstack.extentreports.reporter.configuration.ExtentKlovReporterConfiguration;
 import com.aventstack.extentreports.utils.IntUtil;
 import com.aventstack.extentreports.utils.MongoUtil;
 import com.mongodb.MongoClient;
@@ -64,6 +65,8 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 	private static final String DB_NAME = "klov";
 	private static final String DEFAULT_PROJECT_NAME = "Default";
 
+	private ExtentKlovReporterConfiguration config = new ExtentKlovReporterConfiguration(this);
+	
 	private String url;
 	private List<Test> testList;
 	private ReportStatusStats stats;
@@ -250,14 +253,23 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 		return this;
 	}
 
-	public void loadInitializationParams(String propertiesPath) throws FileNotFoundException {
-		File f = new File(propertiesPath);
-		InputStream stream = new FileInputStream(f);
-		loadConfig(stream);
+	public void loadInitializationParams(InputStream is) {
+		init(null, config);
+		loadConfig(is);
 		loadInitializationParams();
+	}
+	
+	public void loadInitializationParams(String propertiesPath) throws FileNotFoundException {
+		init(null, config);
+		File f = new File(propertiesPath);
+		if (f.exists()) {
+			InputStream stream = new FileInputStream(f);
+			loadInitializationParams(stream);
+		}
 	}
 
 	public void loadInitializationParams(Properties props) {
+		init(null, config);
 		loadConfig(props);
 		loadInitializationParams();
 	}
