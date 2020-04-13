@@ -243,7 +243,7 @@ function drawChart(ctx, config) {
                             statusGroup.passParent, statusGroup.failParent, statusGroup.fatalParent, statusGroup.errorParent, statusGroup.warningParent, statusGroup.skipParent
                         ],
                         backgroundColor: [
-                            "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#1e90ff"
+                            "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#ff9900"
                         ]
                     }],
                     labels: [ "Pass", "Fail", "Fatal", "Error", "Warning", "Skip" ]
@@ -268,7 +268,7 @@ function drawChart(ctx, config) {
                         statusGroup.passChild, statusGroup.failChild, statusGroup.fatalChild, statusGroup.errorChild, statusGroup.warningChild, statusGroup.skipChild,statusGroup.infoChild
                     ],
                     backgroundColor: [
-                        "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#1e90ff", "#46BFBD"
+                        "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#ff9900", "#46BFBD"
                     ]
                 }],
                 labels: [ "Pass", "Fail", "Fatal", "Error", "Warning", "Skip", "Info" ]
@@ -293,7 +293,7 @@ function drawChart(ctx, config) {
                         statusGroup.passGrandChild, statusGroup.failGrandChild, statusGroup.fatalGrandChild, statusGroup.errorGrandChild, statusGroup.warningGrandChild, statusGroup.skipGrandChild, statusGroup.infoGrandChild
                     ],
                     backgroundColor: [
-                        "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#1e90ff", "#46BFBD"
+                        "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#ff9900", "#46BFBD"
                     ]
                 }],
                 labels: [ "Pass", "Fail", "Fatal", "Error", "Warning", "Skip", "Info" ]
@@ -318,7 +318,7 @@ function drawChart(ctx, config) {
                         statusGroup.passEvents, statusGroup.failEvents, statusGroup.fatalEvents, statusGroup.errorEvents, statusGroup.warningEvents, statusGroup.skipEvents, statusGroup.infoEvents
                     ],
                     backgroundColor: [
-                        "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#1e90ff", "#46BFBD"
+                        "#00af00", "#F7464A", "#8b0000", "#ff6347", "#FDB45C", "#ff9900", "#46BFBD"
                     ]
                 }],
                 labels: [ "Pass", "Fail", "Fatal", "Error", "Warning", "Skip", "Info" ]
