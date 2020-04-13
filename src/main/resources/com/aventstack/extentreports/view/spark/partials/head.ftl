@@ -1,4 +1,4 @@
-<#assign resourceCDN=config.getConfig('resourceCDN') cdnURI="cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@" csscommit="74cc0d02f0116d1b5665bd07f6aea22c71033efe" jscommit="ac7abbc71b4bb073da00153a5a3fdbcfe0c95e2a" iconcommit="b00a2d0486596e73dd7326beacf352c639623a0e">
+<#assign resourceCDN=config.getConfig('resourceCDN') cdnURI="cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@" csscommit="7e408aed24af91e1ad76f49a74ecfa0ef1d97cfb" jscommit="ac7abbc71b4bb073da00153a5a3fdbcfe0c95e2a" iconcommit="b00a2d0486596e73dd7326beacf352c639623a0e">
 <#if resourceCDN=="extentreports">
     <#assign cdnURI="extentreports.com/resx" csscommit="" jscommit="" iconcommit="">
 </#if>

@@ -217,7 +217,8 @@ td {
 	padding: 0 16px 20px 16px;
 }
 .bdd-report .accordion .node {
-	
+	width: 90%;
+	max-width: 90%;
 }
 .bdd-report .accordion .node-description {
 	font-weight: 400;
