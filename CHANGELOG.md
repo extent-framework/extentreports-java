@@ -1,3 +1,10 @@
+## [4.1.5](https://github.com/extent-framework/extentreports-java/compare/v4.1.4...v4.1.5)
+#### Fixes
+* [#139] BDD: Feature must not be eligible to increment counts for TestAttributeContext, part of fix of [cucumber4-adapter#50](https://github.com/extent-framework/extentreports-cucumber4-adapter/issues/50)
+* [#143] Fix issue with a long node name breaking view (Spark)
+* [#144] Fix Skipped status colors in charts
+* [#145] ExtentKlovReporter adds BasicConfiguration 
+
 ## [4.1.4](https://github.com/extent-framework/extentreports-java/compare/v4.1.3...v4.1.4)
 #### Improvements
 * [#114] ExtentSparkReporter to display hierarchical name in tags view 
