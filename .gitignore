@@ -34,3 +34,6 @@ test-output/
 
 # nexus
 deploycmd.txt
+
+# Intellij
+.idea/
