@@ -275,7 +275,7 @@ abstract class ReportObservable implements ReportService {
 	/**
 	 * Refresh and notify all reports of {@link ReportStatusStats}
 	 */
-	private void refreshReportStats() {
+	private synchronized void refreshReportStats() {
 		stats.refresh(testList);
 	}
 

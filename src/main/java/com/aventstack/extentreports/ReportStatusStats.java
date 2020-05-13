@@ -388,7 +388,7 @@ public class ReportStatusStats {
 		throw new InvalidAnalysisStrategyException("No such strategy found: " + strategy);
 	}
 
-	private void updateEventsCount(Test test) {
+	private synchronized void updateEventsCount(Test test) {
 		test.getLogContext().getAll().stream()
 			.map(Log::getStatus)
 			.forEach(this::incrementEvent);
