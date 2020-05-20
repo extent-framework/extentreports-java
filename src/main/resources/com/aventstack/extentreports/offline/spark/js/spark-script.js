@@ -186,7 +186,7 @@ $(window).keydown(function(e) {
 			window.location.href = href;
         }
 
-        if (!e.ctrlKey && !e.altKey && !e.shiftKey && e.which!==91 && e.which!==93 && e.which!==224) {
+        if (!e.ctrlKey && !e.altKey && !e.shiftKey && e.which!==91 && e.which!==93 && e.which!==224 && !e.metaKey && !e.which != 17) {
             (e.which === 67) && goToView('nav-tag');
             (e.which === 68) && goToView('nav-dashboard');
             (e.which === 88) && goToView('nav-ex');
