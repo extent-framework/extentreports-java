@@ -1,4 +1,4 @@
-<div class="side-nav side-nav-folded">
+<div class="side-nav">
   <div class="side-nav-inner">
     <ul class="side-nav-menu scrollable">
       <li class="nav-item dropdown" onclick="toggleView('test-view')">

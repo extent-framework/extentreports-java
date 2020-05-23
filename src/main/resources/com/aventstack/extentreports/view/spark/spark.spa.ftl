@@ -22,7 +22,7 @@
         <div class="layout">
             <#include "partials/navbar.ftl">
             <#include "partials/sidenav.ftl">
-            <div class="page-container">
+            <div class="vcontainer">
                 <div class="main-content">
                     <#include "partials/test.ftl">
                     <#if categoryContext?? && categoryContext?size != 0>
