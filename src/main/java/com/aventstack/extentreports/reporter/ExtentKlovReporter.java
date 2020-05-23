@@ -296,7 +296,8 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 
 		String reportName = System.getProperty(DEFAULT_REPORT_NAME_PROP);
 		reportName = reportName == null || reportName.isEmpty() ? getConfigValue(DEFAULT_REPORT_NAME_PROP) : reportName;
-		this.reportName = reportName == null || reportName.isEmpty() ? this.reportName : reportName;
+		reportName = reportName == null || reportName.isEmpty() ? this.reportName : reportName;
+		this.reportName = reportName;
 
 		String klovHost = getConfigValue(DEFAULT_KLOV_HOST_PROP);
 		String klovPort = getConfigValue(DEFAULT_KLOV_PORT_PROP);
@@ -355,6 +356,7 @@ public class ExtentKlovReporter extends ConfigurableReporter {
 		String reportName = this.reportName == null || this.reportName.isEmpty()
 				? "Build " + Calendar.getInstance().getTimeInMillis()
 				: this.reportName;
+		this.reportName = reportName;
 
 		Document doc = new Document("name", reportName).append("startTime", getStartTime()).append("project", projectId)
 				.append("projectName", projectName);
