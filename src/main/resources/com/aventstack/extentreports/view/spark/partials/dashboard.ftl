@@ -194,6 +194,7 @@
 								<th>Name</th>
 								<th>Passed</th>
 								<th>Failed</th>
+								<th>Skipped</th>
 								<th>Others</th>
 								<th>Passed %</th>
 							</tr>
@@ -204,6 +205,7 @@
 								<td>${author.name}</td>
 								<td>${author.passed}</td>
 								<td>${author.failed}</td>
+								<td>${author.skipped}</td>
 								<td>${author.others}</td>
 								<td>
 									<#if author.size()!=0>
@@ -233,6 +235,7 @@
 								<th>Name</th>
 								<th>Passed</th>
 								<th>Failed</th>
+								<th>Skipped</th>
 								<th>Others</th>
 								<th>Passed %</th>
 							</tr>
@@ -243,6 +246,7 @@
 								<td>${category.name}</td>
 								<td>${category.passed}</td>
 								<td>${category.failed}</td>
+								<td>${category.skipped}</td>
 								<td>${category.others}</td>
 								<td>
 									<#if category.size()!=0>
@@ -272,6 +276,7 @@
 								<th>Name</th>
 								<th>Passed</th>
 								<th>Failed</th>
+								<th>Skipped</th>
 								<th>Others</th>
 								<th>Passed %</th>
 							</tr>
@@ -282,6 +287,7 @@
 								<td>${device.name}</td>
 								<td>${device.passed}</td>
 								<td>${device.failed}</td>
+								<td>${device.skipped}</td>
 								<td>${device.others}</td>
 								<td>
 									<#if device.size()!=0>
