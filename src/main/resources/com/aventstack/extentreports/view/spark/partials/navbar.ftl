@@ -1,7 +1,7 @@
 <div class="header navbar">
     <div class="vheader">
         <div class="nav-logo">
-          <a href="index.html">
+          <a href="#">
             <div class="logo logo-dark" style="background-image: url('https://cdn.rawgit.com/extent-framework/extent-github-cdn/d74480e/commons/img/logo.png')"></div>
             <div class="logo logo-white" style="background-image: url('https://cdn.rawgit.com/extent-framework/extent-github-cdn/d74480e/commons/img/logo.png')"></div>
           </a>
