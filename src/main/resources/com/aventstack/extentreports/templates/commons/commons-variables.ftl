@@ -1,0 +1,40 @@
+<#assign 
+  config=this.config()
+  theme=config.theme?lower_case
+  timeStampFormat=config.timeStampFormat
+  offline=config.offlineMode
+  reportType=""
+  parentHeading="Tests"
+  childHeading="Steps"
+  grandChildHeading=""
+  chartCount=2
+  displayEvents=true
+  chartWidth="115"
+  chartHeight="90"
+  chartBoxHeight="94">
+<#if report.stats.analysisStrategy=="SUITE">
+  <#assign
+    parentHeading="Suite" 
+    childHeading="Class" 
+    grandChildHeading="Test"
+    displayEvents=false
+    chartCount=4>
+</#if>
+<#if report.stats.analysisStrategy=="BDD">
+  <#assign 
+    reportType="bdd" 
+    parentHeading="Features" 
+    childHeading="Scenarios" 
+    grandChildHeading="Steps"
+    displayEvents=false
+    chartCount=4>
+</#if>
+<#if report.stats.analysisStrategy=="CLASS">
+  <#assign 
+    parentHeading="Class"
+    childHeading="Methods"
+    grandChildHeading="" 
+    chartCount=2>
+</#if>
+<#assign
+	boxsize="col-md-"+(12/chartCount)>

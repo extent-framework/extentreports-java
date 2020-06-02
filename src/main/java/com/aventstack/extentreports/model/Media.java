@@ -1,79 +1,18 @@
 package com.aventstack.extentreports.model;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.bson.types.ObjectId;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-public class Media implements Serializable {
+@Getter
+@Setter
+@AllArgsConstructor
+public abstract class Media implements Serializable, BaseEntity {
+    private static final long serialVersionUID = 5428859443090457608L;
 
-	private static final long serialVersionUID = 2620739620884939951L;
-	private String name = "";
-	private String description;
-	private String path;
-	private int sequence;
-	private long fileSize = 0;
-	private Map<String, ObjectId> bsonId;
-	private String resolvedPath;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public int getSequence() {
-		return sequence;
-	}
-
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
-	}
-
-	public long getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
-	}
-
-	public Map<String, ObjectId> getBsonId() {
-		if (bsonId == null) {
-			bsonId = new HashMap<>();
-		}
-		return bsonId;
-	}
-
-	public void setBsonId(Map<String, ObjectId> bsonId) {
-		this.bsonId = bsonId;
-	}
-
-	public String getResolvedPath() {
-		return resolvedPath == null ? getPath() : resolvedPath;
-	}
-
-	public void setResolvedPath(String resolvedPath) {
-		this.resolvedPath = resolvedPath;
-	}
-
+    private String path;
+    private String title;
+    private String resolvedPath;
 }

@@ -2,102 +2,115 @@ package com.aventstack.extentreports.reporter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-import com.aventstack.extentreports.ReportAggregates;
-import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfiguration;
-import com.aventstack.extentreports.reporter.configuration.ViewStyle;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.model.Report;
+import com.aventstack.extentreports.model.service.filter.ReportFilterService;
+import com.aventstack.extentreports.observer.ReportObserver;
+import com.aventstack.extentreports.observer.entity.ReportEntity;
+import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfig;
+import com.aventstack.extentreports.reporter.filter.ContextFilter;
+import com.aventstack.extentreports.reporter.filter.Filterable;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import lombok.Getter;
 
-/**
- * The ExtentSparkReporter creates a rich standalone spark file. It allows
- * several configuration options via the <code>config()</code> method.
- */
-public class ExtentSparkReporter extends BasicFileReporter {
+@Getter
+@SuppressWarnings("rawtypes")
+public class ExtentSparkReporter extends AbstractFileReporter implements ReportObserver, Filterable {
+    private static final Logger logger = Logger.getLogger(ExtentSparkReporter.class.getName());
+    private static final String TEMPLATE_LOCATION = "templates/";
+    private static final String ENCODING = "UTF-8";
+    private static final String REPORTER_NAME = "spark";
+    private static final String SPA_TEMPLATE_NAME = REPORTER_NAME + "/spark.spa.ftl";
+    private static final String FILE_NAME = "Index.html";
 
-	private static final Logger logger = Logger.getLogger(ExtentSparkReporter.class.getName());
-	private static final String REPORTER_NAME = "spark";
-	private static final String SPA_TEMPLATE_NAME = REPORTER_NAME + "/spark.spa.ftl";
-	private static final String TEST_TEMPLATE_NAME = REPORTER_NAME + "/test.ftl";
-	private static final String TAG_TEMPLATE_NAME = REPORTER_NAME + "/tag.ftl";
-	private static final String EXCEPTION_TEMPLATE_NAME = REPORTER_NAME + "/exception.ftl";
-	private static final String DASHBOARD_TEMPLATE_NAME = REPORTER_NAME + "/dashboard.ftl";
-	private static final String[] DEFAULT_CONFIG_FILE_PATH = new String[] { "spark.properties",
-			"src/main/resources/spark.properties" };
+    private final ExtentSparkReporterConfig config = new ExtentSparkReporterConfig(this);
+    private ContextFilter filter;
+    private Disposable disposable;
 
-	private ExtentSparkReporterConfiguration externalUserConfiguration = new ExtentSparkReporterConfiguration(this);
-	private ViewStyle viewStyle = ViewStyle.SPA;
+    public ExtentSparkReporter(String path) {
+        super(new File(path));
+    }
 
-	public ExtentSparkReporter(String path) {
-		super(path);
-		init(DEFAULT_CONFIG_FILE_PATH, config());
-	}
+    public ExtentSparkReporter(File f) {
+        super(f);
+    }
 
-	public ExtentSparkReporter(File file) {
-		super(file);
-		init(DEFAULT_CONFIG_FILE_PATH, config());
-	}
+    public ExtentSparkReporter withStatusFilter(Status[] status) {
+        getStatusFilter().addAll(Arrays.stream(status).collect(Collectors.toSet()));
+        return this;
+    }
 
-	public ExtentSparkReporter(String path, ViewStyle viewStyle) {
-		this(path);
-		setViewStyle(viewStyle);
-	}
+    public ExtentSparkReporter withStatusFilter(Status status) {
+        return withStatusFilter(new Status[]{status});
+    }
 
-	public ExtentSparkReporter(File file, ViewStyle viewStyle) {
-		this(file);
-		setViewStyle(viewStyle);
-	}
+    @Override
+    public void withFilter(ContextFilter filter) {
+        this.filter = filter;
+    }
 
-	public ExtentSparkReporterConfiguration config() {
-		return externalUserConfiguration;
-	}
+    public ExtentSparkReporterConfig config() {
+        return config;
+    }
 
-	private void setViewStyle(ViewStyle viewStyle) {
-		this.viewStyle = viewStyle;
-	}
+    @Override
+    public Observer<ReportEntity> getReportObserver() {
+        return new Observer<ReportEntity>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                start(d);
+            }
 
-	@Override
-	public synchronized void flush(ReportAggregates reportAggregates) {
-		super.flush(reportAggregates);
-		if (getTestList().isEmpty()) {
-			return;
-		}
-		if (enforceOfflineMode()) {
-			externalUserConfiguration.enableOfflineMode(true);
-		}
+            @Override
+            public void onNext(ReportEntity value) {
+                flush(value);
+            }
 
-		loadUserConfig();
+            @Override
+            public void onError(Throwable e) {
+            }
 
-		try {
-			if (viewStyle == ViewStyle.SPA) {
-				String fileName = getFileFile().isDirectory() ? getDestinationPath() + "Index.html" : getFilePath();
-				Template template = getFreemarkerConfig().getTemplate(SPA_TEMPLATE_NAME);
-				processTemplate(template, new File(fileName));
-				return;
-			}
-			Template template = getFreemarkerConfig().getTemplate(TEST_TEMPLATE_NAME);
-			processTemplate(template, new File(getDestinationPath() + "index.html"));
-			if (!getCategoryContextInfo().getTestAttributeTestContext().isEmpty()) {
-				template = getFreemarkerConfig().getTemplate(TAG_TEMPLATE_NAME);
-				processTemplate(template, new File(getDestinationPath() + "tag.html"));
-			}
-			if (!getExceptionContextInfo().getExceptionTestContext().isEmpty()) {
-				template = getFreemarkerConfig().getTemplate(EXCEPTION_TEMPLATE_NAME);
-				processTemplate(template, new File(getDestinationPath() + "exception.html"));
-			}
-			template = getFreemarkerConfig().getTemplate(DASHBOARD_TEMPLATE_NAME);
-			processTemplate(template, new File(getDestinationPath() + "dashboard.html"));
-		} catch (IOException | TemplateException e) {
-			logger.log(Level.SEVERE, "An exception occurred", e);
-		}
-	}
+            @Override
+            public void onComplete() {
+            }
+        };
+    }
 
-	@Override
-	public String getReporterName() {
-		return REPORTER_NAME;
-	}
+    private void start(Disposable d) {
+        disposable = d;
+        loadTemplateModel();
+    }
 
+    private void flush(ReportEntity report) {
+        if (report.getReport().getTestList().isEmpty())
+            return;
+        try {
+            getTemplateModel().put("this", this);
+            getTemplateModel().put("report", report.getReport());
+            if (filter != null && filter.getStatus() != null) {
+                Report r = ReportFilterService.filter(report.getReport(), filter.getStatus());
+                getTemplateModel().put("report", r);
+            }
+            createFreemarkerConfig(TEMPLATE_LOCATION, ENCODING);
+            String filePath = getFile().isDirectory()
+                    ? getResolvedParentFile().getAbsolutePath()
+                            + PATH_SEP + FILE_NAME
+                    : getFile().getAbsolutePath();
+            Template template = getFreemarkerConfig().getTemplate(SPA_TEMPLATE_NAME);
+            processTemplate(template, new File(filePath));
+            return;
+        } catch (IOException | TemplateException e) {
+            disposable.dispose();
+            logger.log(Level.SEVERE, "An exception occurred", e);
+        }
+    }
 }

@@ -8,10 +8,11 @@ import java.util.logging.Logger;
 
 import com.aventstack.extentreports.gherkin.GherkinDialect;
 import com.aventstack.extentreports.gherkin.GherkinDialectProvider;
-import com.aventstack.extentreports.gherkin.model.Asterisk;
-import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
+import com.aventstack.extentreports.gherkin.entity.Asterisk;
+import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
 
 import freemarker.template.utility.StringUtil;
+import lombok.Getter;
 
 /**
  * Allows {@link IGherkinFormatterModel} to be returned by using a name, from
@@ -39,16 +40,17 @@ import freemarker.template.utility.StringUtil;
  * 
  * @see IGherkinFormatterModel
  */
+@Getter
 public class GherkinKeyword {
-
+	
 	private static final Logger logger = Logger.getLogger(GherkinKeyword.class.getName());
 
 	private Class<IGherkinFormatterModel> clazz = IGherkinFormatterModel.class;
-	private IGherkinFormatterModel keywordClazz;
+	private IGherkinFormatterModel keyword;
 
-	public GherkinKeyword(String keyword) throws ClassNotFoundException {
+	public GherkinKeyword(String gk) throws ClassNotFoundException {
 		GherkinDialect dialect = null;
-		String apiKeyword = StringUtil.capitalize(keyword.trim());
+		String apiKeyword = StringUtil.capitalize(gk.trim());
 		String refPath = clazz.getPackage().getName();
 
 		try {
@@ -60,12 +62,13 @@ public class GherkinKeyword {
 				Map<String, List<String>> keywords = dialect.getKeywords();
 
 				for (Entry<String, List<String>> key : keywords.entrySet()) {
-					boolean keywordLocated = key.getValue().stream()
-							.anyMatch(x -> x.trim().equalsIgnoreCase(keyword.trim()));
-					if (keywordLocated) {
-						apiKeyword = StringUtil.capitalize(key.getKey());
+					apiKeyword = key.getValue().stream()
+						.filter(x -> x.trim().equalsIgnoreCase(gk.trim()))
+						.findAny()
+						.map(x -> StringUtil.capitalize(x))
+						.orElse(null);
+					if (apiKeyword != null) 
 						break;
-					}
 				}
 			}
 
@@ -75,13 +78,9 @@ public class GherkinKeyword {
 
 			String clazzName = refPath + "." + apiKeyword.replace(" ", "");
 			Class<?> c = Class.forName(clazzName);
-			keywordClazz = (IGherkinFormatterModel) c.newInstance();
+			keyword = (IGherkinFormatterModel) c.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			logger.log(Level.SEVERE, "", e);
 		}
-	}
-
-	IGherkinFormatterModel getKeyword() {
-		return keywordClazz;
 	}
 }

@@ -1,98 +1,35 @@
 package com.aventstack.extentreports.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-import org.bson.types.ObjectId;
-
-import com.aventstack.extentreports.RunResult;
 import com.aventstack.extentreports.Status;
 
-public class Log implements Serializable, RunResult, BasicMongoReportElement {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-	private static final long serialVersionUID = 8072065800800347981L;
-	private Date timestamp = Calendar.getInstance().getTime();
-	
-	private ExceptionInfo exceptionInfo;
-	private AbstractStructure<ScreenCapture> screenCaptureContext;
-	private transient Test test;
-	private Status status;
-	private String details;
-	private int sequence;
-	private ObjectId objectId;
-	
-	public Log(Test test) {
-		this.test = test;
-	}
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
+public class Log implements RunResult, Serializable, BaseEntity {
+    private static final long serialVersionUID = -3690764012141784427L;
 
-	public Date getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public ExceptionInfo getExceptionInfo() {
-		return exceptionInfo;
-	}
-
-	public void setExceptionInfo(ExceptionInfo exceptionInfo) {
-		this.exceptionInfo = exceptionInfo;
-	}
-
-	public AbstractStructure<ScreenCapture> getScreenCaptureContext() {
-		if (screenCaptureContext == null) {
-			screenCaptureContext = new AbstractStructure<>();
-		}
-		return screenCaptureContext;
-	}
-
-	public void setScreenCaptureContext(AbstractStructure<ScreenCapture> screenCapture) {
-		this.screenCaptureContext = screenCapture;
-	}
-
-	public Test getTest() {
-		return test;
-	}
-
-	public void setTest(Test test) {
-		this.test = test;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
-	}
-
-	public int getSequence() {
-		return sequence;
-	}
-
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
-	}
-
-	@Override
-	public ObjectId getObjectId() {
-		return objectId;
-	}
-
-	@Override
-	public void setObjectId(ObjectId id) {
-		this.objectId = id;
-	}
-	
+    private final Date timestamp = Calendar.getInstance().getTime();
+    @Builder.Default
+    private Status status = Status.PASS;
+    private String details;
+    @Builder.Default
+    private Integer seq = -1;
+    private final List<ExceptionInfo> exceptions = new ArrayList<>();
+    private final List<Media> media = new ArrayList<>();
 }
