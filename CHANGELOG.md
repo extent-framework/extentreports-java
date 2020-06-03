@@ -1,3 +1,10 @@
+## [4.1.6](https://github.com/extent-framework/extentreports-java/compare/v4.1.5...v4.1.6)
+#### Fixes
+* [#149] Skipped count is not displaying in authors tag and category tag
+* [#155] Fixes Cmd+C key listener 
+* [#159] Fixes ConcurrentModificationException 
+* [#167] Clicking Extent Logo on top-left navigating to 404
+
 ## [4.1.5](https://github.com/extent-framework/extentreports-java/compare/v4.1.4...v4.1.5)
 #### Fixes
 * [#139] BDD: Feature must not be eligible to increment counts for TestAttributeContext, part of fix of [cucumber4-adapter#50](https://github.com/extent-framework/extentreports-cucumber4-adapter/issues/50)
