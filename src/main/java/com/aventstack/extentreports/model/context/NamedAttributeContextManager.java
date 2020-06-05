@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class AttributeTestContextManager<T extends NamedAttribute> {
-    private Set<NamedAttributeTestContext<T>> set = Collections
-            .newSetFromMap(new ConcurrentHashMap<NamedAttributeTestContext<T>, Boolean>());
+public class NamedAttributeContextManager<T extends NamedAttribute> {
+    private Set<NamedAttributeContext<T>> set = Collections
+            .newSetFromMap(new ConcurrentHashMap<NamedAttributeContext<T>, Boolean>());
 
     public void addContext(T attr, Test test) {
-        Optional<NamedAttributeTestContext<T>> opt = set.stream()
+        Optional<NamedAttributeContext<T>> opt = set.stream()
                 .filter(x -> x.getAttr().getName().equals(attr.getName()))
                 .findAny();
         if (opt.isPresent()) {
@@ -29,7 +29,7 @@ public class AttributeTestContextManager<T extends NamedAttribute> {
             if (!list.stream().anyMatch(t -> t.getId() == test.getId()))
                 list.add(test);
         } else {
-            set.add(new NamedAttributeTestContext<>(attr, test));
+            set.add(new NamedAttributeContext<>(attr, test));
         }
     }
 
@@ -45,9 +45,9 @@ public class AttributeTestContextManager<T extends NamedAttribute> {
      *            {@link Test}
      */
     public void removeTest(Test test) {
-        Iterator<NamedAttributeTestContext<T>> iter = set.iterator();
+        Iterator<NamedAttributeContext<T>> iter = set.iterator();
         while (iter.hasNext()) {
-            NamedAttributeTestContext<T> context = iter.next();
+            NamedAttributeContext<T> context = iter.next();
             TestService.deleteTest(context.getTestList(), test);
             if (context.getTestList().isEmpty())
                 iter.remove();

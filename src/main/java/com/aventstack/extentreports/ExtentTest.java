@@ -280,6 +280,28 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     /**
+     * 
+     * @param status
+     * @param details
+     * @return
+     */
+    public ExtentTest generateLog(Status status, String details) {
+        Log log = Log.builder().status(status).details(details).build();
+        TestService.addGeneratedLog(log, model);
+        return this;
+    }
+
+    /**
+     * 
+     * @param status
+     * @param markup
+     * @return
+     */
+    public ExtentTest generateLog(Status status, Markup markup) {
+        return generateLog(status, markup.getMarkup());
+    }
+
+    /**
      * Logs an event with {@link Status}, details and a media object:
      * {@link ScreenCapture}
      * 
@@ -295,17 +317,66 @@ public class ExtentTest implements RunResult, Serializable {
      *            {@link Status}
      * @param details
      *            Details
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object
      * 
      * @return An {@link ExtentTest} object
      */
-    public ExtentTest log(Status status, String details, Media media) {
-        Log log = LogService.createLog(model, status, details);
+    public ExtentTest log(Status status, String details, Throwable t, Media media) {
+        ExceptionInfo exceptionInfo = ExceptionInfoService.createExceptionInfo(t);
+        Log log = LogService.createLog(model, status, exceptionInfo, details);
         LogService.addMedia(log, media);
         TestService.computeTestStatus(model);
         extent.onLogCreated(log, model);
         return this;
+    }
+
+    /**
+     * Logs an event with {@link Status}, details and a media object:
+     * {@link ScreenCapture}
+     * 
+     * <p>
+     * Example:
+     * </p>
+     * 
+     * <pre>
+     * test.log(Status.FAIL, "details", MediaEntityBuilder.createScreenCaptureFromPath("screen.png").build());
+     * </pre>
+     * 
+     * @param status
+     *            {@link Status}
+     * @param details
+     *            Details
+     * @param media
+     *            A {@link Media} object
+     * 
+     * @return An {@link ExtentTest} object
+     */
+    public ExtentTest log(Status status, String details, Media media) {
+        return log(status, details, null, media);
+    }
+
+    /**
+     * Logs an event with {@link Status}, details and a media object:
+     * {@link ScreenCapture}
+     * 
+     * <p>
+     * Example:
+     * </p>
+     * 
+     * <pre>
+     * test.log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromPath("screen.png").build());
+     * </pre>
+     * 
+     * @param status
+     *            {@link Status}
+     * @param media
+     *            A {@link Media} object
+     * 
+     * @return An {@link ExtentTest} object
+     */
+    public ExtentTest log(Status status, Media media) {
+        return log(status, null, null, media);
     }
 
     /**
@@ -360,16 +431,13 @@ public class ExtentTest implements RunResult, Serializable {
      *            {@link Status}
      * @param t
      *            {@link Throwable}
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object
      * 
      * @return An {@link ExtentTest} object
      */
     public ExtentTest log(Status status, Throwable t, Media media) {
-        ExceptionInfo exceptionInfo = ExceptionInfoService.createExceptionInfo(t);
-        Log log = LogService.createLog(model, status, exceptionInfo);
-        LogService.addMedia(log, media);
-        return this;
+        return log(status, null, t, media);
     }
 
     /**
@@ -480,6 +548,19 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     /**
+     * Logs an event with <code>Status.INFO</code> and {@link ScreenCapture}
+     * 
+     * @param media
+     *            {@link Media}
+     * 
+     * @return {@link ExtentTest} object
+     */
+    public ExtentTest info(Media media) {
+        log(Status.INFO, media);
+        return this;
+    }
+
+    /**
      * Logs an <code>Status.PASS</code> event with details and a media object:
      * {@link ScreenCapture}
      * 
@@ -573,6 +654,19 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     /**
+     * Logs an event with <code>Status.PASS</code> and {@link ScreenCapture}
+     * 
+     * @param media
+     *            {@link Media}
+     * 
+     * @return {@link ExtentTest} object
+     */
+    public ExtentTest pass(Media media) {
+        log(Status.PASS, media);
+        return this;
+    }
+
+    /**
      * Logs an <code>Status.FAIL</code> event with details and a media object:
      * {@link ScreenCapture}
      * 
@@ -654,6 +748,19 @@ public class ExtentTest implements RunResult, Serializable {
      */
     public ExtentTest fail(Markup m) {
         log(Status.FAIL, m);
+        return this;
+    }
+
+    /**
+     * Logs an event with <code>Status.FAIL</code> and {@link ScreenCapture}
+     * 
+     * @param media
+     *            {@link Media}
+     * 
+     * @return {@link ExtentTest} object
+     */
+    public ExtentTest fail(Media media) {
+        log(Status.FAIL, media);
         return this;
     }
 
@@ -743,6 +850,19 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     /**
+     * Logs an event with <code>Status.WARNING</code> and {@link ScreenCapture}
+     * 
+     * @param media
+     *            {@link Media}
+     * 
+     * @return {@link ExtentTest} object
+     */
+    public ExtentTest warning(Media media) {
+        log(Status.WARNING, media);
+        return this;
+    }
+
+    /**
      * 
      * @param details
      *            Details
@@ -826,6 +946,19 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     /**
+     * Logs an event with <code>Status.SKIP</code> and {@link ScreenCapture}
+     * 
+     * @param media
+     *            {@link Media}
+     * 
+     * @return {@link ExtentTest} object
+     */
+    public ExtentTest skip(Media media) {
+        log(Status.SKIP, media);
+        return this;
+    }
+
+    /**
      * Assigns a category or group
      * 
      * @param category
@@ -889,33 +1022,30 @@ public class ExtentTest implements RunResult, Serializable {
     public Status getStatus() {
         return TestService.getTestStatus(model);
     }
-    /*
-     * public ExtentTest addScreenCaptureFromPath(String imagePath, String
-     * title) throws IOException { if (imagePath == null || imagePath.isEmpty())
-     * throw new IllegalArgumentException("imagePath cannot be null or empty");
-     * ScreenCapture screenCapture = new ScreenCapture();
-     * screenCapture.setPath(imagePath); if (title != null) {
-     * screenCapture.setName(title); } extent.addScreenCapture(test,
-     * screenCapture); return addScreenCapture(screenCapture); }
-     * 
-     * private ExtentTest addScreenCapture(ScreenCapture screenCapture) {
-     * model.getScreenCaptureContext().add(screenCapture); return this; }
-     * 
-     * public ExtentTest addScreenCaptureFromPath(String imagePath) throws
-     * IOException { return addScreenCaptureFromPath(imagePath, null); }
-     * 
-     * public ExtentTest addScreenCaptureFromBase64String(String s, String
-     * title) { ScreenCapture screenCapture = new ScreenCapture();
-     * screenCapture.setBase64String(s); screenCapture.setName(title); try {
-     * extent.addScreenCapture(test, screenCapture); } catch (IOException e) { }
-     * 
-     * return addScreenCapture(screenCapture); }
-     * 
-     * @Override public ExtentTest addScreenCaptureFromBase64String(String s) {
-     * return addScreenCaptureFromBase64String(s, null); }
-     * 
-     * void setUseManualConfiguration(Boolean b) {
-     * getModel().setUsesManualConfiguration(b); }
-     */
 
+    public ExtentTest addScreenCaptureFromPath(String path, String title) {
+        if (path == null || path.isEmpty())
+            throw new IllegalArgumentException("ScreenCapture path cannot be null or empty");
+        Media m = ScreenCapture.builder().path(path).title(title).build();
+        TestService.addMedia(model, m);
+        extent.onMediaAdded(m, model);
+        return this;
+    }
+
+    public ExtentTest addScreenCaptureFromPath(String path) {
+        return addScreenCaptureFromPath(path, null);
+    }
+
+    public ExtentTest addScreenCaptureFromBase64String(String base64, String title) {
+        if (base64 == null || base64.isEmpty())
+            throw new IllegalArgumentException("Base64 string cannot be null or empty");
+        Media m = ScreenCapture.builder().base64(base64).title(title).build();
+        TestService.addMedia(model, m);
+        extent.onMediaAdded(m, model);
+        return this;
+    }
+
+    public ExtentTest addScreenCaptureFromBase64String(String base64) {
+        return addScreenCaptureFromBase64String(base64, null);
+    }
 }

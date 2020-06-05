@@ -10,17 +10,15 @@
       <ul class="test-list-item">
         <#list categoryCtx as ctx>
         <li class="test-item">
-          <div class="open-test">
-            <div class="test-detail">
-              <span class="meta">
-              <#if ctx.passed!=0><span class='badge badge-success'>${ctx.passed}</span></#if>
-              <#if ctx.failed!=0><span class='badge badge-danger'>${ctx.failed}</span></#if>
-              <#if ctx.skipped!=0><span class='badge badge-skip'>${ctx.skipped}</span></#if>
-              <#if ctx.others!=0><span class='badge badge-warning'>${ctx.others}</span></#if>
-              </span>
-              <p class="name">${ctx.attr.name}</p>
-              <p class="duration text-sm">${ctx.size()} tests</p>
-            </div>
+          <div class="test-detail">
+            <span class="meta">
+            <#if ctx.passed!=0><span class='badge badge-success'>${ctx.passed}</span></#if>
+            <#if ctx.failed!=0><span class='badge badge-danger'>${ctx.failed}</span></#if>
+            <#if ctx.skipped!=0><span class='badge badge-skip'>${ctx.skipped}</span></#if>
+            <#if ctx.others!=0><span class='badge badge-warning'>${ctx.others}</span></#if>
+            </span>
+            <p class="name">${ctx.attr.name}</p>
+            <p class="duration text-sm">${ctx.size()} tests</p>
           </div>
           <div class="test-contents d-none">
             <div class="info">
@@ -41,11 +39,7 @@
               <tbody>
                 <#list ctx.testList as test>
                 <tr class="tag-test-status" status="${test.status.toLower()}">
-                  <td>
-                    <div class='status-avatar ${test.status.toLower()}-bg'>
-                      <i class="fa fa-${Ico.ico(test.status)} text-white"></i>
-                    </div>
-                  </td>
+                  <td><span class="badge log ${test.status.toLower()}-bg">${test.status?string}</span></td>
                   <td>${test.startTime?string[("HH:mm:ss a")]}</td>
                   <td class='linked' test-id='${test.getId()}'>
                     ${test.name}

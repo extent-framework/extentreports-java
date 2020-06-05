@@ -22,37 +22,13 @@
 	</#if>
 </#macro>
 
-<#macro media el>
-	<#if el.screenCaptureContext?? && !el.screenCaptureContext.isEmpty()>
-		${el.screenCaptureContext.last.source}
-	</#if>
-</#macro>
-
-<#macro row test level>
-<#assign n=test level=n.level>
-<#if level!=0><#assign n=test.parent><#if n.level!=0><#assign n=n.parent><#if n.level!=0><#assign n=n.parent></#if></#if></#if>
-	
-<tr class="s-${test.status}" test-id="${test.getId()}" parent-id="${n.getId()}">
-	<td><span class="w-32 avatar circle ${test.status}"><span class="badge">${test.status}</span></span></td>
-	<td class="_600">${test.name} <#if level!=0><br/><span class="text-muted text-sm">${test.parent.name}</span></#if></td>
-	<td>${TestService.getRunDuration(test)}c</td>
-	<td><@attributes test=test /></td>
-	<td>
-		<@media el=test />
-		<#list test.logContext.all as log>
-		<@media el=log />
-		</#list>
-	</td>
-	<td class="static"><i class="static fa fa-external-link"></i></td>
-</tr>
-<#if test.status==Status.FAIL || test.status==Status.SKIP>
-<tr class="details">
-	<td colspan="5">
-	<#list test.logContext.all as log>
-		<#if log.details??><textarea disabled class="code-block">${log.details}</textarea></#if>
-		<#if log.exceptionInfo??><textarea disabled class="code-block">${log.exceptionInfo.stackTrace}</textarea></#if>
-	</#list>
-	</td>
-</tr>
-</#if>
+<#macro media media>
+  <#list media as m>
+    <div class="row mb-3"><div class="col-md-3">
+    <#if m.base64??><img src="data:image/png;base64,${m.base64}">
+    <#elseif m.resolvedPath??><img data-featherlight='${m.resolvedPath}' src="${m.resolvedPath}">
+    <#elseif m.path??><img data-featherlight='${m.path}' src="${m.path}">
+    </#if>
+    </div></div>
+  </#list>
 </#macro>

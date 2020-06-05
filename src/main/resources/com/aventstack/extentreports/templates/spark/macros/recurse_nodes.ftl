@@ -1,11 +1,10 @@
 <#include "log.ftl">
-
 <#macro recurse_nodes test>
 <#if TestService.testHasChildren(test)>
   <div class="accordion">
     <#list test.children as node>
       <div class="card">
-        <div class="card-header" role="tab">
+        <div class="card-header">
           <div class="card-title">
             <div class="node">${node.name}</div>
             <div class="status-avatar float-right ${node.status.toLower()}-bg">
@@ -18,16 +17,16 @@
             </#if>
           </div>
         </div>
-        <div class="collapse">
+        <#if node.logs?size!=0>
+        <div class="<#if node.status.toLower()=='pass'>collapse</#if>">
           <div class="card-body">
             <#if TestService.testHasLog(node)>
               <@log test=node />
             </#if>
-            <#list node.media as m>
-              ${m.source}
-            </#list>
+            <@media node.media />
           </div>
         </div>
+        </#if>
         <#if TestService.testHasChildren(node)>
           <@recurse_nodes test=node />
         </#if>

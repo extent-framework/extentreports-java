@@ -35,8 +35,8 @@ public class ReportStatsService {
 
         // level 2, for BDD, this only includes Steps
         List<Test> grandChildren = children.stream()
-                .filter(x -> x.getBddType() != Scenario.class)
                 .flatMap(x -> x.getChildren().stream())
+                .filter(x -> x.getBddType() != Scenario.class)
                 .collect(Collectors.toList());
 
         // additional step for BDD

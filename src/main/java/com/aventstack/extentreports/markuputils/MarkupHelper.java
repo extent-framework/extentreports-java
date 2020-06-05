@@ -65,15 +65,15 @@ public class MarkupHelper {
         return Table.builder().data(data).build();
     }
 
-    public static Markup createTable2(Object o, String[] cssClass) {
+    public static Markup toTable(Object o, String[] cssClass) {
         return Table.builder().object(o).cssClasses(cssClass).build();
     }
 
-    public static Markup createTable2(Object o, String cssClass) {
+    public static Markup toTable(Object o, String cssClass) {
         return Table.builder().object(o).cssClass(cssClass).build();
     }
 
-    public static Markup createTable2(Object o) {
+    public static Markup toTable(Object o) {
         return Table.builder().object(o).build();
     }
 

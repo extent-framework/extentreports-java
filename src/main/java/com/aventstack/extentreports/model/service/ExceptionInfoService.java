@@ -4,8 +4,9 @@ import com.aventstack.extentreports.model.ExceptionInfo;
 import com.aventstack.extentreports.model.service.util.ExceptionUtil;
 
 public class ExceptionInfoService {
-
     public static ExceptionInfo createExceptionInfo(Throwable t) {
+        if (t == null)
+            return null;
         ExceptionInfo exceptionInfo = ExceptionInfo.builder()
                 .exception(t)
                 .name(ExceptionUtil.getExceptionHeadline(t))
@@ -13,5 +14,4 @@ public class ExceptionInfoService {
                 .build();
         return exceptionInfo;
     }
-
 }

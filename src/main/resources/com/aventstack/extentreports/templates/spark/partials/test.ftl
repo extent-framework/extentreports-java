@@ -57,8 +57,11 @@
           author="<#list test.authorSet as x>${x.name}<#if x_has_next> </#if></#list>"
           tag="<#list test.categorySet as x>${x.name}<#if x_has_next> </#if></#list>"
           device="<#list test.deviceSet as x>${x.name}<#if x_has_next> </#if></#list>">
+          <div class="status-avatar ${test.status.toLower()}-bg">
+            <i class="fa fa-${Ico.ico(test.status)} text-white"></i>
+          </div>
           <div class="test-detail">
-            <span class="meta text-white badge badge-sm ${test.status.toLower()}-bg">${test.status}</span>
+            <span class="meta text-white badge badge-sm"></span>
             <p class="name">${test.name}</p>
             <p class="text-sm"><span>${test.startTime?string("HH:mm:ss a")}</span> / <span>${TestService.timeTaken(test)/1000} secs</span></p>
           </div>
@@ -69,22 +72,18 @@
                   <h5 class="test-status text-${test.status.toLower()}">${test.name}</h5>
                   <span class='badge badge-success'>${test.startTime?string("MM.dd.yyyy HH:mm:ss")}</span>
                   <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy HH:mm:ss")}</span>
-                  <span class='badge badge-default'>${TestService.timeTaken(test)}</span>
+                  <span class='badge badge-default'>${TestService.timeTaken(test)/1000} secs</span>
                 </div>
                 <#if TestService.testHasAttributes(test)>
                 <div class="m-t-15"><@attributes test=test /></div>
                 </#if>
                 <#if test.description??>
-                <div class="m-t-10 m-l-5">
-                  ${test.description}
-                </div>
+                <div class="m-t-10 m-l-5">${test.description}</div>
                 </#if>
               </div>
             </div>
-            <#if !isbdd>
-            <#include "standard-content.ftl">
-            <#else>
-            <#include "bdd-content.ftl">
+            <#if isbdd><#include "bdd-content.ftl">
+            <#else><#include "standard-content.ftl">
             </#if>
           </div>
         </li>
@@ -96,8 +95,6 @@
     <div class="test-content-tools">
       <ul><li><a class="back-to-test" href="#"><i class="fa fa-arrow-left"></i></a></li></ul>
     </div>
-    <div class="test-content-detail">
-      <div class="detail-body"></div>
-    </div>
+    <div class="test-content-detail"><div class="detail-body"></div></div>
   </div>
 </div>

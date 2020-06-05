@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.aventstack.extentreports.gherkin.GherkinDialect;
-import com.aventstack.extentreports.gherkin.GherkinDialectProvider;
+import com.aventstack.extentreports.gherkin.GherkinDialectManager;
 import com.aventstack.extentreports.gherkin.entity.Asterisk;
 import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
 
@@ -42,45 +42,42 @@ import lombok.Getter;
  */
 @Getter
 public class GherkinKeyword {
-	
-	private static final Logger logger = Logger.getLogger(GherkinKeyword.class.getName());
 
-	private Class<IGherkinFormatterModel> clazz = IGherkinFormatterModel.class;
-	private IGherkinFormatterModel keyword;
+    private static final Logger logger = Logger.getLogger(GherkinKeyword.class.getName());
 
-	public GherkinKeyword(String gk) throws ClassNotFoundException {
-		GherkinDialect dialect = null;
-		String apiKeyword = StringUtil.capitalize(gk.trim());
-		String refPath = clazz.getPackage().getName();
+    private Class<IGherkinFormatterModel> clazz = IGherkinFormatterModel.class;
+    private IGherkinFormatterModel keyword;
 
-		try {
-			apiKeyword = apiKeyword.equals("*") ? Asterisk.class.getSimpleName() : apiKeyword;
-			dialect = GherkinDialectProvider.getDialect();
-			if (dialect != null
-					&& !dialect.getLanguage().equalsIgnoreCase(GherkinDialectProvider.getDefaultLanguage())) {
-				apiKeyword = null;
-				Map<String, List<String>> keywords = dialect.getKeywords();
+    public GherkinKeyword(String gk) throws ClassNotFoundException {
+        GherkinDialect dialect = null;
+        String apiKeyword = StringUtil.capitalize(gk.trim());
+        String refPath = clazz.getPackage().getName();
 
-				for (Entry<String, List<String>> key : keywords.entrySet()) {
-					apiKeyword = key.getValue().stream()
-						.filter(x -> x.trim().equalsIgnoreCase(gk.trim()))
-						.findAny()
-						.map(x -> StringUtil.capitalize(x))
-						.orElse(null);
-					if (apiKeyword != null) 
-						break;
-				}
-			}
+        try {
+            apiKeyword = apiKeyword.equals("*") ? Asterisk.class.getSimpleName() : apiKeyword;
+            dialect = GherkinDialectManager.getDialect();
+            if (dialect != null
+                    && !dialect.getLanguage().equalsIgnoreCase(GherkinDialectManager.getDefaultLanguage())) {
+                apiKeyword = null;
+                Map<String, List<String>> keywords = dialect.getKeywords();
 
-			if (apiKeyword == null) {
-				throw new GherkinKeywordNotFoundException("Keyword " + apiKeyword + " cannot be null");
-			}
-
-			String clazzName = refPath + "." + apiKeyword.replace(" ", "");
-			Class<?> c = Class.forName(clazzName);
-			keyword = (IGherkinFormatterModel) c.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			logger.log(Level.SEVERE, "", e);
-		}
-	}
+                for (Entry<String, List<String>> key : keywords.entrySet()) {
+                    apiKeyword = key.getValue().stream()
+                            .filter(x -> x.trim().equalsIgnoreCase(gk.trim()))
+                            .findAny()
+                            .map(x -> StringUtil.capitalize(x))
+                            .orElse(null);
+                    if (apiKeyword != null)
+                        break;
+                }
+            }
+            if (apiKeyword == null)
+                throw new GherkinKeywordNotFoundException("Keyword " + apiKeyword + " cannot be null");
+            String clazzName = refPath + "." + apiKeyword.replace(" ", "");
+            Class<?> c = Class.forName(clazzName);
+            keyword = (IGherkinFormatterModel) c.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            logger.log(Level.SEVERE, "", e);
+        }
+    }
 }

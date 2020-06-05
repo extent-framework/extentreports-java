@@ -13,7 +13,7 @@
         </a>
       </li>
       </#if>
-      <#if exceptionContext?has_content>
+      <#if report.exceptionInfoCtx.hasItems()>
       <li class="nav-item dropdown" onclick="toggleView('exception-view')">
         <a id="nav-ex" class="dropdown-toggle" href="exception.html">
           <span class="ico"><i class="fa fa-bug"></i></span>

@@ -2,19 +2,13 @@ package com.aventstack.extentreports.reporter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.Report;
-import com.aventstack.extentreports.model.service.filter.ReportFilterService;
 import com.aventstack.extentreports.observer.ReportObserver;
 import com.aventstack.extentreports.observer.entity.ReportEntity;
 import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfig;
-import com.aventstack.extentreports.reporter.filter.ContextFilter;
-import com.aventstack.extentreports.reporter.filter.Filterable;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -24,7 +18,7 @@ import lombok.Getter;
 
 @Getter
 @SuppressWarnings("rawtypes")
-public class ExtentSparkReporter extends AbstractFileReporter implements ReportObserver, Filterable {
+public class ExtentSparkReporter extends AbstractFileReporter implements ReportObserver {
     private static final Logger logger = Logger.getLogger(ExtentSparkReporter.class.getName());
     private static final String TEMPLATE_LOCATION = "templates/";
     private static final String ENCODING = "UTF-8";
@@ -33,7 +27,6 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
     private static final String FILE_NAME = "Index.html";
 
     private final ExtentSparkReporterConfig config = new ExtentSparkReporterConfig(this);
-    private ContextFilter filter;
     private Disposable disposable;
 
     public ExtentSparkReporter(String path) {
@@ -42,20 +35,6 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
 
     public ExtentSparkReporter(File f) {
         super(f);
-    }
-
-    public ExtentSparkReporter withStatusFilter(Status[] status) {
-        getStatusFilter().addAll(Arrays.stream(status).collect(Collectors.toSet()));
-        return this;
-    }
-
-    public ExtentSparkReporter withStatusFilter(Status status) {
-        return withStatusFilter(new Status[]{status});
-    }
-
-    @Override
-    public void withFilter(ContextFilter filter) {
-        this.filter = filter;
     }
 
     public ExtentSparkReporterConfig config() {
@@ -90,16 +69,11 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
         loadTemplateModel();
     }
 
-    private void flush(ReportEntity report) {
-        if (report.getReport().getTestList().isEmpty())
-            return;
+    private void flush(ReportEntity value) {
+        Report report = filterAndGet(value);
         try {
             getTemplateModel().put("this", this);
-            getTemplateModel().put("report", report.getReport());
-            if (filter != null && filter.getStatus() != null) {
-                Report r = ReportFilterService.filter(report.getReport(), filter.getStatus());
-                getTemplateModel().put("report", r);
-            }
+            getTemplateModel().put("report", report);
             createFreemarkerConfig(TEMPLATE_LOCATION, ENCODING);
             String filePath = getFile().isDirectory()
                     ? getResolvedParentFile().getAbsolutePath()

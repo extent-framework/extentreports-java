@@ -2,7 +2,9 @@
   <div class="vheader">
     <div class="nav-logo">
       <a href="#">
-        <div class="logo" style="background-image: url('https://cdn.rawgit.com/extent-framework/extent-github-cdn/d74480e/commons/img/logo.png')"></div>
+        <#if offline><div class="logo" style="background-image: url('spark/logo.png')"></div>
+        <#else><div class="logo" style="background-image: url('https://${cdnURI}${iconcommit}/commons/img/logo.png')"></div>
+        </#if>
       </a>
     </div>
     <ul class="nav-left">

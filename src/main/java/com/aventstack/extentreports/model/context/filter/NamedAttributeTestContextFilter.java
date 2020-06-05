@@ -7,12 +7,12 @@ import java.util.stream.Collectors;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.NamedAttribute;
 import com.aventstack.extentreports.model.Test;
-import com.aventstack.extentreports.model.context.AttributeTestContextManager;
-import com.aventstack.extentreports.model.context.NamedAttributeTestContext;
+import com.aventstack.extentreports.model.context.NamedAttributeContextManager;
+import com.aventstack.extentreports.model.context.NamedAttributeContext;
 
 public class NamedAttributeTestContextFilter<T extends NamedAttribute> {
-    public Set<NamedAttributeTestContext<T>> filter(AttributeTestContextManager<T> mgr, Set<Status> status) {
-        AttributeTestContextManager<T> newmgr = new AttributeTestContextManager<T>();
+    public Set<NamedAttributeContext<T>> filter(NamedAttributeContextManager<T> mgr, Set<Status> status) {
+        NamedAttributeContextManager<T> newmgr = new NamedAttributeContextManager<T>();
         mgr.getSet().stream()
                 .forEach(x -> newmgr.addContext(x.getAttr(), x.getTestList()));
         List<Test> unwantedList = newmgr.getSet().stream()

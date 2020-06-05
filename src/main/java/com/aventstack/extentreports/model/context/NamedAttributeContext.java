@@ -14,7 +14,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class NamedAttributeTestContext<T extends NamedAttribute> implements Serializable {
+public class NamedAttributeContext<T extends NamedAttribute> implements Serializable {
     private static final long serialVersionUID = -2671203343283101908L;
 
     private final List<Test> testList = Collections.synchronizedList(new ArrayList<>());
@@ -24,12 +24,12 @@ public class NamedAttributeTestContext<T extends NamedAttribute> implements Seri
     private Integer skipped = 0;
     private Integer others = 0;
 
-    public NamedAttributeTestContext(T attribute, Test test) {
+    public NamedAttributeContext(T attribute, Test test) {
         this.attr = attribute;
         addTest(test);
     }
 
-    public NamedAttributeTestContext(T attribute) {
+    public NamedAttributeContext(T attribute) {
         this(attribute, null);
     }
 

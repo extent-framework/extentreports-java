@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.model.context.AttributeTestContextManager;
+import com.aventstack.extentreports.model.context.NamedAttributeContextManager;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +32,10 @@ public class Report implements Serializable, BaseEntity {
     private Status status = Status.PASS;
     private final ReportStats stats = new ReportStats();
     private final List<Test> testList = Collections.synchronizedList(new ArrayList<>());
-    private final AttributeTestContextManager<Author> authorCtx = new AttributeTestContextManager<>();
-    private final AttributeTestContextManager<Category> categoryCtx = new AttributeTestContextManager<>();
-    private final AttributeTestContextManager<Device> deviceCtx = new AttributeTestContextManager<>();
+    private final NamedAttributeContextManager<Author> authorCtx = new NamedAttributeContextManager<>();
+    private final NamedAttributeContextManager<Category> categoryCtx = new NamedAttributeContextManager<>();
+    private final NamedAttributeContextManager<Device> deviceCtx = new NamedAttributeContextManager<>();
+    private final NamedAttributeContextManager<ExceptionInfo> exceptionInfoCtx = new NamedAttributeContextManager<>();
+    private final List<String> logs = Collections.synchronizedList(new ArrayList<>());
+    private final List<SystemEnvInfo> systemEnvInfo = new ArrayList<>();
 }

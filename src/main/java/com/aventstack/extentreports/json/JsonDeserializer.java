@@ -1,4 +1,4 @@
-package com.aventstack.extentreports.appender;
+package com.aventstack.extentreports.json;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,13 +12,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 class JsonDeserializer {
-
     public List<Test> deserialize(File f) throws IOException {
         Gson gson = new Gson();
         String json = new String(Files.readAllBytes(f.toPath()));
-        Type t = new TypeToken<ArrayList<Test>>() {}.getType();
+        Type t = new TypeToken<ArrayList<Test>>() {
+        }.getType();
         List<Test> tests = gson.fromJson(json, t);
         return tests;
     }
-
 }

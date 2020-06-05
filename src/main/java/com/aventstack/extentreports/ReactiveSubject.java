@@ -3,6 +3,7 @@ package com.aventstack.extentreports;
 import java.util.List;
 
 import com.aventstack.extentreports.model.Log;
+import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.Report;
 import com.aventstack.extentreports.model.Test;
 import com.aventstack.extentreports.observer.ExtentObserver;
@@ -33,7 +34,7 @@ abstract class ReactiveSubject {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    protected void attachReporter(List<ExtentObserver> observerList) {
+    protected final void attachReporter(List<ExtentObserver> observerList) {
         for (ExtentObserver o : observerList) {
             if (o instanceof ReportObserver)
                 reportSubject.subscribe(((ReportObserver) o).getReportObserver());
@@ -66,6 +67,14 @@ abstract class ReactiveSubject {
 
     protected void onLogCreated(Log log, Test test) {
         logSubject.onNext(LogEntity.builder().log(log).test(test).build());
+    }
+
+    protected void onMediaAdded(Media m, Test test) {
+        mediaSubject.onNext(MediaEntity.builder().media(m).test(test).build());
+    }
+
+    protected void onMediaAdded(Media m, Log log) {
+        mediaSubject.onNext(MediaEntity.builder().media(m).log(log).build());
     }
 
     protected void onFlush() {

@@ -1,5 +1,7 @@
 package com.aventstack.extentreports.markuputils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,8 @@ abstract class HtmlList {
                 sb.append("</li>");
             }
         } else if (object instanceof List || object instanceof Set || object.getClass().isArray()) {
+            if (object.getClass().isArray())
+                object = Arrays.asList((Object[])object);
             for (Object o : (Collection<Object>) object) {
                 sb.append("<li>");
                 sb.append(o.toString());

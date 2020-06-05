@@ -1,24 +1,16 @@
 <#macro log test>
 <table class="table table-sm">
-  <thead><tr>
-    <th class="status-col">Status</th>
-    <th class="timestamp-col">Timestamp</th>
-    <th class="details-col">Details</th>
-  </tr></thead>
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
   <tbody>
     <#list test.logs as log>
       <tr class="event-row">
-        <td><i class="fa fa-${Ico.ico(log.status)} text-${log.status.toLower()}"></i></td>
+        <td><span class="badge log ${log.status.toLower()}-bg">${log.status?string}</span></td>
         <td>${log.timestamp?time?string}</td>
         <td>
           <#if log.exceptions?has_content>
-            <textarea readonly class="code-block">${log.exceptions.get(0).stackTrace}</textarea>
-          <#else>
-            ${log.details}
-          </#if>
-          <#if LogService.logHasMedia(log)>
-            ${log.media.get(0).path}
-          </#if>
+            <#list log.exceptions as ex><textarea readonly class="code-block">${ex.stackTrace}</textarea></#list>
+          <#else>${log.details}</#if>
+          <@media log.media />
         </td>
       </tr>
     </#list>

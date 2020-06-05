@@ -37,7 +37,8 @@ public class LogServiceTest {
     public void createLogWithNullDetails() {
         Log log = LogService.createLog(TestService.createTest("Test"), STATUS, null, null);
         Assert.assertEquals(log.getStatus(), STATUS);
-        Assert.assertNull(log.getDetails());
+        Assert.assertNotNull(log.getDetails());
+        Assert.assertEquals(log.getDetails(), "");
     }
 
     @Test

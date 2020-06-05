@@ -21,8 +21,8 @@ import com.google.gson.Gson;
  *
  */
 @SuppressWarnings("unchecked")
-public class GherkinDialectProvider {
-    private static final Logger LOG = Logger.getLogger(GherkinDialectProvider.class.getName());
+public class GherkinDialectManager {
+    private static final Logger LOG = Logger.getLogger(GherkinDialectManager.class.getName());
     private static final String DEFAULT_LANGUAGE = "en";
     private static final String GHERKIN_LANGUAGES_JSON_URL = "https://github.com/cucumber/cucumber/blob/master/gherkin/gherkin-languages.json";
     private static final String GHERKIN_LANGUAGES_PATH = "gherkin-languages.json";
@@ -34,7 +34,7 @@ public class GherkinDialectProvider {
     static {
         Gson gson = new Gson();
         try {
-            Reader d = new InputStreamReader(GherkinDialectProvider.class.getResourceAsStream(GHERKIN_LANGUAGES_PATH),
+            Reader d = new InputStreamReader(GherkinDialectManager.class.getResourceAsStream(GHERKIN_LANGUAGES_PATH),
                     "UTF-8");
             dialects = gson.fromJson(d, Map.class);
         } catch (UnsupportedEncodingException e) {
@@ -69,7 +69,7 @@ public class GherkinDialectProvider {
      */
     public static void setLanguage(String lang) throws UnsupportedEncodingException {
         language = lang;
-        Map<String, List<String>> map = dialects.get(GherkinDialectProvider.language);
+        Map<String, List<String>> map = dialects.get(GherkinDialectManager.language);
         if (map == null)
             throw new UnsupportedEncodingException("Invalid language [" + language
                     + "]. See list of supported languages: " + GHERKIN_LANGUAGES_JSON_URL);

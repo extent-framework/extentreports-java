@@ -6,13 +6,12 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
-import com.aventstack.extentreports.gherkin.GherkinDialectProvider;
+import com.aventstack.extentreports.gherkin.GherkinDialectManager;
 import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
 import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.ReportStats;
-import com.aventstack.extentreports.model.ScreenCapture;
+import com.aventstack.extentreports.model.SystemEnvInfo;
 import com.aventstack.extentreports.observer.ExtentObserver;
-import com.aventstack.extentreports.reporter.ExtentKlovReporter;
 
 /**
  * <p>
@@ -56,9 +55,7 @@ import com.aventstack.extentreports.reporter.ExtentKlovReporter;
  * @see Status
  */
 
-public class ExtentReports extends ReportObservable implements Writable, AnalysisTypeConfigurable {
-
-    private static final String[] MEDIA_PATH_RESOLVER_DIR = new String[]{"target/", "test-output/"};
+public class ExtentReports extends AbstractProcessor implements Writable, AnalysisTypeConfigurable {
 
     /**
      * Attach a {@link ExtentObserver} reporter, allowing it to access all
@@ -298,7 +295,7 @@ public class ExtentReports extends ReportObservable implements Writable, Analysi
      * </p>
      * 
      * <pre>
-     * extent.setSystemInfo("HostName", "AventStack-PC");
+     * extent.setSystemInfo("HostName", "AventStack");
      * </pre>
      * 
      * @param k
@@ -307,7 +304,7 @@ public class ExtentReports extends ReportObservable implements Writable, Analysi
      *            Value of system variable
      */
     public void setSystemInfo(String k, String v) {
-
+        onSystemInfoAdded(new SystemEnvInfo(k, v));
     }
 
     /**
@@ -326,8 +323,8 @@ public class ExtentReports extends ReportObservable implements Writable, Analysi
      *            Log string from the test runner frameworks such as TestNG or
      *            JUnit
      */
-    public void setTestRunnerOutput(List<String> log) {
-
+    public void addTestRunnerOutput(List<String> log) {
+        log.forEach(this::addTestRunnerOutput);
     }
 
     /**
@@ -348,40 +345,23 @@ public class ExtentReports extends ReportObservable implements Writable, Analysi
      *            Log string from the test runner frameworks such as TestNG or
      *            JUnit
      */
-    public void setTestRunnerOutput(String log) {
-
+    public void addTestRunnerOutput(String log) {
+        onReportLogAdded(log);
     }
 
     /**
-     * Tries to resolve a {@link ScreenCapture} location if the supplied path is
-     * not found using default locations. This can resolve cases where the
-     * default path was supplied to be relative for a FileReporter. If the
-     * absolute path is not determined, the supplied will be used. below paths
-     * are used to locate the image:
+     * Tries to resolve a {@link Media} location if the supplied path is not
+     * found using supplied locations. This can resolve cases where the default
+     * path was supplied to be relative for a FileReporter. If the absolute path
+     * is not determined, the supplied will be used.
      * 
-     * <ul>
-     * <li>target/</li>
-     * <li>test-output//</li>
-     * </ul>
-     * 
-     * @return {@link ExtentKlovReporter}
-     */
-    public ExtentReports tryResolveMediaPath() {
-        return this;
-    }
-
-    /**
-     * Tries to resolve a {@link ScreenCapture} location if the supplied path is
-     * not found using supplied locations. This can resolve cases where the
-     * default path was supplied to be relative for a FileReporter. If the
-     * absolute path is not determined, the supplied will be used.
-     * 
-     * @param paths
+     * @param path
      *            Dirs used to create absolute path of the {@link Media} object
      * 
-     * @return {@link ExtentKlovReporter}
+     * @return {@link ExtentReports}
      */
-    public ExtentReports tryResolveMediaPath(String[] paths) {
+    public ExtentReports tryResolveMediaPath(String[] path) {
+        tryesolveMediaPathUsingKnownPaths(path);
         return this;
     }
 
@@ -469,7 +449,7 @@ public class ExtentReports extends ReportObservable implements Writable, Analysi
      *             "https://github.com/cucumber/cucumber/blob/master/gherkin/gherkin-languages.json">gherkin-languages.json</a>
      */
     public void setGherkinDialect(String language) throws UnsupportedEncodingException {
-        GherkinDialectProvider.setLanguage(language);
+        GherkinDialectManager.setLanguage(language);
     }
 
     /**
@@ -481,5 +461,4 @@ public class ExtentReports extends ReportObservable implements Writable, Analysi
     public ReportStats getStats() {
         return getReport().getStats();
     }
-
 }

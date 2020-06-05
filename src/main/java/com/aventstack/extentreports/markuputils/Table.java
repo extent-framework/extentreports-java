@@ -106,7 +106,7 @@ class Table implements Markup {
     @SuppressWarnings("unchecked")
     private void appendMapItems(Object object, List<String> list, StringBuilder sb, List<Integer> columnRowCount) {
         Map<Object, Object> map = (Map<Object, Object>) object;
-        for (int ix = map.size(); ix > list.size(); ix--)
+        for (int ix = map.size(); ix >= list.size(); ix--)
             list.add("");
         columnRowCount.set(columnRowCount.size() - 1, map.size());
         int row = 0;
@@ -124,7 +124,7 @@ class Table implements Markup {
     private void appendListItems(Object object, List<String> list, StringBuilder sb, List<Integer> columnRowCount) {
         int row = 0;
         Collection<Object> obj = (Collection<Object>) object;
-        for (int ix = obj.size(); ix > list.size(); ix--)
+        for (int ix = obj.size(); ix >= list.size(); ix--)
             list.add("");
         columnRowCount.set(columnRowCount.size() - 1, obj.size());
         for (Object o : obj) {

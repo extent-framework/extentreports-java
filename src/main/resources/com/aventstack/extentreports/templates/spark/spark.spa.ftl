@@ -16,9 +16,6 @@
 <!DOCTYPE html>
 <html>
 <#include "partials/head.ftl">
-<#if offline><link rel="stylesheet" href="spark/jsontree.js">
-<#else><script src="https://cdn.rawgit.com/extent-framework/extent-github-cdn/7cc78ce/spark/js/jsontree.js"></script>
-</#if>
 <body class="spa ${reportType}-report ${theme}">
   <div class="app">
     <div class="layout">
@@ -27,7 +24,8 @@
       <div class="vcontainer">
         <div class="main-content">
           <#include "partials/test.ftl">
-          <#include "partials/tag.ftl">
+          <#if report.categoryCtx.set?size != 0><#include "partials/tag.ftl"></#if>
+          <#if report.exceptionInfoCtx.set?size != 0><#include "partials/exception.ftl"></#if>
           <#include "partials/dashboard.ftl">
         </div>
       </div>

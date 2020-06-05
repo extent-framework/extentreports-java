@@ -43,12 +43,12 @@ public final class Test implements RunResult, Serializable, BaseEntity {
     private String description;
     private Test parent;
     private Class<? extends IGherkinFormatterModel> bddType;
-    private final List<String> details = Collections.synchronizedList(new ArrayList<>());
     private final List<Test> children = Collections.synchronizedList(new ArrayList<>());
     private final List<Log> logs = Collections.synchronizedList(new ArrayList<>());
     private final List<Media> media = Collections.synchronizedList(new ArrayList<>());
-    private final List<ExceptionInfo> exceptions = new ArrayList<>(0);
+    private final List<ExceptionInfo> exceptions = new ArrayList<>();
     private final Set<Author> authorSet = ConcurrentHashMap.newKeySet();
     private final Set<Category> categorySet = ConcurrentHashMap.newKeySet();
     private final Set<Device> deviceSet = ConcurrentHashMap.newKeySet();
+    private final List<Log> generatedLog = Collections.synchronizedList(new ArrayList<>());
 }

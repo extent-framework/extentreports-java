@@ -26,7 +26,7 @@ import freemarker.template.TemplateModelException;
 import lombok.Getter;
 
 @Getter
-public abstract class AbstractFileReporter extends AbstractReporter {
+public abstract class AbstractFileReporter extends AbstractFilterableReporter {
     private static final Logger LOG = Logger.getLogger(AbstractFileReporter.class.getName());
     protected static final String PATH_SEP = "/";
 
