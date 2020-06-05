@@ -183,7 +183,7 @@
     </div>
     </#if>
     <#if report.systemEnvInfo?size != 0>
-      <div class="col-md-4 device-container">
+      <div class="col-md-4 sysenv-container">
       <div class="card">
         <div class="card-header"><p>System/Environment</p></div>
         <div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
