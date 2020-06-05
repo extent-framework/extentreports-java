@@ -23,10 +23,7 @@
       <#include "partials/sidenav.ftl">
       <div class="vcontainer">
         <div class="main-content">
-          <#include "partials/test.ftl">
-          <#if report.categoryCtx.set?size != 0><#include "partials/tag.ftl"></#if>
-          <#if report.exceptionInfoCtx.set?size != 0><#include "partials/exception.ftl"></#if>
-          <#include "partials/dashboard.ftl">
+          <#list viewOrder as view><#include "partials/${view.toString()}.ftl"></#list>
         </div>
       </div>
     </div>

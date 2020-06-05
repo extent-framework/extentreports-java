@@ -77,11 +77,25 @@ extent.createTest("Test").info(MarkupHelper.toTable(new MyObject()));
 ```java
 ExtentReports extent = new ExtentReports();
 // will only contain failures
-ExtentSparkReporter sparkFail = new ExtentSparkReporter("spark/fail.html");
-sparkFail.withFilter(ContextFilter.builder().status(Status.FAIL).build());
+ExtentSparkReporter sparkFail = new ExtentSparkReporter("target/spark/fail.html")
+  .with()
+    .statusFilter().as(new Status[] {Status.FAIL})
+  .<ExtentSparkReporter>build();
 // will contain all tests
 ExtentSparkReporter sparkAll = new ExtentSparkReporter("spark/all.html");
 extent.attachReporter(sparkFail, sparkAll);
+```
+
+* View limiting and ordering. The below will limit to 2 views, with DASHBOARD view the primary one, 
+followed by TEST. No other views will be displayed. Default setting is to display all views in this 
+order: TEST, TAG, EXCEPTION, DASHBOARD.
+
+```
+ExtentReports extent = new ExtentReports();
+ExtentSparkReporter spark = new ExtentSparkReporter("spark/spark.html")
+  .with()
+    .viewOrder().as(new ViewName[] { ViewName.DASHBOARD, ViewName.TEST })
+  .<ExtentSparkReporter>build();
 ```
 
 ### Breaking changes

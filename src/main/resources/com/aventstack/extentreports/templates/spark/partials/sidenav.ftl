@@ -1,30 +1,25 @@
 <div class="side-nav">
   <div class="side-nav-inner">
     <ul class="side-nav-menu">
-      <li class="nav-item dropdown" onclick="toggleView('test-view')">
-        <a id="nav-test" class="dropdown-toggle" href="index.html">
-          <span class="ico"><i class="fa fa-align-left"></i></span>
-        </a>
-      </li>
-      <#if report.categoryCtx.hasItems()>
-      <li class="nav-item dropdown" onclick="toggleView('tag-view')">
-        <a id="nav-tag" class="dropdown-toggle" href="tag.html">
-          <span class="ico"><i class="fa fa-tag"></i></span>
-        </a>
-      </li>
-      </#if>
-      <#if report.exceptionInfoCtx.hasItems()>
-      <li class="nav-item dropdown" onclick="toggleView('exception-view')">
-        <a id="nav-ex" class="dropdown-toggle" href="exception.html">
-          <span class="ico"><i class="fa fa-bug"></i></span>
-        </a>
-      </li>
-      </#if>
-      <li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
-        <a id="nav-dashboard" class="dropdown-toggle" href="dashboard.html">
-          <span class="ico"><i class="fa fa-bar-chart"></i></span>
-        </a>
-      </li>
+      <#list viewOrder as order>
+    	<#if order.toString()!="author" && order.toString()!="device" && order.toString()!="logs">
+    	  <#if 
+    	  	order.toString()=="exception" && report.exceptionInfoCtx.hasItems()
+    	  	|| order.toString()=="category" && report.categoryCtx.hasItems()
+    	  	|| order.toString()=="test" || order.toString()=="dashboard">
+    	  <#assign ico="align-left">
+    	  <#if order.toString()=="category"><#assign ico="tag">
+    	  <#elseif order.toString()=="exception"><#assign ico="bug">
+    	  <#elseif order.toString()=="dashboard"><#assign ico="bar-chart">
+    	  </#if>
+    	  <li class="nav-item dropdown" onclick="toggleView('${order.toString()}-view')">
+            <a id="nav-${order.toString()}" class="dropdown-toggle" href="#">
+              <span class="ico"><i class="fa fa-${ico}"></i></span>
+            </a>
+          </li>
+          </#if>
+        </#if>
+      </#list>
     </ul>
   </div>
 </div>

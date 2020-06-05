@@ -1,4 +1,4 @@
-<div class="container-fluid p-4 dashboard-view">
+<div class="container-fluid p-4 view dashboard-view">
   <div class="row">
     <div class="col-md-3">
       <div class="card"><div class="card-body">

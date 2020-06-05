@@ -2,6 +2,8 @@ package com.aventstack.extentreports.reporter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,6 +11,8 @@ import com.aventstack.extentreports.model.Report;
 import com.aventstack.extentreports.observer.ReportObserver;
 import com.aventstack.extentreports.observer.entity.ReportEntity;
 import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfig;
+import com.aventstack.extentreports.reporter.configuration.FileReporterConfigurer;
+import com.aventstack.extentreports.reporter.configuration.ViewName;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -25,9 +29,14 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
     private static final String REPORTER_NAME = "spark";
     private static final String SPA_TEMPLATE_NAME = REPORTER_NAME + "/spark.spa.ftl";
     private static final String FILE_NAME = "Index.html";
+    private static final List<ViewName> SUPPORTED_VIEWS = Arrays.asList(new ViewName[]{
+            ViewName.CATEGORY, ViewName.DASHBOARD, ViewName.EXCEPTION, ViewName.TEST
+    });
 
     private final ExtentSparkReporterConfig config = new ExtentSparkReporterConfig(this);
+    private FileReporterConfigurer<ExtentSparkReporter> configurer = new FileReporterConfigurer<>(this);
     private Disposable disposable;
+    private List<ViewName> viewNames = SUPPORTED_VIEWS;
 
     public ExtentSparkReporter(String path) {
         super(new File(path));
@@ -35,6 +44,10 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
 
     public ExtentSparkReporter(File f) {
         super(f);
+    }
+
+    public FileReporterConfigurer with() {
+        return configurer;
     }
 
     public ExtentSparkReporterConfig config() {
@@ -70,9 +83,10 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
     }
 
     private void flush(ReportEntity value) {
-        Report report = filterAndGet(value);
+        Report report = filterAndGet(value.getReport(), configurer.getStatusFilter().getStatus());
         try {
             getTemplateModel().put("this", this);
+            getTemplateModel().put("viewOrder", configurer.getViewOrder().getViewOrder());
             getTemplateModel().put("report", report);
             createFreemarkerConfig(TEMPLATE_LOCATION, ENCODING);
             String filePath = getFile().isDirectory()

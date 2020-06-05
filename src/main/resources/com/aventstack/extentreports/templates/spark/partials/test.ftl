@@ -1,4 +1,4 @@
-<div class="test-wrapper row test-view">
+<div class="test-wrapper row view test-view">
   <div class="test-list">
     <div class="test-list-tools">
       <ul class="tools pull-left">

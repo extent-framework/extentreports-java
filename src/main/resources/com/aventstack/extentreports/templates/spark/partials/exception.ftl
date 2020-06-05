@@ -1,6 +1,6 @@
 <#assign
 	exceptionInfoCtx=report.exceptionInfoCtx.set>
-<div class="test-wrapper row exception-view attributes-view">
+<div class="test-wrapper row view exception-view attributes-view">
   <div class="test-list">
     <div class="test-list-tools">
       <ul class="tools pull-left">

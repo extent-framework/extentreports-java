@@ -1,27 +1,22 @@
 package com.aventstack.extentreports.reporter;
 
+import java.util.Set;
+
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.Report;
 import com.aventstack.extentreports.model.service.ReportFilterService;
-import com.aventstack.extentreports.observer.entity.ReportEntity;
-import com.aventstack.extentreports.reporter.filter.ContextFilter;
-import com.aventstack.extentreports.reporter.filter.Filterable;
+import com.aventstack.extentreports.reporter.filter.StatusFilterable;
 
 import lombok.Getter;
 
 @Getter
-public class AbstractFilterableReporter extends AbstractReporter implements Filterable {
-    private ContextFilter filter;
-
+public class AbstractFilterableReporter extends AbstractReporter implements StatusFilterable {
     @Override
-    public void withFilter(ContextFilter filter) {
-        this.filter = filter;
-    }
-
-    protected Report filterAndGet(ReportEntity entity) {
-        if (entity.getReport() == null || entity.getReport().getTestList().isEmpty())
+    public Report filterAndGet(Report report, Set<Status> set) {
+        if (report == null || report.getTestList().isEmpty())
             return Report.builder().build();
-        if (filter != null)
-            return ReportFilterService.filter(entity.getReport(), filter.getStatus());
-        return entity.getReport();
+        if (set != null)
+            return ReportFilterService.filter(report, set);
+        return report;
     }
 }

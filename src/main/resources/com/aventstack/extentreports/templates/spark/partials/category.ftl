@@ -1,6 +1,6 @@
 <#assign
 	categoryCtx=report.categoryCtx.set>
-<div class="test-wrapper row tag-view attributes-view">
+<div class="test-wrapper row view category-view attributes-view">
   <div class="test-list">
     <div class="test-list-tools">
       <ul class="tools pull-left"><li><a href=""><span class="font-size-14">Tags</span></a></li></ul>
