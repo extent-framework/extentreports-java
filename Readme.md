@@ -37,7 +37,7 @@ extent.createTest("GeneratedLog").generateLog(Status.FAIL, MarkupHelper.toTable(
 ![generateLog](http://extentreports.com/docs/v5/generateLog.png)
 
 #### Ordered, Unordered lists
-MarkupHelper.createOrderedList(object) (see below)
+`MarkupHelper::createOrderedList` and `MarkupHelper.createUnorderedList` for quick POJO to HTML list conversion.
 
 ```
 String[] items = new String[] { "Item1", "Item2", "Item3" };
@@ -47,7 +47,6 @@ extent.createTest("Test").info(MarkupHelper.createOrderedList(items));
 ```
 ![orderedList](http://extentreports.com/docs/v5/orderedList.png)
 
-MarkupHelper.createUnorderedList(object) (see below)
 ```
 Map<Object, Object> items = new HashMap<Object, Object>()
 {{
@@ -59,7 +58,8 @@ extent.createTest("Test").info(MarkupHelper.createUnorderedList(items).getMarkup
 ```
 ![unorderedList](http://extentreports.com/docs/v5/unorderedList.png)
 
-* MarkupHelper.toTable(object)
+#### Pojo to HTML Table
+Pass your pojo to `MarkupHelper::toTable` to convert it into a table structure. Note: this performs only single-level parsing, no deep searches.
 
 ```
 public class MyObject {
@@ -80,7 +80,7 @@ extent.createTest("Test").info(MarkupHelper.toTable(new MyObject()));
 
 ![toTable](http://extentreports.com/docs/v5/toTable.png)
 
-* Report filters for Status/Tag specific reports:
+#### Report filters for Status/Tag specific reports
 
 ```java
 ExtentReports extent = new ExtentReports();
@@ -94,7 +94,8 @@ ExtentSparkReporter sparkAll = new ExtentSparkReporter("spark/all.html");
 extent.attachReporter(sparkFail, sparkAll);
 ```
 
-* View limiting and ordering. The below will limit to 2 views, with DASHBOARD view the primary one, 
+#### View limiting and ordering
+The below will limit to 2 views, with DASHBOARD view the primary one, 
 followed by TEST. No other views will be displayed. Default setting is to display all views in this 
 order: TEST, TAG, EXCEPTION, DASHBOARD.
 
