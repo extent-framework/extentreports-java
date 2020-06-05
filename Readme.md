@@ -12,7 +12,8 @@
 
 ### What's new
 
-* You can now create your own custom logs, tables with custom headers, pass your POJOs directly
+#### Custom logs
+You can now create your own custom logs, tables with custom headers, pass your POJOs directly
 to be converted into a `<table>` etc. You can also specify any CSS classes to be applied on
 the table, like in the below example with "table-sm" (a bootstrap table class).
 
@@ -30,11 +31,13 @@ public class MyCustomLog {
         }
     };
 }
-extent.createTest("GeneratedLog").generateLog(Status.FAIL, MarkupHelper.toTable(new MyObject(), "table-sm"));
+extent.createTest("GeneratedLog").generateLog(Status.FAIL, MarkupHelper.toTable(new MyCustomLog(), "table-sm"));
 ```
 
-* MarkupHelper.createOrderedList(object) (see below)
-* MarkupHelper.createUnorderedList(object) (see below)
+![generateLog](http://extentreports.com/docs/v5/generateLog.png)
+
+#### Ordered, Unordered lists
+MarkupHelper.createOrderedList(object) (see below)
 
 ```
 String[] items = new String[] { "Item1", "Item2", "Item3" };
@@ -42,7 +45,9 @@ Set<Object> items = new HashSet<>(Arrays.asList("Item1", "Item2", "Item3"));
 List<Object> items = Arrays.asList(new Object[] { "Item1", "Item2", "Item3" });
 extent.createTest("Test").info(MarkupHelper.createOrderedList(items));
 ```
+![orderedList](http://extentreports.com/docs/v5/orderedList.png)
 
+MarkupHelper.createUnorderedList(object) (see below)
 ```
 Map<Object, Object> items = new HashMap<Object, Object>()
 {{
@@ -52,6 +57,7 @@ Map<Object, Object> items = new HashMap<Object, Object>()
 }};
 extent.createTest("Test").info(MarkupHelper.createUnorderedList(items).getMarkup());
 ```
+![unorderedList](http://extentreports.com/docs/v5/unorderedList.png)
 
 * MarkupHelper.toTable(object)
 
@@ -71,6 +77,8 @@ public class MyObject {
 }
 extent.createTest("Test").info(MarkupHelper.toTable(new MyObject()));
 ```
+
+![toTable](http://extentreports.com/docs/v5/toTable.png)
 
 * Report filters for Status/Tag specific reports:
 
