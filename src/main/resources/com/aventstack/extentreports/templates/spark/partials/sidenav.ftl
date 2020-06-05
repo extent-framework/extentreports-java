@@ -2,14 +2,16 @@
   <div class="side-nav-inner">
     <ul class="side-nav-menu">
       <#list viewOrder as order>
-    	<#if order.toString()!="author" && order.toString()!="device" && order.toString()!="logs">
+    	<#if order.toString()!="author" && order.toString()!="logs">
     	  <#if 
     	  	order.toString()=="exception" && report.exceptionInfoCtx.hasItems()
     	  	|| order.toString()=="category" && report.categoryCtx.hasItems()
+    	  	|| order.toString()=="device" && report.deviceCtx.hasItems()
     	  	|| order.toString()=="test" || order.toString()=="dashboard">
     	  <#assign ico="align-left">
     	  <#if order.toString()=="category"><#assign ico="tag">
     	  <#elseif order.toString()=="exception"><#assign ico="bug">
+    	  <#elseif order.toString()=="device"><#assign ico="tablet">
     	  <#elseif order.toString()=="dashboard"><#assign ico="bar-chart">
     	  </#if>
     	  <li class="nav-item dropdown" onclick="toggleView('${order.toString()}-view')">
