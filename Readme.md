@@ -1,6 +1,6 @@
 ## ExtentReports [![Join the chat at https://gitter.im/anshooarora/extentreports](https://badges.gitter.im/anshooarora/extentreports.svg)](https://gitter.im/anshooarora/extentreports?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.com/extent-framework/extentreports-java.svg?branch=v5.0.x)](https://travis-ci.com/extent-framework/extentreports-java) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/dbdc8c04b0f84489a738f064f28a82fa)](https://www.codacy.com/app/anshooarora/extentreports?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=extent-framework/extentreports&amp;utm_campaign=Badge_Grade)
 
-### Maven
+## Maven
 
 ```
 <dependency>
@@ -10,7 +10,7 @@
 </dependency>
 ```
 
-### What's new
+## What's new
 
 #### Custom logs
 You can now create your own custom logs, tables with custom headers, pass your POJOs directly
@@ -107,7 +107,7 @@ ExtentSparkReporter spark = new ExtentSparkReporter("spark/spark.html")
   .<ExtentSparkReporter>build();
 ```
 
-### Breaking changes
+## Breaking changes
 
 * ExtentReports::getStartedReporters removed
 * ExtentReports::detachReporter removed
@@ -116,7 +116,7 @@ ExtentSparkReporter spark = new ExtentSparkReporter("spark/spark.html")
 * ExtentHtmlReporter removed
 * ExtentLoggerReporter removed
 
-### What's not working (yet)
+## What's not working (yet)
 
 * OfflineMode
 * Append, CreateDomainFromJsonArchive
@@ -124,11 +124,11 @@ ExtentSparkReporter spark = new ExtentSparkReporter("spark/spark.html")
 * ExtentKlovReporter
 * You tell me..
 
-### Upcoming
+## Upcoming
 
 * See [v5.0.x milestones](https://github.com/extent-framework/extentreports-java/issues?q=is%3Aopen+is%3Aissue+milestone%3A5.0.x)
 * Want to see a feature added? You can raise one [here](https://github.com/extent-framework/extentreports-java/issues?q=is%3Aopen+is%3Aissue+milestone%3A5.0.x)
 
-### License
+## License
 
 Apache-2.0
