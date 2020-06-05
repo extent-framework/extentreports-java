@@ -90,12 +90,15 @@ extent.attachReporter(sparkFail, sparkAll);
 * ExtentReports::detachReporter removed
 * ExtentReports:setTestRunnerOutput renamed to `addTestRunnerOutput`
 * Status::ERROR, Status::FATAL, Status::DEBUG removed
+* ExtentHtmlReporter removed
+* ExtentLoggerReporter removed
 
 ### What's not working (yet)
 
 * OfflineMode
 * Append, CreateDomainFromJsonArchive
 * Loading external configuration.xml
+* ExtentKlovReporter
 * You tell me..
 
 ### Upcoming
