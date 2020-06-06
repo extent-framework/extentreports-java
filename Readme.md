@@ -1,5 +1,7 @@
 ## ExtentReports [![Join the chat at https://gitter.im/anshooarora/extentreports](https://badges.gitter.im/anshooarora/extentreports.svg)](https://gitter.im/anshooarora/extentreports?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.com/extent-framework/extentreports-java.svg?branch=v5.0.x)](https://travis-ci.com/extent-framework/extentreports-java) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/dbdc8c04b0f84489a738f064f28a82fa)](https://www.codacy.com/app/anshooarora/extentreports?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=extent-framework/extentreports&amp;utm_campaign=Badge_Grade)
 
+Help the project by contributing, or by giving a star at the top of this page.
+
 ## Maven
 
 ```
@@ -36,8 +38,37 @@ extent.createTest("GeneratedLog").generateLog(Status.FAIL, MarkupHelper.toTable(
 
 ![generateLog](http://extentreports.com/docs/v5/generateLog.png)
 
+#### Report filters for Status/Tag specific reports
+It is now possible to create separate reports for each status (or a group of them). For example, 2 reports can be created per run session to 1. view all tests and 2. view only failed ones. The example below shows just that:
+
+```java
+ExtentReports extent = new ExtentReports();
+// will only contain failures
+ExtentSparkReporter sparkFail = new ExtentSparkReporter("target/spark/fail.html")
+  .with()
+    .statusFilter().as(new Status[] {Status.FAIL})
+  .<ExtentSparkReporter>build();
+// will contain all tests
+ExtentSparkReporter sparkAll = new ExtentSparkReporter("spark/all.html");
+extent.attachReporter(sparkFail, sparkAll);
+```
+
+#### Choose which views to display, in a particular order
+It is now possible to select the views and their order. For example: if you want the Dashboard view to be the primary view, followed by Tests, you can use the snippet below:
+
+```
+ExtentReports extent = new ExtentReports();
+ExtentSparkReporter spark = new ExtentSparkReporter("spark/spark.html")
+  .with()
+    .viewOrder().as(new ViewName[] { ViewName.DASHBOARD, ViewName.TEST })
+  .<ExtentSparkReporter>build();
+```
+
+The above will limit the report to 2 views, with DASHBOARD view the primary one, followed by TEST. No other views will be displayed. Default setting is to display all views in this order: TEST, TAG, EXCEPTION, DASHBOARD.
+
+
 #### Ordered, Unordered lists
-`MarkupHelper::createOrderedList` and `MarkupHelper.createUnorderedList` for quick POJO to HTML list conversion.
+Use `MarkupHelper::createOrderedList` or `MarkupHelper.createUnorderedList` for quick POJO to HTML list conversion.
 
 ```
 String[] items = new String[] { "Item1", "Item2", "Item3" };
@@ -80,41 +111,14 @@ extent.createTest("Test").info(MarkupHelper.toTable(new MyObject()));
 
 ![toTable](http://extentreports.com/docs/v5/toTable.png)
 
-#### Report filters for Status/Tag specific reports
-
-```java
-ExtentReports extent = new ExtentReports();
-// will only contain failures
-ExtentSparkReporter sparkFail = new ExtentSparkReporter("target/spark/fail.html")
-  .with()
-    .statusFilter().as(new Status[] {Status.FAIL})
-  .<ExtentSparkReporter>build();
-// will contain all tests
-ExtentSparkReporter sparkAll = new ExtentSparkReporter("spark/all.html");
-extent.attachReporter(sparkFail, sparkAll);
-```
-
-#### View limiting and ordering
-The below will limit to 2 views, with DASHBOARD view the primary one, 
-followed by TEST. No other views will be displayed. Default setting is to display all views in this 
-order: TEST, TAG, EXCEPTION, DASHBOARD.
-
-```
-ExtentReports extent = new ExtentReports();
-ExtentSparkReporter spark = new ExtentSparkReporter("spark/spark.html")
-  .with()
-    .viewOrder().as(new ViewName[] { ViewName.DASHBOARD, ViewName.TEST })
-  .<ExtentSparkReporter>build();
-```
-
 ## Breaking changes
 
 * ExtentReports::getStartedReporters removed
 * ExtentReports::detachReporter removed
 * ExtentReports:setTestRunnerOutput renamed to `addTestRunnerOutput`
 * Status::ERROR, Status::FATAL, Status::DEBUG removed
-* ExtentHtmlReporter removed
-* ExtentLoggerReporter removed
+* ExtentHtmlReporter removed (use ExtentSparkReporter)
+* ExtentLoggerReporter removed (use ExtentSparkReporter)
 
 ## What's not working (yet)
 
