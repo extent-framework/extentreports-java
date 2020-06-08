@@ -122,10 +122,9 @@ extent.createTest("Test").info(MarkupHelper.toTable(new MyObject()));
 
 ## What's not working (yet)
 
-* OfflineMode
+* ~~OfflineMode~~
 * Append, CreateDomainFromJsonArchive
 * Loading external configuration.xml
-* ExtentKlovReporter
 * You tell me..
 
 ## Upcoming

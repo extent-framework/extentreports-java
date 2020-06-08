@@ -1,6 +1,11 @@
 package com.aventstack.extentreports.reporter.configuration;
 
+import java.io.File;
+import java.util.stream.Stream;
+
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.util.ResourceHelper;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,9 +16,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ExtentSparkReporterConfig extends RichViewReporterConfig {
+    private static final String REPORTER_NAME = "spark";
+    private static final String SEP = "/";
+    private static final String COMMONS = "commons" + SEP;
+    private static final String CSS = "css" + SEP;
+    private static final String JS = "js" + SEP;
+    private static final String ICONS = "icons" + SEP;
+    private static final String IMG = "img" + SEP;
+
     private Boolean offlineMode = false;
     private String resourceCDN = "github";
-    
+
     public ExtentSparkReporterConfig(ExtentSparkReporter reporter) {
         super(reporter);
     }
@@ -22,60 +35,52 @@ public class ExtentSparkReporterConfig extends RichViewReporterConfig {
      * Creates the HTML report, saving all resources (css, js, fonts) in the
      * same location, so the report can be viewed without an internet connection
      * 
-     * @param offline
+     * @param offlineMode
      *            Setting to enable an offline accessible report
-     *
-    public void enableOfflineMode(Boolean offline) {
-        getConfigurationStore().storeConfig("enableOfflineMode", String.valueOf(offline));
-        getConfigurationStore().storeConfig("offlineDirectory", getReporter().getReporterName() + "/");
-        if (offline) {
-            File f = getTargetDirectory(((ExtentSparkReporter) getReporter()).getFileFile());
-            String s = "/";
-            String resourcePackagePath = ExtentReports.class.getPackage().getName().replace(".", s);
-            resourcePackagePath += s + "offline" + s;
+     */
+    public void enableOfflineMode(Boolean offlineMode) {
+        this.offlineMode = offlineMode;
+        if (offlineMode) {
+            File f = getTargetDirectory(((ExtentSparkReporter) getReporter()).getResolvedParentFile());
+            String resPackage = ExtentReports.class.getPackage().getName().replace(".", SEP);
+            resPackage += SEP + "offline" + SEP;
             String[] resx = combine(getJSFiles(), getCSSFiles(), getIconFiles(), getImgFiles());
-            OfflineResxDelegate.saveOfflineResources(resourcePackagePath, resx, f.getAbsolutePath());
+            ResourceHelper.saveOfflineResources(resPackage, resx, f.getAbsolutePath());
         }
     }
 
     private File getTargetDirectory(File f) {
-        String dir;
-        if (FileUtil.isDirectory(f)) {
-            dir = f.getAbsolutePath().replace("\\", "/");
-        } else {
-            dir = f.getAbsolutePath().replace("\\", "/");
+        String dir = f.getAbsolutePath().replace("\\", SEP);
+        if (!f.isDirectory())
             dir = new File(dir).getParent();
-        }
-        dir += "/" + getReporter().getReporterName();
+        dir += "/" + REPORTER_NAME;
         return new File(dir);
     }
 
     private String[] combine(String[]... array) {
         String[] result = new String[]{};
-        for (String[] arr : array) {
+        for (String[] arr : array)
             result = Stream.of(result, arr).flatMap(Stream::of).toArray(String[]::new);
-        }
         return result;
     }
 
     private String[] getJSFiles() {
-        String commonsPath = "commons/js/";
-        String reporterPath = getReporter().getReporterName() + "/js/";
-        String[] files = {reporterPath + "spark-script.js", commonsPath + "jsontree.js"};
+        final String commonsPath = COMMONS + JS;
+        final String reporterPath = REPORTER_NAME + SEP + JS;
+        final String[] files = {reporterPath + "spark-script.js", commonsPath + "jsontree.js"};
         return files;
     }
 
     private String[] getCSSFiles() {
-        String stylesPath = "css/";
-        String reporterPath = getReporter().getReporterName() + "/" + stylesPath;
-        String[] files = {reporterPath + "spark-style.css"};
+        final String reporterPath = REPORTER_NAME + SEP + CSS;
+        final String[] files = {reporterPath + "spark-style.css"};
         return files;
     }
 
     private String[] getIconFiles() {
-        String path = "commons/css/icons/";
-        String iconDirPath = "fontawesome/";
-        String[] files = {path + "font-awesome.min.css", path + iconDirPath + "fontawesome-webfont.eot",
+        final String path = COMMONS + CSS + ICONS;
+        final String iconDirPath = "fontawesome" + SEP;
+        final String[] files = {path + "font-awesome.min.css", path + iconDirPath + "fontawesome-webfont.eot",
                 path + iconDirPath + "fontawesome-webfont.svg", path + iconDirPath + "fontawesome-webfont.ttf",
                 path + iconDirPath + "fontawesome-webfont.woff", path + iconDirPath + "fontawesome-webfont.woff2",
                 path + iconDirPath + "FontAwesome.otf"};
@@ -83,9 +88,8 @@ public class ExtentSparkReporterConfig extends RichViewReporterConfig {
     }
 
     private String[] getImgFiles() {
-        String path = "commons/img/";
-        String[] files = {path + "logo.png"};
+        final String path = COMMONS + IMG;
+        final String[] files = {path + "logo.png"};
         return files;
     }
-*/
 }
