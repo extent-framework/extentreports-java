@@ -142,6 +142,12 @@ public class TestService {
         return test.getEndTime().getTime() - test.getStartTime().getTime();
     }
 
+    public static Test getAncestor(Test test) {
+        while (test.getParent() != null)
+            test = test.getParent();
+        return test;
+    }
+
     public static List<ExceptionInfo> aggregateExceptions(List<Test> testList) {
         List<ExceptionInfo> list = new ArrayList<>();
         for (Test test : testList) {

@@ -97,6 +97,19 @@ $(".test-content").click(function(evt) {
 	}
 });
 
+/* -- [ attr ] -- */ 
+$('.test-content').click(function(evt) {
+	var t = $(evt.target);
+	if (t.is('.linked')) {
+		var testId = t.attr('test-id');
+		$('#nav-test').click();
+		$('.test-item').filter(function() {
+			return $(this).attr('test-id') == testId;
+		}).click();
+	}
+});
+
+
 /* ------------------------------------ */
 /* filters */
 /* ------------------------------------ */

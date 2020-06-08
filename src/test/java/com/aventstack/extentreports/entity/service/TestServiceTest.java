@@ -355,4 +355,16 @@ public class TestServiceTest {
         Assert.assertEquals(parent.getStatus(), Status.FAIL);
         Assert.assertEquals(node.getStatus(), Status.FAIL);
     }
+
+    @org.testng.annotations.Test
+    public void ancestor() {
+        Test parent = TestService.createTest("Ancestor");
+        Test node = TestService.createTest("Node");
+        Test child = TestService.createTest("Child");
+        TestService.addNode(node, parent);
+        TestService.addNode(child, node);
+        Assert.assertEquals(TestService.getAncestor(parent), parent);
+        Assert.assertEquals(TestService.getAncestor(child), parent);
+        Assert.assertEquals(TestService.getAncestor(node), parent);
+    }
 }

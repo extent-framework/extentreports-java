@@ -41,8 +41,8 @@
                 <tr class="tag-test-status" status="${test.status.toLower()}">
                   <td><span class="badge log ${test.status.toLower()}-bg">${test.status?string}</span></td>
                   <td>${test.startTime?string[("HH:mm:ss a")]}</td>
-                  <td class='linked' test-id='${test.getId()}'>
-                    ${test.name}
+                  <td>
+                    <a href="#" class="linked" test-id='${TestService.getAncestor(test).getId()}'>${test.name}</a>
                     <#if test.parent??>
                     <div class="">
                       <span class="badge badge-default">${TestService.fullName(test)}</span>
