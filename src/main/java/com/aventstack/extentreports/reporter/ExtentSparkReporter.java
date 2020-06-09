@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.aventstack.extentreports.config.external.JsonConfigLoader;
 import com.aventstack.extentreports.model.Report;
 import com.aventstack.extentreports.observer.ReportObserver;
 import com.aventstack.extentreports.observer.entity.ReportEntity;
@@ -22,7 +23,7 @@ import lombok.Getter;
 
 @Getter
 @SuppressWarnings("rawtypes")
-public class ExtentSparkReporter extends AbstractFileReporter implements ReportObserver {
+public class ExtentSparkReporter extends AbstractFileReporter implements ReportObserver, ReporterConfigurable {
     private static final Logger logger = Logger.getLogger(ExtentSparkReporter.class.getName());
     private static final String TEMPLATE_LOCATION = "templates/";
     private static final String ENCODING = "UTF-8";
@@ -52,6 +53,18 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
 
     public ExtentSparkReporterConfig config() {
         return config;
+    }
+
+    @Override
+    public void loadConfig(File jsonFile) throws IOException {
+        @SuppressWarnings("unchecked")
+        JsonConfigLoader loader = new JsonConfigLoader(config, jsonFile);
+        loader.apply();
+        executeActions();
+    }
+
+    private void executeActions() {
+        config.enableOfflineMode(config.getOfflineMode());
     }
 
     @Override

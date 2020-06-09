@@ -16,11 +16,11 @@ public class ResourceHelper {
             Path path = Paths.get(baseDir, f);
             String fromPath = path.toString();
             String toPathComplete = Paths.get(toPath, new File(f).getName()).toString();
-            ResourceUtil.moveResource(fromPath, toPathComplete);
+            IOUtil.moveResource(fromPath, toPathComplete);
         }
     }
 
     public static void saveOfflineResources(String[] resx, String toPath) {
-        Arrays.stream(resx).forEach(x -> ResourceUtil.moveResource(x, toPath));
+        Arrays.stream(resx).forEach(x -> IOUtil.moveResource(x, toPath));
     }
 }

@@ -119,6 +119,7 @@ extent.createTest("Test").info(MarkupHelper.toTable(new MyObject()));
 * Status::ERROR, Status::FATAL, Status::DEBUG removed
 * ExtentHtmlReporter removed (use ExtentSparkReporter)
 * ExtentLoggerReporter removed (use ExtentSparkReporter)
+* Reporter::enableTimeline removed, use Reporter::setTimelineEnabled 
 
 ## What's not working (yet)
 

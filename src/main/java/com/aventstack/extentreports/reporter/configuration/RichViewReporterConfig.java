@@ -21,15 +21,4 @@ public abstract class RichViewReporterConfig extends AbstractFileReporterConfig 
     protected RichViewReporterConfig(AbstractReporter reporter) {
         super(reporter);
     }
-
-    /**
-     * Enable or disable the Timeline section in the Dashboard view
-     *
-     * @param v
-     *            Setting to enable or disable the Timeline section in the
-     *            Dashboard view
-     */
-    public void enableTimeline(boolean v) {
-        timelineEnabled = v;
-    }
 }

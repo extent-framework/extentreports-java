@@ -22,6 +22,7 @@ import org.xml.sax.SAXException;
 
 import com.aventstack.extentreports.config.ConfigStore;
 
+@Deprecated
 public class XmlConfigLoader {
     private static final Logger LOG = Logger.getLogger(XmlConfigLoader.class.getName());
 

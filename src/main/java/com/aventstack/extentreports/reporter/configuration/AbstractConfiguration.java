@@ -11,8 +11,9 @@ import lombok.Setter;
 public abstract class AbstractConfiguration {
     private ConfigStore store = new ConfigStore();
     private AbstractReporter reporter;
+
     private String timeStampFormat = "MMM d, yyyy hh:mm:ss a";
-    private String reportName = "Extent Framework";
+    private String reportName = "";
 
     protected AbstractConfiguration(AbstractReporter reporter) {
         this.reporter = reporter;

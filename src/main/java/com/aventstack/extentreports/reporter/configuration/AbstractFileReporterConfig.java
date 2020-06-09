@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 public abstract class AbstractFileReporterConfig extends AbstractConfiguration {
     private String encoding = "UTF-8";
-    private String documentTitle = "Extent Framework";
+    private String documentTitle = "";
 
     protected AbstractFileReporterConfig(AbstractReporter reporter) {
         super(reporter);
