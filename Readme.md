@@ -120,6 +120,30 @@ extent.createTest("Test").info(MarkupHelper.toTable(new MyObject()));
 * ExtentHtmlReporter removed (use ExtentSparkReporter)
 * ExtentLoggerReporter removed (use ExtentSparkReporter)
 * Reporter::enableTimeline removed, use Reporter::setTimelineEnabled 
+* Config:loadXMLConfig removed, use Config::loadConfig:
+
+spark-config.json:
+```
+{
+    "theme": "standard",
+    "encoding": "utf-8",
+    "protocol": "HTTPS",
+    "timelineEnabled": false,
+    "offlineMode": true,
+    "documentTitle": "ExtentReports",
+    "reportName": "ExtentReports",
+    "timeStampFormat": "MMM dd, yyyy HH:mm:ss a",
+    "theme": "STANDARD",
+    "js": "",
+    "css": ""
+}
+```
+
+```java
+final File CONF = new File("config/spark-config.json");
+ExtentSparkReporter spark = new ExtentSparkReporter("target/spark/spark.html");
+spark.loadConfig(CONF);
+```
 
 ## What's not working (yet)
 
