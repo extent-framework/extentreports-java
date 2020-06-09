@@ -8,13 +8,14 @@
     	  	|| order.toString()=="category" && report.categoryCtx.hasItems()
     	  	|| order.toString()=="device" && report.deviceCtx.hasItems()
     	  	|| order.toString()=="author" && report.authorCtx.hasItems()
-    	  	|| order.toString()=="test" || order.toString()=="dashboard">
-    	  <#assign ico="align-left">
+    	  	|| order.toString()=="test" || order.toString()=="dashboard" || order.toString()=="log">
+    	  <#assign ico="list">
     	  <#if order.toString()=="category"><#assign ico="tag">
     	  <#elseif order.toString()=="exception"><#assign ico="bug">
     	  <#elseif order.toString()=="device"><#assign ico="tablet">
     	  <#elseif order.toString()=="author"><#assign ico="user">
     	  <#elseif order.toString()=="dashboard"><#assign ico="bar-chart">
+    	  <#elseif order.toString()=="log"><#assign ico="clipboard">
     	  </#if>
     	  <li class="nav-item dropdown" onclick="toggleView('${order.toString()}-view')">
             <a id="nav-${order.toString()}" class="dropdown-toggle" href="#">

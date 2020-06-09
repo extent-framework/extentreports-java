@@ -57,4 +57,8 @@ public class NamedAttributeContextManager<T extends NamedAttribute> {
     public boolean hasItems() {
         return !set.isEmpty();
     }
+    
+    public void resetAll() {
+        set.stream().forEach(x -> x.refresh());
+    }
 }

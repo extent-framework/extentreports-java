@@ -1,5 +1,6 @@
 package com.aventstack.extentreports;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.aventstack.extentreports.model.Author;
@@ -44,8 +45,8 @@ public abstract class AbstractProcessor extends ReactiveSubject {
     protected void onLogCreated(Log log, Test test) {
         super.onLogCreated(log, test);
         log.getExceptions().stream()
-            .filter(x -> x.getException() != null)
-            .forEach(x -> getReport().getExceptionInfoCtx().addContext(x, test));
+                .filter(x -> x.getException() != null)
+                .forEach(x -> getReport().getExceptionInfoCtx().addContext(x, test));
     }
 
     @Override
@@ -82,6 +83,7 @@ public abstract class AbstractProcessor extends ReactiveSubject {
         categoryCtx.getSet().forEach(x -> x.refresh());
         deviceCtx.getSet().forEach(x -> x.refresh());
         ReportStatsService.refreshReportStats(getReport().getStats(), testList);
+        getReport().setEndTime(Calendar.getInstance().getTime());
         super.onFlush();
     }
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * <p>
@@ -15,6 +16,7 @@ import lombok.Getter;
  *
  */
 @Getter
+@ToString
 public class GherkinDialect {
     private final Map<String, List<String>> keywords;
     private String language;

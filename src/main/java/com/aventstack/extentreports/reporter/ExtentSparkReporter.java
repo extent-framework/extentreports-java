@@ -30,7 +30,7 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
     private static final String SPA_TEMPLATE_NAME = REPORTER_NAME + "/spark.spa.ftl";
     private static final String FILE_NAME = "Index.html";
     private static final List<ViewName> SUPPORTED_VIEWS = Arrays.asList(new ViewName[]{
-            ViewName.CATEGORY, ViewName.DASHBOARD, ViewName.EXCEPTION, ViewName.TEST
+            ViewName.CATEGORY, ViewName.DASHBOARD, ViewName.EXCEPTION, ViewName.TEST, ViewName.LOG
     });
 
     private final ExtentSparkReporterConfig config = new ExtentSparkReporterConfig(this);

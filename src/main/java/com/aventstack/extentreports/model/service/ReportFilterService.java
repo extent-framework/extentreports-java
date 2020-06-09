@@ -18,6 +18,9 @@ public class ReportFilterService {
         if (report.getTestList().isEmpty())
             return report;
         Report filtered = Report.builder().build();
+        filtered.getLogs().addAll(report.getLogs());
+        filtered.setStartTime(report.getStartTime());
+        filtered.setEndTime(report.getEndTime());
         List<Test> list = report.getTestList().stream()
                 .filter(x -> statusList.contains(x.getStatus()))
                 .collect(Collectors.toList());

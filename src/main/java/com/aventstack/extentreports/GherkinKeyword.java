@@ -42,7 +42,6 @@ import lombok.Getter;
  */
 @Getter
 public class GherkinKeyword {
-
     private static final Logger logger = Logger.getLogger(GherkinKeyword.class.getName());
 
     private Class<IGherkinFormatterModel> clazz = IGherkinFormatterModel.class;
@@ -60,7 +59,6 @@ public class GherkinKeyword {
                     && !dialect.getLanguage().equalsIgnoreCase(GherkinDialectManager.getDefaultLanguage())) {
                 apiKeyword = null;
                 Map<String, List<String>> keywords = dialect.getKeywords();
-
                 for (Entry<String, List<String>> key : keywords.entrySet()) {
                     apiKeyword = key.getValue().stream()
                             .filter(x -> x.trim().equalsIgnoreCase(gk.trim()))

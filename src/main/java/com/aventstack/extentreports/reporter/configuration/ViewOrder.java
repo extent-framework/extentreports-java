@@ -17,7 +17,7 @@ public class ViewOrder {
             ViewName.CATEGORY,
             ViewName.DEVICE,
             ViewName.AUTHOR,
-            ViewName.LOGS,
+            ViewName.LOG,
             ViewName.DASHBOARD
     });
 

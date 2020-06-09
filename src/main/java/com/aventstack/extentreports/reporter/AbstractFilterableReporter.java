@@ -14,7 +14,7 @@ public class AbstractFilterableReporter extends AbstractReporter implements Stat
     @Override
     public Report filterAndGet(Report report, Set<Status> set) {
         if (report == null || report.getTestList().isEmpty())
-            return Report.builder().build();
+            return report;
         if (set != null)
             return ReportFilterService.filter(report, set);
         return report;
