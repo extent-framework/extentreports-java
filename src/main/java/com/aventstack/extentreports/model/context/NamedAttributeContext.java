@@ -29,10 +29,6 @@ public class NamedAttributeContext<T extends NamedAttribute> implements Serializ
         addTest(test);
     }
 
-    public NamedAttributeContext(T attribute) {
-        this(attribute, null);
-    }
-
     public void addTest(Test test) {
         if (test == null)
             throw new IllegalArgumentException("Test cannot be null");
@@ -40,7 +36,7 @@ public class NamedAttributeContext<T extends NamedAttribute> implements Serializ
         refresh(test);
     }
 
-    private void refresh(Test test) {
+    private synchronized void refresh(Test test) {
         passed += test.getStatus() == Status.PASS ? 1 : 0;
         failed += test.getStatus() == Status.FAIL ? 1 : 0;
         skipped += test.getStatus() == Status.SKIP ? 1 : 0;
