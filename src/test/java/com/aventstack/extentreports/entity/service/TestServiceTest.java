@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.testng.Assert;
 
-import com.aventstack.extentreports.GherkinKeyword;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.gherkin.entity.Scenario;
 import com.aventstack.extentreports.model.Author;
@@ -74,12 +73,12 @@ public class TestServiceTest {
         Assert.assertEquals(test.getBddType(), Scenario.class);
     }
 
-    @org.testng.annotations.Test
+    /*@org.testng.annotations.Test
     public void testWithBddTypeGherkinKeyword() throws ClassNotFoundException {
         GherkinKeyword keyword = new GherkinKeyword("Scenario");
         Test test = TestService.createTest(keyword.getClazz(), "Test", DESCRIPTION);
         Assert.assertEquals(test.getBddType(), keyword.getClazz());
-    }
+    }*/
 
     @org.testng.annotations.Test(expectedExceptions = IllegalArgumentException.class)
     public void addNodeToNullTest() {
