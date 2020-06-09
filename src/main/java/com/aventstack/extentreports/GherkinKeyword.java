@@ -72,7 +72,8 @@ public class GherkinKeyword {
                 }
             }
             if (apiKeyword == null)
-                throw new GherkinKeywordNotFoundException("Keyword " + apiKeyword + " cannot be null");
+                throw new GherkinKeywordNotFoundException("Keyword cannot be null. " +
+                        "You supplied: " + gk + " for dialect " + dialect + " which couldn't be mapped.");
             String clazzName = refPath + "." + apiKeyword.replace(" ", "");
             Class<?> c = Class.forName(clazzName);
             keyword = (IGherkinFormatterModel) c.newInstance();

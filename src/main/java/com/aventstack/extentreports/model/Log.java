@@ -32,4 +32,8 @@ public class Log implements RunResult, Serializable, BaseEntity {
     private Integer seq = -1;
     private final List<ExceptionInfo> exceptions = new ArrayList<>();
     private final List<Media> media = new ArrayList<>();
+    
+    public Log(Integer seq) {
+        this.seq = seq;
+    }
 }
