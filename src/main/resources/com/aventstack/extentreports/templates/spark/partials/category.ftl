@@ -1,3 +1,4 @@
+<#if report.categoryCtx.set?size != 0>
 <#assign
 	categoryCtx=report.categoryCtx.set>
 <div class="test-wrapper row view category-view attributes-view">
@@ -74,3 +75,4 @@
     </div>
   </div>
 </div>
+</#if>

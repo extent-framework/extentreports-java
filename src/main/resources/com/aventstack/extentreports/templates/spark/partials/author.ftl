@@ -1,3 +1,4 @@
+<#if report.authorCtx.set?size != 0>
 <#assign
 	authorCtx=report.authorCtx.set>
 <div class="test-wrapper row view author-view attributes-view">
@@ -74,3 +75,4 @@
     </div>
   </div>
 </div>
+</#if>

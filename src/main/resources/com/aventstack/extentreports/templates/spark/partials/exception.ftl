@@ -1,3 +1,4 @@
+<#if report.exceptionInfoCtx.set?size != 0>
 <#assign
 	exceptionInfoCtx=report.exceptionInfoCtx.set>
 <div class="test-wrapper row view exception-view attributes-view">
@@ -78,3 +79,4 @@
     </div>
   </div>
 </div>
+</#if>

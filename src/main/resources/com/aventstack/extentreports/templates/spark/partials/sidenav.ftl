@@ -8,7 +8,8 @@
     	  	|| order.toString()=="category" && report.categoryCtx.hasItems()
     	  	|| order.toString()=="device" && report.deviceCtx.hasItems()
     	  	|| order.toString()=="author" && report.authorCtx.hasItems()
-    	  	|| order.toString()=="test" || order.toString()=="dashboard" || order.toString()=="log">
+    	  	|| order.toString()=="log" && report.logs?size != 0
+    	  	|| order.toString()=="test" || order.toString()=="dashboard">
     	  <#assign ico="list">
     	  <#if order.toString()=="category"><#assign ico="tag">
     	  <#elseif order.toString()=="exception"><#assign ico="bug">

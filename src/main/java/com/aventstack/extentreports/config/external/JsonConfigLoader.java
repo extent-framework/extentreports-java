@@ -33,9 +33,9 @@ public class JsonConfigLoader<T> {
 
     @SuppressWarnings("unchecked")
     public void apply() {
-        Gson gson = new GsonBuilder().registerTypeAdapter(instance.getClass(), creator).create();
+        final Gson gson = new GsonBuilder().registerTypeAdapter(instance.getClass(), creator).create();
         try {
-            String json = Files.readFile(f);
+            final String json = Files.readFile(f);
             instance = (T) gson.fromJson(json, instance.getClass());
         } catch (IOException e) {
             e.printStackTrace();

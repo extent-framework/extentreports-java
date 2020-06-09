@@ -1,3 +1,4 @@
+<#if report.deviceCtx.set?size != 0>
 <#assign
 	deviceCtx=report.deviceCtx.set>
 <div class="test-wrapper row view device-view attributes-view">
@@ -74,3 +75,4 @@
     </div>
   </div>
 </div>
+</#if>

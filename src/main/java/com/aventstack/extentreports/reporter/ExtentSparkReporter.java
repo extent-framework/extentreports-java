@@ -58,7 +58,7 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
     @Override
     public void loadConfig(File jsonFile) throws IOException {
         @SuppressWarnings("unchecked")
-        JsonConfigLoader loader = new JsonConfigLoader(config, jsonFile);
+        final JsonConfigLoader loader = new JsonConfigLoader(config, jsonFile);
         loader.apply();
         executeActions();
     }
@@ -96,17 +96,17 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
     }
 
     private void flush(ReportEntity value) {
-        Report report = filterAndGet(value.getReport(), configurer.getStatusFilter().getStatus());
+        final Report report = filterAndGet(value.getReport(), configurer.getStatusFilter().getStatus());
         try {
             getTemplateModel().put("this", this);
             getTemplateModel().put("viewOrder", configurer.getViewOrder().getViewOrder());
             getTemplateModel().put("report", report);
             createFreemarkerConfig(TEMPLATE_LOCATION, ENCODING);
-            String filePath = getFile().isDirectory()
+            final String filePath = getFile().isDirectory()
                     ? getResolvedParentFile().getAbsolutePath()
                             + PATH_SEP + FILE_NAME
                     : getFile().getAbsolutePath();
-            Template template = getFreemarkerConfig().getTemplate(SPA_TEMPLATE_NAME);
+            final Template template = getFreemarkerConfig().getTemplate(SPA_TEMPLATE_NAME);
             processTemplate(template, new File(filePath));
             return;
         } catch (IOException | TemplateException e) {
