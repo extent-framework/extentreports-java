@@ -111,16 +111,9 @@ extent.createTest("Test").info(MarkupHelper.toTable(new MyObject()));
 
 ![toTable](http://extentreports.com/docs/v5/toTable.png)
 
-## Breaking changes
-
-* ExtentReports::getStartedReporters removed
-* ExtentReports::detachReporter removed
-* ExtentReports:setTestRunnerOutput renamed to `addTestRunnerOutput`
-* Status::ERROR, Status::FATAL, Status::DEBUG removed
-* ExtentHtmlReporter removed (use ExtentSparkReporter)
-* ExtentLoggerReporter removed (use ExtentSparkReporter)
-* Reporter::enableTimeline removed, use Reporter::setTimelineEnabled 
-* Config:loadXMLConfig removed, use Config::loadConfig:
+#### JSON configuration replaces XML
+Version 4 and earlier had the ability to consume XML files, which will be deprecated starting v5.0.
+External configuration must now be loaded from JSON, as demonstrated below:
 
 spark-config.json:
 ```
@@ -145,11 +138,22 @@ ExtentSparkReporter spark = new ExtentSparkReporter("target/spark/spark.html");
 spark.loadConfig(CONF);
 ```
 
+## Breaking changes
+
+* ExtentReports::getStartedReporters removed
+* ExtentReports::detachReporter removed
+* ExtentReports:setTestRunnerOutput renamed to `addTestRunnerOutput`
+* Status::ERROR, Status::FATAL, Status::DEBUG removed
+* ExtentHtmlReporter removed (use ExtentSparkReporter)
+* ExtentLoggerReporter removed (use ExtentSparkReporter)
+* Reporter::enableTimeline removed, use Reporter::setTimelineEnabled 
+* Config:loadXMLConfig removed, use Config::loadConfig {[see here](#json-configuration-replaces-xml)}
+
 ## What's not working (yet)
 
 * ~~OfflineMode~~
 * Append, CreateDomainFromJsonArchive
-* Loading external configuration.xml
+* ~~Loading external configuration.json~~ {[see here](#json-configuration-replaces-xml)}
 * You tell me..
 
 ## Upcoming
