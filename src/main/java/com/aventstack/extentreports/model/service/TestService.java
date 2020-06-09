@@ -48,18 +48,16 @@ public class TestService {
     }
 
     public static void addLog(Log log, Test test) {
-        if (test == null || log == null)
-            throw new IllegalArgumentException("Test or log must not be null");
         addLogCommon(log, test, test.getLogs());
     }
 
     public static void addGeneratedLog(Log log, Test test) {
-        if (test == null || log == null)
-            throw new IllegalArgumentException("Test or log must not be null");
         addLogCommon(log, test, test.getGeneratedLog());
     }
 
     private static void addLogCommon(Log log, Test test, List<Log> list) {
+        if (test == null || log == null)
+            throw new IllegalArgumentException("Test or log must not be null");
         log.setSeq(list.size());
         list.add(log);
         test.setStatus(Status.max(log.getStatus(), test.getStatus()));
