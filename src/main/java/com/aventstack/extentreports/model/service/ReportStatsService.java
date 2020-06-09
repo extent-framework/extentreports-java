@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.gherkin.entity.Scenario;
+import com.aventstack.extentreports.gherkin.entity.ScenarioOutline;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.ReportStats;
 import com.aventstack.extentreports.model.RunResult;
@@ -22,9 +23,10 @@ public class ReportStatsService {
         resetReportStats(stats);
         refreshReportStats(stats, testList, stats.getParent(), stats.getParentPercentage());
 
-        // level 1, for BDD< this would also include ScenarioOutline, Scenario
+        // level 1, for BDD, this would also include Scenario and excludes ScenarioOutline
         List<Test> children = testList.stream()
                 .flatMap(x -> x.getChildren().stream())
+                .filter(x -> x.getBddType() != ScenarioOutline.class)
                 .collect(Collectors.toList());
         List<Test> scenarios = children.stream()
                 .flatMap(x -> x.getChildren().stream())
