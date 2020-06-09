@@ -11,7 +11,7 @@ import lombok.Getter;
 
 @Getter
 public enum Status {
-    INFO("Info", 10), PASS("Pass", 20), SKIP("Skip", 30), WARNING("Warning", 40), FAIL("Fail", 50), RETRY("Retry", 60);
+    INFO("Info", 10), PASS("Pass", 20), SKIP("Skip", 30), WARNING("Warning", 40), FAIL("Fail", 50);
 
     private final Integer level;
     private final String name;
