@@ -4,7 +4,7 @@ Help the project by contributing, or by giving a star at the top of this page.
 
 ## Maven
 
-```
+```xml
 <dependency>
   <groupId>com.aventstack</groupId>
   <artifactId>extentreports</artifactId>
@@ -14,12 +14,12 @@ Help the project by contributing, or by giving a star at the top of this page.
 
 ## What's new
 
-#### Custom logs
+### Custom logs
 You can now create your own custom logs, tables with custom headers, pass your POJOs directly
 to be converted into a `<table>` etc. You can also specify any CSS classes to be applied on
 the table, like in the below example with "table-sm" (a bootstrap table class).
 
-```
+```java
 public class MyCustomLog {
     private List<Object> names = Arrays.asList("Anshoo", "Extent", "Klov");
     private Object[] favStack = new Object[]{"Java", "C#", "Angular"};
@@ -38,7 +38,7 @@ extent.createTest("GeneratedLog").generateLog(Status.FAIL, MarkupHelper.toTable(
 
 ![generateLog](http://extentreports.com/docs/v5/generateLog.png)
 
-#### Report filters for Status/Tag specific reports
+### Report filters for Status/Tag specific reports
 It is now possible to create separate reports for each status (or a group of them). For example, 2 reports can be created per run session to 1. view all tests and 2. view only failed ones. The example below shows just that:
 
 ```java
@@ -53,10 +53,10 @@ ExtentSparkReporter sparkAll = new ExtentSparkReporter("spark/all.html");
 extent.attachReporter(sparkFail, sparkAll);
 ```
 
-#### Choose which views to display, in a particular order
+### Choose which views to display, in a particular order
 It is now possible to select the views and their order. For example: if you want the Dashboard view to be the primary view, followed by Tests, you can use the snippet below:
 
-```
+```java
 ExtentReports extent = new ExtentReports();
 ExtentSparkReporter spark = new ExtentSparkReporter("spark/spark.html")
   .with()
@@ -67,10 +67,10 @@ ExtentSparkReporter spark = new ExtentSparkReporter("spark/spark.html")
 The above will limit the report to 2 views, with DASHBOARD view the primary one, followed by TEST. No other views will be displayed. Default setting is to display all views in this order: TEST, TAG, EXCEPTION, DASHBOARD.
 
 
-#### Ordered, Unordered lists
+### Ordered, Unordered lists
 Use `MarkupHelper::createOrderedList` or `MarkupHelper.createUnorderedList` for quick POJO to HTML list conversion.
 
-```
+```java
 String[] items = new String[] { "Item1", "Item2", "Item3" };
 Set<Object> items = new HashSet<>(Arrays.asList("Item1", "Item2", "Item3"));
 List<Object> items = Arrays.asList(new Object[] { "Item1", "Item2", "Item3" });
@@ -78,7 +78,7 @@ extent.createTest("Test").info(MarkupHelper.createOrderedList(items));
 ```
 ![orderedList](http://extentreports.com/docs/v5/orderedList.png)
 
-```
+```java
 Map<Object, Object> items = new HashMap<Object, Object>()
 {{
      put("Item1", "Value1");
@@ -89,10 +89,10 @@ extent.createTest("Test").info(MarkupHelper.createUnorderedList(items).getMarkup
 ```
 ![unorderedList](http://extentreports.com/docs/v5/unorderedList.png)
 
-#### Pojo to HTML Table
+### Pojo to HTML Table
 Pass your pojo to `MarkupHelper::toTable` to convert it into a table structure. Note: this performs only single-level parsing, no deep searches.
 
-```
+```java
 public class MyObject {
     private List<Object> names = Arrays.asList("Anshoo", "Extent", "Klov");
     private Object[] favStack = new Object[]{"Java", "C#", "Angular"};
@@ -111,7 +111,7 @@ extent.createTest("Test").info(MarkupHelper.toTable(new MyObject()));
 
 ![toTable](http://extentreports.com/docs/v5/toTable.png)
 
-#### JSON configuration replaces XML
+### JSON configuration replaces XML
 Version 4 and earlier had the ability to consume XML files, which will be deprecated starting v5.0.
 External configuration must now be loaded from JSON, as demonstrated below:
 
