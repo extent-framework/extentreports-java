@@ -11,27 +11,27 @@ import com.aventstack.extentreports.Status;
 
 public class StatusEntityTest {
 
-	private List<Status> randomHierarchy() {
-		List<Status> list = Arrays.asList(Status.values());
-		Collections.shuffle(list);
-		return list;
-	}
+    private List<Status> randomHierarchy() {
+        List<Status> list = Arrays.asList(Status.values());
+        Collections.shuffle(list);
+        return list;
+    }
 
-	@Test
-	public void statusMax() {
-		Assert.assertEquals(Status.max(randomHierarchy()), Status.RETRY);
-	}
+    @Test
+    public void statusMax() {
+        Assert.assertEquals(Status.max(randomHierarchy()), Status.FAIL);
+    }
 
-	@Test
-	public void statusMin() {
-		Assert.assertEquals(Status.min(randomHierarchy()), Status.INFO);
-	}
+    @Test
+    public void statusMin() {
+        Assert.assertEquals(Status.min(randomHierarchy()), Status.INFO);
+    }
 
-	@Test
-	public void statusHierarchy() {
-		List<Status> list = Status.getResolvedHierarchy(randomHierarchy());
-		Assert.assertTrue(list.get(0).equals(Status.INFO));
-		Assert.assertTrue(list.get(Status.values().length - 1).equals(Status.RETRY));
-	}
+    @Test
+    public void statusHierarchy() {
+        List<Status> list = Status.getResolvedHierarchy(randomHierarchy());
+        Assert.assertTrue(list.get(0).equals(Status.INFO));
+        Assert.assertTrue(list.get(Status.values().length - 1).equals(Status.FAIL));
+    }
 
 }
