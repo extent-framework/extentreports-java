@@ -311,11 +311,33 @@ public class TestServiceTest {
     }
 
     @org.testng.annotations.Test
-    public void testHasScreenCaptureDeep() {
+    public void testHasScreenCaptureDeepLog() {
         Test test = getTest();
         Log log = Log.builder().status(Status.PASS).details("").build();
         LogService.addMedia(log, ScreenCapture.builder().path("/img.png").build());
         TestService.addLog(log, test);
+        Assert.assertFalse(TestService.testHasScreenCapture(test));
+        Assert.assertTrue(TestService.testHasScreenCapture(test, true));
+    }
+
+    @org.testng.annotations.Test
+    public void testHasScreenCaptureDeepNode() {
+        Test test = getTest();
+        Test node = getTest();
+        test.getChildren().add(node);
+        TestService.addMedia(node, ScreenCapture.builder().path("/img.png").build());
+        Assert.assertFalse(TestService.testHasScreenCapture(test));
+        Assert.assertTrue(TestService.testHasScreenCapture(test, true));
+    }
+
+    @org.testng.annotations.Test
+    public void testHasScreenCaptureDeepNodeLog() {
+        Test test = getTest();
+        Test node = getTest();
+        test.getChildren().add(node);
+        Log log = Log.builder().status(Status.PASS).details("").build();
+        LogService.addMedia(log, ScreenCapture.builder().path("/img.png").build());
+        TestService.addLog(log, node);
         Assert.assertFalse(TestService.testHasScreenCapture(test));
         Assert.assertTrue(TestService.testHasScreenCapture(test, true));
     }
@@ -369,5 +391,56 @@ public class TestServiceTest {
         Assert.assertEquals(TestService.getAncestor(parent), parent);
         Assert.assertEquals(TestService.getAncestor(child), parent);
         Assert.assertEquals(TestService.getAncestor(node), parent);
+    }
+
+    @org.testng.annotations.Test(expectedExceptions = IllegalArgumentException.class)
+    public void generatedLogNullTest() {
+        Log log = Log.builder().status(Status.SKIP).details("details").build();
+        TestService.addGeneratedLog(log, null);
+    }
+
+    @org.testng.annotations.Test(expectedExceptions = IllegalArgumentException.class)
+    public void generatedLogNullLog() {
+        Test test = getTest();
+        TestService.addGeneratedLog(null, test);
+    }
+
+    @org.testng.annotations.Test
+    public void generatedLog() {
+        Test test = getTest();
+        Log log = Log.builder().status(Status.SKIP).details("details").build();
+        TestService.addGeneratedLog(log, test);
+        Assert.assertEquals(test.getGeneratedLog().size(), 1);
+        Assert.assertEquals(test.getLogs().size(), 0);
+        Assert.assertEquals(test.getStatus(), Status.SKIP);
+    }
+
+    @org.testng.annotations.Test
+    public void testHasAngLogWithNoLogs() {
+        Test test = getTest();
+        Assert.assertFalse(TestService.testHasAnyLog(test));
+    }
+
+    @org.testng.annotations.Test
+    public void testHasAngLogWithLog() {
+        Test test = getTest();
+        Log log = Log.builder().status(Status.SKIP).details("details").build();
+        TestService.addLog(log, test);
+        Assert.assertTrue(TestService.testHasAnyLog(test));
+    }
+
+    @org.testng.annotations.Test
+    public void testHasAngLogWithGeneratedLog() {
+        Test test = getTest();
+        Log log = Log.builder().status(Status.SKIP).details("details").build();
+        TestService.addGeneratedLog(log, test);
+        Assert.assertTrue(TestService.testHasAnyLog(test));
+    }
+
+    @org.testng.annotations.Test
+    public void timeTaken() {
+        Test test = getTest();
+        long duration = TestService.timeTaken(test);
+        Assert.assertTrue(duration < 5);
     }
 }

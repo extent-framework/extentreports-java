@@ -136,4 +136,11 @@ public class ReportServiceTest {
         Assert.assertFalse(logs.isEmpty());
         Arrays.stream(s).forEach(x -> Assert.assertTrue(logs.contains(x)));
     }
+
+    @org.testng.annotations.Test
+    public void timeTaken() {
+        Report report = Report.builder().build();
+        long duration = ReportService.timeTaken(report);
+        Assert.assertTrue(duration < 5);
+    }
 }
