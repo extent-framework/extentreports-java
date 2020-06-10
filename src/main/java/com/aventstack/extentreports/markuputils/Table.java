@@ -74,6 +74,8 @@ class Table implements Markup {
             appendListItems(object, list, sb2, columnRowCount);
         } else if (object.getClass().isArray()) {
             appendArrayItems(object, list, sb2, columnRowCount);
+        } else if (object instanceof String && !fieldList.isEmpty()) {
+            list.set(0, "<td>" + object.toString() + "</td>");
         } else if (!fieldList.isEmpty()) {
             sb.append("<thead><tr>");
             fieldList.forEach(x -> sb.append("<th>" + x.getName() + "</th>"));
