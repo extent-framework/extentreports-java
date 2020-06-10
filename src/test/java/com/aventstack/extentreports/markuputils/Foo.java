@@ -8,8 +8,7 @@ import java.util.Map;
 import com.aventstack.extentreports.annotations.MarkupIgnore;
 
 public class Foo {
-    @SuppressWarnings("unused")
-    private List<Object> names = Arrays.asList("Anshoo", "Extent", "Klov");
+    public List<Object> names = Arrays.asList("Anshoo", "Extent", "Klov");
     @SuppressWarnings("unused")
     private Object[] stack1 = new Object[]{"Java", "C#", "Angular"};
     @MarkupIgnore

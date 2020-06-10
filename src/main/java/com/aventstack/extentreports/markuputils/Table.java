@@ -72,10 +72,10 @@ class Table implements Markup {
             appendMapItems(object, list, sb2, columnRowCount);
         } else if (object instanceof List || object instanceof Set) {
             appendListItems(object, list, sb2, columnRowCount);
+        } else if (object instanceof String) {
+            list.set(0, "<td>" + object.toString() + "</td>");
         } else if (object.getClass().isArray()) {
             appendArrayItems(object, list, sb2, columnRowCount);
-        } else if (object instanceof String && !fieldList.isEmpty()) {
-            list.set(0, "<td>" + object.toString() + "</td>");
         } else if (!fieldList.isEmpty()) {
             sb.append("<thead><tr>");
             fieldList.forEach(x -> sb.append("<th>" + x.getName() + "</th>"));
