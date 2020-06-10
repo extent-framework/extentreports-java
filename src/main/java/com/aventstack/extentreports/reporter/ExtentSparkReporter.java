@@ -7,13 +7,17 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.aventstack.extentreports.config.ConfigStore;
 import com.aventstack.extentreports.config.external.JsonConfigLoader;
+import com.aventstack.extentreports.config.external.XmlConfigLoader;
 import com.aventstack.extentreports.model.Report;
 import com.aventstack.extentreports.observer.ReportObserver;
 import com.aventstack.extentreports.observer.entity.ReportEntity;
 import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfig;
 import com.aventstack.extentreports.reporter.configuration.FileReporterConfigurer;
+import com.aventstack.extentreports.reporter.configuration.InteractiveReporterConfig;
 import com.aventstack.extentreports.reporter.configuration.ViewName;
+import com.google.gson.Gson;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -34,8 +38,8 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
             ViewName.CATEGORY, ViewName.DASHBOARD, ViewName.EXCEPTION, ViewName.TEST, ViewName.LOG
     });
 
-    private final ExtentSparkReporterConfig config = new ExtentSparkReporterConfig(this);
     private FileReporterConfigurer<ExtentSparkReporter> configurer = new FileReporterConfigurer<>(this);
+    private ExtentSparkReporterConfig conf = ExtentSparkReporterConfig.builder().build();
     private Disposable disposable;
     private List<ViewName> viewNames = SUPPORTED_VIEWS;
 
@@ -51,20 +55,42 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
         return configurer;
     }
 
-    public ExtentSparkReporterConfig config() {
-        return config;
+    public InteractiveReporterConfig config() {
+        return conf;
+    }
+
+    public ExtentSparkReporter withConfig(ExtentSparkReporterConfig conf) {
+        this.conf = conf;
+        return this;
     }
 
     @Override
-    public void loadConfig(File jsonFile) throws IOException {
+    public void loadJSONConfig(File jsonFile) throws IOException {
         @SuppressWarnings("unchecked")
-        final JsonConfigLoader loader = new JsonConfigLoader(config, jsonFile);
+        final JsonConfigLoader loader = new JsonConfigLoader(conf, jsonFile);
         loader.apply();
         executeActions();
     }
 
+    @Override
+    public void loadJSONConfig(String jsonString) throws IOException {
+        @SuppressWarnings("unchecked")
+        final JsonConfigLoader loader = new JsonConfigLoader(conf, jsonString);
+        loader.apply();
+        executeActions();
+    }
+
+    @Override
+    public void loadXMLConfig(File xmlFile) throws IOException {
+        final XmlConfigLoader loader = new XmlConfigLoader(xmlFile);
+        ConfigStore store = loader.getConfigStore();
+        Gson gson = new Gson();
+        String json = gson.toJson(store.getStore());
+        loadJSONConfig(json);
+    }
+
     private void executeActions() {
-        config.enableOfflineMode(config.getOfflineMode());
+        conf.enableOfflineMode(conf.getOfflineMode());
     }
 
     @Override

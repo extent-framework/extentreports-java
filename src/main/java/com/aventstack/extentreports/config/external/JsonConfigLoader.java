@@ -13,6 +13,7 @@ import com.google.gson.InstanceCreator;
 
 public class JsonConfigLoader<T> {
     private File f;
+    private String json;
     private T instance;
     private InstanceCreator<T> creator;
 
@@ -21,21 +22,32 @@ public class JsonConfigLoader<T> {
             throw new IllegalArgumentException("File cannot be null");
         if (!f.exists())
             throw new FileNotFoundException("File " + f.getAbsolutePath() + " could not be found");
+        init(instance);
+        this.f = f;
+    }
+
+    public JsonConfigLoader(T instance, String json) {
+        if (json == null || json.isEmpty())
+            throw new IllegalArgumentException("Json input cannot be null or empty");
+        init(instance);
+        this.json = json;
+    }
+
+    private void init(T instance) {
+        this.instance = instance;
         creator = new InstanceCreator<T>() {
             @Override
             public T createInstance(Type type) {
                 return instance;
             }
         };
-        this.instance = instance;
-        this.f = f;
     }
 
     @SuppressWarnings("unchecked")
     public void apply() {
         final Gson gson = new GsonBuilder().registerTypeAdapter(instance.getClass(), creator).create();
         try {
-            final String json = Files.readFile(f);
+            String json = f != null ? Files.readFile(f) : this.json;
             instance = (T) gson.fromJson(json, instance.getClass());
         } catch (IOException e) {
             e.printStackTrace();

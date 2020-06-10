@@ -54,7 +54,8 @@ extent.attachReporter(sparkFail, sparkAll);
 ```
 
 ### Choose which views to display, in a particular order
-It is now possible to select the views and their order. For example: if you want the Dashboard view to be the primary view, followed by Tests, you can use the snippet below:
+It is now possible to select the views and their order. For example: if you want the Dashboard view 
+to be the primary view, followed by Tests, you can use the snippet below:
 
 ```java
 ExtentReports extent = new ExtentReports();
@@ -64,11 +65,14 @@ ExtentSparkReporter spark = new ExtentSparkReporter("spark/spark.html")
   .<ExtentSparkReporter>build();
 ```
 
-The above will limit the report to 2 views, with DASHBOARD view the primary one, followed by TEST. No other views will be displayed. Default setting is to display all views in this order: TEST, TAG, EXCEPTION, DASHBOARD.
+The above will limit the report to 2 views, with DASHBOARD view the primary one, followed by TEST. 
+No other views will be displayed. Default setting is to display all views in this order: TEST, 
+TAG, EXCEPTION, DASHBOARD.
 
 
 ### Ordered, Unordered lists
-Use `MarkupHelper::createOrderedList` or `MarkupHelper.createUnorderedList` for quick POJO to HTML list conversion.
+Use `MarkupHelper::createOrderedList` or `MarkupHelper.createUnorderedList` for 
+quick POJO to HTML list conversion.
 
 ```java
 String[] items = new String[] { "Item1", "Item2", "Item3" };
@@ -90,7 +94,8 @@ extent.createTest("Test").info(MarkupHelper.createUnorderedList(items).getMarkup
 ![unorderedList](http://extentreports.com/docs/v5/unorderedList.png)
 
 ### Pojo to HTML Table
-Pass your pojo to `MarkupHelper::toTable` to convert it into a table structure. Note: this performs only single-level parsing, no deep searches.
+Pass your pojo to `MarkupHelper::toTable` to convert it into a table structure. 
+Note: this performs only single-level parsing, no deep searches.
 
 ```java
 public class MyObject {
@@ -111,9 +116,9 @@ extent.createTest("Test").info(MarkupHelper.toTable(new MyObject()));
 
 ![toTable](http://extentreports.com/docs/v5/toTable.png)
 
-### JSON configuration replaces XML
-Version 4 and earlier had the ability to consume XML files, which will be deprecated starting v5.0.
-External configuration must now be loaded from JSON, as demonstrated below:
+### JSON configuration
+Version 4 and earlier had the ability to consume configuration-XML files, a functionality that remained unchanged in v5.0.
+External configuration can now be loaded via JSON also, as demonstrated below:
 
 spark-config.json:
 ```
@@ -135,8 +140,29 @@ spark-config.json:
 ```java
 final File CONF = new File("config/spark-config.json");
 ExtentSparkReporter spark = new ExtentSparkReporter("target/spark/spark.html");
-spark.loadConfig(CONF);
+spark.loadJSONConfig(CONF);
 ```
+
+### Configuration builders
+Until version 4, it was only possible to specify a configuration entry at once, example:
+
+```java
+ExtentSparkReporter spark = new ExtentSparkReporter("spark.html");
+spark.config().setTheme(Theme.DARK);
+spark.config().setDocumentTitle("MyReport");
+```
+
+Now, it is possible build and pass the entire configuration at once:
+
+```java
+spark.withConfig(
+  ExtentSparkReporterConfig.builder()
+    .theme(Theme.DARK)
+    .documentTitle("MyReport")
+    .build()
+);
+```
+
 
 ## Breaking changes
 
@@ -147,13 +173,12 @@ spark.loadConfig(CONF);
 * ExtentHtmlReporter removed (use ExtentSparkReporter)
 * ExtentLoggerReporter removed (use ExtentSparkReporter)
 * Reporter::enableTimeline removed, use Reporter::setTimelineEnabled 
-* Config:loadXMLConfig removed, use Config::loadConfig {[see here](#json-configuration-replaces-xml)}
 
 ## What's not working (yet)
 
 * ~~OfflineMode~~
 * Append, CreateDomainFromJsonArchive
-* ~~Loading external configuration.json~~ {[see here](#json-configuration-replaces-xml)}
+* ~~Loading external configuration~~
 * You tell me..
 
 ## Upcoming

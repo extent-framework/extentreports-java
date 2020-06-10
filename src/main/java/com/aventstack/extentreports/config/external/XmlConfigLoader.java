@@ -22,7 +22,6 @@ import org.xml.sax.SAXException;
 
 import com.aventstack.extentreports.config.ConfigStore;
 
-@Deprecated
 public class XmlConfigLoader {
     private static final Logger LOG = Logger.getLogger(XmlConfigLoader.class.getName());
 
@@ -37,17 +36,15 @@ public class XmlConfigLoader {
         }
     }
 
-    public XmlConfigLoader(File file, Boolean silent) {
+    public XmlConfigLoader(File file) {
         try {
-            if (silent && !file.exists())
-                return;
             stream = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             LOG.log(Level.SEVERE, file.getPath(), e);
         }
     }
 
-    public ConfigStore getConfigurationStore() {
+    public ConfigStore getConfigStore() {
         if (stream == null)
             return null;
 

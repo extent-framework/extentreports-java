@@ -7,15 +7,18 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.util.ResourceHelper;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Defines configuration settings for the Spark reporter
  */
 @Getter
 @Setter
-public class ExtentSparkReporterConfig extends RichViewReporterConfig {
+@SuperBuilder
+public class ExtentSparkReporterConfig extends InteractiveReporterConfig {
     private static final String REPORTER_NAME = "spark";
     private static final String SEP = "/";
     private static final String COMMONS = "commons" + SEP;
@@ -24,12 +27,10 @@ public class ExtentSparkReporterConfig extends RichViewReporterConfig {
     private static final String ICONS = "icons" + SEP;
     private static final String IMG = "img" + SEP;
 
+    @Builder.Default
     private Boolean offlineMode = false;
+    @Builder.Default
     private String resourceCDN = "github";
-
-    public ExtentSparkReporterConfig(ExtentSparkReporter reporter) {
-        super(reporter);
-    }
 
     /**
      * Creates the HTML report, saving all resources (css, js, fonts) in the
@@ -41,55 +42,61 @@ public class ExtentSparkReporterConfig extends RichViewReporterConfig {
     public void enableOfflineMode(Boolean offlineMode) {
         this.offlineMode = offlineMode;
         if (offlineMode) {
-            File f = getTargetDirectory(((ExtentSparkReporter) getReporter()).getResolvedParentFile());
+            File f = Offline.getTargetDirectory(((ExtentSparkReporter) getReporter()).getResolvedParentFile());
             String resPackage = ExtentReports.class.getPackage().getName().replace(".", SEP);
             resPackage += SEP + "offline" + SEP;
-            String[] resx = combine(getJSFiles(), getCSSFiles(), getIconFiles(), getImgFiles());
+            String[] resx = Offline.combineAll();
             ResourceHelper.saveOfflineResources(resPackage, resx, f.getAbsolutePath());
         }
     }
 
-    private File getTargetDirectory(File f) {
-        String dir = f.getAbsolutePath().replace("\\", SEP);
-        if (!f.isDirectory())
-            dir = new File(dir).getParent();
-        dir += "/" + REPORTER_NAME;
-        return new File(dir);
-    }
+    private static class Offline {
+        private static File getTargetDirectory(File f) {
+            String dir = f.getAbsolutePath().replace("\\", SEP);
+            if (!f.isDirectory())
+                dir = new File(dir).getParent();
+            dir += "/" + REPORTER_NAME;
+            return new File(dir);
+        }
 
-    private String[] combine(String[]... array) {
-        String[] result = new String[]{};
-        for (String[] arr : array)
-            result = Stream.of(result, arr).flatMap(Stream::of).toArray(String[]::new);
-        return result;
-    }
+        private static String[] combineAll() {
+            return combine(getJSFiles(), getCSSFiles(), getIconFiles(), getImgFiles());
+        }
 
-    private String[] getJSFiles() {
-        final String commonsPath = COMMONS + JS;
-        final String reporterPath = REPORTER_NAME + SEP + JS;
-        final String[] files = {reporterPath + "spark-script.js", commonsPath + "jsontree.js"};
-        return files;
-    }
+        private static String[] combine(String[]... array) {
+            String[] result = new String[]{};
+            for (String[] arr : array)
+                result = Stream.of(result, arr).flatMap(Stream::of).toArray(String[]::new);
+            return result;
+        }
 
-    private String[] getCSSFiles() {
-        final String reporterPath = REPORTER_NAME + SEP + CSS;
-        final String[] files = {reporterPath + "spark-style.css"};
-        return files;
-    }
+        private static String[] getJSFiles() {
+            final String commonsPath = COMMONS + JS;
+            final String reporterPath = REPORTER_NAME + SEP + JS;
+            final String[] files = {reporterPath + "spark-script.js", commonsPath + "jsontree.js"};
+            return files;
+        }
 
-    private String[] getIconFiles() {
-        final String path = COMMONS + CSS + ICONS;
-        final String iconDirPath = "fontawesome" + SEP;
-        final String[] files = {path + "font-awesome.min.css", path + iconDirPath + "fontawesome-webfont.eot",
-                path + iconDirPath + "fontawesome-webfont.svg", path + iconDirPath + "fontawesome-webfont.ttf",
-                path + iconDirPath + "fontawesome-webfont.woff", path + iconDirPath + "fontawesome-webfont.woff2",
-                path + iconDirPath + "FontAwesome.otf"};
-        return files;
-    }
+        private static String[] getCSSFiles() {
+            final String reporterPath = REPORTER_NAME + SEP + CSS;
+            final String[] files = {reporterPath + "spark-style.css"};
+            return files;
+        }
 
-    private String[] getImgFiles() {
-        final String path = COMMONS + IMG;
-        final String[] files = {path + "logo.png"};
-        return files;
+        private static String[] getIconFiles() {
+            final String path = COMMONS + CSS + ICONS;
+            final String iconDirPath = "fontawesome" + SEP;
+            final String[] files = {path + "font-awesome.min.css", path + iconDirPath + "fontawesome-webfont.eot",
+                    path + iconDirPath + "fontawesome-webfont.svg", path + iconDirPath + "fontawesome-webfont.ttf",
+                    path + iconDirPath + "fontawesome-webfont.woff", path + iconDirPath + "fontawesome-webfont.woff2",
+                    path + iconDirPath + "FontAwesome.otf"};
+            return files;
+        }
+
+        private static String[] getImgFiles() {
+            final String path = COMMONS + IMG;
+            final String[] files = {path + "logo.png"};
+            return files;
+        }
     }
 }

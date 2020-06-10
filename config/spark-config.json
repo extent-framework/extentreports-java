@@ -1,13 +1,12 @@
 {
-    "theme": "standard",
-    "encoding": "utf-8",
-    "protocol": "HTTPS",
-    "timelineEnabled": false,
-    "offlineMode": true,
-    "documentTitle": "ExtentReports",
-    "reportName": "ExtentReports",
-    "timeStampFormat": "MMM dd, yyyy HH:mm:ss a",
-    "theme": "STANDARD",
-    "js": "",
-    "css": ""
+  "theme": "STANDARD",
+  "encoding": "utf-8",
+  "protocol": "HTTPS",
+  "timelineEnabled": false,
+  "offlineMode": true,
+  "documentTitle": "ExtentReports",
+  "reportName": "ExtentReports",
+  "timeStampFormat": "MMM dd, yyyy HH:mm:ss a",
+  "js": "",
+  "css": ""
 }
