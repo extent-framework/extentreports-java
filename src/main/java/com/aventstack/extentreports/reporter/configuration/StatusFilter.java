@@ -11,25 +11,25 @@ import com.aventstack.extentreports.reporter.AbstractReporter;
 import lombok.Getter;
 
 @Getter
-public class StatusFilter {
+public class StatusFilter<T extends AbstractReporter> {
     private Set<Status> status = new HashSet<>(Arrays.asList(Status.values()));
-    private FileReporterConfigurer<?> configurer;
+    private EntityFilters<?> configurer;
 
-    public <T extends AbstractReporter> StatusFilter(FileReporterConfigurer<T> configurer) {
+    public StatusFilter(EntityFilters<T> configurer) {
         this.configurer = configurer;
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends AbstractReporter> FileReporterConfigurer<T> as(Set<Status> status) {
+    public EntityFilters<T> as(Set<Status> status) {
         this.status = status;
-        return (FileReporterConfigurer<T>) configurer.configure(this);
+        return (EntityFilters<T>) configurer;
     }
 
-    public <T extends AbstractReporter> FileReporterConfigurer<T> as(List<Status> status) {
+    public EntityFilters<T> as(List<Status> status) {
         return as(new HashSet<>(status));
     }
 
-    public <T extends AbstractReporter> FileReporterConfigurer<T> as(Status[] status) {
+    public EntityFilters<T> as(Status[] status) {
         return as(Arrays.asList(status));
     }
 }

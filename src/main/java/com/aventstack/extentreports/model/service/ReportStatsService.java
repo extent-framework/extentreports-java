@@ -1,5 +1,6 @@
 package com.aventstack.extentreports.model.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +18,14 @@ public class ReportStatsService {
 
     public static void refreshReportStats(final ReportStats stats,
             final List<Test> testList) {
+        resetReportStats(stats);
         if (testList == null || testList.isEmpty())
             return;
 
-        resetReportStats(stats);
         refreshReportStats(stats, testList, stats.getParent(), stats.getParentPercentage());
 
-        // level 1, for BDD, this would also include Scenario and excludes ScenarioOutline
+        // level 1, for BDD, this would also include Scenario and excludes
+        // ScenarioOutline
         List<Test> children = testList.stream()
                 .flatMap(x -> x.getChildren().stream())
                 .filter(x -> x.getBddType() != ScenarioOutline.class)
@@ -63,26 +65,29 @@ public class ReportStatsService {
     private static void refreshReportStats(final ReportStats stats,
             final List<? extends RunResult> list, final Map<Status, Long> countMap,
             final Map<Status, Float> percentageMap) {
-        if (list == null || list.isEmpty())
+        if (list == null)
             return;
         Map<Status, Long> map = list.stream().collect(
                 Collectors.groupingBy(RunResult::getStatus, Collectors.counting()));
         Arrays.asList(Status.values()).forEach(x -> map.putIfAbsent(x, 0L));
+        countMap.putAll(map);
+        if (list.isEmpty()) {
+            percentageMap.putAll(
+                    map.entrySet().stream()
+                            .collect(Collectors.toMap(e -> e.getKey(), e -> Float.valueOf(e.getValue()))));
+            return;
+        }
         Map<Status, Float> pctMap = map.entrySet().stream()
                 .collect(Collectors.toMap(e -> e.getKey(),
                         e -> Float.valueOf(e.getValue() * 100 / list.size())));
-        countMap.putAll(map);
         percentageMap.putAll(pctMap);
     }
 
     public static void resetReportStats(final ReportStats stats) {
-        stats.getChild().clear();
-        stats.getChildPercentage().clear();
-        stats.getGrandchild().clear();
-        stats.getGrandchildPercentage().clear();
-        stats.getLog().clear();
-        stats.getLogPercentage().clear();
-        stats.getParent().clear();
-        stats.getParentPercentage().clear();
+        List<RunResult> list = new ArrayList<>();
+        refreshReportStats(stats, list, stats.getParent(), stats.getParentPercentage());
+        refreshReportStats(stats, list, stats.getChild(), stats.getChildPercentage());
+        refreshReportStats(stats, list, stats.getGrandchild(), stats.getGrandchildPercentage());
+        refreshReportStats(stats, list, stats.getLog(), stats.getLogPercentage());
     }
 }

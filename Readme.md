@@ -45,9 +45,10 @@ It is now possible to create separate reports for each status (or a group of the
 ExtentReports extent = new ExtentReports();
 // will only contain failures
 ExtentSparkReporter sparkFail = new ExtentSparkReporter("target/spark/fail.html")
-  .with()
-    .statusFilter().as(new Status[] {Status.FAIL})
-  .<ExtentSparkReporter>build();
+  .filter()
+    .statusFilter()
+    .as(new Status[] { Status.FAIL })
+  .apply()
 // will contain all tests
 ExtentSparkReporter sparkAll = new ExtentSparkReporter("spark/all.html");
 extent.attachReporter(sparkFail, sparkAll);
@@ -60,9 +61,10 @@ to be the primary view, followed by Tests, you can use the snippet below:
 ```java
 ExtentReports extent = new ExtentReports();
 ExtentSparkReporter spark = new ExtentSparkReporter("spark/spark.html")
-  .with()
-    .viewOrder().as(new ViewName[] { ViewName.DASHBOARD, ViewName.TEST })
-  .<ExtentSparkReporter>build();
+  .viewConfigurer()
+    .viewOrder()
+    .as(new ViewName[] { ViewName.DASHBOARD, ViewName.TEST })
+  .apply();
 ```
 
 The above will limit the report to 2 views, with DASHBOARD view the primary one, followed by TEST. 

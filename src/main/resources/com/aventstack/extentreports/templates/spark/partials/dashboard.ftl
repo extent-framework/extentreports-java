@@ -205,10 +205,12 @@
 <script>
   var statusGroup = {
     parentCount: ${ report.stats.parent?size?c },
+    <#if report.stats.parent?size != 0>
     passParent: ${ report.stats.parent?api.get(Status.PASS)?c },
     failParent: ${ report.stats.parent?api.get(Status.FAIL)?c },
     warningParent: ${ report.stats.parent?api.get(Status.WARNING)?c },
     skipParent: ${ report.stats.parent?api.get(Status.SKIP)?c },
+    </#if>
     childCount: ${ report.stats.child?size?c },
     <#if report.stats.child?size != 0>
     passChild: ${ report.stats.child?api.get(Status.PASS)?c },

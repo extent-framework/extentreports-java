@@ -13,21 +13,28 @@ import com.aventstack.extentreports.config.external.XmlConfigLoader;
 import com.aventstack.extentreports.model.Report;
 import com.aventstack.extentreports.observer.ReportObserver;
 import com.aventstack.extentreports.observer.entity.ReportEntity;
+import com.aventstack.extentreports.reporter.configuration.EntityFilters;
 import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfig;
-import com.aventstack.extentreports.reporter.configuration.FileReporterConfigurer;
-import com.aventstack.extentreports.reporter.configuration.InteractiveReporterConfig;
+import com.aventstack.extentreports.reporter.configuration.ViewConfigurer;
 import com.aventstack.extentreports.reporter.configuration.ViewName;
+import com.aventstack.extentreports.reporter.configuration.ViewsConfigurable;
 import com.google.gson.Gson;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
+import lombok.AccessLevel;
 import lombok.Getter;
 
 @Getter
 @SuppressWarnings("rawtypes")
-public class ExtentSparkReporter extends AbstractFileReporter implements ReportObserver, ReporterConfigurable {
+public class ExtentSparkReporter extends AbstractFileReporter
+        implements
+            ReportObserver,
+            ReporterConfigurable,
+            ViewsConfigurable<ExtentSparkReporter>,
+            ReporterFilterable {
     private static final Logger logger = Logger.getLogger(ExtentSparkReporter.class.getName());
     private static final String TEMPLATE_LOCATION = "templates/";
     private static final String ENCODING = "UTF-8";
@@ -38,7 +45,11 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
             ViewName.CATEGORY, ViewName.DASHBOARD, ViewName.EXCEPTION, ViewName.TEST, ViewName.LOG
     });
 
-    private FileReporterConfigurer<ExtentSparkReporter> configurer = new FileReporterConfigurer<>(this);
+    @Getter(value = AccessLevel.NONE)
+    private final ViewConfigurer<ExtentSparkReporter> viewConfigurer = new ViewConfigurer<>(this);
+    @Getter(value = AccessLevel.NONE)
+    private final EntityFilters<ExtentSparkReporter> filter = new EntityFilters<>(this);
+
     private ExtentSparkReporterConfig conf = ExtentSparkReporterConfig.builder().build();
     private Disposable disposable;
     private List<ViewName> viewNames = SUPPORTED_VIEWS;
@@ -51,11 +62,17 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
         super(f);
     }
 
-    public FileReporterConfigurer with() {
-        return configurer;
+    @Override
+    public EntityFilters<ExtentSparkReporter> filter() {
+        return filter;
     }
 
-    public InteractiveReporterConfig config() {
+    @Override
+    public ViewConfigurer<ExtentSparkReporter> viewConfigurer() {
+        return viewConfigurer;
+    }
+
+    public ExtentSparkReporterConfig config() {
         return conf;
     }
 
@@ -122,10 +139,10 @@ public class ExtentSparkReporter extends AbstractFileReporter implements ReportO
     }
 
     private void flush(ReportEntity value) {
-        final Report report = filterAndGet(value.getReport(), configurer.getStatusFilter().getStatus());
+        final Report report = filterAndGet(value.getReport(), filter.statusFilter().getStatus());
         try {
             getTemplateModel().put("this", this);
-            getTemplateModel().put("viewOrder", configurer.getViewOrder().getViewOrder());
+            getTemplateModel().put("viewOrder", viewConfigurer.viewOrder().getViewOrder());
             getTemplateModel().put("report", report);
             createFreemarkerConfig(TEMPLATE_LOCATION, ENCODING);
             final String filePath = getFile().isDirectory()

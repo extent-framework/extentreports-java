@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@SuperBuilder
+@SuperBuilder(builderMethodName = "with")
 public abstract class FileReporterConfig extends AbstractConfiguration {
     @Builder.Default
     private String encoding = "UTF-8";
