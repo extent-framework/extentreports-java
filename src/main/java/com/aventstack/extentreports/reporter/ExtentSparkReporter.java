@@ -2,8 +2,6 @@ package com.aventstack.extentreports.reporter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +14,6 @@ import com.aventstack.extentreports.observer.entity.ReportEntity;
 import com.aventstack.extentreports.reporter.configuration.EntityFilters;
 import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfig;
 import com.aventstack.extentreports.reporter.configuration.ViewConfigurer;
-import com.aventstack.extentreports.reporter.configuration.ViewName;
 import com.aventstack.extentreports.reporter.configuration.ViewsConfigurable;
 import com.google.gson.Gson;
 
@@ -41,9 +38,6 @@ public class ExtentSparkReporter extends AbstractFileReporter
     private static final String REPORTER_NAME = "spark";
     private static final String SPA_TEMPLATE_NAME = REPORTER_NAME + "/spark.spa.ftl";
     private static final String FILE_NAME = "Index.html";
-    private static final List<ViewName> SUPPORTED_VIEWS = Arrays.asList(new ViewName[]{
-            ViewName.CATEGORY, ViewName.DASHBOARD, ViewName.EXCEPTION, ViewName.TEST, ViewName.LOG
-    });
 
     @Getter(value = AccessLevel.NONE)
     private final ViewConfigurer<ExtentSparkReporter> viewConfigurer = new ViewConfigurer<>(this);
@@ -52,7 +46,7 @@ public class ExtentSparkReporter extends AbstractFileReporter
 
     private ExtentSparkReporterConfig conf = ExtentSparkReporterConfig.builder().build();
     private Disposable disposable;
-    private List<ViewName> viewNames = SUPPORTED_VIEWS;
+    private Report report;
 
     public ExtentSparkReporter(String path) {
         super(new File(path));
@@ -139,7 +133,7 @@ public class ExtentSparkReporter extends AbstractFileReporter
     }
 
     private void flush(ReportEntity value) {
-        final Report report = filterAndGet(value.getReport(), filter.statusFilter().getStatus());
+        report = filterAndGet(value.getReport(), filter.statusFilter().getStatus());
         try {
             getTemplateModel().put("this", this);
             getTemplateModel().put("viewOrder", viewConfigurer.viewOrder().getViewOrder());
