@@ -1,52 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extentreports>
-	<configuration>
+  <configuration>
 
-		<!-- report theme -->
-		<!-- standard, dark -->
-		<theme>standard</theme>
+    <!-- report theme -->
+    <!-- STANDARD, DARK -->
+    <theme>STANDARD</theme>
 
-		<!-- document encoding -->
-		<!-- defaults to UTF-8 -->
-		<encoding>UTF-8</encoding>
+    <!-- document encoding -->
+    <!-- defaults to UTF-8 -->
+    <encoding>UTF-8</encoding>
 
-		<!-- protocol for script and stylesheets -->
-		<!-- defaults to https -->
-		<protocol>https</protocol>
+    <!-- protocol for script and stylesheets -->
+    <!-- defaults to https -->
+    <!-- HTTP, HTTPS -->
+    <protocol>HTTPS</protocol>
 
-		<!-- offline report -->
-		<enableOfflineMode>false</enableOfflineMode>
+    <!-- offline report -->
+    <timelineEnabled>true</timelineEnabled>
+    
+    <!-- offline report -->
+    <enableOfflineMode>false</enableOfflineMode>
 
-		<!-- title of the document -->
-		<documentTitle>Extent Framework</documentTitle>
+    <!-- title of the document -->
+    <documentTitle>Extent Framework</documentTitle>
 
-		<!-- report name - displayed at top-nav -->
-		<reportName>Build 1</reportName>
+    <!-- report name - displayed at top-nav -->
+    <reportName>Build 1</reportName>
 
-		<!-- timestamp format -->
-		<timeStampFormat>MMM dd, yyyy HH:mm:ss</timeStampFormat>
+    <!-- timestamp format -->
+    <timeStampFormat>MMM dd, yyyy HH:mm:ss</timeStampFormat>
 
-		<!-- settings to enable/disable views -->
-		<enableCategoryView>true</enableCategoryView>
-		<enableAuthorView>false</enableAuthorView>
-		<enableExceptionView>true</enableExceptionView>
-		<enableTestRunnerLogsView>true</enableTestRunnerLogsView>
+    <!-- custom javascript -->
+    <scripts>
+      <![CDATA[
+        $(document).ready(function() {
+            
+        });
+      ]]>
+    </scripts>
 
-		<!-- custom javascript -->
-		<scripts>
-			<![CDATA[
-				$(document).ready(function() {
-				    
-				});
-			]]>
-		</scripts>
+    <!-- custom styles -->
+    <styles>
+      <![CDATA[
+      
+      ]]>
+    </styles>
 
-		<!-- custom styles -->
-		<styles>
-			<![CDATA[
-			
-			]]>
-		</styles>
-
-	</configuration>
+  </configuration>
 </extentreports>

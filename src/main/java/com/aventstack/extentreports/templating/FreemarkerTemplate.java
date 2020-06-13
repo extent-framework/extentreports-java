@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 
-import com.aventstack.extentreports.io.FileWriterBuffered;
+import com.aventstack.extentreports.io.BufferedWriterWriter;
 
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -16,44 +16,44 @@ import freemarker.template.TemplateNotFoundException;
 
 public class FreemarkerTemplate {
 
-	private TemplateConfig config = new TemplateConfig();
-	private Configuration freemarkerConfiguration;
+    private TemplateConfig templateConfig = new TemplateConfig();
+    private Configuration freemarkerConfig;
 
-	public FreemarkerTemplate(Configuration freemarkerConfiguration) {
-		this.freemarkerConfiguration = freemarkerConfiguration;
-	}
-	
-	public FreemarkerTemplate(Class<?> clazz, String encoding) {
-		freemarkerConfiguration = config.getFreemarkerConfig(clazz, encoding);
-	}
+    public FreemarkerTemplate(Configuration freemarkerConfiguration) {
+        this.freemarkerConfig = freemarkerConfiguration;
+    }
 
-	public FreemarkerTemplate(Class<?> clazz, String basePackagePath, String encoding) {
-		freemarkerConfiguration = config.getFreemarkerConfig(clazz, basePackagePath, encoding);
-	}
+    public FreemarkerTemplate(Class<?> clazz, String encoding) {
+        freemarkerConfig = templateConfig.getFreemarkerConfig(clazz, encoding);
+    }
 
-	public Template createTemplate(String templatePath)
-			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException {
-		return freemarkerConfiguration.getTemplate(templatePath);
-	}
+    public FreemarkerTemplate(Class<?> clazz, String basePackagePath, String encoding) {
+        freemarkerConfig = templateConfig.getFreemarkerConfig(clazz, basePackagePath, encoding);
+    }
 
-	public String getSource(Template template, Map<String, Object> templateMap) throws TemplateException, IOException {
-		String source = processTemplate(template, templateMap);
-		return source;
-	}
+    public Template createTemplate(String templatePath)
+            throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException {
+        return freemarkerConfig.getTemplate(templatePath);
+    }
 
-	public void writeTemplate(Template template, Map<String, Object> templateMap, File outputFile)
-			throws TemplateException, IOException {
-		String source = getSource(template, templateMap);
-		FileWriterBuffered.getInstance().write(outputFile, source);
-	}
+    public String getSource(Template template, Map<String, Object> templateMap) throws TemplateException, IOException {
+        String source = processTemplate(template, templateMap);
+        return source;
+    }
 
-	private String processTemplate(Template template, Map<String, Object> templateMap)
-			throws TemplateException, IOException {
-		StringWriter out = new StringWriter();
-		template.process(templateMap, out);
-		String source = out.toString();
-		out.close();
-		return source;
-	}
+    public void writeTemplate(Template template, Map<String, Object> templateMap, File outputFile)
+            throws TemplateException, IOException {
+        String source = getSource(template, templateMap);
+        BufferedWriterWriter.getInstance().write(outputFile, source);
+    }
+
+    private String processTemplate(Template template, Map<String, Object> templateMap)
+            throws TemplateException, IOException {
+        StringWriter out = new StringWriter();
+        template.process(templateMap, out);
+        String source = out.toString();
+        out.close();
+        return source;
+    }
 
 }

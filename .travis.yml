@@ -1,8 +1,7 @@
 language: java
+script: "mvn cobertura:cobertura"
 jdk:
   - openjdk8
-services:
-  - mongodb
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   
