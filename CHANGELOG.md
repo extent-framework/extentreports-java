@@ -1,5 +1,11 @@
-## [5.0.x]
+## [5.0.0]
 
+## [4.1.6](https://github.com/extent-framework/extentreports-java/compare/v4.1.5...v4.1.6)
+#### Fixes
+* [#149] Skipped count is not displaying in authors tag and category tag
+* [#155] Fixes Cmd+C key listener 
+* [#159] Fixes ConcurrentModificationException 
+* [#167] Clicking Extent Logo on top-left navigating to 404
 
 ## [4.1.5](https://github.com/extent-framework/extentreports-java/compare/v4.1.4...v4.1.5)
 #### Fixes
