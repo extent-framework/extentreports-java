@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="SuitesList">
+	<suite-files>
+		<suite-file path="./parallel-classes-testng-components.xml" />
+		<suite-file path="./parallel-methods.xml" />
+		<suite-file path="./parallel-classes.xml" />
+	</suite-files>
+</suite>

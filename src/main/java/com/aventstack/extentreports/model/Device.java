@@ -1,18 +1,15 @@
 package com.aventstack.extentreports.model;
 
-import java.io.Serializable;
+public class Device extends Attribute {
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+	private static final long serialVersionUID = -3675996041755598043L;
 
-@Getter
-@Setter
-@ToString(callSuper = true, includeFieldNames = true)
-public final class Device extends NamedAttribute implements Serializable {
-    private static final long serialVersionUID = -5585746447313067401L;
+	public Device(String k) {
+		super(k);
+	}
+	
+	public Device(String k, String v) {
+		super(k, v);
+	}
 
-    public Device(String name) {
-        super(name);
-    }
 }

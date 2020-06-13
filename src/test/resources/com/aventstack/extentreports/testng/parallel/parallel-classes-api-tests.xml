@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Extent Parallel Test" parallel="classes" thread-count="10">
+    <test name="ExtentWithParallelClasses">
+        <classes>
+            <class name="com.aventstack.extentreports.api.BddAttributesTest" />
+            <class name="com.aventstack.extentreports.api.BddLevelsTest" />
+            <class name="com.aventstack.extentreports.api.BddWithStepStatusHierarchyTest" />
+            <class name="com.aventstack.extentreports.api.BuildReportWithoutAttachedReportersTest" />
+            <class name="com.aventstack.extentreports.api.TestWithoutLogsTest" />
+            <class name="com.aventstack.extentreports.api.NodeAttributesTest" />
+            <class name="com.aventstack.extentreports.api.NodeMediaTest" />
+            <class name="com.aventstack.extentreports.api.NodeSingleLogsStatusTest" />
+            <class name="com.aventstack.extentreports.api.NodesStatusHierarchyTest" />
+            <class name="com.aventstack.extentreports.api.NodeWithoutLogs" />
+            <class name="com.aventstack.extentreports.api.TestAttributesTest" />
+            <class name="com.aventstack.extentreports.api.TestIdsTest" />
+            <class name="com.aventstack.extentreports.api.TestInitializeNullValuesTest" />
+        </classes>
+    </test>
+</suite>

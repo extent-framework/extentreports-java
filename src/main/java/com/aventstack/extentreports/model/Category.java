@@ -1,18 +1,15 @@
 package com.aventstack.extentreports.model;
 
-import java.io.Serializable;
+public class Category extends Attribute {
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+	private static final long serialVersionUID = 2652701333761577144L;
 
-@Getter
-@Setter
-@ToString(callSuper = true, includeFieldNames = true)
-public final class Category extends NamedAttribute implements Serializable, BaseEntity {
-    private static final long serialVersionUID = 5282727628859917993L;
+	public Category(String k) {
+		super(k);
+	}
+	
+	public Category(String k, String v) {
+		super(k, v);
+	}
 
-    public Category(String name) {
-        super(name);
-    }
 }

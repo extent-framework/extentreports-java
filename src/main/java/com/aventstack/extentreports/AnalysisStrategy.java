@@ -1,36 +1,16 @@
 package com.aventstack.extentreports;
 
-import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
-import com.aventstack.extentreports.model.ReportStats;
-
 /**
- * Enumeration for various kinds of analysis strategies used by
- * {@link ReportStats}
+ * Strategy used to generate statistics for the current run
+ * <p>
+ * Available strategies are:
+ * <ul>
+ * <li>BDD: Strategy for BDD-style (Gherkin) tests</li>
+ * <li>CLASS: Used for 2 levels: Class, Test</li>
+ * <li>SUITE: Used for 3 levels: Suite, Class, Test</li>
+ * <li>TEST: Used for 1 level only: Test</li>
+ * </ul>
  */
 public enum AnalysisStrategy {
-    /**
-     * This is the efault strategy used by BDD tests. If any created test uses a
-     * {@link IGherkinFormatterModel} type, the strategy would default to BDD
-     * and {@link AnalysisStrategy} would be ignored.
-     */
-    BDD,
-
-    /**
-     * This strategy is useful when all tests in a suite are grouped together by
-     * their containing Class. This strategy would account for the number of
-     * Classes that passed or failed, and repeat the process for tests.
-     */
-    CLASS,
-
-    /**
-     * This strategy is useful if there are 3 levels in the hierarchy: Suite,
-     * Class and Test.
-     */
-    SUITE,
-
-    /**
-     * TEST is the default strategy and only tracks the leaf nodes to create
-     * {@link ReportStats}
-     */
-    TEST
+	BDD, CLASS, SUITE, TEST
 }
