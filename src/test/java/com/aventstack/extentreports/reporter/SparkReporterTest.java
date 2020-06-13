@@ -15,6 +15,8 @@ public class SparkReporterTest {
     private static final String PARENT = "Parent";
     private static final String CHILD = "Child";
     private static final String GRANDCHILD = "Grandchild";
+    private static final String SCRIPTS = "spark-script.js";
+    private static final String STYLESHEET = "spark-style.css";
 
     private final String path() {
         return FILE_PATH + Calendar.getInstance().getTimeInMillis() + FILE_NAME;
@@ -98,4 +100,16 @@ public class SparkReporterTest {
         Assert.assertEquals(spark.getReport().getTestList().get(0).getChildren().get(0).getName(), GRANDCHILD);
     }
 
+    @Test
+    public void sparkOffline() {
+        ExtentReports extent = new ExtentReports();
+        String path = path();
+        ExtentSparkReporter spark = new ExtentSparkReporter(path);
+        spark.config().enableOfflineMode(true);
+        extent.attachReporter(spark);
+        extent.createTest(PARENT).pass("Pass");
+        extent.flush();
+        Assert.assertTrue(new File(FILE_PATH + "spark/" + SCRIPTS).exists());
+        Assert.assertTrue(new File(FILE_PATH + "spark/" + STYLESHEET).exists());
+    }
 }

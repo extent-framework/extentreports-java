@@ -12,15 +12,11 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public abstract class AbstractConfiguration {
+    protected AbstractReporter reporter;
     private final ConfigStore store = new ConfigStore();
-    private final AbstractReporter reporter;
 
     @Builder.Default
     private String timeStampFormat = "MMM d, yyyy hh:mm:ss a";
     @Builder.Default
     private String reportName = "";
-
-    protected AbstractConfiguration(AbstractReporter reporter) {
-        this.reporter = reporter;
-    }
 }

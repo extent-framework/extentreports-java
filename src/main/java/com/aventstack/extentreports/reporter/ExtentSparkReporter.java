@@ -2,6 +2,7 @@ package com.aventstack.extentreports.reporter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,12 +40,13 @@ public class ExtentSparkReporter extends AbstractFileReporter
     private static final String SPA_TEMPLATE_NAME = REPORTER_NAME + "/spark.spa.ftl";
     private static final String FILE_NAME = "Index.html";
 
+    private final AtomicBoolean executed = new AtomicBoolean();
     @Getter(value = AccessLevel.NONE)
     private final ViewConfigurer<ExtentSparkReporter> viewConfigurer = new ViewConfigurer<>(this);
     @Getter(value = AccessLevel.NONE)
     private final EntityFilters<ExtentSparkReporter> filter = new EntityFilters<>(this);
 
-    private ExtentSparkReporterConfig conf = ExtentSparkReporterConfig.builder().build();
+    private ExtentSparkReporterConfig conf = ExtentSparkReporterConfig.builder().reporter(this).build();
     private Disposable disposable;
     private Report report;
 
@@ -71,6 +73,7 @@ public class ExtentSparkReporter extends AbstractFileReporter
     }
 
     public ExtentSparkReporter withConfig(ExtentSparkReporterConfig conf) {
+        conf.setReporter(this);
         this.conf = conf;
         return this;
     }
@@ -80,7 +83,6 @@ public class ExtentSparkReporter extends AbstractFileReporter
         @SuppressWarnings("unchecked")
         final JsonConfigLoader loader = new JsonConfigLoader(conf, jsonFile);
         loader.apply();
-        executeActions();
     }
 
     @Override
@@ -88,7 +90,6 @@ public class ExtentSparkReporter extends AbstractFileReporter
         @SuppressWarnings("unchecked")
         final JsonConfigLoader loader = new JsonConfigLoader(conf, jsonString);
         loader.apply();
-        executeActions();
     }
 
     @Override
@@ -101,7 +102,10 @@ public class ExtentSparkReporter extends AbstractFileReporter
     }
 
     private void executeActions() {
-        conf.enableOfflineMode(conf.getOfflineMode());
+        if (!executed.get()) {
+            conf.enableOfflineMode(conf.getOfflineMode());
+            executed.compareAndSet(false, true);
+        }
     }
 
     @Override
@@ -133,6 +137,7 @@ public class ExtentSparkReporter extends AbstractFileReporter
     }
 
     private void flush(ReportEntity value) {
+        executeActions();
         report = filterAndGet(value.getReport(), filter.statusFilter().getStatus());
         try {
             getTemplateModel().put("this", this);

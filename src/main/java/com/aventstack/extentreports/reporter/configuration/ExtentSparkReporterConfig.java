@@ -41,8 +41,8 @@ public class ExtentSparkReporterConfig extends InteractiveReporterConfig {
      */
     public void enableOfflineMode(Boolean offlineMode) {
         this.offlineMode = offlineMode;
-        if (offlineMode) {
-            File f = Offline.getTargetDirectory(((ExtentSparkReporter) getReporter()).getResolvedParentFile());
+        if (offlineMode && reporter != null) {
+            File f = Offline.getTargetDirectory(((ExtentSparkReporter) reporter).getResolvedParentFile());
             String resPackage = ExtentReports.class.getPackage().getName().replace(".", SEP);
             resPackage += SEP + "offline" + SEP;
             String[] resx = Offline.combineAll();

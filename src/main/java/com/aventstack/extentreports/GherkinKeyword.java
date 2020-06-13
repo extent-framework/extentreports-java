@@ -65,12 +65,14 @@ public class GherkinKeyword {
                             .findAny()
                             .map(x -> StringUtil.capitalize(x))
                             .orElse(null);
-                    if (apiKeyword != null)
+                    if (apiKeyword != null) {
+                        apiKeyword = StringUtil.capitalize(key.getKey());
                         break;
+                    }
                 }
             }
             if (apiKeyword == null)
-                throw new GherkinKeywordNotFoundException("Keyword cannot be null. " +
+                throw new GherkinKeywordNotFoundException("Keyword cannot be found. " +
                         "You supplied: " + gk + " for dialect " + dialect + " which couldn't be mapped.");
             String clazzName = refPath + "." + apiKeyword.replace(" ", "");
             Class<?> c = Class.forName(clazzName);
