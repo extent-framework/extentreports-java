@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
 
-public class JsonConfigLoader<T> {
+public class JsonConfigLoader<T> implements ConfigLoadable<T> {
     private File f;
     private String json;
     private T instance;

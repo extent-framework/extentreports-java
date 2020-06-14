@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.aventstack.extentreports.config.ConfigStore;
 import com.aventstack.extentreports.config.external.JsonConfigLoader;
 import com.aventstack.extentreports.config.external.XmlConfigLoader;
 import com.aventstack.extentreports.model.Report;
@@ -16,7 +15,6 @@ import com.aventstack.extentreports.reporter.configuration.EntityFilters;
 import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterConfig;
 import com.aventstack.extentreports.reporter.configuration.ViewConfigurer;
 import com.aventstack.extentreports.reporter.configuration.ViewsConfigurable;
-import com.google.gson.Gson;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -80,25 +78,20 @@ public class ExtentSparkReporter extends AbstractFileReporter
 
     @Override
     public void loadJSONConfig(File jsonFile) throws IOException {
-        @SuppressWarnings("unchecked")
-        final JsonConfigLoader loader = new JsonConfigLoader(conf, jsonFile);
+        final JsonConfigLoader loader = new JsonConfigLoader<ExtentSparkReporterConfig>(conf, jsonFile);
         loader.apply();
     }
 
     @Override
     public void loadJSONConfig(String jsonString) throws IOException {
-        @SuppressWarnings("unchecked")
-        final JsonConfigLoader loader = new JsonConfigLoader(conf, jsonString);
+        final JsonConfigLoader loader = new JsonConfigLoader<ExtentSparkReporterConfig>(conf, jsonString);
         loader.apply();
     }
 
     @Override
     public void loadXMLConfig(File xmlFile) throws IOException {
-        final XmlConfigLoader loader = new XmlConfigLoader(xmlFile);
-        ConfigStore store = loader.getConfigStore();
-        Gson gson = new Gson();
-        String json = gson.toJson(store.getStore());
-        loadJSONConfig(json);
+        final XmlConfigLoader loader = new XmlConfigLoader<ExtentSparkReporterConfig>(conf, xmlFile);
+        loader.apply();
     }
 
     private void executeActions() {

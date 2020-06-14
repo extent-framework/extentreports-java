@@ -35,12 +35,12 @@ public enum Status {
         return status.stream().max(Comparator.comparing(Status::getLevel)).orElse(PASS);
     }
 
-    public static Status min(Collection<Status> status) {
-        return status.stream().min(Comparator.comparing(Status::getLevel)).orElse(PASS);
-    }
-
     public static Status max(Status s1, Status s2) {
         return s1.getLevel() > s2.getLevel() ? s1 : s2;
+    }
+
+    public static Status min(Collection<Status> status) {
+        return status.stream().min(Comparator.comparing(Status::getLevel)).orElse(PASS);
     }
 
     public static String i(String status) {

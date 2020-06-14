@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,22 +20,21 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.aventstack.extentreports.config.ConfigStore;
+import com.google.gson.Gson;
 
-public class XmlConfigLoader {
+public class XmlConfigLoader<T> implements ConfigLoadable<T> {
     private static final Logger LOG = Logger.getLogger(XmlConfigLoader.class.getName());
 
     private ConfigStore store = new ConfigStore();
     private InputStream stream;
+    private T instance;
 
-    public XmlConfigLoader(URL url) {
-        try {
-            stream = url.openStream();
-        } catch (IOException e) {
-            LOG.log(Level.SEVERE, url.toString(), e);
-        }
+    public XmlConfigLoader(T instance, File f) throws FileNotFoundException {
+        createStream(f);
+        this.instance = instance;
     }
 
-    public XmlConfigLoader(File file) {
+    private void createStream(File file) {
         try {
             stream = new FileInputStream(file);
         } catch (FileNotFoundException e) {
@@ -44,10 +42,15 @@ public class XmlConfigLoader {
         }
     }
 
-    public ConfigStore getConfigStore() {
-        if (stream == null)
-            return null;
+    public void apply() {
+        ConfigStore store = getConfigStore();
+        Gson gson = new Gson();
+        String json = gson.toJson(store.getStore());
+        JsonConfigLoader<T> jsonLoader = new JsonConfigLoader<T>(instance, json);
+        jsonLoader.apply();
+    }
 
+    public ConfigStore getConfigStore() {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder;
         String value;
