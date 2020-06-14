@@ -1,6 +1,8 @@
 package com.aventstack.extentreports.markuputils;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -141,7 +143,21 @@ class Table implements Markup {
     }
 
     private void appendArrayItems(Object object, List<String> list, StringBuilder sb, List<Integer> columnRowCount) {
-        List<Object> obj = Arrays.asList(((Object[]) object));
+        Object[] array = toArray(object);
+        List<Object> obj = Arrays.asList(array);
         appendListItems(obj, list, sb, columnRowCount);
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private Object[] toArray(Object array) {
+        Class clz = array.getClass().getComponentType();
+        if (clz.isPrimitive()) {
+            int length = Array.getLength(array);
+            List list = new ArrayList(length);
+            for (int i = 0; i < length; i++)
+                list.add(Array.get(array, i));
+            return list.toArray();
+        }
+        return (Object[]) array;
     }
 }
