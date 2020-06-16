@@ -1039,6 +1039,8 @@ public class ExtentTest implements RunResult, Serializable {
     public ExtentTest addScreenCaptureFromBase64String(String base64, String title) {
         if (base64 == null || base64.isEmpty())
             throw new IllegalArgumentException("Base64 string cannot be null or empty");
+        if (!base64.startsWith("data:"))
+            base64 = "data:image/png;base64," + base64;
         Media m = ScreenCapture.builder().base64(base64).title(title).build();
         TestService.addMedia(model, m);
         extent.onMediaAdded(m, model);

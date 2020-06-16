@@ -14,6 +14,7 @@ import com.aventstack.extentreports.gherkin.entity.ScenarioOutline;
 import com.aventstack.extentreports.model.ExceptionInfo;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Media;
+import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.Test;
 
 public class TestService {
@@ -112,7 +113,8 @@ public class TestService {
     }
 
     public static void addMedia(Test test, Media media) {
-        if (media != null && (media.getPath() != null || media.getResolvedPath() != null))
+        if (media != null && (media.getPath() != null || media.getResolvedPath() != null
+                || ((ScreenCapture) media).getBase64() != null))
             test.getMedia().add(media);
         test.setEndTime(Calendar.getInstance().getTime());
     }
