@@ -66,6 +66,16 @@ public class ExtentTestMediaTest {
     }
     
     @Test
+    public void addScreenCaptureFromPathTestOverloads() {
+        ExtentReports extent = new ExtentReports();
+        ExtentTest test = extent.createTest("Test")
+                .addScreenCaptureFromPath(PATH)
+                .pass("Pass");
+        Assert.assertEquals(test.getModel().getMedia().size(), 1);
+        Assert.assertEquals(test.getModel().getMedia().get(0).getPath(), PATH);
+    }
+    
+    @Test
     public void addScreenCaptureFromPathNode() {
         ExtentReports extent = new ExtentReports();
         ExtentTest test = extent.createTest("Test");
@@ -88,6 +98,16 @@ public class ExtentTestMediaTest {
         Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().size(), 1);
         Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), PATH);
         Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getTitle(), TITLE);
+    }
+    
+    @Test
+    public void addScreenCaptureFromPathTestLogOverloads() {
+        ExtentReports extent = new ExtentReports();
+        ExtentTest test = extent.createTest("Test")
+                .pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(PATH).build());
+        Assert.assertEquals(test.getModel().getMedia().size(), 0);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().size(), 1);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), PATH);
     }
     
     @Test
@@ -129,6 +149,19 @@ public class ExtentTestMediaTest {
     }
     
     @Test
+    public void addScreenCaptureFromBase64NodeOverloads() {
+        ExtentReports extent = new ExtentReports();
+        ExtentTest test = extent.createTest("Test");
+        ExtentTest node = test
+                .createNode("Node")
+                .addScreenCaptureFromBase64String(BASE64)
+                .pass("Pass");
+        Assert.assertEquals(test.getModel().getMedia().size(), 0);
+        Assert.assertEquals(node.getModel().getMedia().size(), 1);
+        Assert.assertEquals(((ScreenCapture)node.getModel().getMedia().get(0)).getBase64(), BASE64_ENCODED + BASE64);
+    }
+    
+    @Test
     public void addScreenCaptureFromBase64TestLog() {
         ExtentReports extent = new ExtentReports();
         ExtentTest test = extent.createTest("Test")
@@ -150,5 +183,17 @@ public class ExtentTestMediaTest {
         Assert.assertEquals(node.getModel().getLogs().get(0).getMedia().size(), 1);
         Assert.assertEquals(((ScreenCapture)node.getModel().getLogs().get(0).getMedia().get(0)).getBase64(), BASE64_ENCODED + BASE64);
         Assert.assertEquals(node.getModel().getLogs().get(0).getMedia().get(0).getTitle(), TITLE);
+    }
+    
+    @Test
+    public void addScreenCaptureFromBase64NodeLogOverloads() {
+        ExtentReports extent = new ExtentReports();
+        ExtentTest test = extent.createTest("Test");
+        ExtentTest node = test
+                .createNode("Node")
+                .pass("Pass", MediaEntityBuilder.createScreenCaptureFromBase64String(BASE64).build());
+        Assert.assertEquals(node.getModel().getMedia().size(), 0);
+        Assert.assertEquals(node.getModel().getLogs().get(0).getMedia().size(), 1);
+        Assert.assertEquals(((ScreenCapture)node.getModel().getLogs().get(0).getMedia().get(0)).getBase64(), BASE64_ENCODED + BASE64);
     }
 }

@@ -50,9 +50,6 @@ public class MediaEntityBuilder {
     }
 
     public static MediaEntityBuilder createScreenCaptureFromBase64String(String base64) {
-        if (base64 == null || base64.trim().equals(""))
-            throw new IllegalArgumentException("Base64 string cannot be null or empty");
         return createScreenCaptureFromBase64String(base64, null);
     }
-
 }
