@@ -25,7 +25,7 @@
 <#macro media media>
   <#list media as m>
     <div class="row mb-3"><div class="col-md-3">
-    <#if m.base64??><img src="data:image/png;base64,${m.base64}">
+    <#if m.base64??><img src="${m.base64}">
     <#elseif m.resolvedPath??><img data-featherlight='${m.resolvedPath}' src="${m.resolvedPath}">
     <#elseif m.path??><img data-featherlight='${m.path}' src="${m.path}">
     </#if>
