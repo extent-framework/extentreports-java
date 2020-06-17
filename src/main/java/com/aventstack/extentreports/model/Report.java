@@ -30,12 +30,12 @@ public class Report implements Serializable, BaseEntity {
     private Date endTime = Calendar.getInstance().getTime();
     @Builder.Default
     private Status status = Status.PASS;
-    private final ReportStats stats = new ReportStats();
+    private final transient ReportStats stats = new ReportStats();
     private final List<Test> testList = Collections.synchronizedList(new ArrayList<>());
-    private final NamedAttributeContextManager<Author> authorCtx = new NamedAttributeContextManager<>();
-    private final NamedAttributeContextManager<Category> categoryCtx = new NamedAttributeContextManager<>();
-    private final NamedAttributeContextManager<Device> deviceCtx = new NamedAttributeContextManager<>();
-    private final NamedAttributeContextManager<ExceptionInfo> exceptionInfoCtx = new NamedAttributeContextManager<>();
+    private final transient NamedAttributeContextManager<Author> authorCtx = new NamedAttributeContextManager<>();
+    private final transient NamedAttributeContextManager<Category> categoryCtx = new NamedAttributeContextManager<>();
+    private final transient NamedAttributeContextManager<Device> deviceCtx = new NamedAttributeContextManager<>();
+    private final transient NamedAttributeContextManager<ExceptionInfo> exceptionInfoCtx = new NamedAttributeContextManager<>();
     private final List<String> logs = Collections.synchronizedList(new ArrayList<>());
     private final List<SystemEnvInfo> systemEnvInfo = new ArrayList<>();
 }

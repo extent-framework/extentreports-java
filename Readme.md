@@ -177,7 +177,7 @@ spark.withConfig(
 ## What's not working (yet)
 
 * ~~OfflineMode~~
-* Append, CreateDomainFromJsonArchive
+* ~~Append, CreateDomainFromJsonArchive~~
 * ~~Loading external configuration~~
 * You tell me..
 

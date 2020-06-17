@@ -186,16 +186,16 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
      * 
      * @param gherkinKeyword
      *            Name of the {@link GherkinKeyword}
-     * @param testName
+     * @param name
      *            Name of test
      * @param description
      *            A short description of the test
      * 
      * @return {@link ExtentTest} object
      */
-    public ExtentTest createTest(GherkinKeyword gherkinKeyword, String testName, String description) {
+    public ExtentTest createTest(GherkinKeyword gherkinKeyword, String name, String description) {
         Class<? extends IGherkinFormatterModel> clazz = gherkinKeyword.getKeyword().getClass();
-        return createTest(clazz, testName, description);
+        return createTest(clazz, name, description);
     }
 
     /**
@@ -377,6 +377,7 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
      *             Exception thrown if the jsonFile is not found
      */
     public void createDomainFromJsonArchive(File jsonFile) throws IOException {
+        convertRawEntities(this, jsonFile);
     }
 
     /**

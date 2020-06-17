@@ -28,7 +28,7 @@ public final class Test implements RunResult, Serializable, BaseEntity {
     private static final long serialVersionUID = -4896520724677957845L;
     private static final AtomicInteger atomicInt = new AtomicInteger(0);
 
-    private final Integer id = atomicInt.incrementAndGet();
+    private final transient Integer id = atomicInt.incrementAndGet();
     @Builder.Default
     private Date startTime = Calendar.getInstance().getTime();
     @Builder.Default
@@ -41,7 +41,7 @@ public final class Test implements RunResult, Serializable, BaseEntity {
     private boolean isLeaf = true;
     private String name;
     private String description;
-    private Test parent;
+    private transient Test parent;
     private Class<? extends IGherkinFormatterModel> bddType;
     private final List<Test> children = Collections.synchronizedList(new ArrayList<>());
     private final List<Log> logs = Collections.synchronizedList(new ArrayList<>());

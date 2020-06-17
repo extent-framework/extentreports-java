@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public abstract class Media implements Serializable, BaseEntity {
+public class Media implements Serializable, BaseEntity {
     private static final long serialVersionUID = 5428859443090457608L;
 
     private String path;

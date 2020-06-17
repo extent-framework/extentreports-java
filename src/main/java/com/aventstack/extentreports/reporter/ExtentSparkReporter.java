@@ -24,13 +24,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 @Getter
-@SuppressWarnings("rawtypes")
 public class ExtentSparkReporter extends AbstractFileReporter
         implements
-            ReportObserver,
+            ReportObserver<ReportEntity>,
             ReporterConfigurable,
             ViewsConfigurable<ExtentSparkReporter>,
-            ReporterFilterable {
+            ReporterFilterable<ExtentSparkReporter> {
     private static final Logger logger = Logger.getLogger(ExtentSparkReporter.class.getName());
     private static final String TEMPLATE_LOCATION = "templates/";
     private static final String ENCODING = "UTF-8";
@@ -78,19 +77,22 @@ public class ExtentSparkReporter extends AbstractFileReporter
 
     @Override
     public void loadJSONConfig(File jsonFile) throws IOException {
-        final JsonConfigLoader loader = new JsonConfigLoader<ExtentSparkReporterConfig>(conf, jsonFile);
+        final JsonConfigLoader<ExtentSparkReporterConfig> loader = new JsonConfigLoader<ExtentSparkReporterConfig>(conf,
+                jsonFile);
         loader.apply();
     }
 
     @Override
     public void loadJSONConfig(String jsonString) throws IOException {
-        final JsonConfigLoader loader = new JsonConfigLoader<ExtentSparkReporterConfig>(conf, jsonString);
+        final JsonConfigLoader<ExtentSparkReporterConfig> loader = new JsonConfigLoader<ExtentSparkReporterConfig>(conf,
+                jsonString);
         loader.apply();
     }
 
     @Override
     public void loadXMLConfig(File xmlFile) throws IOException {
-        final XmlConfigLoader loader = new XmlConfigLoader<ExtentSparkReporterConfig>(conf, xmlFile);
+        final XmlConfigLoader<ExtentSparkReporterConfig> loader = new XmlConfigLoader<ExtentSparkReporterConfig>(conf,
+                xmlFile);
         loader.apply();
     }
 

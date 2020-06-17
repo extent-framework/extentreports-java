@@ -1,8 +1,11 @@
 package com.aventstack.extentreports;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
+import com.aventstack.extentreports.append.RawEntityConverter;
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
 import com.aventstack.extentreports.model.Device;
@@ -97,5 +100,10 @@ public abstract class AbstractProcessor extends ReactiveSubject {
 
     protected void tryesolveMediaPathUsingKnownPaths(String[] knownPath) {
         this.mediaResolverPath = knownPath;
+    }
+
+    protected void convertRawEntities(ExtentReports extent, File f) throws IOException {
+        RawEntityConverter converter = new RawEntityConverter(extent);
+        converter.convertAndApply(f);
     }
 }
