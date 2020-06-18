@@ -32,7 +32,7 @@ public class ScreenCaptureTypeAdapter extends TypeAdapter<Media> {
             }
             if ("string".equalsIgnoreCase(token.name()) && fieldName.equalsIgnoreCase("resolvedPath")) {
                 token = reader.peek();
-                sc.setPath(reader.nextString());
+                sc.setResolvedPath(reader.nextString());
             }
             if ("string".equalsIgnoreCase(token.name()) && fieldName.equalsIgnoreCase("base64")) {
                 token = reader.peek();
