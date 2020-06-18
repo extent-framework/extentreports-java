@@ -2,7 +2,8 @@
 
 ### Documentation ###
 
-Documentation for ExtentReports 5.x is hosted on GitHub at [ExtentReports Wiki](https://github.com/extent-framework/extentreports-java/wiki).
+* Documentation for ExtentReports 5.x is hosted on GitHub at [ExtentReports Wiki](https://github.com/extent-framework/extentreports-java/wiki).
+* For versions 4 and below, visit [extentreports.com](http://extentreports.com/).
 
 ### Contributing ###
 
