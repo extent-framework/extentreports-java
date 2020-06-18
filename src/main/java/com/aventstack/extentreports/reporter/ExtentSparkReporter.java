@@ -69,7 +69,7 @@ public class ExtentSparkReporter extends AbstractFileReporter
         return conf;
     }
 
-    public ExtentSparkReporter withConfig(ExtentSparkReporterConfig conf) {
+    public ExtentSparkReporter config(ExtentSparkReporterConfig conf) {
         conf.setReporter(this);
         this.conf = conf;
         return this;
