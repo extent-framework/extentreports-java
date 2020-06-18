@@ -48,12 +48,12 @@ public class RawEntityConverter {
 
         // create events
         for (Log log : test.getLogs()) {
-            if (!log.getMedia().isEmpty())
-                addMedia(log, extentTest);
-            else if (!log.getExceptions().isEmpty() && !log.getMedia().isEmpty())
+            if (!log.getExceptions().isEmpty() && !log.getMedia().isEmpty())
                 addMedia(log, extentTest, log.getExceptions().get(0).getException());
             else if (!log.getExceptions().isEmpty())
                 log.getExceptions().forEach(x -> extentTest.log(log.getStatus(), x.getException()));
+            else if (!log.getMedia().isEmpty())
+                addMedia(log, extentTest);
             else
                 extentTest.log(log.getStatus(), log.getDetails());
         }
