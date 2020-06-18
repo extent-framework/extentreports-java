@@ -6,7 +6,7 @@ Documentation for ExtentReports 5.x is hosted on GitHub at [https://github.com/e
 
 ## Contributing ##
 
-For more information on contributing to the ExtentReports project, please see [CONTRIBUTING.md].
+For more information on contributing to the ExtentReports project, please see [CONTRIBUTING.md](https://github.com/extent-framework/extentreports-java/blob/master/Contributing.md).
 
 A complete list of contributors since ExtentReports migrated from [@anshooarora/extentreports-java](https://github.com/anshooarora/extentreports-java) can be [found here](https://github.com/extent-framework/extentreports-java/graphs/contributors).
 
