@@ -4,7 +4,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.aventstack</groupId>
-	<artifactId>extentreports-java</artifactId>
+	<artifactId>extentreports</artifactId>
 	<version>5.0.0-SNAPSHOT</version>
 	<name>ExtentReports</name>
 
