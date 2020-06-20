@@ -38,6 +38,10 @@ public abstract class AbstractProcessor extends ReactiveSubject {
         super.onTestRemoved(test);
     }
 
+    protected void onNodeCreated(Test node) {
+        super.onTestCreated(node);
+    }
+
     @Override
     protected void onLogCreated(Log log, Test test) {
         super.onLogCreated(log, test);
