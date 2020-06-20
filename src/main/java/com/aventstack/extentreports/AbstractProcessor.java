@@ -39,12 +39,6 @@ public abstract class AbstractProcessor extends ReactiveSubject {
     }
 
     @Override
-    protected void onNodeRemoved(Test node) {
-        TestService.deleteTest(testList, node);
-        super.onNodeRemoved(node);
-    }
-
-    @Override
     protected void onLogCreated(Log log, Test test) {
         super.onLogCreated(log, test);
         log.getExceptions().stream()

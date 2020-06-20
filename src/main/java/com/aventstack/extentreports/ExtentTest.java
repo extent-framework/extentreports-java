@@ -146,7 +146,7 @@ public class ExtentTest implements RunResult, Serializable {
             String description) {
         ExtentTest t = new ExtentTest(extent, type, name, description);
         TestService.addNode(t.getModel(), model);
-        extent.onNodeCreated(t.getModel(), model);
+        extent.onTestCreated(t.getModel());
         return t;
     }
 
@@ -163,7 +163,7 @@ public class ExtentTest implements RunResult, Serializable {
     public synchronized ExtentTest createNode(String name, String description) {
         ExtentTest t = new ExtentTest(extent, name, description);
         TestService.addNode(t.getModel(), model);
-        extent.onNodeCreated(t.getModel(), model);
+        extent.onTestCreated(t.getModel());
         return t;
     }
 
