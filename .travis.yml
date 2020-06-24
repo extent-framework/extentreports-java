@@ -1,8 +1,5 @@
 language: java
 jdk:
   - openjdk8
-services:
-  - mongodb
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  
