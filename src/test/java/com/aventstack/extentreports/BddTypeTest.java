@@ -15,7 +15,6 @@ import com.aventstack.extentreports.gherkin.entity.Scenario;
 import com.aventstack.extentreports.gherkin.entity.ScenarioOutline;
 import com.aventstack.extentreports.gherkin.entity.Then;
 import com.aventstack.extentreports.gherkin.entity.When;
-import com.aventstack.extentreports.model.service.TestService;
 
 public class BddTypeTest {
     private ExtentReports extent() {
@@ -25,7 +24,7 @@ public class BddTypeTest {
     @Test
     public void featureIsOfBddType(Method method) {
         ExtentTest feature = extent().createTest(Feature.class, method.getName());
-        Assert.assertTrue(TestService.isBDD(feature.getModel()));
+        Assert.assertTrue(feature.getModel().isBDD());
         Assert.assertEquals(feature.getModel().getBddType(), Feature.class);
     }
 
@@ -33,7 +32,7 @@ public class BddTypeTest {
     public void scenarioIsOfBddTypeWithBddChild(Method method) {
         ExtentTest feature = extent().createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
-        Assert.assertTrue(TestService.isBDD(scenario.getModel()));
+        Assert.assertTrue(scenario.getModel().isBDD());
         Assert.assertEquals(scenario.getModel().getBddType(), Scenario.class);
     }
 
@@ -41,7 +40,7 @@ public class BddTypeTest {
     public void scenarioOutlineIsOfBddTypeWithBddChild(Method method) {
         ExtentTest feature = extent().createTest(Feature.class, method.getName());
         ExtentTest scenarioOutline = feature.createNode(ScenarioOutline.class, "ScenarioOutline");
-        Assert.assertTrue(TestService.isBDD(scenarioOutline.getModel()));
+        Assert.assertTrue(scenarioOutline.getModel().isBDD());
         Assert.assertEquals(scenarioOutline.getModel().getBddType(), ScenarioOutline.class);
     }
 
@@ -50,7 +49,7 @@ public class BddTypeTest {
         ExtentTest feature = extent().createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest and = scenario.createNode(And.class, "And");
-        Assert.assertTrue(TestService.isBDD(and.getModel()));
+        Assert.assertTrue(and.getModel().isBDD());
         Assert.assertEquals(and.getModel().getBddType(), And.class);
     }
 
@@ -59,7 +58,7 @@ public class BddTypeTest {
         ExtentTest feature = extent().createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest asterisk = scenario.createNode(Asterisk.class, "Asterisk");
-        Assert.assertTrue(TestService.isBDD(asterisk.getModel()));
+        Assert.assertTrue(asterisk.getModel().isBDD());
         Assert.assertEquals(asterisk.getModel().getBddType(), Asterisk.class);
     }
 
@@ -68,7 +67,7 @@ public class BddTypeTest {
         ExtentTest feature = extent().createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest background = scenario.createNode(Background.class, "Background");
-        Assert.assertTrue(TestService.isBDD(background.getModel()));
+        Assert.assertTrue(background.getModel().isBDD());
         Assert.assertEquals(background.getModel().getBddType(), Background.class);
     }
 
@@ -77,7 +76,7 @@ public class BddTypeTest {
         ExtentTest feature = extent().createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest but = scenario.createNode(But.class, "But");
-        Assert.assertTrue(TestService.isBDD(but.getModel()));
+        Assert.assertTrue(but.getModel().isBDD());
         Assert.assertEquals(but.getModel().getBddType(), But.class);
     }
 
@@ -86,7 +85,7 @@ public class BddTypeTest {
         ExtentTest feature = extent().createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest given = scenario.createNode(Given.class, "Given");
-        Assert.assertTrue(TestService.isBDD(given.getModel()));
+        Assert.assertTrue(given.getModel().isBDD());
         Assert.assertEquals(given.getModel().getBddType(), Given.class);
     }
 
@@ -95,7 +94,7 @@ public class BddTypeTest {
         ExtentTest feature = extent().createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest then = scenario.createNode(Then.class, "Then");
-        Assert.assertTrue(TestService.isBDD(then.getModel()));
+        Assert.assertTrue(then.getModel().isBDD());
         Assert.assertEquals(then.getModel().getBddType(), Then.class);
     }
 
@@ -104,8 +103,7 @@ public class BddTypeTest {
         ExtentTest feature = extent().createTest(Feature.class, method.getName());
         ExtentTest scenario = feature.createNode(Scenario.class, "Scenario");
         ExtentTest when = scenario.createNode(When.class, "When");
-        Assert.assertTrue(TestService.isBDD(when.getModel()));
+        Assert.assertTrue(when.getModel().isBDD());
         Assert.assertEquals(when.getModel().getBddType(), When.class);
     }
-
 }

@@ -48,12 +48,12 @@ public class RawEntityConverter {
 
         // create events
         for (Log log : test.getLogs()) {
-            if (!log.getExceptions().isEmpty() && !log.getMedia().isEmpty())
-                addMedia(log, extentTest, log.getExceptions().get(0).getException());
-            else if (!log.getExceptions().isEmpty())
-                log.getExceptions().forEach(x -> extentTest.log(log.getStatus(), x.getException()));
-            else if (!log.getMedia().isEmpty())
-                addMedia(log, extentTest);
+            if (log.hasException() && log.hasMedia())
+                addMedia(log, extentTest, log.getException().getException());
+            else if (log.hasException())
+                extentTest.log(log.getStatus(), log.getException().getException());
+            else if (log.hasMedia())
+                addMedia(log, extentTest, null);
             else
                 extentTest.log(log.getStatus(), log.getDetails());
         }
@@ -77,28 +77,14 @@ public class RawEntityConverter {
     }
 
     private void addMedia(Log log, ExtentTest extentTest, Throwable ex) {
-        for (Media m : log.getMedia()) {
-            if (m.getPath() != null) {
-                extentTest.log(log.getStatus(), ex,
-                        MediaEntityBuilder.createScreenCaptureFromPath(m.getPath()).build());
-            } else if (((ScreenCapture) m).getBase64() != null) {
-                extentTest.log(log.getStatus(), ex,
-                        MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64())
-                                .build());
-            }
-        }
-    }
-
-    private void addMedia(Log log, ExtentTest extentTest) {
-        for (Media m : log.getMedia()) {
-            if (m.getPath() != null) {
-                extentTest.log(log.getStatus(), log.getDetails(),
-                        MediaEntityBuilder.createScreenCaptureFromPath(m.getPath()).build());
-            } else if (((ScreenCapture) m).getBase64() != null) {
-                extentTest.log(log.getStatus(), log.getDetails(),
-                        MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64())
-                                .build());
-            }
+        Media m = log.getMedia();
+        if (m.getPath() != null) {
+            extentTest.log(log.getStatus(), ex,
+                    MediaEntityBuilder.createScreenCaptureFromPath(m.getPath()).build());
+        } else if (((ScreenCapture) m).getBase64() != null) {
+            extentTest.log(log.getStatus(), ex,
+                    MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64())
+                            .build());
         }
     }
 

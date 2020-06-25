@@ -35,11 +35,11 @@ public class ExtentTestLogTest {
         Assert.assertEquals(test.getModel().getStatus(), Status.SKIP);
         Assert.assertEquals(test.getModel().getLogs().get(0).getDetails(), DETAILS);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.SKIP);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
         test.log(Status.FAIL, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         Assert.assertEquals(test.getModel().getLogs().get(1).getDetails(), DETAILS);
         Assert.assertEquals(test.getModel().getLogs().get(1).getStatus(), Status.FAIL);
-        Assert.assertEquals(test.getModel().getLogs().get(1).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(1).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
@@ -47,10 +47,10 @@ public class ExtentTestLogTest {
         Exception ex = ex();
         ExtentTest test = test().log(Status.SKIP, ex);
         Assert.assertEquals(test.getModel().getStatus(), Status.SKIP);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.SKIP);
         test.log(Status.FAIL, ex);
-        Assert.assertEquals(test.getModel().getLogs().get(1).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(1).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(1).getStatus(), Status.FAIL);
     }
 
@@ -60,13 +60,13 @@ public class ExtentTestLogTest {
         ExtentTest test = test().log(Status.SKIP, ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         Assert.assertEquals(test.getModel().getStatus(), Status.SKIP);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.SKIP);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
         test.log(Status.FAIL, ex, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
-        Assert.assertEquals(test.getModel().getLogs().get(1).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(1).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(1).getStatus(), Status.FAIL);
-        Assert.assertEquals(test.getModel().getLogs().get(1).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(1).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
@@ -82,14 +82,14 @@ public class ExtentTestLogTest {
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         test.log(Status.FAIL, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.FAIL);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
     public void failThrowable() {
         Exception ex = ex();
         ExtentTest test = test().log(Status.FAIL, ex);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.FAIL);
     }
 
@@ -98,9 +98,9 @@ public class ExtentTestLogTest {
         Exception ex = ex();
         ExtentTest test = test().log(Status.FAIL, ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.FAIL);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
@@ -116,14 +116,14 @@ public class ExtentTestLogTest {
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         test.log(Status.FAIL, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.SKIP);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
     public void skipThrowable() {
         Exception ex = ex();
         ExtentTest test = test().log(Status.SKIP, ex);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.SKIP);
     }
 
@@ -132,9 +132,9 @@ public class ExtentTestLogTest {
         Exception ex = ex();
         ExtentTest test = test().log(Status.SKIP, ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.SKIP);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
@@ -150,14 +150,14 @@ public class ExtentTestLogTest {
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         test.log(Status.WARNING, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.WARNING);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
     public void warnThrowable() {
         Exception ex = ex();
         ExtentTest test = test().log(Status.WARNING, ex);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.WARNING);
     }
 
@@ -166,9 +166,9 @@ public class ExtentTestLogTest {
         Exception ex = ex();
         ExtentTest test = test().log(Status.WARNING, ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.WARNING);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
@@ -184,14 +184,14 @@ public class ExtentTestLogTest {
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         test.log(Status.PASS, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.PASS);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
     public void passThrowable() {
         Exception ex = ex();
         ExtentTest test = test().log(Status.PASS, ex);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.PASS);
     }
 
@@ -200,9 +200,9 @@ public class ExtentTestLogTest {
         Exception ex = ex();
         ExtentTest test = test().log(Status.PASS, ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.PASS);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
@@ -218,14 +218,14 @@ public class ExtentTestLogTest {
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         test.log(Status.INFO, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.INFO);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
     }
 
     @Test
     public void infoThrowable() {
         Exception ex = ex();
         ExtentTest test = test().log(Status.INFO, ex);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.INFO);
     }
 
@@ -234,8 +234,8 @@ public class ExtentTestLogTest {
         Exception ex = ex();
         ExtentTest test = test().log(Status.INFO, ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
-        Assert.assertEquals(test.getModel().getLogs().get(0).getExceptions().get(0).getException(), ex);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.INFO);
-        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().get(0).getPath(), ATTACHMENT);
+        Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
     }
 }

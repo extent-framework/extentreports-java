@@ -9,8 +9,6 @@ import java.util.logging.Logger;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.model.service.LogService;
-import com.aventstack.extentreports.model.service.ReportService;
 import com.aventstack.extentreports.model.service.TestService;
 import com.aventstack.extentreports.templating.FreemarkerTemplate;
 import com.aventstack.extentreports.templating.TemplateConfig;
@@ -63,14 +61,8 @@ public abstract class AbstractFileReporter extends AbstractFilterableReporter {
                     .get(Ico.class.getName());
             templateModel.put("Ico", fieldTypeModel);
             fieldTypeModel = (TemplateHashModel) beansWrapper.getStaticModels()
-                    .get(ReportService.class.getName());
-            templateModel.put("ReportService", fieldTypeModel);
-            fieldTypeModel = (TemplateHashModel) beansWrapper.getStaticModels()
                     .get(TestService.class.getName());
             templateModel.put("TestService", fieldTypeModel);
-            fieldTypeModel = (TemplateHashModel) beansWrapper.getStaticModels()
-                    .get(LogService.class.getName());
-            templateModel.put("LogService", fieldTypeModel);
         } catch (TemplateModelException e) {
             LOG.log(Level.SEVERE, "", e);
         }

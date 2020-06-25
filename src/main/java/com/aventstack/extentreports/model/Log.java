@@ -1,10 +1,10 @@
 package com.aventstack.extentreports.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.aventstack.extentreports.Status;
 
@@ -30,10 +30,21 @@ public class Log implements RunResult, Serializable, BaseEntity {
     private String details;
     @Builder.Default
     private Integer seq = -1;
-    private final List<ExceptionInfo> exceptions = new ArrayList<>();
-    private final List<Media> media = new ArrayList<>();
-    
-    public Log(Integer seq) {
-        this.seq = seq;
+    private final Map<String, Object> infoMap = new HashMap<>();
+    private Media media;
+    private ExceptionInfo exception;
+
+    public final boolean hasException() {
+        return exception != null;
+    }
+
+    public final void addMedia(Media media) {
+        if (media != null && ((media.getPath() != null || media.getResolvedPath() != null)
+                || media instanceof ScreenCapture && ((ScreenCapture) media).getBase64() != null))
+            this.media = media;
+    }
+
+    public final boolean hasMedia() {
+        return media != null;
     }
 }

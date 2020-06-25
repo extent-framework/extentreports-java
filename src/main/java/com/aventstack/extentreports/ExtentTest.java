@@ -2,6 +2,7 @@ package com.aventstack.extentreports;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
 import com.aventstack.extentreports.markuputils.Markup;
@@ -15,8 +16,6 @@ import com.aventstack.extentreports.model.RunResult;
 import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.Test;
 import com.aventstack.extentreports.model.service.ExceptionInfoService;
-import com.aventstack.extentreports.model.service.LogService;
-import com.aventstack.extentreports.model.service.TestService;
 
 import lombok.Getter;
 
@@ -93,7 +92,13 @@ public class ExtentTest implements RunResult, Serializable {
      *            Test description
      */
     ExtentTest(ExtentReports extent, Class<? extends IGherkinFormatterModel> type, String name, String description) {
-        model = TestService.createTest(type, name, description);
+        if (name == null || name.isEmpty())
+            throw new IllegalArgumentException("Test name cannot be null or empty");
+        model = Test.builder()
+                .bddType(type)
+                .name(name)
+                .description(description)
+                .endTime(Calendar.getInstance().getTime()).build();
         this.extent = extent;
     }
 
@@ -145,7 +150,7 @@ public class ExtentTest implements RunResult, Serializable {
     public synchronized ExtentTest createNode(Class<? extends IGherkinFormatterModel> type, String name,
             String description) {
         ExtentTest t = new ExtentTest(extent, type, name, description);
-        TestService.addNode(t.getModel(), model);
+        model.addChild(t.getModel());
         extent.onNodeCreated(t.getModel());
         return t;
     }
@@ -162,7 +167,7 @@ public class ExtentTest implements RunResult, Serializable {
      */
     public synchronized ExtentTest createNode(String name, String description) {
         ExtentTest t = new ExtentTest(extent, name, description);
-        TestService.addNode(t.getModel(), model);
+        model.addChild(t.getModel());
         extent.onNodeCreated(t.getModel());
         return t;
     }
@@ -287,7 +292,7 @@ public class ExtentTest implements RunResult, Serializable {
      */
     public ExtentTest generateLog(Status status, String details) {
         Log log = Log.builder().status(status).details(details).build();
-        TestService.addGeneratedLog(log, model);
+        model.addGeneratedLog(log);
         return this;
     }
 
@@ -323,10 +328,16 @@ public class ExtentTest implements RunResult, Serializable {
      * @return An {@link ExtentTest} object
      */
     public ExtentTest log(Status status, String details, Throwable t, Media media) {
+        if (status == null)
+            throw new IllegalArgumentException("Status must not be null");
+        Log log = Log.builder()
+                .status(status)
+                .details(details == null ? "" : details)
+                .build();
         ExceptionInfo exceptionInfo = ExceptionInfoService.createExceptionInfo(t);
-        Log log = LogService.createLog(model, status, exceptionInfo, details);
-        LogService.addMedia(log, media);
-        TestService.computeTestStatus(model);
+        log.setException(exceptionInfo);
+        log.addMedia(media);
+        model.addLog(log);
         extent.onLogCreated(log, model);
         return this;
     }
@@ -1020,14 +1031,14 @@ public class ExtentTest implements RunResult, Serializable {
 
     @Override
     public Status getStatus() {
-        return TestService.getTestStatus(model);
+        return model.getStatus();
     }
 
     public ExtentTest addScreenCaptureFromPath(String path, String title) {
         if (path == null || path.isEmpty())
             throw new IllegalArgumentException("ScreenCapture path cannot be null or empty");
         Media m = ScreenCapture.builder().path(path).title(title).build();
-        TestService.addMedia(model, m);
+        model.addMedia(m);
         extent.onMediaAdded(m, model);
         return this;
     }
@@ -1042,7 +1053,7 @@ public class ExtentTest implements RunResult, Serializable {
         if (!base64.startsWith("data:"))
             base64 = "data:image/png;base64," + base64;
         Media m = ScreenCapture.builder().base64(base64).title(title).build();
-        TestService.addMedia(model, m);
+        model.addMedia(m);
         extent.onMediaAdded(m, model);
         return this;
     }

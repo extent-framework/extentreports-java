@@ -1,12 +1,12 @@
 package com.aventstack.extentreports.entity;
 
-import java.util.Collections;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.Log;
+import com.aventstack.extentreports.model.Media;
+import com.aventstack.extentreports.model.ScreenCapture;
 
 public class LogEntityTest {
 
@@ -17,13 +17,14 @@ public class LogEntityTest {
     }
 
     /*
-     * Lombok @Builder.Default bug causing not setting fields on instantiating via new
+     * Lombok @Builder.Default bug causing not setting fields on instantiating
+     * via new
      */
-//    @Test
-//    public void defaultStatusInstantiate() {
-//        Log log = new Log();
-//        Assert.assertEquals(log.getStatus(), Status.PASS);
-//    }
+    // @Test
+    // public void defaultStatusInstantiate() {
+    // Log log = new Log();
+    // Assert.assertEquals(log.getStatus(), Status.PASS);
+    // }
 
     @Test
     public void changedStatus() {
@@ -55,12 +56,32 @@ public class LogEntityTest {
     @Test
     public void mediaEmptyOnInit() {
         Log log = Log.builder().build();
-        Assert.assertEquals(log.getMedia(), Collections.EMPTY_LIST);
+        Assert.assertEquals(log.getMedia(), null);
     }
 
     @Test
     public void exceptionsEmptyOnInit() {
         Log log = Log.builder().build();
-        Assert.assertEquals(log.getExceptions(), Collections.EMPTY_LIST);
+        Assert.assertEquals(log.getException(), null);
+    }
+
+    @Test
+    public void addMediaDefault() {
+        Log log = Log.builder().build();
+        Assert.assertFalse(log.hasMedia());
+    }
+
+    @Test
+    public void addMediaWithPathToLog() {
+        Media m = ScreenCapture.builder().path("./img.png").build();
+        Log log = Log.builder().media(m).build();
+        Assert.assertTrue(log.hasMedia());
+    }
+
+    @Test
+    public void addMediaWithResolvedPathToLog() {
+        Media m = ScreenCapture.builder().resolvedPath("./img.png").build();
+        Log log = Log.builder().media(m).build();
+        Assert.assertTrue(log.hasMedia());
     }
 }

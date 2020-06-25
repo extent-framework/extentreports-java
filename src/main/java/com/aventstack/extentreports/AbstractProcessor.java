@@ -15,7 +15,6 @@ import com.aventstack.extentreports.model.SystemEnvInfo;
 import com.aventstack.extentreports.model.Test;
 import com.aventstack.extentreports.model.context.NamedAttributeContextManager;
 import com.aventstack.extentreports.model.service.MediaService;
-import com.aventstack.extentreports.model.service.ReportStatsService;
 import com.aventstack.extentreports.model.service.TestService;
 
 public abstract class AbstractProcessor extends ReactiveSubject {
@@ -45,9 +44,8 @@ public abstract class AbstractProcessor extends ReactiveSubject {
     @Override
     protected void onLogCreated(Log log, Test test) {
         super.onLogCreated(log, test);
-        log.getExceptions().stream()
-                .filter(x -> x.getException() != null)
-                .forEach(x -> getReport().getExceptionInfoCtx().addContext(x, test));
+        if (log.hasException())
+            getReport().getExceptionInfoCtx().addContext(log.getException(), test);
     }
 
     @Override
@@ -83,7 +81,7 @@ public abstract class AbstractProcessor extends ReactiveSubject {
         authorCtx.getSet().forEach(x -> x.refresh());
         categoryCtx.getSet().forEach(x -> x.refresh());
         deviceCtx.getSet().forEach(x -> x.refresh());
-        ReportStatsService.refreshReportStats(getReport().getStats(), testList);
+        getReport().getStats().update(testList);
         getReport().setEndTime(Calendar.getInstance().getTime());
         super.onFlush();
     }

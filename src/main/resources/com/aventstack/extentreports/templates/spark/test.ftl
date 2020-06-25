@@ -7,7 +7,7 @@
 <#assign 
   isbdd=false 
   pageClass="">
-<#if ReportService.isBDD(report)>
+<#if report.isBDD()>
   <#assign
     pageClass="bdd" 
     isbdd=true>

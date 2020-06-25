@@ -132,10 +132,10 @@ public class AppenderTest {
         // parent checks
         Assert.assertEquals(list.size(), 1);
         Assert.assertEquals(list.get(0).getMedia().size(), 1);
-        Assert.assertEquals(list.get(0).getLogs().get(0).getMedia().size(), 1);
+        Assert.assertNotNull(list.get(0).getLogs().get(0).getMedia());
         Assert.assertEquals(list.get(0).getMedia().get(0).getPath(), test1.getModel().getMedia().get(0).getPath());
-        Assert.assertEquals(list.get(0).getLogs().get(0).getMedia().get(0).getPath(),
-                test1.getModel().getLogs().get(0).getMedia().get(0).getPath());
+        Assert.assertEquals(list.get(0).getLogs().get(0).getMedia().getPath(),
+                test1.getModel().getLogs().get(0).getMedia().getPath());
     }
 
     @Test
@@ -157,10 +157,10 @@ public class AppenderTest {
         // parent checks
         Assert.assertEquals(list.size(), 1);
         Assert.assertEquals(list.get(0).getMedia().size(), 1);
-        Assert.assertEquals(list.get(0).getLogs().get(0).getMedia().size(), 1);
+        Assert.assertNotNull(list.get(0).getLogs().get(0).getMedia());
         Assert.assertEquals(((ScreenCapture) list.get(0).getMedia().get(0)).getBase64(),
                 ((ScreenCapture) test1.getModel().getMedia().get(0)).getBase64());
-        Assert.assertEquals(((ScreenCapture) list.get(0).getLogs().get(0).getMedia().get(0)).getBase64(),
-                ((ScreenCapture) test1.getModel().getLogs().get(0).getMedia().get(0)).getBase64());
+        Assert.assertEquals(((ScreenCapture) list.get(0).getLogs().get(0).getMedia()).getBase64(),
+                ((ScreenCapture) test1.getModel().getLogs().get(0).getMedia()).getBase64());
     }
 }

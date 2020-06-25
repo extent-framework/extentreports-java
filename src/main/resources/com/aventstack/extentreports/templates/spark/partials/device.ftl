@@ -46,7 +46,7 @@
                     ${test.name}
                     <#if test.parent??>
                     <div class="">
-                      <span class="badge badge-default">${TestService.fullName(test)}</span>
+                      <span class="badge badge-default">${test.getFullName()}</span>
                     </div>
                     </#if>
                   </td>

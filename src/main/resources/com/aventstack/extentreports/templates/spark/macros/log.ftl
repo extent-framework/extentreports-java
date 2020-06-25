@@ -7,10 +7,9 @@
         <td><span class="badge log ${log.status.toLower()}-bg">${log.status?string}</span></td>
         <td>${log.timestamp?time?string}</td>
         <td>
-          <#if log.exceptions?has_content>
-            <#list log.exceptions as ex><textarea readonly class="code-block">${ex.stackTrace}</textarea></#list>
+          <#if log.exception??><textarea readonly class="code-block">${log.exception.stackTrace}</textarea>
           <#else>${log.details}</#if>
-          <@media log.media />
+          <#if log.media??><@mediaSingle log.media /></#if>
         </td>
       </tr>
     </#list>

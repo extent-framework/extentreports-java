@@ -15,9 +15,8 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 
 public class FreemarkerTemplate {
-
-    private TemplateConfig templateConfig = new TemplateConfig();
-    private Configuration freemarkerConfig;
+    private final TemplateConfig templateConfig = new TemplateConfig();
+    private final Configuration freemarkerConfig;
 
     public FreemarkerTemplate(Configuration freemarkerConfiguration) {
         this.freemarkerConfig = freemarkerConfiguration;
@@ -55,5 +54,4 @@ public class FreemarkerTemplate {
         out.close();
         return source;
     }
-
 }

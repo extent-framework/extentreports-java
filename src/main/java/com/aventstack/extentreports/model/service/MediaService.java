@@ -28,4 +28,14 @@ public class MediaService {
             }
         }
     }
+
+    public static boolean isBase64(Media m) {
+        return m instanceof ScreenCapture && ((ScreenCapture) m).getBase64() != null;
+    }
+
+    public static String getBase64(Media m) {
+        if (isBase64(m))
+            return ((ScreenCapture) m).getBase64();
+        return null;
+    }
 }

@@ -1,6 +1,6 @@
 <#include "log.ftl">
 <#macro recurse_nodes test>
-<#if TestService.testHasChildren(test)>
+<#if test.hasChildren()>
   <div class="accordion">
     <#list test.children as node>
       <div class="card">
@@ -20,14 +20,14 @@
         <#if node.logs?size!=0>
         <div class="<#if node.status.toLower()=='pass'>collapse</#if>">
           <div class="card-body">
-            <#if TestService.testHasLog(node)>
+            <#if test.hasLog()>
               <@log test=node />
             </#if>
             <@media node.media />
           </div>
         </div>
         </#if>
-        <#if TestService.testHasChildren(node)>
+        <#if test.hasChildren()>
           <@recurse_nodes test=node />
         </#if>
       </div>

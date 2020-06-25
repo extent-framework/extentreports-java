@@ -1,15 +1,15 @@
 <#macro attributes test>
-  <#if TestService.testHasAuthor(test)>
+  <#if test.hasAuthor()>
     <#list test.authorSet as author>
       <span class="badge badge-pill badge-default"> ${author.name}</span>
     </#list>
   </#if>
-  <#if TestService.testHasCategory(test)>
+  <#if test.hasCategory()>
     <#list test.categorySet as category>
       <span class="badge badge-pill badge-default"> ${category.name}</span>
     </#list>
   </#if>
-  <#if TestService.testHasDevice(test)>
+  <#if test.hasDevice()>
     <#list test.deviceSet as device>
       <span class="badge badge-pill badge-default"> ${device.name}</span>
     </#list>

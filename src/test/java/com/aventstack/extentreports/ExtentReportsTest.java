@@ -8,7 +8,6 @@ import org.testng.Assert;
 import com.aventstack.extentreports.gherkin.GherkinDialectManager;
 import com.aventstack.extentreports.gherkin.entity.Feature;
 import com.aventstack.extentreports.model.Test;
-import com.aventstack.extentreports.model.service.TestService;
 
 public class ExtentReportsTest {
     private static final String TEST_NAME = "TEST";
@@ -21,7 +20,7 @@ public class ExtentReportsTest {
     public void createTestOverloadTypeNameDesc() {
         ExtentTest test = extent().createTest(Feature.class, TEST_NAME, "Description");
         Test model = test.getModel();
-        Assert.assertTrue(TestService.isBDD(model));
+        Assert.assertTrue(model.isBDD());
         Assert.assertEquals(model.getName(), TEST_NAME);
         Assert.assertEquals(model.getDescription(), "Description");
         Assert.assertEquals(model.getBddType(), Feature.class);
@@ -32,7 +31,7 @@ public class ExtentReportsTest {
     public void createTestOverloadTypeName() {
         ExtentTest test = extent().createTest(Feature.class, TEST_NAME);
         Test model = test.getModel();
-        Assert.assertTrue(TestService.isBDD(model));
+        Assert.assertTrue(model.isBDD());
         Assert.assertEquals(model.getName(), TEST_NAME);
         Assert.assertNull(model.getDescription());
         Assert.assertEquals(model.getBddType(), Feature.class);
@@ -43,7 +42,7 @@ public class ExtentReportsTest {
     public void createTestOverloadKeywordNameDesc() throws ClassNotFoundException {
         ExtentTest test = extent().createTest(new GherkinKeyword("Feature"), TEST_NAME, "Description");
         Test model = test.getModel();
-        Assert.assertTrue(TestService.isBDD(model));
+        Assert.assertTrue(model.isBDD());
         Assert.assertEquals(model.getName(), TEST_NAME);
         Assert.assertEquals(model.getDescription(), "Description");
         Assert.assertEquals(model.getBddType(), Feature.class);
@@ -54,7 +53,7 @@ public class ExtentReportsTest {
     public void createTestOverloadKeywordName() throws ClassNotFoundException {
         ExtentTest test = extent().createTest(new GherkinKeyword("Feature"), TEST_NAME);
         Test model = test.getModel();
-        Assert.assertTrue(TestService.isBDD(model));
+        Assert.assertTrue(model.isBDD());
         Assert.assertEquals(model.getName(), TEST_NAME);
         Assert.assertNull(model.getDescription());
         Assert.assertEquals(model.getBddType(), Feature.class);
@@ -65,7 +64,7 @@ public class ExtentReportsTest {
     public void createTestOverloadNameDesc() {
         ExtentTest test = extent().createTest(TEST_NAME, "Description");
         Test model = test.getModel();
-        Assert.assertFalse(TestService.isBDD(model));
+        Assert.assertFalse(model.isBDD());
         Assert.assertEquals(model.getName(), TEST_NAME);
         Assert.assertEquals(model.getDescription(), "Description");
         Assert.assertNull(model.getBddType());
@@ -76,7 +75,7 @@ public class ExtentReportsTest {
     public void createTestOverloadName() {
         ExtentTest test = extent().createTest(TEST_NAME);
         Test model = test.getModel();
-        Assert.assertFalse(TestService.isBDD(model));
+        Assert.assertFalse(model.isBDD());
         Assert.assertEquals(model.getName(), TEST_NAME);
         Assert.assertNull(model.getDescription());
         Assert.assertNull(model.getBddType());

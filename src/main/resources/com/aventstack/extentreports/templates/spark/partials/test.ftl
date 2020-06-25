@@ -8,12 +8,12 @@
         <li class="user-profile dropdown dropdown-animated scale-left">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
           <ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
-            <#if ReportService.anyTestHasStatus(report,Status.PASS)><a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a></#if>
-            <#if ReportService.anyTestHasStatus(report,Status.FAIL)><a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger"></span></a></#if>
-            <#if ReportService.anyTestHasStatus(report,Status.FATAL)><a class="dropdown-item" status="fatal" href="#"><span>Fatal</span><span class="status danger"></span></a></#if>
-            <#if ReportService.anyTestHasStatus(report,Status.ERROR)><a class="dropdown-item" status="error" href="#"><span>Error</span><span class="status warning"></span></a></#if>
-            <#if ReportService.anyTestHasStatus(report,Status.WARNING)><a class="dropdown-item" status="warning" href="#"><span>Warning</span><span class="status warning"></span></a></#if>
-            <#if ReportService.anyTestHasStatus(report,Status.SKIP)><a class="dropdown-item" status="skip" href="#"><span>Skip</span><span class="status warning"></span></a></#if>
+            <#if report.anyTestHasStatus(Status.PASS)><a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a></#if>
+            <#if report.anyTestHasStatus(Status.FAIL)><a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger"></span></a></#if>
+            <#if report.anyTestHasStatus(Status.FATAL)><a class="dropdown-item" status="fatal" href="#"><span>Fatal</span><span class="status danger"></span></a></#if>
+            <#if report.anyTestHasStatus(Status.ERROR)><a class="dropdown-item" status="error" href="#"><span>Error</span><span class="status warning"></span></a></#if>
+            <#if report.anyTestHasStatus(Status.WARNING)><a class="dropdown-item" status="warning" href="#"><span>Warning</span><span class="status warning"></span></a></#if>
+            <#if report.anyTestHasStatus(Status.SKIP)><a class="dropdown-item" status="skip" href="#"><span>Skip</span><span class="status warning"></span></a></#if>
             <div class="dropdown-divider"></div>
             <a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
           </ul>
@@ -63,7 +63,7 @@
           <div class="test-detail">
             <span class="meta text-white badge badge-sm"></span>
             <p class="name">${test.name}</p>
-            <p class="text-sm"><span>${test.startTime?string("HH:mm:ss a")}</span> / <span>${TestService.timeTaken(test)/1000} secs</span></p>
+            <p class="text-sm"><span>${test.startTime?string("HH:mm:ss a")}</span> / <span>${test.timeTaken()/1000} secs</span></p>
           </div>
           <div class="test-contents d-none">
             <div class="detail-head">
@@ -72,9 +72,9 @@
                   <h5 class="test-status text-${test.status.toLower()}">${test.name}</h5>
                   <span class='badge badge-success'>${test.startTime?string("MM.dd.yyyy HH:mm:ss")}</span>
                   <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy HH:mm:ss")}</span>
-                  <span class='badge badge-default'>${TestService.timeTaken(test)/1000} secs</span>
+                  <span class='badge badge-default'>${test.timeTaken()/1000} secs</span>
                 </div>
-                <#if TestService.testHasAttributes(test)>
+                <#if test.hasAttributes()>
                 <div class="m-t-15"><@attributes test=test /></div>
                 </#if>
                 <#if test.description??>

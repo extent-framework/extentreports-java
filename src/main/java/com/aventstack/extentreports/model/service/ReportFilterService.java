@@ -25,7 +25,7 @@ public class ReportFilterService {
                 .filter(x -> statusList.contains(x.getStatus()))
                 .collect(Collectors.toList());
         list.forEach(filtered.getTestList()::add);
-        ReportStatsService.refreshReportStats(filtered.getStats(), list);
+        filtered.getStats().update(list);
         Set<NamedAttributeContext<Author>> authorCtx = new NamedAttributeTestContextFilter<Author>()
                 .filter(report.getAuthorCtx(), statusList);
         authorCtx.stream().forEach(x -> filtered.getAuthorCtx().addContext(x.getAttr(), x.getTestList()));

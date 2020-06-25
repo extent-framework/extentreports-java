@@ -1,5 +1,5 @@
 <#macro stepdetails test>
-  <#if TestService.testHasLog(test)>
+  <#if test.hasLog()>
     <#list test.logs as log>
       <#if log.exceptions?has_content>
         <#list log.exceptions as ex><textarea disabled class="code-block">${ex.stackTrace}</textarea></#list>
@@ -9,7 +9,7 @@
   </#if>
 </#macro>
 
-<#if TestService.testHasChildren(test)>
+<#if test.hasChildren()>
 <div class="accordion mt-4">
   <#list test.children as node>
   <div class="card">
@@ -23,7 +23,7 @@
         </#if>
       </div>
     </div>
-    <#if TestService.testHasChildren(node)>
+    <#if test.hasChildren()>
       <#if node.bddType?? && node.bddType.simpleName=="ScenarioOutline">
         <div class="scenario_outline <#if node.status.toLower()=='pass'>collapse</#if>">
           <#list node.children as child>
