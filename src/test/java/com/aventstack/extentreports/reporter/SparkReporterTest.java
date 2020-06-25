@@ -22,6 +22,12 @@ public class SparkReporterTest {
         return FILE_PATH + Calendar.getInstance().getTimeInMillis() + FILE_NAME;
     }
 
+    private void assertFileExists(String path) {
+        File f = new File(path);
+        Assert.assertTrue(f.exists());
+        f.delete();
+    }
+
     @Test
     public void createsReportWithNoTestsInitPath() {
         ExtentReports extent = new ExtentReports();
@@ -29,7 +35,7 @@ public class SparkReporterTest {
         ExtentSparkReporter spark = new ExtentSparkReporter(path);
         extent.attachReporter(spark);
         extent.flush();
-        Assert.assertTrue(new File(path).exists());
+        assertFileExists(path);
     }
 
     @Test
@@ -39,7 +45,7 @@ public class SparkReporterTest {
         ExtentSparkReporter spark = new ExtentSparkReporter(new File(path));
         extent.attachReporter(spark);
         extent.flush();
-        Assert.assertTrue(new File(path).exists());
+        assertFileExists(path);
     }
 
     @Test
@@ -53,7 +59,7 @@ public class SparkReporterTest {
                 .createNode(GRANDCHILD)
                 .pass("Pass");
         extent.flush();
-        Assert.assertTrue(new File(path).exists());
+        assertFileExists(path);
         Assert.assertEquals(spark.getReport().getTestList().size(), 1);
         Assert.assertEquals(spark.getReport().getTestList().get(0).getName(), PARENT);
         Assert.assertEquals(spark.getReport().getTestList().get(0).getChildren().size(), 1);
@@ -61,6 +67,63 @@ public class SparkReporterTest {
         Assert.assertEquals(spark.getReport().getTestList().get(0).getChildren().get(0).getChildren().size(), 1);
         Assert.assertEquals(spark.getReport().getTestList().get(0).getChildren().get(0).getChildren().get(0).getName(),
                 GRANDCHILD);
+    }
+
+    @Test
+    public void reportContainsTestsAndNodesTags() {
+        ExtentReports extent = new ExtentReports();
+        String path = path();
+        ExtentSparkReporter spark = new ExtentSparkReporter(path);
+        extent.attachReporter(spark);
+        extent.createTest(PARENT).assignCategory("Tag1")
+                .createNode(CHILD).assignCategory("Tag2")
+                .createNode(GRANDCHILD).assignCategory("Tag3")
+                .pass("Pass");
+        extent.flush();
+        assertFileExists(path);
+        com.aventstack.extentreports.model.Test t = spark.getReport().getTestList().get(0);
+        Assert.assertTrue(t.getCategorySet().stream().anyMatch(x -> x.getName().equals("Tag1")));
+        Assert.assertTrue(t.getChildren().get(0).getCategorySet().stream().anyMatch(x -> x.getName().equals("Tag2")));
+        Assert.assertTrue(t.getChildren().get(0).getChildren().get(0).getCategorySet().stream()
+                .anyMatch(x -> x.getName().equals("Tag3")));
+    }
+
+    @Test
+    public void reportContainsTestsAndNodesUsers() {
+        ExtentReports extent = new ExtentReports();
+        String path = path();
+        ExtentSparkReporter spark = new ExtentSparkReporter(path);
+        extent.attachReporter(spark);
+        extent.createTest(PARENT).assignAuthor("Tag1")
+                .createNode(CHILD).assignAuthor("Tag2")
+                .createNode(GRANDCHILD).assignAuthor("Tag3")
+                .pass("Pass");
+        extent.flush();
+        assertFileExists(path);
+        com.aventstack.extentreports.model.Test t = spark.getReport().getTestList().get(0);
+        Assert.assertTrue(t.getAuthorSet().stream().anyMatch(x -> x.getName().equals("Tag1")));
+        Assert.assertTrue(t.getChildren().get(0).getAuthorSet().stream().anyMatch(x -> x.getName().equals("Tag2")));
+        Assert.assertTrue(t.getChildren().get(0).getChildren().get(0).getAuthorSet().stream()
+                .anyMatch(x -> x.getName().equals("Tag3")));
+    }
+
+    @Test
+    public void reportContainsTestsAndNodesDevices() {
+        ExtentReports extent = new ExtentReports();
+        String path = path();
+        ExtentSparkReporter spark = new ExtentSparkReporter(path);
+        extent.attachReporter(spark);
+        extent.createTest(PARENT).assignDevice("Tag1")
+                .createNode(CHILD).assignDevice("Tag2")
+                .createNode(GRANDCHILD).assignDevice("Tag3")
+                .pass("Pass");
+        extent.flush();
+        assertFileExists(path);
+        com.aventstack.extentreports.model.Test t = spark.getReport().getTestList().get(0);
+        Assert.assertTrue(t.getDeviceSet().stream().anyMatch(x -> x.getName().equals("Tag1")));
+        Assert.assertTrue(t.getChildren().get(0).getDeviceSet().stream().anyMatch(x -> x.getName().equals("Tag2")));
+        Assert.assertTrue(t.getChildren().get(0).getChildren().get(0).getDeviceSet().stream()
+                .anyMatch(x -> x.getName().equals("Tag3")));
     }
 
     @Test
@@ -76,6 +139,7 @@ public class SparkReporterTest {
         extent.createTest(PARENT).pass("Pass");
         extent.createTest(CHILD).fail("Fail");
         extent.flush();
+        assertFileExists(path);
         Assert.assertEquals(spark.getReport().getTestList().size(), 1);
         Assert.assertEquals(spark.getReport().getTestList().get(0).getName(), CHILD);
     }
@@ -94,6 +158,7 @@ public class SparkReporterTest {
         extent.createTest(CHILD).pass("Pass")
                 .createNode(GRANDCHILD).fail("Fail");
         extent.flush();
+        assertFileExists(path);
         Assert.assertEquals(spark.getReport().getTestList().size(), 1);
         Assert.assertEquals(spark.getReport().getTestList().get(0).getName(), CHILD);
         Assert.assertEquals(spark.getReport().getTestList().get(0).getChildren().size(), 1);
@@ -109,6 +174,7 @@ public class SparkReporterTest {
         extent.attachReporter(spark);
         extent.createTest(PARENT).pass("Pass");
         extent.flush();
+        assertFileExists(path);
         Assert.assertTrue(new File(FILE_PATH + "spark/" + SCRIPTS).exists());
         Assert.assertTrue(new File(FILE_PATH + "spark/" + STYLESHEET).exists());
     }
