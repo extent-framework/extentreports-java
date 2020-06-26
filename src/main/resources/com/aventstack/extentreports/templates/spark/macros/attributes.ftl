@@ -1,4 +1,5 @@
 <#macro attributes test>
+<#compress>
   <#if test.hasAuthor()>
     <#list test.authorSet as author>
       <span class="badge badge-pill badge-default"> ${author.name}</span>
@@ -14,4 +15,5 @@
       <span class="badge badge-pill badge-default"> ${device.name}</span>
     </#list>
   </#if>
+</#compress>
 </#macro>

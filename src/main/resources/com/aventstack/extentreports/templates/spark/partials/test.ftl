@@ -1,11 +1,12 @@
 <div class="test-wrapper row view test-view">
   <div class="test-list">
+    <#compress>
     <div class="test-list-tools">
       <ul class="tools pull-left">
         <li><a href="#"><span class="font-size-14">Tests</span></a></li>
       </ul>
       <ul class="tools text-right">
-        <li class="user-profile dropdown dropdown-animated scale-left">
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
           <ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
             <#if report.anyTestHasStatus(Status.PASS)><a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a></#if>
@@ -19,37 +20,32 @@
           </ul>
         </li>
         <#if report.authorCtx.hasItems()>
-        <li class="user-profile dropdown dropdown-animated scale-left">
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i></a>
           <ul id="author-toggle" class="dropdown-menu dropdown-md p-v-0">
-            <#list report.authorCtx.set as context>
-            <a class="dropdown-item" href="#">${context.attr.name}</a>
-            </#list>
+            <#list report.authorCtx.set as context><a class="dropdown-item" href="#">${context.attr.name}</a></#list>
           </ul>
         </li>
         </#if>
         <#if report.categoryCtx.hasItems()>
-        <li class="user-profile dropdown dropdown-animated scale-left">
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
           <ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
-            <#list report.categoryCtx.set as context>
-            <a class="dropdown-item" href="#">${context.attr.name}</a>
-            </#list>
+            <#list report.categoryCtx.set as context><a class="dropdown-item" href="#">${context.attr.name}</a></#list>
           </ul>
         </li>
         </#if>
         <#if report.deviceCtx.hasItems()>
-        <li class="user-profile dropdown dropdown-animated scale-left">
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tablet"></i></a>
           <ul id="device-toggle" class="dropdown-menu dropdown-md p-v-0">
-            <#list report.deviceCtx.set as context>
-            <a class="dropdown-item" href="#">${context.attr.name}</a>
-            </#list>
+            <#list report.deviceCtx.set as context><a class="dropdown-item" href="#">${context.attr.name}</a></#list>
           </ul>
         </li>
         </#if>
       </ul>
     </div>
+    </#compress>
     <div class="test-list-wrapper scrollable">
       <ul class="test-list-item">
         <#list report.testList as test>
@@ -66,6 +62,7 @@
             <p class="text-sm"><span>${test.startTime?string("HH:mm:ss a")}</span> / <span>${test.timeTaken()/1000} secs</span></p>
           </div>
           <div class="test-contents d-none">
+            <#compress>
             <div class="detail-head">
               <div class="p-v-10 d-inline-block">
                 <div class="info">
@@ -82,6 +79,7 @@
                 </#if>
               </div>
             </div>
+            </#compress>
             <#if isbdd><#include "bdd-content.ftl">
             <#else><#include "standard-content.ftl">
             </#if>
@@ -91,10 +89,12 @@
       </ul>
     </div>
   </div>
+  <#compress>
   <div class="test-content scrollable">
     <div class="test-content-tools">
       <ul><li><a class="back-to-test" href="#"><i class="fa fa-arrow-left"></i></a></li></ul>
     </div>
     <div class="test-content-detail"><div class="detail-body"></div></div>
   </div>
+  </#compress>
 </div>

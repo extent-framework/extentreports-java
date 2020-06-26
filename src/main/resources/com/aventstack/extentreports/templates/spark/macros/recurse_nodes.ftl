@@ -11,18 +11,14 @@
                <i class="fa fa-${Ico.ico(node.status)} text-white"></i>
             </div>
             <#if TestService.testHasScreenCapture(node, true)>
-              <div class="status-avatar float-right">
-                <i class="fa fa-paperclip"></i>
-              </div>
+              <div class="status-avatar float-right"><i class="fa fa-paperclip"></i></div>
             </#if>
           </div>
         </div>
-        <#if node.logs?size!=0>
+        <#if node.hasLog()>
         <div class="<#if node.status.toLower()=='pass'>collapse</#if>">
           <div class="card-body">
-            <#if test.hasLog()>
-              <@log test=node />
-            </#if>
+            <@log test=node />
             <@media node.media />
           </div>
         </div>

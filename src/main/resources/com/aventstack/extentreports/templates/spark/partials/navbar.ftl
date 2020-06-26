@@ -1,3 +1,4 @@
+<#compress>
 <div class="header navbar">
   <div class="vheader">
     <div class="nav-logo">
@@ -26,3 +27,4 @@
     </ul>
   </div>
 </div>
+</#compress>

@@ -1,3 +1,4 @@
+<#compress>
 <#assign 
   resourceCDN=config.resourceCDN
   cdnURI="cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@" 
@@ -31,3 +32,4 @@
   </#if>
   <#include "../../commons/commons-inject-css.ftl">
 </head>
+</#compress>

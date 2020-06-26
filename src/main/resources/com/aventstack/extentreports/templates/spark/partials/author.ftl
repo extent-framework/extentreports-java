@@ -1,6 +1,7 @@
 <#if report.authorCtx.set?size != 0>
 <#assign
 	authorCtx=report.authorCtx.set>
+<#compress>
 <div class="test-wrapper row view author-view attributes-view">
   <div class="test-list">
     <div class="test-list-tools">
@@ -13,10 +14,10 @@
         <li class="test-item">
           <div class="test-detail">
             <span class="meta">
-            <#if ctx.passed!=0><span class='badge badge-success'>${ctx.passed}</span></#if>
-            <#if ctx.failed!=0><span class='badge badge-danger'>${ctx.failed}</span></#if>
-            <#if ctx.skipped!=0><span class='badge badge-skip'>${ctx.skipped}</span></#if>
-            <#if ctx.others!=0><span class='badge badge-warning'>${ctx.others}</span></#if>
+            <#if ctx.passed!=0><span class='badge log pass-bg'>${ctx.passed}</span></#if>
+            <#if ctx.failed!=0><span class='badge log badge-danger'>${ctx.failed}</span></#if>
+            <#if ctx.skipped!=0><span class='badge log badge-skip'>${ctx.skipped}</span></#if>
+            <#if ctx.others!=0><span class='badge log badge-warning'>${ctx.others}</span></#if>
             </span>
             <p class="name">${ctx.attr.name}</p>
             <p class="duration text-sm">${ctx.size()} tests</p>
@@ -24,10 +25,10 @@
           <div class="test-contents d-none">
             <div class="info">
               <h4>${ctx.attr.name}</h4>
-              <#if ctx.passed!=0><span status="pass" class='badge badge-success'>${ctx.passed} passed</span></#if>
-              <#if ctx.failed!=0><span status="fail" class='badge badge-danger'>${ctx.failed} failed</span></#if>
-              <#if ctx.skipped!=0><span status="skip" class='badge badge-skip'>${ctx.skipped} skipped</span></#if>
-              <#if ctx.others!=0><span status="skip" class='badge badge-warning'>${ctx.others} others</span></#if>
+              <#if ctx.passed!=0><span status="pass" class='badge log pass-bg'>${ctx.passed} passed</span></#if>
+              <#if ctx.failed!=0><span status="fail" class='badge log badge-danger'>${ctx.failed} failed</span></#if>
+              <#if ctx.skipped!=0><span status="skip" class='badge log badge-skip'>${ctx.skipped} skipped</span></#if>
+              <#if ctx.others!=0><span status="skip" class='badge log badge-warning'>${ctx.others} others</span></#if>
             </div>
             <table class='table table-sm mt-4'>
               <thead>
@@ -64,7 +65,7 @@
     <div class="test-content-tools">
       <ul>
         <li>
-          <a class="back-to-test" href="javascript:void(0)">
+          <a class="back-to-test" href="#">
           <i class="fa fa-arrow-left"></i>
           </a>
         </li>
@@ -75,4 +76,5 @@
     </div>
   </div>
 </div>
+</#compress>
 </#if>
