@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.gherkin.entity.Scenario;
+import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
 import com.aventstack.extentreports.model.Device;

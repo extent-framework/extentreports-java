@@ -1,6 +1,6 @@
 package com.aventstack.extentreports;
 
-import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
+import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 import com.aventstack.extentreports.model.ReportStats;
 
 /**

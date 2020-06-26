@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 import com.aventstack.extentreports.gherkin.GherkinDialect;
 import com.aventstack.extentreports.gherkin.GherkinDialectManager;
-import com.aventstack.extentreports.gherkin.entity.Asterisk;
-import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
+import com.aventstack.extentreports.gherkin.model.Asterisk;
+import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 
 import freemarker.template.utility.StringUtil;
 import lombok.Getter;

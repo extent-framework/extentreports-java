@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 import com.aventstack.extentreports.AnalysisStrategy;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.gherkin.entity.Scenario;
-import com.aventstack.extentreports.gherkin.entity.ScenarioOutline;
+import com.aventstack.extentreports.gherkin.model.Scenario;
+import com.aventstack.extentreports.gherkin.model.ScenarioOutline;
 
 import lombok.Getter;
 import lombok.Setter;

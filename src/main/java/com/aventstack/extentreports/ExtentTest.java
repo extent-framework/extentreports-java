@@ -3,7 +3,7 @@ package com.aventstack.extentreports;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
+import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;

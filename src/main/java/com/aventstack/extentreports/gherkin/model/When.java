@@ -1,4 +1,4 @@
-package com.aventstack.extentreports.gherkin.entity;
+package com.aventstack.extentreports.gherkin.model;
 
 import java.io.Serializable;
 

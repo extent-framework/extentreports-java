@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
+import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 import com.aventstack.extentreports.model.ExceptionInfo;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Test;

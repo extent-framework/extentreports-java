@@ -9,7 +9,7 @@ import org.testng.Assert;
 import com.aventstack.extentreports.GherkinKeyword;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.gherkin.GherkinDialectManager;
-import com.aventstack.extentreports.gherkin.entity.Scenario;
+import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.Test;

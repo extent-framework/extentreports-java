@@ -8,12 +8,12 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.GherkinKeyword;
-import com.aventstack.extentreports.gherkin.entity.And;
-import com.aventstack.extentreports.gherkin.entity.Feature;
-import com.aventstack.extentreports.gherkin.entity.Given;
-import com.aventstack.extentreports.gherkin.entity.Scenario;
-import com.aventstack.extentreports.gherkin.entity.Then;
-import com.aventstack.extentreports.gherkin.entity.When;
+import com.aventstack.extentreports.gherkin.model.And;
+import com.aventstack.extentreports.gherkin.model.Feature;
+import com.aventstack.extentreports.gherkin.model.Given;
+import com.aventstack.extentreports.gherkin.model.Scenario;
+import com.aventstack.extentreports.gherkin.model.Then;
+import com.aventstack.extentreports.gherkin.model.When;
 
 public class GherkinKeywordTest {
     private ExtentReports extent() {

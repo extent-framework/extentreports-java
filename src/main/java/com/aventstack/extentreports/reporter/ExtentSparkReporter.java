@@ -96,6 +96,11 @@ public class ExtentSparkReporter extends AbstractFileReporter
         loader.apply();
     }
 
+    @Override
+    public void loadXMLConfig(String xmlFile) throws IOException {
+        loadXMLConfig(new File(xmlFile));
+    }
+
     private void executeActions() {
         if (!executed.get()) {
             conf.enableOfflineMode(conf.getOfflineMode());

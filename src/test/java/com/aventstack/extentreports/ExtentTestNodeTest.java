@@ -5,8 +5,8 @@ import java.io.UnsupportedEncodingException;
 import org.testng.Assert;
 
 import com.aventstack.extentreports.gherkin.GherkinDialectManager;
-import com.aventstack.extentreports.gherkin.entity.Feature;
-import com.aventstack.extentreports.gherkin.entity.Scenario;
+import com.aventstack.extentreports.gherkin.model.Feature;
+import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.model.Test;
 
 public class ExtentTestNodeTest {

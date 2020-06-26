@@ -15,8 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
-import com.aventstack.extentreports.gherkin.entity.ScenarioOutline;
+import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
+import com.aventstack.extentreports.gherkin.model.ScenarioOutline;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.aventstack.extentreports.gherkin.GherkinDialectManager;
-import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
+import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.ReportStats;
 import com.aventstack.extentreports.model.SystemEnvInfo;

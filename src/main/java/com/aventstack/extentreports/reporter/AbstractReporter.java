@@ -1,4 +1,4 @@
 package com.aventstack.extentreports.reporter;
 
-public abstract class AbstractReporter {
+public abstract class AbstractReporter implements ExtentReporter {
 }
