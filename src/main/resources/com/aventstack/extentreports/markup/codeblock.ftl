@@ -1,3 +1,1 @@
-<textarea readonly class='code-block'>
-	${code}
-</textarea>
+<textarea readonly class='code-block'>${code}</textarea>
