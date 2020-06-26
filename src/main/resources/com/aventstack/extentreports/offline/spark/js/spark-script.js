@@ -86,7 +86,7 @@ $(".test-content").click(function(evt) {
 		target.closest(".card-header").next().toggleClass("collapse");
 	}
 	if (target.is("textarea") && !target.hasClass("maxxed")) {
-		target.addClass("maxxed").height((target.prop("scrollHeight")) + "px");
+		target.addClass("maxxed").height((target.prop("scrollHeight") - 8) + "px");
 	}
 	
 	/* -- [ category view, status filters ] -- */
@@ -115,14 +115,23 @@ $('.test-content').click(function(evt) {
 /* ------------------------------------ */
 /* -- [ status filters ] -- */
 function toggleByStatus(status) {
-	$(".test-item").removeClass("d-none");
-	if (status != "clear") {
-		$(".test-item[status!='" + status + "']").addClass("d-none");
+	$('.test-item').removeClass('d-none');
+	if (status != 'clear') {
+		if (currentView == 'test-view') {
+			$(".test-item[status!='" + status + "']").addClass('d-none');
+		} else {
+			$('.tag-test-status, .test-item').addClass('d-none');
+			var els = $('.tag-test-status > td:first-child > span').filter(function() {
+				return ($(this).text().toLowerCase() == status);
+			});
+			els.closest('.tag-test-status').removeClass('d-none');
+			els.closest('.test-item').removeClass('d-none');
+		}
 	}
 	selectFirst();
 }
 function selectFirst() {
-	$(".test-item:not(.d-none)").first().click();
+	$("." + currentView + " .test-item:not(.d-none)").first().click();
 }
 
 $("#status-toggle>a").click(function() {
@@ -149,11 +158,11 @@ $("#tag-toggle>a").click(function() {
 /* ------------------------------------ */
 /* SPA side-nav */
 /* ------------------------------------ */
-var currentView = 'tests-view';
+var currentView = 'test-view';
 function toggleView(v) {
 	if ($(".spa").length && v !== currentView) {
 		$(".main-content>*").addClass("d-none");
-		$("."+v).removeClass("d-none");
+		$("."+v+ ",.test-item").removeClass("d-none");
 		$("."+v+" .test-item:not(.d-none)").first().click();
 	}
 	currentView = v;
@@ -201,16 +210,16 @@ $(window).keydown(function(e) {
 			if (dir === 'up')
 				$('.test-item.active')
 		}
-		var target = $(".test-item.active");
-		var sibling = $(".test-item:not(.d-none)");
+		var target = $("." + currentView + " .test-item.active");
+		var sibling = "." + currentView + " .test-item:not(.d-none)";
         if (!e.ctrlKey && !e.altKey && !e.shiftKey && e.which!==91 && e.which!==93 && e.which!==224 && !e.metaKey && !e.which != 17) {
 			if (target !== null) {
                 (e.which === 40) && target.nextAll(sibling).first().click();
                 (e.which === 38) && target.prevAll(sibling).first().click();
             }
-            (e.which === 67) && goToView('nav-tag');
+            (e.which === 67) && goToView('nav-category');
             (e.which === 68) && goToView('nav-dashboard');
-            (e.which === 88) && goToView('nav-ex');
+            (e.which === 88) && goToView('nav-exception');
             (e.which === 84) && goToView('nav-test');
 
 			(e.which === 76) && $("body").toggleClass("dark");
