@@ -37,11 +37,14 @@ public class NamedAttributeContext<T extends NamedAttribute> implements Serializ
     }
 
     private synchronized void refresh(Test test) {
-        passed += test.getStatus() == Status.PASS ? 1 : 0;
-        failed += test.getStatus() == Status.FAIL ? 1 : 0;
-        skipped += test.getStatus() == Status.SKIP ? 1 : 0;
-        others += test.getStatus() != Status.PASS && test.getStatus() != Status.FAIL
-                && test.getStatus() != Status.SKIP ? 1 : 0;
+        if (test.getStatus() == Status.PASS)
+            passed++;
+        else if (test.getStatus() == Status.FAIL)
+            failed++;
+        else if (test.getStatus() == Status.SKIP)
+            skipped++;
+        else
+            others++;
     }
 
     public void refresh() {

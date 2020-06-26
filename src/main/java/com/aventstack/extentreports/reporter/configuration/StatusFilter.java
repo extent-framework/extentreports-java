@@ -12,7 +12,7 @@ import lombok.Getter;
 
 @Getter
 public class StatusFilter<T extends AbstractReporter> {
-    private Set<Status> status = new HashSet<>(Arrays.asList(Status.values()));
+    private Set<Status> status;
     private EntityFilters<?> configurer;
 
     public StatusFilter(EntityFilters<T> configurer) {
