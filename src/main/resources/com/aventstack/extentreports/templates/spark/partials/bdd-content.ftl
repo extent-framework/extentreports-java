@@ -4,7 +4,7 @@
       <#if log.exceptions?has_content>
         <#list log.exceptions as ex><textarea disabled class="code-block">${ex.stackTrace}</textarea></#list>
       <#else>${log.details}</#if>
-      <@media log.media />
+      <#if log.media??><@mediaSingle log.media /></#if>
     </#list>
   </#if>
 </#macro>
