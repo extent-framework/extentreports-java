@@ -3,6 +3,7 @@ package com.aventstack.extentreports;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.aventstack.extentreports.append.RawEntityConverter;
@@ -17,6 +18,11 @@ import com.aventstack.extentreports.model.context.NamedAttributeContextManager;
 import com.aventstack.extentreports.model.service.MediaService;
 import com.aventstack.extentreports.model.service.TestService;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class AbstractProcessor extends ReactiveSubject {
     private final List<Test> testList = getReport().getTestList();
     private final NamedAttributeContextManager<Author> authorCtx = getReport().getAuthorCtx();
@@ -24,6 +30,7 @@ public abstract class AbstractProcessor extends ReactiveSubject {
     private final NamedAttributeContextManager<Device> deviceCtx = getReport().getDeviceCtx();
 
     private String[] mediaResolverPath;
+    private boolean usingNaturalConf = true;
 
     @Override
     protected void onTestCreated(Test test) {
@@ -83,7 +90,22 @@ public abstract class AbstractProcessor extends ReactiveSubject {
         deviceCtx.getSet().forEach(x -> x.refresh());
         getReport().getStats().update(testList);
         getReport().setEndTime(Calendar.getInstance().getTime());
+        if (!usingNaturalConf)
+            applyConf();
         super.onFlush();
+    }
+
+    private void applyConf() {
+        Date min = testList.stream()
+                .map(t -> t.getStartTime())
+                .min(Date::compareTo)
+                .get();
+        Date max = testList.stream()
+                .map(t -> t.getEndTime())
+                .max(Date::compareTo)
+                .get();
+        getReport().setStartTime(min);
+        getReport().setEndTime(max);
     }
 
     protected void onReportLogAdded(String log) {
@@ -92,10 +114,6 @@ public abstract class AbstractProcessor extends ReactiveSubject {
 
     protected void onSystemInfoAdded(SystemEnvInfo env) {
         getReport().getSystemEnvInfo().add(env);
-    }
-
-    protected void tryesolveMediaPathUsingKnownPaths(String[] knownPath) {
-        this.mediaResolverPath = knownPath;
     }
 
     protected void convertRawEntities(ExtentReports extent, File f) throws IOException {

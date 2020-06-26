@@ -33,8 +33,10 @@ public final class Test implements RunResult, Serializable, BaseEntity {
     private static final long serialVersionUID = -4896520724677957845L;
     private static final AtomicInteger atomicInt = new AtomicInteger(0);
 
-    private final StatusDeterminator determinator = new StatusDeterminator();
     private final transient Integer id = atomicInt.incrementAndGet();
+    private final transient StatusDeterminator determinator = new StatusDeterminator();
+    @Builder.Default
+    private boolean useNaturalConf = true;
     @Builder.Default
     private Date startTime = Calendar.getInstance().getTime();
     @Builder.Default
@@ -66,9 +68,14 @@ public final class Test implements RunResult, Serializable, BaseEntity {
         child.setParent(this);
         child.setLeaf(true);
         isLeaf = false;
-        setStatus(Status.max(status, child.getStatus()));
-        setEndTime(Calendar.getInstance().getTime());
+        end(child.getStatus());
         children.add(child);
+    }
+
+    private void end(Status evtStatus) {
+        setStatus(Status.max(status, evtStatus));
+        if (useNaturalConf)
+            setEndTime(Calendar.getInstance().getTime());
     }
 
     public final void addLog(Log log) {
@@ -84,8 +91,7 @@ public final class Test implements RunResult, Serializable, BaseEntity {
             throw new IllegalArgumentException("Log must not be null");
         log.setSeq(list.size());
         list.add(log);
-        setStatus(Status.max(log.getStatus(), status));
-        setEndTime(Calendar.getInstance().getTime());
+        end(log.getStatus());
         updateResult();
     }
 
@@ -136,7 +142,7 @@ public final class Test implements RunResult, Serializable, BaseEntity {
         if (m != null && (m.getPath() != null || m.getResolvedPath() != null
                 || ((ScreenCapture) m).getBase64() != null))
             media.add(m);
-        setEndTime(Calendar.getInstance().getTime());
+        end(status);
     }
 
     public final boolean hasScreenCapture() {

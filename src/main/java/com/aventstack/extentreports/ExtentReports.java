@@ -361,7 +361,7 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
      * @return {@link ExtentReports}
      */
     public ExtentReports tryResolveMediaPath(String[] path) {
-        tryesolveMediaPathUsingKnownPaths(path);
+        setMediaResolverPath(path);
         return this;
     }
 
@@ -410,6 +410,7 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
      *            manual configuration
      */
     public void setReportUsesManualConfiguration(boolean useManualConfig) {
+        setUsingNaturalConf(!useManualConfig);
     }
 
     /**

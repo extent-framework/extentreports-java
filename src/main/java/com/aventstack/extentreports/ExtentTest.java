@@ -2,7 +2,6 @@ package com.aventstack.extentreports;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Calendar;
 
 import com.aventstack.extentreports.gherkin.entity.IGherkinFormatterModel;
 import com.aventstack.extentreports.markuputils.Markup;
@@ -98,7 +97,8 @@ public class ExtentTest implements RunResult, Serializable {
                 .bddType(type)
                 .name(name)
                 .description(description)
-                .endTime(Calendar.getInstance().getTime()).build();
+                .useNaturalConf(extent.isUsingNaturalConf())
+                .build();
         this.extent = extent;
     }
 
