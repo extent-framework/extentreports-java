@@ -50,7 +50,7 @@
           </#list>
         </div>
       <#else>
-        <div class="collapse">
+        <div class="<#if node.status.toLower()=='pass'>collapse</#if>">
           <div class="card-body">
             <#list node.children as child>
               <div class="step ${child.status.toLower()}-bg" <#if child.description??>title="${child.description}"</#if>>
