@@ -115,7 +115,7 @@ $('.test-content').click(function(evt) {
 /* ------------------------------------ */
 /* -- [ status filters ] -- */
 function toggleByStatus(status) {
-	$('.test-item').removeClass('d-none');
+	$('.test-item,.tag-test-status').removeClass('d-none');
 	if (status != 'clear') {
 		if (currentView == 'test-view') {
 			$(".test-item[status!='" + status + "']").addClass('d-none');

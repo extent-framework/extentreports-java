@@ -25,8 +25,8 @@
     grandChildHeading="">
 </#if>
 <#assign chartCount=2>
-<#if report.stats.child?size != 0><#assign chartCount=3></#if>
-<#if report.stats.grandchild?size != 0><#assign chartCount=4></#if>
+<#if report.stats.sumStat(report.stats.child) != 0><#assign chartCount=3></#if>
+<#if report.stats.sumStat(report.stats.grandchild) != 0><#assign chartCount=4></#if>
 <#if report.isBDD()>
   <#assign 
     reportType="bdd" 

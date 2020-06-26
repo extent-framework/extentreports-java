@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <#if report.stats.child?size != 0>
+    <#if report.stats.sumStat(report.stats.child) != 0>
     <div class="${boxsize}">
       <div class="card">
         <div class="card-header">
@@ -72,7 +72,7 @@
       </div>
     </div>
     </#if>
-    <#if report.stats.grandchild?size != 0>
+    <#if report.stats.sumStat(report.stats.grandchild) != 0>
     <div class="${boxsize}">
       <div class="card">
         <div class="card-header">
@@ -94,7 +94,7 @@
       </div>
     </div>
     </#if>
-    <#if report.stats.log?size != 0 && displayEvents>
+    <#if report.stats.sumStat(report.stats.log) != 0 && displayEvents>
     <div class="${boxsize}">
       <div class="card">
         <div class="card-header">
