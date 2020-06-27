@@ -1,10 +1,10 @@
 <#macro stepdetails test>
   <#if test.hasLog()>
     <#list test.logs as log>
-      <#if log.exceptions?has_content>
-        <#list log.exceptions as ex><textarea disabled class="code-block">${ex.stackTrace}</textarea></#list>
+      <div><#if log.exception??>
+        <textarea disabled class="code-block">${log.exception.stackTrace}</textarea>
       <#else>${log.details}</#if>
-      <#if log.media??><@mediaSingle log.media /></#if>
+      <#if log.media??><@mediaSingle log.media /></#if></div>
     </#list>
   </#if>
 </#macro>
@@ -55,8 +55,8 @@
             <#list node.children as child>
               <div class="step ${child.status.toLower()}-bg" <#if child.description??>title="${child.description}"</#if>>
                 <span>${child.name}</span>
+                <@stepdetails test=child />
               </div>
-              <@stepdetails test=child />
             </#list>
           </div>
         </div>
