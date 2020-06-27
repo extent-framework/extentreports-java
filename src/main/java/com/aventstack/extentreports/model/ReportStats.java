@@ -46,7 +46,8 @@ public class ReportStats implements Serializable {
                 .flatMap(x -> x.getChildren().stream())
                 .filter(x -> x.getBddType() != ScenarioOutline.class)
                 .collect(Collectors.toList());
-        List<Test> scenarios = children.stream()
+        List<Test> scenarios = testList.stream()
+                .flatMap(x -> x.getChildren().stream())
                 .flatMap(x -> x.getChildren().stream())
                 .filter(x -> x.getBddType() == Scenario.class)
                 .collect(Collectors.toList());
@@ -58,19 +59,7 @@ public class ReportStats implements Serializable {
                 .flatMap(x -> x.getChildren().stream())
                 .filter(x -> x.getBddType() != Scenario.class)
                 .collect(Collectors.toList());
-
-        // additional step for BDD
-        // BDD tests can have the following 2 hierarchies:
-        // Feature -> Scenario -> Step
-        // Feature -> ScenarioOutline -> Scenario -> Step
-        if (!grandChildren.isEmpty()) {
-            List<Test> list = grandChildren.stream()
-                    .filter(x -> x.getBddType() != Scenario.class)
-                    .flatMap(x -> x.getChildren().stream())
-                    .collect(Collectors.toList());
-            grandChildren.addAll(list);
-            update(grandChildren, grandchild, grandchildPercentage);
-        }
+        update(grandChildren, grandchild, grandchildPercentage);
 
         List<Log> logs = testList.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList());
         logs.addAll(children.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList()));
