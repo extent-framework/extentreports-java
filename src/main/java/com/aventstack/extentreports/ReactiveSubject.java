@@ -2,15 +2,20 @@ package com.aventstack.extentreports;
 
 import java.util.List;
 
+import com.aventstack.extentreports.model.Author;
+import com.aventstack.extentreports.model.Category;
+import com.aventstack.extentreports.model.Device;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.Report;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.observer.AttributesObserver;
 import com.aventstack.extentreports.observer.ExtentObserver;
 import com.aventstack.extentreports.observer.LogObserver;
 import com.aventstack.extentreports.observer.MediaObserver;
 import com.aventstack.extentreports.observer.ReportObserver;
 import com.aventstack.extentreports.observer.TestObserver;
+import com.aventstack.extentreports.observer.entity.AttributeEntity;
 import com.aventstack.extentreports.observer.entity.LogEntity;
 import com.aventstack.extentreports.observer.entity.MediaEntity;
 import com.aventstack.extentreports.observer.entity.ReportEntity;
@@ -26,6 +31,7 @@ abstract class ReactiveSubject {
     private final PublishSubject<TestEntity> testSubject = PublishSubject.create();
     private final PublishSubject<LogEntity> logSubject = PublishSubject.create();
     private final PublishSubject<MediaEntity> mediaSubject = PublishSubject.create();
+    private final PublishSubject<AttributeEntity> attribSubject = PublishSubject.create();
 
     protected ReactiveSubject() {
     }
@@ -41,6 +47,8 @@ abstract class ReactiveSubject {
                 logSubject.subscribe(((LogObserver) o).getLogObserver());
             if (o instanceof MediaObserver)
                 mediaSubject.subscribe(((MediaObserver) o).getMediaObserver());
+            if (o instanceof AttributesObserver)
+                attribSubject.subscribe(((AttributesObserver) o).getAttributesObserver());
         }
     }
 
@@ -54,6 +62,18 @@ abstract class ReactiveSubject {
 
     protected void onLogCreated(Log log, Test test) {
         logSubject.onNext(LogEntity.builder().log(log).test(test).build());
+    }
+
+    protected void onAuthorAssigned(Author x, Test test) {
+        attribSubject.onNext(AttributeEntity.builder().author(x).test(test).build());
+    }
+
+    protected void onCategoryAssigned(Category x, Test test) {
+        attribSubject.onNext(AttributeEntity.builder().category(x).test(test).build());
+    }
+
+    protected void onDeviceAssigned(Device x, Test test) {
+        attribSubject.onNext(AttributeEntity.builder().device(x).test(test).build());
     }
 
     protected void onMediaAdded(Media m, Test test) {

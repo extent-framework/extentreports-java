@@ -73,14 +73,17 @@ public abstract class AbstractProcessor extends ReactiveSubject {
 
     protected void onAuthorAdded(Author x, Test test) {
         authorCtx.addContext(x, test);
+        super.onAuthorAssigned(x, test);
     }
 
     protected void onCategoryAdded(Category x, Test test) {
         categoryCtx.addContext(x, test);
+        super.onCategoryAssigned(x, test);
     }
 
     protected void onDeviceAdded(Device x, Test test) {
         deviceCtx.addContext(x, test);
+        super.onDeviceAssigned(x, test);
     }
 
     @Override
