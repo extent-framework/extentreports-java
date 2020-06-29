@@ -113,4 +113,14 @@ public class ExtentTestNodeTest {
         Assert.assertNull(model.getDescription());
         Assert.assertTrue(model.isLeaf());
     }
+
+    @org.testng.annotations.Test
+    public void timeCalcNodes() throws ClassNotFoundException, InterruptedException {
+        ExtentTest test = extent().createTest(TEST_NAME);
+        ExtentTest node = test.createNode(TEST_NAME).pass("init");
+        Thread.sleep(100);
+        node.pass("complete");
+        Assert.assertTrue(test.getModel().timeTaken() >= 100);
+        Assert.assertTrue(node.getModel().timeTaken() >= 100);
+    }
 }

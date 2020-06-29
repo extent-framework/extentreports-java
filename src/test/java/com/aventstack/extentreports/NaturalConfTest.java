@@ -50,4 +50,16 @@ public class NaturalConfTest {
         test.pass("complete");
         Assert.assertTrue(test.getModel().timeTaken() >= 5000);
     }
+
+    @Test
+    public void useNaturalConfTestWithNodes() throws InterruptedException {
+        ExtentReports extent = new ExtentReports();
+        extent.setReportUsesManualConfiguration(true);
+        ExtentTest test = extent.createTest("Test");
+        ExtentTest child = test.createNode("Node").pass("init");
+        Thread.sleep(500);
+        child.pass("complete");
+        Assert.assertTrue(test.getModel().timeTaken() < 5);
+        Assert.assertTrue(child.getModel().timeTaken() < 5);
+    }
 }

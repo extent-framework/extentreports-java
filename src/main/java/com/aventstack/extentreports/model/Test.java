@@ -75,7 +75,13 @@ public final class Test implements RunResult, Serializable, BaseEntity {
     private void end(Status evtStatus) {
         setStatus(Status.max(status, evtStatus));
         if (useNaturalConf)
-            setEndTime(Calendar.getInstance().getTime());
+            propogateTime();
+    }
+
+    private void propogateTime() {
+        setEndTime(Calendar.getInstance().getTime());
+        if (parent != null)
+            parent.propogateTime();
     }
 
     public final void addLog(Log log) {
