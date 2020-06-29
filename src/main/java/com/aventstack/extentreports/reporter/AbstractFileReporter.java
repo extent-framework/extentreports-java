@@ -29,20 +29,19 @@ public abstract class AbstractFileReporter extends AbstractFilterableReporter {
     protected static final String PATH_SEP = "/";
 
     private File file;
-    private File resolvedParentFile;
     private Map<String, Object> templateModel;
     private Configuration freemarkerConfig;
 
-    protected AbstractFileReporter(File file) {
-        this.file = file;
-        File parentFile = file;
-        if (!file.isDirectory()) {
-            parentFile = file.getParentFile();
+    protected AbstractFileReporter(File f) {
+        this.file = f;
+        File parentFile;
+        if (f.isDirectory() || !(f.getPath().endsWith("html") || f.getPath().endsWith("htm"))) {
+            parentFile = f;
+        } else {
+            parentFile = f.getParentFile();
         }
-        String resolvedPath = parentFile == null ? "" : parentFile.getAbsolutePath() + "/";
-        resolvedParentFile = new File(resolvedPath);
-        if (!resolvedParentFile.exists())
-            resolvedParentFile.mkdirs();
+        if (!parentFile.exists())
+            parentFile.mkdirs();
     }
 
     protected void loadTemplateModel() {
