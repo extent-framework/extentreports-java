@@ -2,6 +2,7 @@ package com.aventstack.extentreports.reporter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -35,7 +36,7 @@ public abstract class AbstractFileReporter extends AbstractFilterableReporter {
     protected AbstractFileReporter(File f) {
         this.file = f;
         File parentFile;
-        if (f.isDirectory() || !(f.getPath().endsWith("html") || f.getPath().endsWith("htm"))) {
+        if (Files.isDirectory(f.toPath())) {
             parentFile = f;
         } else {
             parentFile = f.getParentFile();

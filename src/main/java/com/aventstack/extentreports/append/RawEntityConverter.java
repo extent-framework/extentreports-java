@@ -21,9 +21,8 @@ public class RawEntityConverter {
     }
 
     public void convertAndApply(File jsonFile) throws IOException {
-        if (!jsonFile.exists()) {
+        if (!jsonFile.exists())
             return;
-        }
         extent.setReportUsesManualConfiguration(true);
         List<Test> tests = new JsonDeserializer(jsonFile).deserialize();
         for (Test test : tests) {

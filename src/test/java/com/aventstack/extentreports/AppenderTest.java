@@ -10,7 +10,7 @@ import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.reporter.JsonFormatter;
 
 public class AppenderTest {
-    private static final String JSON_ARCHIVE = "target/json/archive.json";
+    private static final String JSON_ARCHIVE = "target/json/jsonArchive.json";
 
     @Test
     public void testWithLogs() throws IOException {
