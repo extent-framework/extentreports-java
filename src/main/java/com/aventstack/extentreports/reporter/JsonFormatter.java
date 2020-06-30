@@ -15,6 +15,8 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class JsonFormatter extends AbstractFileReporter implements ReportObserver<ReportEntity> {
+    private static final String FILE_NAME = "extent.json";
+
     public JsonFormatter(File file) {
         super(file);
     }
@@ -48,7 +50,11 @@ public class JsonFormatter extends AbstractFileReporter implements ReportObserve
     private void flush(ReportEntity value) {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        try (FileWriter writer = new FileWriter(getFile())) {
+        final String filePath = getFile().isDirectory()
+                ? getFile().getAbsolutePath()
+                        + PATH_SEP + FILE_NAME
+                : getFile().getAbsolutePath();
+        try (FileWriter writer = new FileWriter(new File(filePath))) {
             List<Test> list = value.getReport().getTestList();
             gson.toJson(list, writer);
         } catch (IOException e) {
