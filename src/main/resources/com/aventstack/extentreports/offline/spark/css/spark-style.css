@@ -331,6 +331,7 @@ textarea {
 	display: inline-block;
 	padding: 20px;
 	font-weight: 500;
+	max-width: 90%;
 }
 .accordion > .card > .card-header > .card-title > a:not(.collapsed):after {
 	display: none;
