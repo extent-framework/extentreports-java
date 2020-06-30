@@ -7,8 +7,6 @@ import java.lang.reflect.Type;
 
 import org.testng.reporters.Files;
 
-import com.aventstack.extentreports.reporter.configuration.Protocol;
-import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
