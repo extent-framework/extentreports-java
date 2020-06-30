@@ -7,6 +7,8 @@ import java.lang.reflect.Type;
 
 import org.testng.reporters.Files;
 
+import com.aventstack.extentreports.reporter.configuration.Protocol;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
@@ -45,7 +47,9 @@ public class JsonConfigLoader<T> implements ConfigLoadable<T> {
 
     @SuppressWarnings("unchecked")
     public void apply() {
-        final Gson gson = new GsonBuilder().registerTypeAdapter(instance.getClass(), creator).create();
+        final Gson gson = new GsonBuilder()
+                .registerTypeAdapter(instance.getClass(), creator)
+                .create();
         try {
             String json = f != null ? Files.readFile(f) : this.json;
             instance = (T) gson.fromJson(json, instance.getClass());

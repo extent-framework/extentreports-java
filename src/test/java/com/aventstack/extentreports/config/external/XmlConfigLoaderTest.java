@@ -10,15 +10,15 @@ import com.aventstack.extentreports.reporter.configuration.ExtentSparkReporterCo
 import com.aventstack.extentreports.reporter.configuration.Protocol;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
-public class JsonConfigLoaderTest {
-    private static final String JSON_FILE = "src/test/resources/config/spark-config.json";
-    private static final String JSON_FILE_ENUM = "src/test/resources/config/spark-config_lowercase_enum.json";
+public class XmlConfigLoaderTest {
+    private static final String XML_FILE = "src/test/resources/config/spark-config.xml";
+    private static final String XML_FILE_ENUM = "src/test/resources/config/spark-config.xml";
 
     @Test
-    public void jsonConfigTest() throws FileNotFoundException {
+    public void xmlConfigTest() throws FileNotFoundException {
         ExtentSparkReporterConfig conf = ExtentSparkReporterConfig.builder().build();
-        JsonConfigLoader<ExtentSparkReporterConfig> loader = new JsonConfigLoader<ExtentSparkReporterConfig>(conf,
-                new File(JSON_FILE));
+        XmlConfigLoader<ExtentSparkReporterConfig> loader = new XmlConfigLoader<ExtentSparkReporterConfig>(conf,
+                new File(XML_FILE));
         loader.apply();
         Assert.assertEquals(conf.getCss(), "css1");
         Assert.assertEquals(conf.getDocumentTitle(), "Test1");
@@ -31,10 +31,10 @@ public class JsonConfigLoaderTest {
     }
 
     @Test
-    public void jsonConfigLowerCaseEnumTest() throws FileNotFoundException {
+    public void xmlConfigLowerCaseEnumTest() throws FileNotFoundException {
         ExtentSparkReporterConfig conf = ExtentSparkReporterConfig.builder().build();
-        JsonConfigLoader<ExtentSparkReporterConfig> loader = new JsonConfigLoader<ExtentSparkReporterConfig>(conf,
-                new File(JSON_FILE_ENUM));
+        XmlConfigLoader<ExtentSparkReporterConfig> loader = new XmlConfigLoader<ExtentSparkReporterConfig>(conf,
+                new File(XML_FILE_ENUM));
         loader.apply();
         Assert.assertEquals(conf.getProtocol(), Protocol.HTTP);
         Assert.assertEquals(conf.getTheme(), Theme.DARK);
