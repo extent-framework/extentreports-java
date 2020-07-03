@@ -24,7 +24,8 @@ import lombok.ToString;
 public class Log implements RunResult, Serializable, BaseEntity {
     private static final long serialVersionUID = -3690764012141784427L;
 
-    private final Date timestamp = Calendar.getInstance().getTime();
+    @Builder.Default
+    private Date timestamp = Calendar.getInstance().getTime();
     @Builder.Default
     private Status status = Status.PASS;
     private String details;

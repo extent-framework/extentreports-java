@@ -3,6 +3,7 @@ package com.aventstack.extentreports.model.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
@@ -16,6 +17,14 @@ public class TestService {
         if (!removed)
             list.forEach(x -> deleteTest(x.getChildren(), test));
         return removed;
+    }
+
+    public static Optional<Test> findTest(List<Test> list, String name) {
+        Optional<Test> test = list.stream().filter(x -> x.getName().equals(name)).findFirst();
+        if (!test.isPresent())
+            for (Test t : list)
+                return findTest(t.getChildren(), name);
+        return test;
     }
 
     public static Boolean testHasScreenCapture(Test test, Boolean deep) {
