@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -77,6 +78,8 @@ public class ExtentKlovReporter extends AbstractReporter
     private static final String DB_NAME = "klov";
     private static final String DEFAULT_PROJECT_NAME = "Default";
 
+    private final AtomicBoolean initiated = new AtomicBoolean();
+
     private String url;
     private Boolean appendExisting = false;
 
@@ -129,6 +132,7 @@ public class ExtentKlovReporter extends AbstractReporter
      *            Name of the report
      */
     public ExtentKlovReporter(String projectName, String reportName) {
+        this();
         this.projectName = projectName;
         this.reportName = reportName;
     }
@@ -401,12 +405,6 @@ public class ExtentKlovReporter extends AbstractReporter
         }
     }
 
-    public void start() {
-        MongoDatabase db = mongoClient.getDatabase(DB_NAME);
-        initCollections(db);
-        setupProject();
-    }
-
     private void initCollections(MongoDatabase db) {
         projectCollection = db.getCollection("project");
         reportCollection = db.getCollection("report");
@@ -477,7 +475,7 @@ public class ExtentKlovReporter extends AbstractReporter
 
         Document doc = new Document("endTime", report.getEndTime())
                 .append("duration", report.timeTaken())
-                .append("status", report.getStatus())
+                .append("status", report.getStatus().toLower())
                 .append("parentLength", stats.sumStat(stats.getParent()))
                 .append("passParentLength", stats.getParent().get(Status.PASS))
                 .append("failParentLength", stats.getParent().get(Status.FAIL))
@@ -493,7 +491,7 @@ public class ExtentKlovReporter extends AbstractReporter
                 .append("failGrandChildLength", stats.getGrandchild().get(Status.FAIL))
                 .append("warningGrandChildLength", stats.getGrandchild().get(Status.WARNING))
                 .append("skipGrandChildLength", stats.getGrandchild().get(Status.SKIP))
-                .append("analysisStrategy", stats.getAnalysisStrategy())
+                .append("analysisStrategy", stats.getAnalysisStrategy().toString())
                 .append("bdd", testList.get(0).isBDD());
 
         if (authorNameList != null && !authorNameList.isEmpty())
@@ -647,7 +645,7 @@ public class ExtentKlovReporter extends AbstractReporter
                 .append("project", projectId).append("report", reportId)
                 .append("testName", test.getName())
                 .append("sequence", log.getSeq())
-                .append("status", log.getStatus().toString())
+                .append("status", log.getStatus().toLower())
                 .append("timestamp", log.getTimestamp())
                 .append("mediaCount", log.hasMedia() ? 1 : 0)
                 .append("details", log.getDetails());
@@ -705,7 +703,7 @@ public class ExtentKlovReporter extends AbstractReporter
     }
 
     private void endTestRecursive(Test test) {
-        Document doc = new Document("status", test.getStatus().toString())
+        Document doc = new Document("status", test.getStatus().toLower())
                 .append("endTime", test.getEndTime())
                 .append("duration", test.timeTaken())
                 .append("leaf", test.isLeaf())
@@ -814,6 +812,10 @@ public class ExtentKlovReporter extends AbstractReporter
 
             @Override
             public void onNext(TestEntity value) {
+                if (!initiated.get()) {
+                    start();
+                    initiated.compareAndSet(false, true);
+                }
                 if (!value.getRemoved())
                     onTestStarted(value.getTest());
             }
@@ -828,6 +830,12 @@ public class ExtentKlovReporter extends AbstractReporter
         };
     }
 
+    private final void start() {
+        MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+        initCollections(db);
+        setupProject();
+    }
+
     private void onTestStarted(Test test) {
         Document doc = new Document("project", projectId)
                 .append("report", reportId)
@@ -835,7 +843,7 @@ public class ExtentKlovReporter extends AbstractReporter
                 .append("reportSeq", reportSeq)
                 .append("level", test.getLevel())
                 .append("name", test.getName())
-                .append("status", test.getStatus().toString())
+                .append("status", test.getStatus().toLower())
                 .append("description", test.getDescription())
                 .append("startTime", test.getStartTime())
                 .append("endTime", test.getEndTime())
