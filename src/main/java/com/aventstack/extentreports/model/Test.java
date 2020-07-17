@@ -29,7 +29,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public final class Test implements RunResult, Serializable, BaseEntity {
+public final class Test implements RunResult, Serializable, BaseEntity, MetaDataStorable {
     private static final long serialVersionUID = -4896520724677957845L;
     private static final AtomicInteger atomicInt = new AtomicInteger(0);
 

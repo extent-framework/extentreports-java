@@ -21,7 +21,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Log implements RunResult, Serializable, BaseEntity {
+public class Log implements RunResult, Serializable, BaseEntity, MetaDataStorable {
     private static final long serialVersionUID = -3690764012141784427L;
 
     @Builder.Default

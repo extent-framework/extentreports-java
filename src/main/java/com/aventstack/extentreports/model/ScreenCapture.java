@@ -1,6 +1,7 @@
 package com.aventstack.extentreports.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ public class ScreenCapture extends Media implements Serializable {
 
     @Builder
     public ScreenCapture(String path, String title, String resolvedPath, String base64) {
-        super(path, title, resolvedPath);
+        super(path, title, resolvedPath, new HashMap<String, Object>());
         this.base64 = base64;
     }
 }
