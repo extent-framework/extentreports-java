@@ -33,7 +33,7 @@ public final class Test implements RunResult, Serializable, BaseEntity {
     private static final long serialVersionUID = -4896520724677957845L;
     private static final AtomicInteger atomicInt = new AtomicInteger(0);
 
-    private final transient Integer id = atomicInt.incrementAndGet();
+    private final transient int id = atomicInt.incrementAndGet();
     private final transient StatusDeterminator determinator = new StatusDeterminator();
     @Builder.Default
     private boolean useNaturalConf = true;
@@ -131,6 +131,10 @@ public final class Test implements RunResult, Serializable, BaseEntity {
 
     public final boolean hasDevice() {
         return !deviceSet.isEmpty();
+    }
+
+    public final boolean hasException() {
+        return !exceptions.isEmpty();
     }
 
     public final String getFullName() {
