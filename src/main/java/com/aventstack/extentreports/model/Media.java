@@ -16,5 +16,5 @@ public class Media implements Serializable, BaseEntity, MetaDataStorable {
     private String path;
     private String title;
     private String resolvedPath;
-    private Map<String, Object> infoMap;
+    private transient Map<String, Object> infoMap;
 }
