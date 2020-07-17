@@ -58,6 +58,9 @@ public class Report implements Serializable, BaseEntity {
                 .stream()
                 .map(x -> x.getStatus())
                 .collect(Collectors.toList());
-        return Status.max(list);
+        Status s = Status.max(list);
+        if (s == Status.SKIP && anyTestHasStatus(Status.PASS))
+            s = Status.PASS;
+        return s;
     }
 }
