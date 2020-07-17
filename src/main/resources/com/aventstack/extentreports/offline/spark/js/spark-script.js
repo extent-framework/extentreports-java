@@ -174,6 +174,7 @@ function toggleView(v) {
 /* -- [ filter tests by text in test and categories view ] -- */
 $(document).ready(function() {
 	$('.test-list-item .test-item').dynamicTestSearch('#search-tests');
+	$('.side-nav-menu>li:first-child').click();
 });
 
 $.fn.dynamicTestSearch = function(id){
@@ -305,9 +306,10 @@ function drawChart(ctx, config) {
             },
             options: options
         };
-
-        var ctx = document.getElementById("child-analysis").getContext('2d');
-        drawChart(ctx, config);
+        if (document.getElementById("child-analysis")) {
+	        var ctx = document.getElementById("child-analysis").getContext('2d');
+	        drawChart(ctx, config);
+        }
     }
 })();
 
