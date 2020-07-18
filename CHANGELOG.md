@@ -1,5 +1,9 @@
 ## [5.0.0]
 
+## [4.1.7](https://github.com/extent-framework/extentreports-java/compare/v4.1.6...v4.1.7)
+#### Fixes
+* [#193] Unable to format the JSON code String in report
+
 ## [4.1.6](https://github.com/extent-framework/extentreports-java/compare/v4.1.5...v4.1.6)
 #### Fixes
 * [#149] Skipped count is not displaying in authors tag and category tag
