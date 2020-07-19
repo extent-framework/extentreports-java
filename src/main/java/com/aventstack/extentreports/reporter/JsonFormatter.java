@@ -14,7 +14,7 @@ import com.google.gson.GsonBuilder;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class JsonFormatter extends AbstractFileReporter implements ReportObserver<ReportEntity> {
+public class JsonFormatter extends AbstractFileReporter implements ReporterConfigurable, ReportObserver<ReportEntity> {
     private static final String FILE_NAME = "extent.json";
 
     public JsonFormatter(File file) {
@@ -60,5 +60,22 @@ public class JsonFormatter extends AbstractFileReporter implements ReportObserve
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void loadJSONConfig(File jsonFile) throws IOException {
+    }
+
+    @Override
+    public void loadJSONConfig(String jsonString) throws IOException {
+
+    }
+
+    @Override
+    public void loadXMLConfig(File xmlFile) throws IOException {
+    }
+
+    @Override
+    public void loadXMLConfig(String xmlFile) throws IOException {
     }
 }
