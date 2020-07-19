@@ -35,6 +35,7 @@
     <#elseif m.resolvedPath??><img data-featherlight='${m.resolvedPath}' src="${m.resolvedPath}">
     <#elseif m.path??><img data-featherlight='${m.path}' src="${m.path}">
     </#if>
+    <#if m.title??><div class="title">${m.title}</div></#if>
     </div></div>
   </#if>
 </#macro>

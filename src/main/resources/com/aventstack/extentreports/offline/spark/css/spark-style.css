@@ -308,6 +308,12 @@ textarea {
 	background-color: #f6f7fa;
 	padding: 1rem;
 }
+.detail-body img+.title {
+    background: #f6f7fa;
+    padding: 0 1rem .5rem;
+    text-align: center;
+    font-size: 90%;
+}
 
 /* nodes */
 .card > .accordion { 
