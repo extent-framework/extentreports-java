@@ -6,7 +6,7 @@
       <div class="card">
         <div class="card-header">
           <div class="card-title">
-            <div class="node">${node.name}</div>
+            <div class="node" id="${node.getId()}">${node.name}</div>
             <div class="status-avatar float-right ${node.status.toLower()}-bg">
                <i class="fa fa-${Ico.ico(node.status)} text-white"></i>
             </div>

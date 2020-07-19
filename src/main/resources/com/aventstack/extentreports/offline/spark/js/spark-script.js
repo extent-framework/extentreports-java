@@ -119,10 +119,21 @@ $('.test-content').click(function(evt) {
 	var t = $(evt.target);
 	if (t.is('.linked')) {
 		var testId = t.attr('test-id');
+		var id = t.attr('id');
 		$('#nav-test').click();
 		$('.test-item').filter(function() {
 			return $(this).attr('test-id') == testId;
 		}).click();
+		setTimeout(function() {
+			var card = $('.test-content-detail .node').filter(function() {
+				return $(this).attr('id') == id;
+			}).closest('.card');
+			card.addClass('border-dark');
+			card.find('.card-header').next().removeClass('collapse');
+			setTimeout(function() {
+				card.removeClass('border-dark');
+			}, 1000);
+		}, 200);
 	}
 });
 

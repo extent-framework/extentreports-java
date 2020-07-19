@@ -65,7 +65,7 @@
     <div class="test-content-tools">
       <ul>
         <li>
-          <a class="back-to-test" href="javascript:void(0)">
+          <a class="back-to-test" href="#">
           <i class="fa fa-arrow-left"></i>
           </a>
         </li>
