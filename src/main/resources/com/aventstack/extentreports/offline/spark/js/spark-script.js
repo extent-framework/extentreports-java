@@ -55,6 +55,30 @@ $(".test-item").click(function() {
 	$(".test-content-detail .detail-body").empty().append(content.removeClass("d-none"));
 });
 
+function hashChangeOrLoad() {
+	var loc = window.location.href;
+	if (loc.indexOf('?test-name')>0 || loc.indexOf('#test-name')>0) {
+		var name = loc.match(/test-name.*/)[0].replace('test-name=', '');
+		name = name.replace(/%22/g, '').replace(/%20/, ' ');
+		$('.test-detail .name').filter(function() {
+			return $(this).text() == name;
+		}).closest('.test-item').click();
+	}
+	if (loc.indexOf('?test-id')>0 || loc.indexOf('#test-id')>0) {
+		var id = loc.match(/test-id.*/)[0].replace('test-id=', '');
+		$('.test-item').filter(function() {
+			return $(this).attr('test-id') == id;
+		}).click();
+	}
+	if (loc.indexOf('?theme')>0 || loc.indexOf('#theme')>0) {
+		var name = loc.match(/theme.*/)[0].replace('theme=', '');
+		$('body').addClass(name);
+	}
+}
+$(window).on('hashchange', function(e){
+	hashChangeOrLoad();
+});
+
 $(document).ready(function() {
 	if ($(".test-item").length) {
 		$(".test-item").first().click();
@@ -67,14 +91,7 @@ $(document).ready(function() {
 	// this prevents invalid navigation to external html files
 	$(".spa .side-nav .nav-item>a").attr("href", "#");
 	
-	var loc = window.location.href;
-	if (loc.indexOf('?test-name')>0) {
-		var name = loc.match(/test-name.*/)[0].replace('test-name=', '');
-		name = name.replace(/%22/g, '').replace(/%20/, ' ');
-		$('.test-detail .name').filter(function() {
-			return $(this).text() == name;
-		}).closest('.test-item').click();
-	}
+	hashChangeOrLoad();
 });
 
 $(".test-content").click(function(evt) {
@@ -199,18 +216,18 @@ $.fn.dynamicTestSearch = function(id){
 /* ------------------------------------ */
 /* keyboard events */
 /* ------------------------------------ */
+function goToView(view) {
+	$("#" + view).click();
+}
+function moveVert(dir) {
+	if (dir === 'up')
+		$('.test-item.active')
+}
 $(window).keydown(function(e) {
 	var target = null, sibling = null;
 	
     if ($('input').is(':focus') || $('.featherlight').length > 0) {
     } else {
-        function goToView(view) {
-			$("#" + view).click();
-        }
-		function moveVert(dir) {
-			if (dir === 'up')
-				$('.test-item.active')
-		}
 		var target = $("." + currentView + " .test-item.active");
 		var sibling = "." + currentView + " .test-item:not(.d-none)";
         if (!e.ctrlKey && !e.altKey && !e.shiftKey && e.which!==91 && e.which!==93 && e.which!==224 && !e.metaKey && !e.which != 17) {
