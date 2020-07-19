@@ -278,7 +278,10 @@ var options = {
           fontSize: 11,
           lineHeight: 1,
           fontFamily: ["Source Sans Pro", "Segoe UI", "Arial"],
-          padding: 1
+          padding: 1,
+          filter: function(legendItem, data) {
+            return data.datasets[0].data[legendItem.index] != 0;
+		  }
       }
   },
   cutoutPercentage: 65
