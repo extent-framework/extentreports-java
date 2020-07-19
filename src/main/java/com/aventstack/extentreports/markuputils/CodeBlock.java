@@ -26,7 +26,7 @@ class CodeBlock extends MarkupTemplate implements Markup {
     private static final String CODEBLOCK_JSON_TEMPLATE = "codeblock.json.ftl";
     private static Template codeblock;
     private static Template codeblockJson;
-    private String code;
+    private String[] codeArray;
     private CodeLanguage lang;
     private Object jsonObject;
 
@@ -41,10 +41,11 @@ class CodeBlock extends MarkupTemplate implements Markup {
 
     @Override
     public String getMarkup() {
-        if (code == null && jsonObject == null)
+        if (jsonObject == null && codeArray == null)
             return "";
         if (jsonObject != null)
-            code = new Gson().toJson(jsonObject);
+            codeArray = new String[]{new Gson().toJson(jsonObject)};
+        
         int index = 0;
         Template t = codeblock;
         if (lang == CodeLanguage.JSON) {
@@ -52,7 +53,7 @@ class CodeBlock extends MarkupTemplate implements Markup {
             t = codeblockJson;
         }
         Map<String, Object> map = new HashMap<>();
-        map.put("code", code);
+        map.put("code", codeArray);
         map.put("index", index);
         try {
             return ft.getSource(t, map);

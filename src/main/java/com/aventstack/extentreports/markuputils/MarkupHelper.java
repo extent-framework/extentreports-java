@@ -7,14 +7,30 @@ public class MarkupHelper {
     }
 
     public static Markup createCodeBlock(String code) {
-        return CodeBlock.builder().code(code).build();
+        return CodeBlock.builder().codeArray(new String[]{code}).build();
+    }
+
+    public static Markup createCodeBlock(String code1, String code2) {
+        return CodeBlock.builder().codeArray(new String[]{code1, code2}).build();
+    }
+
+    public static Markup createCodeBlock(String code1, String code2, String code3) {
+        return CodeBlock.builder().codeArray(new String[]{code1, code2, code3}).build();
+    }
+
+    public static Markup createCodeBlock(String code1, String code2, String code3, String code4) {
+        return CodeBlock.builder().codeArray(new String[]{code1, code2, code3, code4}).build();
     }
 
     public static Markup createCodeBlock(String code, CodeLanguage lang) {
-        return CodeBlock.builder().code(code).lang(lang).build();
+        return CodeBlock.builder().codeArray(new String[]{code}).lang(lang).build();
     }
 
-    public static Markup createCodeBlock(Object o) {
+    public static Markup createCodeBlocks(String[] code) {
+        return CodeBlock.builder().codeArray(code).build();
+    }
+
+    public static Markup createJsonCodeBlock(Object o) {
         return CodeBlock.builder().jsonObject(o).lang(CodeLanguage.JSON).build();
     }
 
