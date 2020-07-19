@@ -64,8 +64,9 @@
           <div class="test-contents d-none">
             <#compress>
             <div class="detail-head">
-              <div class="p-v-10 d-inline-block">
+              <div class="p-v-10">
                 <div class="info">
+                  <div class='float-right'><span class='badge badge-default'>#test-id=${test.getId()}</span></div>
                   <h5 class="test-status text-${test.status.toLower()}">${test.name}</h5>
                   <span class='badge badge-success'>${test.startTime?string("MM.dd.yyyy HH:mm:ss")}</span>
                   <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy HH:mm:ss")}</span>
