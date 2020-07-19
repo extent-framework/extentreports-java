@@ -7,7 +7,8 @@ public class MarkupHelper {
     }
 
     public static Markup createCodeBlock(String code) {
-        return CodeBlock.builder().codeArray(new String[]{code}).build();
+        String[] a = code == null ? null : new String[]{code};
+        return CodeBlock.builder().codeArray(a).build();
     }
 
     public static Markup createCodeBlock(String code1, String code2) {
