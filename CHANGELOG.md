@@ -1,5 +1,27 @@
 ## [5.0.0]
 
+#### New Features
+- [#47](../issues/47) Anchors for each test
+- [#150](../issues/150) Unused status from charts will not be displayed
+- [#152](../issues/152) Spark: Author view
+- [#153](../issues/153) Spark: Device view
+- [#157](../issues/157) Spark: Add TestRunnerLogs view
+- [#168](../issues/168) Spark: Navigation from attributes pages (tags, exception) to Tests View
+- [#173](../issues/173) Spark: Allow configuration to select view order, Dashboard view as primary
+- [#176](../issues/176) Apply Status filters to report
+- [#177](../issues/177) Minified templates (> 10% reduction in file size)
+- [#184](../issues/184) Reporter::loadExternalConfiguration with json file
+- [#188](../issues/188) Display upto 4 `pre` blocks on a single row
+- [#191](../issues/191) Navigation from Tags/Exception pages to nested steps
+- [#213](../issues/213) oggle theme from URI component '#theme='
+
+#### Issues Resolved
+- [#131](../issues/131) Merging two html extent Reports works but Category view gets overwritten
+- [#161](../issues/161) Merging ExtentSpark 4.1.5 Reports causing the existing base64 image removed
+- [#169](../issues/169) Fix SparkReporter shortcuts
+- [#197](../issues/197) MarkupHelper::codeBlock has extra indentation on the first line
+- [#208](../issues/208) Show title text for screencaptures
+
 ## [4.1.7](https://github.com/extent-framework/extentreports-java/compare/v4.1.6...v4.1.7)
 #### Fixes
 * [#193] Unable to format the JSON code String in report
