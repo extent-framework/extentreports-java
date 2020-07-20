@@ -13,7 +13,7 @@
 - [#184](../issues/184) Reporter::loadExternalConfiguration with json file
 - [#188](../issues/188) Display upto 4 `pre` blocks on a single row
 - [#191](../issues/191) Navigation from Tags/Exception pages to nested steps
-- [#213](../issues/213) oggle theme from URI component '#theme='
+- [#213](../issues/213) Toggle theme from URI component using '#theme='
 
 #### Issues Resolved
 - [#131](../issues/131) Merging two html extent Reports works but Category view gets overwritten
