@@ -2,7 +2,7 @@ package com.aventstack.extentreports;
 
 import org.testng.annotations.Test;
 
-public class ExtentTestTest {
+public class ExtentTestInvalidArgTest {
 
     private final ExtentReports extent = new ExtentReports();
 

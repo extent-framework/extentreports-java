@@ -83,27 +83,6 @@ public class ExtentReportsTest {
     }
 
     @org.testng.annotations.Test
-    public void removeTest() {
-        ExtentReports extent = extent();
-        ExtentTest test = extent.createTest(TEST_NAME);
-        Assert.assertEquals(extent.getReport().getTestList().size(), 1);
-        extent.removeTest(test);
-        Assert.assertEquals(extent.getReport().getTestList().size(), 0);
-    }
-
-    @org.testng.annotations.Test
-    public void removeNode() {
-        ExtentReports extent = extent();
-        ExtentTest test = extent.createTest(TEST_NAME);
-        ExtentTest node = test.createNode(TEST_NAME);
-        Assert.assertEquals(extent.getReport().getTestList().size(), 1);
-        Assert.assertEquals(extent.getReport().getTestList().get(0).getChildren().size(), 1);
-        extent.removeTest(node);
-        Assert.assertEquals(extent.getReport().getTestList().size(), 1);
-        Assert.assertEquals(extent.getReport().getTestList().get(0).getChildren().size(), 0);
-    }
-
-    @org.testng.annotations.Test
     public void gherkinDialect() throws UnsupportedEncodingException {
         ExtentReports extent = extent();
         extent.setGherkinDialect("de");
