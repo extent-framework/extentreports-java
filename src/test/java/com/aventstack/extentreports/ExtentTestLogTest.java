@@ -17,6 +17,11 @@ public class ExtentTestLogTest {
         return new RuntimeException();
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void logWithStatusNull() {
+        test().log(null, null, null, null);
+    }
+
     @Test
     public void logDetails() {
         ExtentTest test = test().log(Status.SKIP, DETAILS + "1");
