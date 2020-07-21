@@ -7,9 +7,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aventstack.extentreports.gson.BddTypeAdapterFactory;
 import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.Test;
-import com.aventstack.extentreports.reporter.typeadapter.BddTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

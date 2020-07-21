@@ -1,4 +1,4 @@
-package com.aventstack.extentreports.reporter.typeadapter;
+package com.aventstack.extentreports.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;

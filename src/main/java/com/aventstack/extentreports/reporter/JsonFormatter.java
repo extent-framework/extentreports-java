@@ -5,12 +5,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import com.aventstack.extentreports.gson.GsonExtentTypeAdapterBuilder;
 import com.aventstack.extentreports.model.Test;
 import com.aventstack.extentreports.observer.ReportObserver;
 import com.aventstack.extentreports.observer.entity.ReportEntity;
-import com.aventstack.extentreports.reporter.typeadapter.BddTypeAdapterFactory;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -49,11 +48,9 @@ public class JsonFormatter extends AbstractFileReporter implements ReporterConfi
     }
 
     private void flush(ReportEntity value) {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = null;
-        gson = builder
-                .registerTypeAdapterFactory(new BddTypeAdapterFactory())
-                .create();
+        Gson gson = GsonExtentTypeAdapterBuilder.builder()
+                .withBddTypeAdapterFactory()
+                .build();
         final String filePath = getFileNameAsExt(FILE_NAME, new String[]{".json"});
         try (FileWriter writer = new FileWriter(new File(filePath))) {
             List<Test> list = value.getReport().getTestList();

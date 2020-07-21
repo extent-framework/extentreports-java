@@ -1,4 +1,4 @@
-package com.aventstack.extentreports.reporter.typeadapter;
+package com.aventstack.extentreports.gson;
 
 import java.io.IOException;
 import java.util.logging.Level;
