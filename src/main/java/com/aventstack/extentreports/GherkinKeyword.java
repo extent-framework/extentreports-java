@@ -74,6 +74,8 @@ public class GherkinKeyword {
             if (apiKeyword == null)
                 throw new GherkinKeywordNotFoundException("Keyword cannot be found. " +
                         "You supplied: " + gk + " for dialect " + dialect + " which couldn't be mapped.");
+            if (apiKeyword.toLowerCase().contains("scenario") && apiKeyword.toLowerCase().contains("outline"))
+                apiKeyword = "ScenarioOutline";
             String clazzName = refPath + "." + apiKeyword.replace(" ", "");
             Class<?> c = Class.forName(clazzName);
             keyword = (IGherkinFormatterModel) c.newInstance();

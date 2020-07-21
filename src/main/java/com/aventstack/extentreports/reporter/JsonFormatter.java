@@ -8,6 +8,7 @@ import java.util.List;
 import com.aventstack.extentreports.model.Test;
 import com.aventstack.extentreports.observer.ReportObserver;
 import com.aventstack.extentreports.observer.entity.ReportEntity;
+import com.aventstack.extentreports.reporter.typeadapter.BddTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -49,7 +50,10 @@ public class JsonFormatter extends AbstractFileReporter implements ReporterConfi
 
     private void flush(ReportEntity value) {
         GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
+        Gson gson = null;
+        gson = builder
+                .registerTypeAdapterFactory(new BddTypeAdapterFactory())
+                .create();
         final String filePath = getFile().isDirectory()
                 ? getFile().getAbsolutePath()
                         + PATH_SEP + FILE_NAME

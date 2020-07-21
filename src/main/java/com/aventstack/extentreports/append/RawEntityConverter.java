@@ -30,7 +30,7 @@ public class RawEntityConverter {
                 if (test.getBddType() == null) {
                     createDomain(test, extent.createTest(test.getName(), test.getDescription()));
                 } else {
-                    ExtentTest extentTest = extent.createTest(new GherkinKeyword(test.getBddType().toString()),
+                    ExtentTest extentTest = extent.createTest(new GherkinKeyword(test.getBddType().getSimpleName()),
                             test.getName(), test.getDescription());
                     createDomain(test, extentTest);
                 }
@@ -68,7 +68,7 @@ public class RawEntityConverter {
             if (node.getBddType() == null)
                 extentNode = extentTest.createNode(node.getName(), node.getDescription());
             else
-                extentNode = extentTest.createNode(new GherkinKeyword(node.getBddType().toString()), node.getName(),
+                extentNode = extentTest.createNode(new GherkinKeyword(node.getBddType().getSimpleName()), node.getName(),
                         node.getDescription());
             addMedia(node, extentNode);
             createDomain(node, extentNode);

@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.reporter.typeadapter.BddTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +24,7 @@ public class JsonDeserializer {
     public List<Test> deserialize() throws IOException {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Media.class, new ScreenCaptureTypeAdapter())
+                .registerTypeAdapterFactory(new BddTypeAdapterFactory())
                 .create();
         String json = new String(Files.readAllBytes(f.toPath()));
         Type t = new TypeToken<ArrayList<Test>>() {
