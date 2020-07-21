@@ -279,7 +279,8 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
      *            The test name
      */
     public void removeTest(String name) {
-        TestService.findTest(getTestList(), name).ifPresent(this::onTestRemoved);
+        TestService.findTest(getReport().getTestList(), name)
+                .ifPresent(this::onTestRemoved);
     }
 
     /**
