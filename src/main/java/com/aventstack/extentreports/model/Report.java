@@ -40,6 +40,31 @@ public class Report implements Serializable, BaseEntity {
     private final List<String> logs = Collections.synchronizedList(new ArrayList<>());
     private final List<SystemEnvInfo> systemEnvInfo = new ArrayList<>();
 
+    public final void refresh() {
+        authorCtx.getSet().forEach(x -> x.refresh());
+        categoryCtx.getSet().forEach(x -> x.refresh());
+        deviceCtx.getSet().forEach(x -> x.refresh());
+        stats.update(testList);
+        synchronized (this) {
+            setEndTime(Calendar.getInstance().getTime());
+        }
+    }
+
+    public final void applyOverrideConf() {
+        Date min = testList.stream()
+                .map(t -> t.getStartTime())
+                .min(Date::compareTo)
+                .get();
+        Date max = testList.stream()
+                .map(t -> t.getEndTime())
+                .max(Date::compareTo)
+                .get();
+        synchronized (this) {
+            setStartTime(min);
+            setEndTime(max);
+        }
+    }
+
     public final boolean isBDD() {
         return !testList.isEmpty() && testList.stream().allMatch(Test::isBDD);
     }

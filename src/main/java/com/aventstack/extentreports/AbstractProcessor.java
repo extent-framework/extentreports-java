@@ -2,9 +2,6 @@ package com.aventstack.extentreports;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import com.aventstack.extentreports.append.RawEntityConverter;
 import com.aventstack.extentreports.model.Author;
@@ -14,7 +11,6 @@ import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.SystemEnvInfo;
 import com.aventstack.extentreports.model.Test;
-import com.aventstack.extentreports.model.context.NamedAttributeContextManager;
 import com.aventstack.extentreports.model.service.MediaService;
 import com.aventstack.extentreports.model.service.TestService;
 
@@ -24,23 +20,18 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class AbstractProcessor extends ReactiveSubject {
-    private final List<Test> testList = getReport().getTestList();
-    private final NamedAttributeContextManager<Author> authorCtx = getReport().getAuthorCtx();
-    private final NamedAttributeContextManager<Category> categoryCtx = getReport().getCategoryCtx();
-    private final NamedAttributeContextManager<Device> deviceCtx = getReport().getDeviceCtx();
-
     private String[] mediaResolverPath;
     private boolean usingNaturalConf = true;
 
     @Override
     protected void onTestCreated(Test test) {
-        testList.add(test);
+        getReport().getTestList().add(test);
         super.onTestCreated(test);
     }
 
     @Override
     protected void onTestRemoved(Test test) {
-        TestService.deleteTest(testList, test);
+        TestService.deleteTest(getReport().getTestList(), test);
         super.onTestRemoved(test);
     }
 
@@ -72,43 +63,26 @@ public abstract class AbstractProcessor extends ReactiveSubject {
     }
 
     protected void onAuthorAdded(Author x, Test test) {
-        authorCtx.addContext(x, test);
+        getReport().getAuthorCtx().addContext(x, test);
         super.onAuthorAssigned(x, test);
     }
 
     protected void onCategoryAdded(Category x, Test test) {
-        categoryCtx.addContext(x, test);
+        getReport().getCategoryCtx().addContext(x, test);
         super.onCategoryAssigned(x, test);
     }
 
     protected void onDeviceAdded(Device x, Test test) {
-        deviceCtx.addContext(x, test);
+        getReport().getDeviceCtx().addContext(x, test);
         super.onDeviceAssigned(x, test);
     }
 
     @Override
     protected void onFlush() {
-        authorCtx.getSet().forEach(x -> x.refresh());
-        categoryCtx.getSet().forEach(x -> x.refresh());
-        deviceCtx.getSet().forEach(x -> x.refresh());
-        getReport().getStats().update(testList);
-        getReport().setEndTime(Calendar.getInstance().getTime());
+        getReport().refresh();
         if (!usingNaturalConf)
-            applyConf();
+            getReport().applyOverrideConf();
         super.onFlush();
-    }
-
-    private void applyConf() {
-        Date min = testList.stream()
-                .map(t -> t.getStartTime())
-                .min(Date::compareTo)
-                .get();
-        Date max = testList.stream()
-                .map(t -> t.getEndTime())
-                .max(Date::compareTo)
-                .get();
-        getReport().setStartTime(min);
-        getReport().setEndTime(max);
     }
 
     protected void onReportLogAdded(String log) {
