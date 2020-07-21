@@ -24,6 +24,7 @@ import com.aventstack.extentreports.model.Category;
 import com.aventstack.extentreports.model.Device;
 import com.aventstack.extentreports.model.ExceptionInfo;
 import com.aventstack.extentreports.model.Log;
+import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.MetaDataStorable;
 import com.aventstack.extentreports.model.NamedAttribute;
 import com.aventstack.extentreports.model.Report;
@@ -40,6 +41,7 @@ import com.aventstack.extentreports.observer.entity.MediaEntity;
 import com.aventstack.extentreports.observer.entity.ObservedEntity;
 import com.aventstack.extentreports.observer.entity.ReportEntity;
 import com.aventstack.extentreports.observer.entity.TestEntity;
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
@@ -64,9 +66,8 @@ public class ExtentKlovReporter extends AbstractReporter
             EntityObserver<ObservedEntity> {
     public static final String ID_KEY = "KLOV_ID";
     public static final String REPORT_ID_KEY = "KLOV_REPORT_ID";
-    public static final String LOG_ID_KEY = "KLOV_TEST_ID";
-    public static final String TEST_ID_KEY = "KLOV_LOG_ID";
-    public static final String MEDIA_ID_KEY = "KLOV_MEDIA_ID";
+    public static final String LOG_ID_KEY = "KLOV_LOG_ID";
+    public static final String TEST_ID_KEY = "KLOV_TEST_ID";
 
     private static final String DEFAULT_PROJECT_NAME_PROP = "klov.project.name";
     private static final String DEFAULT_REPORT_NAME_PROP = "klov.report.name";
@@ -818,6 +819,8 @@ public class ExtentKlovReporter extends AbstractReporter
                 }
                 if (!value.getRemoved())
                     onTestStarted(value.getTest());
+                else
+                    onTestRemoved(value.getTest());
             }
 
             @Override
@@ -867,5 +870,50 @@ public class ExtentKlovReporter extends AbstractReporter
         testCollection.insertOne(doc);
         ObjectId testId = MongoUtil.getId(doc);
         test.getInfoMap().put(ID_KEY, testId);
+    }
+
+    private void onTestRemoved(Test test) {
+        Document doc = new Document("_id", test.getInfoMap().get(ID_KEY));
+        testCollection.deleteOne(doc);
+        test.getLogs().forEach(this::removeLog);
+        if (test.hasAnyLog()) {
+            doc = new Document("test", test.getInfoMap().get(ID_KEY));
+            logCollection.deleteMany(doc);
+        }
+        if (test.hasAttributes())
+            removeFromAttributes(test);
+        if (test.hasChildren())
+            test.getChildren().forEach(this::onTestRemoved);
+    }
+
+    private void removeLog(Log log) {
+        Document doc = new Document("_id", log.getInfoMap().get(ID_KEY));
+        logCollection.deleteOne(doc);
+        if (log.hasMedia())
+            removeMedia(log.getMedia());
+    }
+
+    private void removeMedia(Media m) {
+        Document doc = new Document("_id", m.getInfoMap().get(ID_KEY));
+        mediaCollection.deleteOne(doc);
+    }
+
+    private void removeFromAttributes(Test t) {
+        Document match, update;
+        for (Author x : t.getAuthorSet()) {
+            match = new Document("_id", authorNameObjectIdCollection.get(x.getName()));
+            update = new Document("testIdList", t.getInfoMap().get(ID_KEY));
+            authorCollection.updateOne(match, new BasicDBObject("$pull", update));
+        }
+        for (Category x : t.getCategorySet()) {
+            match = new Document("_id", categoryNameObjectIdCollection.get(x.getName()));
+            update = new Document("testIdList", t.getInfoMap().get(ID_KEY));
+            categoryCollection.updateOne(match, new BasicDBObject("$pull", update));
+        }
+        for (Device x : t.getDeviceSet()) {
+            match = new Document("_id", deviceNameObjectIdCollection.get(x.getName()));
+            update = new Document("testIdList", t.getInfoMap().get(ID_KEY));
+            deviceCollection.updateOne(match, new BasicDBObject("$pull", update));
+        }
     }
 }

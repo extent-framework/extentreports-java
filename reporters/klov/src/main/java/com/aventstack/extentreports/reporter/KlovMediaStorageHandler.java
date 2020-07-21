@@ -37,7 +37,7 @@ public class KlovMediaStorageHandler {
 
         klovMedia.getMediaCollection().insertOne(doc);
         ObjectId mediaId = MongoUtil.getId(doc);
-        media.getInfoMap().put(ExtentKlovReporter.MEDIA_ID_KEY, mediaId);
+        media.getInfoMap().put(ExtentKlovReporter.ID_KEY, mediaId);
         media.getInfoMap().put(ExtentKlovReporter.REPORT_ID_KEY, klovMedia.getReportId());
 
         if (media.getBase64() != null)
