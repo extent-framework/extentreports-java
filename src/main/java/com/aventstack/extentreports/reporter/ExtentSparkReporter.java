@@ -144,10 +144,7 @@ public class ExtentSparkReporter extends AbstractFileReporter
             getTemplateModel().put("viewOrder", viewConfigurer.viewOrder().getViewOrder());
             getTemplateModel().put("report", report);
             createFreemarkerConfig(TEMPLATE_LOCATION, ENCODING);
-            final String filePath = getFile().isDirectory()
-                    ? getFile().getAbsolutePath()
-                            + PATH_SEP + FILE_NAME
-                    : getFile().getAbsolutePath();
+            final String filePath = getFileNameAsExt(FILE_NAME, new String[]{".html", ".htm"});
             final Template template = getFreemarkerConfig().getTemplate(SPA_TEMPLATE_NAME);
             processTemplate(template, new File(filePath));
             return;

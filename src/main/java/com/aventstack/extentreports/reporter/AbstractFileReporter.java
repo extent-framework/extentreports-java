@@ -3,6 +3,7 @@ package com.aventstack.extentreports.reporter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -82,4 +83,14 @@ public abstract class AbstractFileReporter extends AbstractFilterableReporter {
         return freemarkerConfig;
     }
 
+    protected String getFileNameAsExt(String fileName, String[] checkExt) {
+        if (checkExt.length == 0)
+            return fileName;
+        String filePath = getFile().isDirectory()
+                ? getFile().getAbsolutePath()
+                        + PATH_SEP + fileName
+                : getFile().getAbsolutePath();
+        boolean b = Arrays.stream(checkExt).anyMatch(x -> filePath.endsWith(x));
+        return b ? filePath : filePath + checkExt[0];
+    }
 }

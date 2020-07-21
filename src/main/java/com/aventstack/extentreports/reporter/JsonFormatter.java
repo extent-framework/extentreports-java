@@ -54,10 +54,7 @@ public class JsonFormatter extends AbstractFileReporter implements ReporterConfi
         gson = builder
                 .registerTypeAdapterFactory(new BddTypeAdapterFactory())
                 .create();
-        final String filePath = getFile().isDirectory()
-                ? getFile().getAbsolutePath()
-                        + PATH_SEP + FILE_NAME
-                : getFile().getAbsolutePath();
+        final String filePath = getFileNameAsExt(FILE_NAME, new String[]{".json"});
         try (FileWriter writer = new FileWriter(new File(filePath))) {
             List<Test> list = value.getReport().getTestList();
             gson.toJson(list, writer);
