@@ -7,11 +7,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aventstack.extentreports.gson.BddTypeAdapterFactory;
-import com.aventstack.extentreports.model.Media;
+import com.aventstack.extentreports.gson.GsonExtentTypeAdapterBuilder;
 import com.aventstack.extentreports.model.Test;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 public class JsonDeserializer {
@@ -22,10 +20,10 @@ public class JsonDeserializer {
     }
 
     public List<Test> deserialize() throws IOException {
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Media.class, new ScreenCaptureTypeAdapter())
-                .registerTypeAdapterFactory(new BddTypeAdapterFactory())
-                .create();
+        Gson gson = GsonExtentTypeAdapterBuilder.builder()
+                .withBddTypeAdapterFactory()
+                .withScreenCaptureTypeAdapter()
+                .build();
         String json = new String(Files.readAllBytes(f.toPath()));
         Type t = new TypeToken<ArrayList<Test>>() {
         }.getType();
