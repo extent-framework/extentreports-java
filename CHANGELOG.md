@@ -14,6 +14,7 @@
 - [#188](../issues/188) Display upto 4 `pre` blocks on a single row
 - [#191](../issues/191) Navigation from Tags/Exception pages to nested steps
 - [#213](../issues/213) Toggle theme from URI component using '#theme='
+- [#215](../issues/215) A test removed from the report will also be removed from MongoDB (Klov)
 
 #### Issues Resolved
 - [#131](../issues/131) Merging two html extent Reports works but Category view gets overwritten
