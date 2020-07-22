@@ -86,11 +86,16 @@ public abstract class AbstractFileReporter extends AbstractFilterableReporter {
     protected String getFileNameAsExt(String fileName, String[] checkExt) {
         if (checkExt.length == 0)
             return fileName;
-        String filePath = getFile().isDirectory()
-                ? getFile().getAbsolutePath()
-                        + PATH_SEP + fileName
-                : getFile().getAbsolutePath();
+        String path = getFile().getPath();
+        final String filePath = (getFile().isDirectory()
+                || path.indexOf(".") == -1)
+                && !Arrays.stream(checkExt).anyMatch(x -> path.endsWith(x))
+                        ? getFile().getAbsolutePath()
+                                + PATH_SEP + fileName
+                        : getFile().getAbsolutePath();
         boolean b = Arrays.stream(checkExt).anyMatch(x -> filePath.endsWith(x));
-        return b ? filePath : filePath + checkExt[0];
+        String resolved = b ? filePath : filePath + checkExt[0];
+        new File(resolved).getParentFile().mkdirs();
+        return resolved;
     }
 }
