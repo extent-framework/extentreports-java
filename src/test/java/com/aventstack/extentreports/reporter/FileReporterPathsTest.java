@@ -39,8 +39,8 @@ public class FileReporterPathsTest {
     public void sparkPathAsDirectory() {
         String f = getFileName("");
         getExtent("spark", f);
-        Assert.assertFalse(new File(f).exists());
-        Assert.assertTrue(new File(f + ".html").exists());
+        Assert.assertTrue(new File(f).exists());
+        Assert.assertTrue(new File(f + "/Index.html").exists());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class FileReporterPathsTest {
     public void jsonPathAsDirectory() {
         String f = getFileName("");
         getExtent("json", f);
-        Assert.assertFalse(new File(f).exists());
-        Assert.assertTrue(new File(f + ".json").exists());
+        Assert.assertTrue(new File(f).exists());
+        Assert.assertTrue(new File(f + "/extent.json").exists());
     }
 }
