@@ -161,7 +161,7 @@ public class ExtentTestLogTest {
     @Test
     public void skipThrowableMedia() throws IOException {
         Exception ex = ex();
-        ExtentTest test = test().warning(ex,
+        ExtentTest test = test().skip(ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.SKIP);
