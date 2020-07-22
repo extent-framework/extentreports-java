@@ -135,6 +135,15 @@ public class ExtentTestLogTest {
     }
 
     @Test
+    public void failMarkup() throws IOException {
+        Markup m = MarkupHelper.createCodeBlock("code");
+        ExtentTest test = test().fail(m);
+        Assert.assertEquals(test.getModel().getStatus(), Status.FAIL);
+        Assert.assertTrue(test.getModel().getLogs().get(0).getDetails().contains("code"));
+        Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.FAIL);
+    }
+
+    @Test
     public void skipDetails() {
         ExtentTest test = test().skip(DETAILS);
         Assert.assertEquals(test.getModel().getLogs().get(0).getDetails(), DETAILS);
@@ -166,6 +175,15 @@ public class ExtentTestLogTest {
         Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.SKIP);
         Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
+    }
+
+    @Test
+    public void skipMarkup() throws IOException {
+        Markup m = MarkupHelper.createCodeBlock("code");
+        ExtentTest test = test().log(Status.SKIP, m);
+        Assert.assertEquals(test.getModel().getStatus(), Status.SKIP);
+        Assert.assertTrue(test.getModel().getLogs().get(0).getDetails().contains("code"));
+        Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.SKIP);
     }
 
     @Test
@@ -203,6 +221,15 @@ public class ExtentTestLogTest {
     }
 
     @Test
+    public void warnMarkup() throws IOException {
+        Markup m = MarkupHelper.createCodeBlock("code");
+        ExtentTest test = test().log(Status.WARNING, m);
+        Assert.assertEquals(test.getModel().getStatus(), Status.WARNING);
+        Assert.assertTrue(test.getModel().getLogs().get(0).getDetails().contains("code"));
+        Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.WARNING);
+    }
+
+    @Test
     public void passDetails() {
         ExtentTest test = test().pass(DETAILS);
         Assert.assertEquals(test.getModel().getLogs().get(0).getDetails(), DETAILS);
@@ -237,6 +264,15 @@ public class ExtentTestLogTest {
     }
 
     @Test
+    public void passMarkup() throws IOException {
+        Markup m = MarkupHelper.createCodeBlock("code");
+        ExtentTest test = test().log(Status.PASS, m);
+        Assert.assertEquals(test.getModel().getStatus(), Status.PASS);
+        Assert.assertTrue(test.getModel().getLogs().get(0).getDetails().contains("code"));
+        Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.PASS);
+    }
+
+    @Test
     public void infoDetails() {
         ExtentTest test = test().info(DETAILS);
         Assert.assertEquals(test.getModel().getLogs().get(0).getDetails(), DETAILS);
@@ -268,5 +304,14 @@ public class ExtentTestLogTest {
         Assert.assertEquals(test.getModel().getLogs().get(0).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.INFO);
         Assert.assertEquals(test.getModel().getLogs().get(0).getMedia().getPath(), ATTACHMENT);
+    }
+
+    @Test
+    public void infoMarkup() throws IOException {
+        Markup m = MarkupHelper.createCodeBlock("code");
+        ExtentTest test = test().log(Status.INFO, m);
+        Assert.assertEquals(test.getModel().getStatus(), Status.PASS);
+        Assert.assertTrue(test.getModel().getLogs().get(0).getDetails().contains("code"));
+        Assert.assertEquals(test.getModel().getLogs().get(0).getStatus(), Status.INFO);
     }
 }
