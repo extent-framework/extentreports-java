@@ -15,24 +15,25 @@ public class ExtentTestMediaTest {
     private static final String PATH = "src/test/resources/img.png";
     private static final String TITLE = "MediaTitle";
 
+    private ExtentReports extent() {
+        return new ExtentReports();
+    }
+
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void addScreenCaptureFromEmptyPathTest() {
-        ExtentReports extent = new ExtentReports();
-        extent.createTest("Test")
+        extent().createTest("Test")
                 .addScreenCaptureFromPath("");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void addScreenCaptureFromNullPathTest() {
-        ExtentReports extent = new ExtentReports();
-        extent.createTest("Test")
+        extent().createTest("Test")
                 .addScreenCaptureFromPath(null);
     }
 
     @Test
     public void addScreenCaptureFromPathTest() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test")
+        ExtentTest test = extent().createTest("Test")
                 .addScreenCaptureFromPath(PATH, TITLE)
                 .pass("Pass");
         Assert.assertEquals(test.getModel().getMedia().size(), 1);
@@ -42,8 +43,7 @@ public class ExtentTestMediaTest {
 
     @Test
     public void addScreenCaptureFromPathTestOverloads() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test")
+        ExtentTest test = extent().createTest("Test")
                 .addScreenCaptureFromPath(PATH)
                 .pass("Pass");
         Assert.assertEquals(test.getModel().getMedia().size(), 1);
@@ -52,8 +52,7 @@ public class ExtentTestMediaTest {
 
     @Test
     public void addScreenCaptureFromPathNode() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test");
+        ExtentTest test = extent().createTest("Test");
         ExtentTest node = test
                 .createNode("Node")
                 .addScreenCaptureFromPath(PATH, TITLE)
@@ -64,10 +63,21 @@ public class ExtentTestMediaTest {
         Assert.assertEquals(node.getModel().getMedia().get(0).getTitle(), TITLE);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void addScreenCaptureEmptyPathTestLog() {
+        extent().createTest("Test")
+                .pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath("").build());
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void addScreenCaptureNullPathTestLog() {
+        extent().createTest("Test")
+                .pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(null).build());
+    }
+
     @Test
     public void addScreenCaptureFromPathTestLog() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test")
+        ExtentTest test = extent().createTest("Test")
                 .pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(PATH, TITLE).build());
         Assert.assertEquals(test.getModel().getMedia().size(), 0);
         Assert.assertNotNull(test.getModel().getLogs().get(0).getMedia());
@@ -77,8 +87,7 @@ public class ExtentTestMediaTest {
 
     @Test
     public void addScreenCaptureFromPathTestLogOverloads() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test")
+        ExtentTest test = extent().createTest("Test")
                 .pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(PATH).build());
         Assert.assertEquals(test.getModel().getMedia().size(), 0);
         Assert.assertNotNull(test.getModel().getLogs().get(0).getMedia());
@@ -87,8 +96,7 @@ public class ExtentTestMediaTest {
 
     @Test
     public void addScreenCaptureFromPathNodeLog() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test");
+        ExtentTest test = extent().createTest("Test");
         ExtentTest node = test
                 .createNode("Node")
                 .pass("Pass", MediaEntityBuilder.createScreenCaptureFromPath(PATH, TITLE).build());
@@ -100,15 +108,13 @@ public class ExtentTestMediaTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void addScreenCaptureFromEmptyBase64Test() {
-        ExtentReports extent = new ExtentReports();
-        extent.createTest("Test")
+        extent().createTest("Test")
                 .addScreenCaptureFromBase64String("");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void addScreenCaptureFromNullBase64Test() {
-        ExtentReports extent = new ExtentReports();
-        extent.createTest("Test")
+        extent().createTest("Test")
                 .addScreenCaptureFromBase64String(null);
     }
 
@@ -125,8 +131,7 @@ public class ExtentTestMediaTest {
 
     @Test
     public void addScreenCaptureFromBase64Node() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test");
+        ExtentTest test = extent().createTest("Test");
         ExtentTest node = test
                 .createNode("Node")
                 .addScreenCaptureFromBase64String(BASE64, TITLE)
@@ -139,8 +144,7 @@ public class ExtentTestMediaTest {
 
     @Test
     public void addScreenCaptureFromBase64NodeOverloads() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test");
+        ExtentTest test = extent().createTest("Test");
         ExtentTest node = test
                 .createNode("Node")
                 .addScreenCaptureFromBase64String(BASE64)
@@ -152,8 +156,7 @@ public class ExtentTestMediaTest {
 
     @Test
     public void addScreenCaptureFromBase64TestLog() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test")
+        ExtentTest test = extent().createTest("Test")
                 .pass("Pass", MediaEntityBuilder.createScreenCaptureFromBase64String(BASE64, TITLE).build());
         Assert.assertEquals(test.getModel().getMedia().size(), 0);
         Assert.assertNotNull(test.getModel().getLogs().get(0).getMedia());
@@ -164,8 +167,7 @@ public class ExtentTestMediaTest {
 
     @Test
     public void addScreenCaptureFromBase64NodeLog() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test");
+        ExtentTest test = extent().createTest("Test");
         ExtentTest node = test
                 .createNode("Node")
                 .pass("Pass", MediaEntityBuilder.createScreenCaptureFromBase64String(BASE64, TITLE).build());
@@ -178,8 +180,7 @@ public class ExtentTestMediaTest {
 
     @Test
     public void addScreenCaptureFromBase64NodeLogOverloads() {
-        ExtentReports extent = new ExtentReports();
-        ExtentTest test = extent.createTest("Test");
+        ExtentTest test = extent().createTest("Test");
         ExtentTest node = test
                 .createNode("Node")
                 .pass("Pass", MediaEntityBuilder.createScreenCaptureFromBase64String(BASE64).build());
