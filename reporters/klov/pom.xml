@@ -4,9 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.aventstack</groupId>
-	<artifactId>klovreporter</artifactId>
-	<version>5.0.0-SNAPSHOT</version>
-
+	<artifactId>klov-reporter</artifactId>
+	<version>5.0.0</version>
 	<name>klov-reporter</name>
 	<url>www.extentreports.com</url>
 	<description>Reporter for Klov Server</description>
