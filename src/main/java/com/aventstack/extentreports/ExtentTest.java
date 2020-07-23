@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
 import com.aventstack.extentreports.model.Device;
@@ -285,10 +286,21 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     /**
+     * Create a non-standard log with details. This is unlike the
+     * <code>log</code> method, which creates a fixed table layout with the
+     * following columns:
+     * 
+     * <ul>
+     * <li>Timestamp</li>
+     * <li>Status</li>
+     * <li>Details</li>
+     * </ul>
      * 
      * @param status
+     *            {@link Status}
      * @param details
-     * @return
+     *            Text details of the step
+     * @return an {@link ExtentTest} object
      */
     public ExtentTest generateLog(Status status, String details) {
         Log log = Log.builder().status(status).details(details).build();
@@ -297,10 +309,24 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     /**
+     * Create a non-standard log with details. This is unlike the
+     * <code>log</code> method, which creates a fixed table layout with the
+     * following columns:
+     * 
+     * <ul>
+     * <li>Timestamp</li>
+     * <li>Status</li>
+     * <li>Details</li>
+     * </ul>
+     * 
+     * <code>generateLog</code> with {@link Markup} allows for a user-defined
+     * log with any type of markup supported by {@link MarkupHelper}.
      * 
      * @param status
+     *            {@link Status}
      * @param markup
-     * @return
+     *            A {@link Markup} created by {@link MarkupHelper}
+     * @return an {@link ExtentTest} object
      */
     public ExtentTest generateLog(Status status, Markup markup) {
         return generateLog(status, markup.getMarkup());
@@ -322,6 +348,9 @@ public class ExtentTest implements RunResult, Serializable {
      *            {@link Status}
      * @param details
      *            Details
+     * @param t
+     *            A {@link Throwable} exception to be logged, enabling the
+     *            Exception view of certain HTML reporters
      * @param media
      *            A {@link Media} object
      * 
@@ -479,8 +508,8 @@ public class ExtentTest implements RunResult, Serializable {
      * 
      * @param details
      *            Details
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return An {@link ExtentTest} object
      */
@@ -515,9 +544,10 @@ public class ExtentTest implements RunResult, Serializable {
      * </pre>
      * 
      * @param t
-     *            {@link Throwable}
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     *            A {@link Throwable} exception to be logged, enabling the
+     *            Exception view of certain HTML reporters
+     * @param media
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return An {@link ExtentTest} object
      */
@@ -530,7 +560,8 @@ public class ExtentTest implements RunResult, Serializable {
      * Logs an event with <code>Status.INFO</code> and exception
      * 
      * @param t
-     *            {@link Throwable}
+     *            A {@link Throwable} exception to be logged, enabling the
+     *            Exception view of certain HTML reporters
      * 
      * @return {@link ExtentTest} object
      */
@@ -562,7 +593,7 @@ public class ExtentTest implements RunResult, Serializable {
      * Logs an event with <code>Status.INFO</code> and {@link ScreenCapture}
      * 
      * @param media
-     *            {@link Media}
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return {@link ExtentTest} object
      */
@@ -585,8 +616,8 @@ public class ExtentTest implements RunResult, Serializable {
      * 
      * @param details
      *            Details
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return An {@link ExtentTest} object
      */
@@ -622,8 +653,8 @@ public class ExtentTest implements RunResult, Serializable {
      * 
      * @param t
      *            {@link Throwable}
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return An {@link ExtentTest} object
      */
@@ -668,7 +699,7 @@ public class ExtentTest implements RunResult, Serializable {
      * Logs an event with <code>Status.PASS</code> and {@link ScreenCapture}
      * 
      * @param media
-     *            {@link Media}
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return {@link ExtentTest} object
      */
@@ -683,8 +714,8 @@ public class ExtentTest implements RunResult, Serializable {
      * 
      * @param details
      *            Details
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return An {@link ExtentTest} object
      */
@@ -720,8 +751,8 @@ public class ExtentTest implements RunResult, Serializable {
      * 
      * @param t
      *            {@link Throwable}
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return An {@link ExtentTest} object
      */
@@ -766,7 +797,7 @@ public class ExtentTest implements RunResult, Serializable {
      * Logs an event with <code>Status.FAIL</code> and {@link ScreenCapture}
      * 
      * @param media
-     *            {@link Media}
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return {@link ExtentTest} object
      */
@@ -781,8 +812,8 @@ public class ExtentTest implements RunResult, Serializable {
      * 
      * @param details
      *            Details
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return An {@link ExtentTest} object
      */
@@ -818,8 +849,8 @@ public class ExtentTest implements RunResult, Serializable {
      * 
      * @param t
      *            {@link Throwable}
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return An {@link ExtentTest} object
      */
@@ -864,7 +895,7 @@ public class ExtentTest implements RunResult, Serializable {
      * Logs an event with <code>Status.WARNING</code> and {@link ScreenCapture}
      * 
      * @param media
-     *            {@link Media}
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return {@link ExtentTest} object
      */
@@ -877,8 +908,8 @@ public class ExtentTest implements RunResult, Serializable {
      * 
      * @param details
      *            Details
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return An {@link ExtentTest} object
      */
@@ -914,8 +945,8 @@ public class ExtentTest implements RunResult, Serializable {
      * 
      * @param t
      *            {@link Throwable}
-     * @param provider
-     *            A {@link MediaEntityModelProvider} object
+     * @param media
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return An {@link ExtentTest} object
      */
@@ -960,7 +991,7 @@ public class ExtentTest implements RunResult, Serializable {
      * Logs an event with <code>Status.SKIP</code> and {@link ScreenCapture}
      * 
      * @param media
-     *            {@link Media}
+     *            A {@link Media} object provided by {@link MediaEntityBuilder}
      * 
      * @return {@link ExtentTest} object
      */

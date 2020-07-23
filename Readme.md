@@ -1,7 +1,5 @@
 ## ExtentReports 5 [![Join the chat at https://gitter.im/anshooarora/extentreports](https://badges.gitter.im/anshooarora/extentreports.svg)](https://gitter.im/anshooarora/extentreports?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Maven Central](https://img.shields.io/maven-central/v/com.aventstack/extentreports.svg?maxAge=300)](http://search.maven.org/#search|ga|1|g:"com.aventstack") [![Build Status](https://travis-ci.com/extent-framework/extentreports-java.svg?branch=master)](https://travis-ci.com/extent-framework/extentreports-java) [![CodeFactor](https://www.codefactor.io/repository/github/extent-framework/extentreports-java/badge)](https://www.codefactor.io/repository/github/extent-framework/extentreports-java) [![codecov](https://codecov.io/gh/extent-framework/extentreports-java/branch/master/graph/badge.svg)](https://codecov.io/gh/extent-framework/extentreports-java)
 
-Version 5 is currently in development. Refer [wiki](https://github.com/extent-framework/extentreports-java/wiki) for SNAPSHOT installation instructions.
-
 ### Documentation ###
 
 * Documentation for ExtentReports 5.x is hosted on GitHub at [ExtentReports Wiki](https://github.com/extent-framework/extentreports-java/wiki).
@@ -15,8 +13,9 @@ A complete list of contributors since ExtentReports migrated from [@anshooarora/
 
 ### Upcoming ###
 
-* See [v5.0.x milestones](https://github.com/extent-framework/extentreports-java/issues?q=is%3Aopen+is%3Aissue+milestone%3A5.0.x)
-* Want to see a feature added? You can raise one [here](https://github.com/extent-framework/extentreports-java/issues?q=is%3Aopen+is%3Aissue+milestone%3A5.0.x)
+* See [v5.0.x milestones](https://github.com/extent-framework/extentreports-java/milestone/2)
+* See [v5.1.x milestones](https://github.com/extent-framework/extentreports-java/milestone/3)
+* Want to see a feature added? Let me know [here](https://github.com/extent-framework/extentreports-java/issues?q=is%3Aopen+is%3Aissue+milestone%3A5.0.x)
 
 ### Versions ###
 

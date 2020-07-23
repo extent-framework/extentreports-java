@@ -62,20 +62,7 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
      * Attach a {@link ExtentObserver} reporter, allowing it to access all
      * started tests, nodes and logs
      * 
-     * <p>
-     * Available reporter types are:
-     * </p>
-     * 
-     * <ul>
-     * <li>ExtentHtmlReporter provided by artifactId
-     * "extent-html-formatter"</li>
-     * <li>ExtentEmailReporter (pro-only) provided by artifactId
-     * "extent-email-formatter"</li>
-     * <li>KlovReporter provided by artifactId "extent-klov-reporter"</li>
-     * <li>ConsoleLogger</li>
-     * </ul>
-     * 
-     * @param reporter
+     * @param observer
      *            {@link ExtentObserver} reporter
      */
     @SuppressWarnings("rawtypes")
@@ -467,10 +454,10 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
     }
 
     /**
-     * Returns an instance of {@link ReportStatusStats} with counts of tests
-     * executed by their status (pass, fail, skip etc)
+     * Returns an instance of {@link ReportStats} with counts of tests executed
+     * by their status (pass, fail, skip etc)
      * 
-     * @return an instance of {@link ReportStatusStats}
+     * @return an instance of {@link ReportStats}
      */
     public ReportStats getStats() {
         return getReport().getStats();

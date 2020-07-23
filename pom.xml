@@ -5,8 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.aventstack</groupId>
 	<artifactId>extentreports</artifactId>
-	<version>5.0.0-SNAPSHOT</version>
+	<version>5.0.0</version>
+
 	<name>ExtentReports</name>
+	<url>www.extentreports.com</url>
+	<description>ExtentReports library</description>
 
 	<scm>
 		<connection>scm:git:https://github.com/extent-framework/extentreports-java.git</connection>
