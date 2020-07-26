@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/extent-framework/extentreports-java/compare/v5.0.0...v5.0.1)
+
+#### Issues Resolved
+- [#103](../issues/103) Clicking base64 images does not fire lightbox
+- KlovReporter uses the ExtentReports 5.0.0-SNAPSHOT dependency, revert to RELEASE
+- [#191](../issues/191) Navigation from Attributes/Exceptions views to test for BDD
+
 ## [5.0.0](https://github.com/extent-framework/extentreports-java/compare/v4.1.6...v5.0.0)
 
 #### New Features
