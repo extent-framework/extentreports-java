@@ -31,7 +31,7 @@
 <#macro mediaSingle m>
   <#if m??>
     <div class="row mb-3"><div class="col-md-3">
-    <#if m.base64??><img src="${m.base64}">
+    <#if m.base64??><a href="${m.base64}" data-featherlight="image"><span class="badge badge-gradient-primary">base64 img</span></a>
     <#elseif m.resolvedPath??><img data-featherlight='${m.resolvedPath}' src="${m.resolvedPath}">
     <#elseif m.path??><img data-featherlight='${m.path}' src="${m.path}">
     </#if>
