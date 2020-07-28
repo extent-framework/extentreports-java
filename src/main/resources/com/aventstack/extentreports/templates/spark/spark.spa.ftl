@@ -3,6 +3,7 @@
 <#include "macros/attributes.ftl">
 <#include "macros/log.ftl">
 <#include "macros/recurse_nodes.ftl">
+<#include "macros/attr-common.ftl">
 
 <#assign 
   isbdd=false 
