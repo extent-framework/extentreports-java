@@ -202,7 +202,7 @@ img {
     right: 0;
 }
 .bdd-report .node {
-	padding: 20px 15px 0;
+	padding: 15px 15px 0;
 }
 .bdd-report .test-view .card .card-body {
 	padding: 0 16px 20px 16px;
@@ -453,6 +453,7 @@ textarea {
 **/
 .dark .header, body.dark {
 	background-color: #08111c;
+	color: #ddd;
 }
 .dark .side-nav, .dark .test-list {
 	background-color: #19222d !important;
@@ -474,13 +475,13 @@ textarea {
 	background-color: #19221c !important;
 }
 .dark .test-detail .name, .dark p {
-	color: rgba(141,164,191,.95) !important;
+	color: #ddd !important;
 }
 .dark .test-wrapper, .dark .test-content, .dark .dashboard-view .container-fluid {
 	background-color: #243140;
 }
 .dark .card, .dark .media>li, .dark .badge-default, .dark.bdd-report .card-body.l1, .dark .table-bordered td, .dark .table-bordered th, .dark textarea {
-	color: rgba(141,164,191,.95) !important;
+	color: #ddd !important;
 	border: 1px solid #494949 !important;
 }
 .dark .card, .dark tr.bg-gray, .dark .table, .dark table, dark tr, .dark th, .dark td, .dark .table-striped>tbody>tr:nth-of-type(odd) {
@@ -489,18 +490,15 @@ textarea {
 .dark .side-nav .side-nav-inner .side-nav-menu, .dark .file-icon, .dark pre, .dark .code-block {
 	border-right: 1px solid #494949 !important;
 }
-.dark .node {
-	color: #999;
-}
-.dark, .dark .table>thead>tr>th, .dark h1, .dark h2, .dark h3, .dark h4, .dark .font-weight-light, .dark .card-title, .dark .detail-head h4 {
-	color: #999;
+.dark, .dark .node, .dark .table>thead>tr>th, .dark h1, .dark h2, .dark h3, .dark h4, .dark .font-weight-light, .dark .card-title, .dark .detail-head h4 {
+	color: #ddd;
 }
 .dark pre, .dark .code-block {
 	background: transparent;
-	color: rgba(180,200,220,.95) !important;
+	color: #ddd !important;
 }
-.dark .step, .dark .step pre, .dark .step textarea {
-	color: #fff !important;
+.dark .side-nav-menu li a, .dark .step, .dark .step pre, .dark .step textarea {
+	color: #eee !important;
 }
 
 @media only screen and (min-width: 992px) {
