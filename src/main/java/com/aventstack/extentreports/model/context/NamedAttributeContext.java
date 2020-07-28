@@ -3,7 +3,9 @@ package com.aventstack.extentreports.model.context;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.NamedAttribute;
@@ -19,10 +21,7 @@ public class NamedAttributeContext<T extends NamedAttribute> implements Serializ
 
     private final List<Test> testList = Collections.synchronizedList(new ArrayList<>());
     private T attr;
-    private Integer passed = 0;
-    private Integer failed = 0;
-    private Integer skipped = 0;
-    private Integer others = 0;
+    private Map<Status, Integer> statusDist = new HashMap<>();
 
     public NamedAttributeContext(T attribute, Test test) {
         this.attr = attribute;
@@ -37,22 +36,35 @@ public class NamedAttributeContext<T extends NamedAttribute> implements Serializ
     }
 
     private synchronized void refresh(Test test) {
-        if (test.getStatus() == Status.PASS)
-            passed++;
-        else if (test.getStatus() == Status.FAIL)
-            failed++;
-        else if (test.getStatus() == Status.SKIP)
-            skipped++;
-        else
-            others++;
+        statusDist.merge(test.getStatus(), 1, Integer::sum);
     }
 
     public void refresh() {
-        passed = failed = skipped = others = 0;
+        statusDist.clear();
         testList.forEach(this::refresh);
     }
 
     public Integer size() {
-        return passed + failed + skipped + others;
+        return statusDist.values().stream().reduce(0, Integer::sum);
+    }
+
+    public Integer getPassed() {
+        return get(Status.PASS);
+    }
+
+    private Integer get(Status s) {
+        return statusDist.get(s) == null ? 0 : statusDist.get(s);
+    }
+
+    public Integer getFailed() {
+        return get(Status.FAIL);
+    }
+
+    public Integer getSkipped() {
+        return get(Status.SKIP);
+    }
+
+    public Integer getOthers() {
+        return get(Status.WARNING);
     }
 }
