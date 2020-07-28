@@ -5,7 +5,7 @@
 
 	<groupId>com.aventstack</groupId>
 	<artifactId>klov-reporter</artifactId>
-	<version>5.0.1</version>
+	<version>5.0.2-SNAPSHOT</version>
 	<name>klov-reporter</name>
 	<url>www.extentreports.com</url>
 	<description>Reporter for Klov Server</description>
@@ -43,17 +43,17 @@
 		<dependency>
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
-			<version>5.0.1</version>
+			<version>5.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongodb-driver</artifactId>
-			<version>3.3.0</version>
+			<version>3.6.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>bson</artifactId>
-			<version>3.3.0</version>
+			<version>3.6.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
