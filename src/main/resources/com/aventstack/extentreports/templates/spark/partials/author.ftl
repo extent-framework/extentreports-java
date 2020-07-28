@@ -1,3 +1,3 @@
 <#if report.authorCtx.set?size != 0>
-  <@attrCommon view="Users" ctx=report.authorCtx.set />
+  <@attrCommon view="Author" ctx=report.authorCtx.set />
 </#if>
