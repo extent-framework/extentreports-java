@@ -68,6 +68,9 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
         child.setParent(this);
         child.setLeaf(true);
         isLeaf = false;
+        child.authorSet.addAll(authorSet);
+        child.categorySet.addAll(categorySet);
+        child.deviceSet.addAll(deviceSet);
         end(child.getStatus());
         children.add(child);
     }
