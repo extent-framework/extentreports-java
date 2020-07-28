@@ -16,8 +16,12 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.types.ObjectId;
 
+import com.aventstack.extentreports.AttribStatusDist;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
@@ -45,7 +49,6 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -241,39 +244,6 @@ public class ExtentKlovReporter extends AbstractReporter
 
     /**
      * Initializes the Mongo DB connection with a list of {@link ServerAddress}
-     * and {@link MongoCredential}
-     * 
-     * @param seeds
-     *            A list of {@link ServerAddress} server addresses
-     * @param credentialsList
-     *            A list of {@link MongoCredential} credentials
-     * @return a {@link ExtentKlovReporter} object
-     */
-    public ExtentKlovReporter initMongoDbConnection(List<ServerAddress> seeds, List<MongoCredential> credentialsList) {
-        mongoClient = new MongoClient(seeds, credentialsList);
-        return this;
-    }
-
-    /**
-     * Initializes the Mongo DB connection with a list of {@link ServerAddress},
-     * {@link MongoCredential} and {@link MongoClientOptions}
-     * 
-     * @param seeds
-     *            A list of {@link ServerAddress} server addresses
-     * @param credentialsList
-     *            A list of {@link MongoCredential} credentials
-     * @param options
-     *            {@link MongoClientOptions} options
-     * @return a {@link ExtentKlovReporter} object
-     */
-    public ExtentKlovReporter initMongoDbConnection(List<ServerAddress> seeds, List<MongoCredential> credentialsList,
-            MongoClientOptions options) {
-        mongoClient = new MongoClient(seeds, credentialsList, options);
-        return this;
-    }
-
-    /**
-     * Initializes the Mongo DB connection with a list of {@link ServerAddress}
      * and {@link MongoClientOptions}
      * 
      * @param seeds
@@ -284,39 +254,6 @@ public class ExtentKlovReporter extends AbstractReporter
      */
     public ExtentKlovReporter initMongoDbConnection(List<ServerAddress> seeds, MongoClientOptions options) {
         mongoClient = new MongoClient(seeds, options);
-        return this;
-    }
-
-    /**
-     * Initializes the Mongo DB connection with {@link ServerAddress} and a list
-     * of {@link MongoCredential} credentials
-     * 
-     * @param addr
-     *            {@link ServerAddress} server address
-     * @param credentialsList
-     *            A list of {@link MongoCredential} credentials
-     * @return a {@link ExtentKlovReporter} object
-     */
-    public ExtentKlovReporter initMongoDbConnection(ServerAddress addr, List<MongoCredential> credentialsList) {
-        mongoClient = new MongoClient(addr, credentialsList);
-        return this;
-    }
-
-    /**
-     * Initializes the Mongo DB connection with a list of {@link ServerAddress},
-     * {@link MongoCredential} and {@link MongoClientOptions}
-     * 
-     * @param addr
-     *            A list of {@link ServerAddress} server addresses
-     * @param credentialsList
-     *            A list of {@link MongoCredential} credentials
-     * @param options
-     *            {@link MongoClientOptions} options
-     * @return a {@link ExtentKlovReporter} object
-     */
-    public ExtentKlovReporter initMongoDbConnection(ServerAddress addr, List<MongoCredential> credentialsList,
-            MongoClientOptions options) {
-        mongoClient = new MongoClient(addr, credentialsList, options);
         return this;
     }
 
@@ -466,13 +403,6 @@ public class ExtentKlovReporter extends AbstractReporter
             return;
 
         ReportStats stats = report.getStats();
-        this.authorContext = report.getAuthorCtx();
-        this.categoryContext = report.getCategoryCtx();
-        this.deviceContext = report.getDeviceCtx();
-        Set<String> authorNameList = getCollectionKeys(authorNameObjectIdCollection);
-        Set<String> categoryNameList = getCollectionKeys(categoryNameObjectIdCollection);
-        Set<String> deviceNameList = getCollectionKeys(deviceNameObjectIdCollection);
-        Set<String> exceptionNameList = getCollectionKeys(exceptionNameObjectIdCollection);
 
         Document doc = new Document("endTime", report.getEndTime())
                 .append("duration", report.timeTaken())
@@ -495,13 +425,42 @@ public class ExtentKlovReporter extends AbstractReporter
                 .append("analysisStrategy", stats.getAnalysisStrategy().toString())
                 .append("bdd", testList.get(0).isBDD());
 
-        if (authorNameList != null && !authorNameList.isEmpty())
+        this.authorContext = report.getAuthorCtx();
+        this.categoryContext = report.getCategoryCtx();
+        this.deviceContext = report.getDeviceCtx();
+        Set<String> authorNameList = getCollectionKeys(authorNameObjectIdCollection);
+        Set<String> categoryNameList = getCollectionKeys(categoryNameObjectIdCollection);
+        Set<String> deviceNameList = getCollectionKeys(deviceNameObjectIdCollection);
+        Set<String> exceptionNameList = getCollectionKeys(exceptionNameObjectIdCollection);
+
+        if (authorNameList != null) {
+            // maintain for backward compatibility
             doc.append("authorNameList", authorNameList);
-        if (categoryNameList != null && !categoryNameList.isEmpty())
+            Set<AttribStatusDist<Author>> set = report.getAuthorCtx().getSet()
+                    .stream()
+                    .map(x -> new AttribStatusDist<Author>(x))
+                    .collect(Collectors.toSet());
+            doc.append("authorInfo", set);
+        }
+        if (categoryNameList != null) {
+            // maintain for backward compatibility
             doc.append("categoryNameList", categoryNameList);
-        if (deviceNameList != null && !deviceNameList.isEmpty())
+            Set<AttribStatusDist<Category>> set = report.getCategoryCtx().getSet()
+                    .stream()
+                    .map(x -> new AttribStatusDist<Category>(x))
+                    .collect(Collectors.toSet());
+            doc.append("categoryInfo", set);
+        }
+        if (deviceNameList != null && !deviceNameList.isEmpty()) {
+            // maintain for backward compatibility
             doc.append("deviceNameList", deviceNameList);
-        if (exceptionNameList != null && !exceptionNameList.isEmpty())
+            Set<AttribStatusDist<Device>> set = report.getDeviceCtx().getSet()
+                    .stream()
+                    .map(x -> new AttribStatusDist<Device>(x))
+                    .collect(Collectors.toSet());
+            doc.append("deviceInfo", set);
+        }
+        if (exceptionNameList != null)
             doc.append("exceptions", exceptionNameList);
 
         reportCollection.updateOne(new Document("_id", reportId), new Document("$set", doc));
@@ -834,7 +793,9 @@ public class ExtentKlovReporter extends AbstractReporter
     }
 
     private final void start() {
-        MongoDatabase db = mongoClient.getDatabase(DB_NAME);
+        CodecRegistry pojoCodecRegistry = CodecRegistries.fromRegistries(MongoClient.getDefaultCodecRegistry(),
+                CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+        MongoDatabase db = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
         initCollections(db);
         setupProject();
     }
