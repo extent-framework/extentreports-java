@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Type;
-
-import org.testng.reporters.Files;
+import java.nio.file.Files;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -49,7 +48,7 @@ public class JsonConfigLoader<T> implements ConfigLoadable<T> {
                 .registerTypeAdapter(instance.getClass(), creator)
                 .create();
         try {
-            String json = f != null ? Files.readFile(f) : this.json;
+            String json = f != null ? String.join("\n", Files.readAllLines(f.toPath())) : this.json;
             instance = (T) gson.fromJson(json, instance.getClass());
         } catch (IOException e) {
             e.printStackTrace();
