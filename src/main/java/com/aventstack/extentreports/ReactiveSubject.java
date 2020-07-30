@@ -1,7 +1,5 @@
 package com.aventstack.extentreports;
 
-import java.util.List;
-
 import com.aventstack.extentreports.model.Author;
 import com.aventstack.extentreports.model.Category;
 import com.aventstack.extentreports.model.Device;
@@ -33,12 +31,9 @@ abstract class ReactiveSubject {
     private final PublishSubject<MediaEntity> mediaSubject = PublishSubject.create();
     private final PublishSubject<AttributeEntity> attribSubject = PublishSubject.create();
 
-    protected ReactiveSubject() {
-    }
-
     @SuppressWarnings({"rawtypes", "unchecked"})
-    protected final void attachReporter(List<ExtentObserver> observerList) {
-        for (ExtentObserver o : observerList) {
+    protected void attachReporter(ExtentObserver... observers) {
+        for (ExtentObserver o : observers) {
             if (o instanceof ReportObserver)
                 reportSubject.subscribe(((ReportObserver) o).getReportObserver());
             if (o instanceof TestObserver)

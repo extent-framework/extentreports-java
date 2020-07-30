@@ -3,7 +3,6 @@ package com.aventstack.extentreports;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import java.util.List;
 
 import com.aventstack.extentreports.gherkin.GherkinDialectManager;
@@ -67,7 +66,7 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
      */
     @SuppressWarnings("rawtypes")
     public void attachReporter(ExtentObserver... observer) {
-        attachReporter(Arrays.asList(observer));
+        super.attachReporter(observer);
     }
 
     /**
