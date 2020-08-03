@@ -59,7 +59,7 @@
           <div class="test-detail">
             <span class="meta text-white badge badge-sm"></span>
             <p class="name">${test.name}</p>
-            <p class="text-sm"><span>${test.startTime?string("HH:mm:ss a")}</span> / <span>${test.timeTaken()/1000} secs</span></p>
+            <p class="text-sm"><span>${test.startTime?string("HH:mm:ss a")}</span> / <span>${test.timeTaken()?number_to_time?string("mm:ss:SSS")}</span></p>
           </div>
           <div class="test-contents d-none">
             <#compress>
@@ -70,7 +70,7 @@
                   <h5 class="test-status text-${test.status.toLower()}">${test.name}</h5>
                   <span class='badge badge-success'>${test.startTime?string("MM.dd.yyyy HH:mm:ss")}</span>
                   <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy HH:mm:ss")}</span>
-                  <span class='badge badge-default'>${test.timeTaken()/1000} secs</span>
+                  <span class='badge badge-default'>${test.timeTaken()?number_to_time?string("mm:ss:SSS")}</span>
                 </div>
                 <#if test.hasAttributes()>
                 <div class="m-t-15"><@attributes test=test /></div>
