@@ -192,8 +192,8 @@
           <tbody>
             <#list report.systemEnvInfo as info>
             <tr>
-              <td>${info.name}</td>
-              <td>${info.value}</td>
+              <td><#if info.name??>${info.name}</#if></td>
+              <td><#if info.value??>${info.value}</#if></td>
             </tr>
             </#list>
           </tbody>
