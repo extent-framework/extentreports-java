@@ -11,7 +11,7 @@ import lombok.Getter;
 
 @Getter
 public enum Status {
-    INFO("Info", 10), PASS("Pass", 20), SKIP("Skip", 30), WARNING("Warning", 40), FAIL("Fail", 50);
+    INFO("Info", 10), PASS("Pass", 20), WARNING("Warning", 30), SKIP("Skip", 40), FAIL("Fail", 50);
 
     private final Integer level;
     private final String name;
@@ -21,14 +21,14 @@ public enum Status {
         this.level = level;
     }
 
-    private static void resolveHierarchy(List<Status> status) {
-        status.sort((Status s1, Status s2) -> s1.getLevel().compareTo(s2.getLevel()));
-    }
-
     public static List<Status> getResolvedHierarchy(List<Status> status) {
         List<Status> list = new ArrayList<>(status);
         resolveHierarchy(list);
         return list;
+    }
+
+    private static void resolveHierarchy(List<Status> status) {
+        status.sort((Status s1, Status s2) -> s1.getLevel().compareTo(s2.getLevel()));
     }
 
     public static Status max(Collection<Status> status) {
