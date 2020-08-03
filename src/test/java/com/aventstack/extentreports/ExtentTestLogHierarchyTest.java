@@ -48,7 +48,6 @@ public class ExtentTestLogHierarchyTest {
         ExtentTest test = test();
         test.pass("Pass");
         test.info("Info");
-        test.skip("Skip");
         test.warning("Warning");
         Assert.assertEquals(test.getStatus(), Status.WARNING);
     }
