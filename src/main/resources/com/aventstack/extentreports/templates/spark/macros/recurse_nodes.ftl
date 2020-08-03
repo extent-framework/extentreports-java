@@ -10,6 +10,7 @@
             <div class="status-avatar float-right ${node.status.toLower()}-bg">
                <i class="fa fa-${Ico.ico(node.status)} text-white"></i>
             </div>
+            <@attributes test=node />
             <#if TestService.testHasScreenCapture(node, true)>
               <div class="status-avatar float-right"><i class="fa fa-paperclip"></i></div>
             </#if>
