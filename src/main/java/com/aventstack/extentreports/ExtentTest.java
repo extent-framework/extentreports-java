@@ -366,6 +366,8 @@ public class ExtentTest implements RunResult, Serializable {
         ExceptionInfo exceptionInfo = ExceptionInfoService.createExceptionInfo(t);
         log.setException(exceptionInfo);
         log.addMedia(media);
+        if (exceptionInfo != null)
+        	model.getExceptions().add(exceptionInfo);
         model.addLog(log);
         extent.onLogCreated(log, model);
         return this;

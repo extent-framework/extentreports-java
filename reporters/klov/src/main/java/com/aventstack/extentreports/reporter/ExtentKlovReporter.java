@@ -655,7 +655,8 @@ public class ExtentKlovReporter extends AbstractReporter
             doc = new Document("testCount", testCount);
             exceptionCollection.updateOne(new Document("_id", docException.getObjectId("_id")),
                     new Document("$set", doc));
-            doc = new Document("exception", exceptionNameObjectIdCollection.get(ex.getName()));
+            doc = new Document("exception", exceptionNameObjectIdCollection.get(ex.getName()))
+            		.append("exceptionName", ex.getName());
             testCollection.updateOne(new Document("_id", test.getInfoMap().get(ID_KEY)), new Document("$set", doc));
             updateTestDesc(test);
         }
