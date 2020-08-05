@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
+import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.gherkin.model.ScenarioOutline;
 
 import lombok.AllArgsConstructor;
