@@ -68,9 +68,11 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
         child.setParent(this);
         child.setLeaf(true);
         isLeaf = false;
-        child.authorSet.addAll(authorSet);
-        child.categorySet.addAll(categorySet);
-        child.deviceSet.addAll(deviceSet);
+        if (!child.isBDD() || child.isBDD() && child.bddType == Scenario.class) {
+            child.authorSet.addAll(authorSet);
+            child.categorySet.addAll(categorySet);
+            child.deviceSet.addAll(deviceSet);
+        }
         end(child.getStatus());
         children.add(child);
     }
@@ -152,8 +154,8 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
     }
 
     public final void addMedia(Media m) {
-        if (m != null && (m.getPath() != null || m.getResolvedPath() != null
-                || ((ScreenCapture) m).getBase64() != null))
+        if (m != null
+                && (m.getPath() != null || m.getResolvedPath() != null || ((ScreenCapture) m).getBase64() != null))
             media.add(m);
         end(status);
     }
