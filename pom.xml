@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.aventstack</groupId>
 	<artifactId>extentreports</artifactId>
-	<version>5.0.2</version>
+	<version>5.0.3-SNAPSHOT</version>
 
 	<name>ExtentReports</name>
 	<url>www.extentreports.com</url>
@@ -105,20 +105,6 @@
 				<version>3.1.0</version>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.6</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.5</version>
@@ -142,19 +128,6 @@
 
 	<profiles>
 		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<properties>
-				<gpg.keyname>41414BBD</gpg.keyname>
-				<!-- GPG Key ID to use for signing -->
-				<release.username>anshooarora</release.username>
-				<!-- username for our svn repository -->
-			</properties>
 			<build>
 				<plugins>
 					<plugin>
