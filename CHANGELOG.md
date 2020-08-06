@@ -1,34 +1,50 @@
+## [5.0.2](https://github.com/extent-framework/extentreports-java/compare/v5.0.1...v5.0.2)
+
+#### Issues Resolved
+- [#103](/issues/103) Add missing lightbox for base64 screenshots
+- [#220](/issues/220) Add missing tags for child tests
+- [#222](/issues/222) Removed TestNG from main scope and added under `test`
+- [#226](/issues/226) Perform null check for SystemEnvInfo elements
+- [#227](/issues/227) Change SKIP priority to be higher than WARN
+
+#### New Features
+- [#223](/issues/223) Added attribute (tag) details for Klov
+- [#224](/issues/224) All tags will be propagated down the test tree. An attribute assigned to a parent test
+    would automatically be assigned to a child test also.
+- [#225](/issues/225) All attribute views (Author, Device, Tag) now use the same template
+- [#231](/issues/231) Exceptions from log will be assigned to its owning test
+
 ## [5.0.1](https://github.com/extent-framework/extentreports-java/compare/v5.0.0...v5.0.1)
 
 #### Issues Resolved
-- [#103](../issues/103) Clicking base64 images does not fire lightbox
+- [#103](/issues/103) Clicking base64 images does not fire lightbox
 - KlovReporter uses the ExtentReports 5.0.0-SNAPSHOT dependency, revert to RELEASE
-- [#191](../issues/191) Navigation from Attributes/Exceptions views to test for BDD
+- [#191](/issues/191) Navigation from Attributes/Exceptions views to test for BDD
 
 ## [5.0.0](https://github.com/extent-framework/extentreports-java/compare/v4.1.6...v5.0.0)
 
 #### New Features
-- [#47](../issues/47) Anchors for each test
-- [#150](../issues/150) Unused status from charts will not be displayed
-- [#152](../issues/152) Spark: Author view
-- [#153](../issues/153) Spark: Device view
-- [#157](../issues/157) Spark: Add TestRunnerLogs view
-- [#168](../issues/168) Spark: Navigation from attributes pages (tags, exception) to Tests View
-- [#173](../issues/173) Spark: Allow configuration to select view order, Dashboard view as primary
-- [#176](../issues/176) Apply Status filters to report
-- [#177](../issues/177) Minified templates (> 10% reduction in file size)
-- [#184](../issues/184) Reporter::loadExternalConfiguration with json file
-- [#188](../issues/188) Display upto 4 `pre` blocks on a single row
-- [#191](../issues/191) Navigation from Tags/Exception pages to nested steps
-- [#213](../issues/213) Toggle theme from URI component using '#theme='
-- [#215](../issues/215) A test removed from the report will also be removed from MongoDB (Klov)
+- [#47](/issues/47) Anchors for each test
+- [#150](/issues/150) Unused status from charts will not be displayed
+- [#152](/issues/152) Spark: Author view
+- [#153](/issues/153) Spark: Device view
+- [#157](/issues/157) Spark: Add TestRunnerLogs view
+- [#168](/issues/168) Spark: Navigation from attributes pages (tags, exception) to Tests View
+- [#173](/issues/173) Spark: Allow configuration to select view order, Dashboard view as primary
+- [#176](/issues/176) Apply Status filters to report
+- [#177](/issues/177) Minified templates (> 10% reduction in file size)
+- [#184](/issues/184) Reporter::loadExternalConfiguration with json file
+- [#188](/issues/188) Display upto 4 `pre` blocks on a single row
+- [#191](/issues/191) Navigation from Tags/Exception pages to nested steps
+- [#213](/issues/213) Toggle theme from URI component using '#theme='
+- [#215](/issues/215) A test removed from the report will also be removed from MongoDB (Klov)
 
 #### Issues Resolved
-- [#131](../issues/131) Merging two html extent Reports works but Category view gets overwritten
-- [#161](../issues/161) Merging ExtentSpark 4.1.5 Reports causing the existing base64 image removed
-- [#169](../issues/169) Fix SparkReporter shortcuts
-- [#197](../issues/197) MarkupHelper::codeBlock has extra indentation on the first line
-- [#208](../issues/208) Show title text for screencaptures
+- [#131](/issues/131) Merging two html extent Reports works but Category view gets overwritten
+- [#161](/issues/161) Merging ExtentSpark 4.1.5 Reports causing the existing base64 image removed
+- [#169](/issues/169) Fix SparkReporter shortcuts
+- [#197](/issues/197) MarkupHelper::codeBlock has extra indentation on the first line
+- [#208](/issues/208) Show title text for screencaptures
 
 ## [4.1.7](https://github.com/extent-framework/extentreports-java/compare/v4.1.6...v4.1.7)
 #### Fixes
