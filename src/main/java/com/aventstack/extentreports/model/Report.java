@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.aventstack.extentreports.Status;
@@ -73,7 +74,25 @@ public class Report implements Serializable, BaseEntity {
         return testList.stream()
                 .anyMatch(x -> x.getStatus() == status);
     }
-
+   
+    public Optional<Test> findTest(List<Test> list, String name) {
+        Optional<Test> test = list.stream().filter(x -> x.getName().equals(name)).findFirst();
+        if (!test.isPresent())
+            for (Test t : list)
+                return findTest(t.getChildren(), name);
+        return test;
+    }
+    
+    public List<ExceptionInfo> aggregateExceptions(List<Test> testList) {
+        List<ExceptionInfo> list = new ArrayList<>();
+        for (Test test : testList) {
+            list.addAll(test.aggregateExceptions());
+            if (!test.getChildren().isEmpty())
+                aggregateExceptions(test.getChildren());
+        }
+        return list;
+    }
+	
     public final long timeTaken() {
         return endTime.getTime() - startTime.getTime();
     }

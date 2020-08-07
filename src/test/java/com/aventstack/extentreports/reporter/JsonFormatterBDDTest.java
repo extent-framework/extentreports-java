@@ -1,10 +1,12 @@
 package com.aventstack.extentreports.reporter;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.gherkin.GherkinDialectManager;
 import com.aventstack.extentreports.gherkin.model.Feature;
 import com.aventstack.extentreports.gherkin.model.Given;
 import com.aventstack.extentreports.gherkin.model.Scenario;
@@ -13,8 +15,9 @@ public class JsonFormatterBDDTest {
     private static final String JSON_PATH = "target/extent.json";
 
     @Test
-    public void writeBdd() {
+    public void writeBdd() throws UnsupportedEncodingException {
         ExtentReports extent = new ExtentReports();
+        extent.setGherkinDialect(GherkinDialectManager.getDefaultLanguage());
         JsonFormatter json = new JsonFormatter(JSON_PATH);
         extent.attachReporter(json);
         extent.createTest(Feature.class, "FeatureName")

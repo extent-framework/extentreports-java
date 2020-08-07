@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
@@ -167,6 +168,13 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
 
     public final long timeTaken() {
         return endTime.getTime() - startTime.getTime();
+    }
+    
+    public List<ExceptionInfo> aggregateExceptions() {
+        return logs.stream()
+                .filter(x -> x.getException() != null)
+                .map(x -> x.getException())
+                .collect(Collectors.toList());
     }
 
     public final Test getAncestor() {

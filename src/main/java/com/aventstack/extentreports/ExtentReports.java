@@ -10,7 +10,6 @@ import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.ReportStats;
 import com.aventstack.extentreports.model.SystemEnvInfo;
-import com.aventstack.extentreports.model.service.TestService;
 import com.aventstack.extentreports.observer.ExtentObserver;
 
 /**
@@ -265,7 +264,7 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
      *            The test name
      */
     public void removeTest(String name) {
-        TestService.findTest(getReport().getTestList(), name)
+        getReport().findTest(getReport().getTestList(), name)
                 .ifPresent(this::onTestRemoved);
     }
 
