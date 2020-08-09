@@ -10,6 +10,7 @@
             <div class="status-avatar float-right ${node.status.toLower()}-bg">
                <i class="fa fa-${Ico.ico(node.status)} text-white"></i>
             </div>
+            <div class="node-time"><span class='badge badge-default'>${test.timeTaken()?number_to_time?string("mm:ss:SSS")}</span></div>
             <@attributes test=node />
             <#if TestService.testHasScreenCapture(node, true)>
               <div class="status-avatar float-right"><i class="fa fa-paperclip"></i></div>
