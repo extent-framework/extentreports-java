@@ -10,6 +10,7 @@ import java.util.Map;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.NamedAttribute;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.util.Assert;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -29,8 +30,7 @@ public class NamedAttributeContext<T extends NamedAttribute> implements Serializ
     }
 
     public void addTest(Test test) {
-        if (test == null)
-            throw new IllegalArgumentException("Test cannot be null");
+    	Assert.notNull(test, "Test must not be null");
         testList.add(test);
         refresh(test);
     }

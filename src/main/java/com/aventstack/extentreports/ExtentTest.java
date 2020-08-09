@@ -16,6 +16,7 @@ import com.aventstack.extentreports.model.RunResult;
 import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.Test;
 import com.aventstack.extentreports.model.service.ExceptionInfoService;
+import com.aventstack.extentreports.util.Assert;
 
 import lombok.Getter;
 
@@ -92,8 +93,7 @@ public class ExtentTest implements RunResult, Serializable {
      *            Test description
      */
     ExtentTest(ExtentReports extent, Class<? extends IGherkinFormatterModel> type, String name, String description) {
-        if (name == null || name.isEmpty())
-            throw new IllegalArgumentException("Test name cannot be null or empty");
+        Assert.notEmpty(name, "Test name must not be null or empty");
         model = Test.builder()
                 .bddType(type)
                 .name(name)
@@ -357,8 +357,7 @@ public class ExtentTest implements RunResult, Serializable {
      * @return An {@link ExtentTest} object
      */
     public ExtentTest log(Status status, String details, Throwable t, Media media) {
-        if (status == null)
-            throw new IllegalArgumentException("Status must not be null");
+    	Assert.notNull(status, "Status must not be null");
         Log log = Log.builder()
                 .status(status)
                 .details(details == null ? "" : details)
@@ -1068,8 +1067,7 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     public ExtentTest addScreenCaptureFromPath(String path, String title) {
-        if (path == null || path.isEmpty())
-            throw new IllegalArgumentException("ScreenCapture path cannot be null or empty");
+    	Assert.notEmpty(path, "ScreenCapture path must not be null or empty");
         Media m = ScreenCapture.builder().path(path).title(title).build();
         model.addMedia(m);
         extent.onMediaAdded(m, model);
@@ -1081,8 +1079,7 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     public ExtentTest addScreenCaptureFromBase64String(String base64, String title) {
-        if (base64 == null || base64.isEmpty())
-            throw new IllegalArgumentException("Base64 string cannot be null or empty");
+    	Assert.notEmpty(base64, "ScreenCapture's base64 string must not be null or empty");
         if (!base64.startsWith("data:"))
             base64 = "data:image/png;base64," + base64;
         Media m = ScreenCapture.builder().base64(base64).title(title).build();

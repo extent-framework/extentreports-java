@@ -6,6 +6,7 @@ import java.util.List;
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.util.Assert;
 
 public class TestService {
     public static Boolean testHasScreenCapture(Test test, Boolean deep) {
@@ -20,8 +21,7 @@ public class TestService {
     }
 
     public static Test createTest(Class<? extends IGherkinFormatterModel> type, String name, String description) {
-        if (name == null || name.isEmpty())
-            throw new IllegalArgumentException("Test name cannot be null or empty");
+    	Assert.notEmpty(name, "Test name must not be null or empty");
         return Test.builder()
                 .bddType(type)
                 .name(name)

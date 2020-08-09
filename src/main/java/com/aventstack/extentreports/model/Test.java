@@ -19,6 +19,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.gherkin.model.ScenarioOutline;
+import com.aventstack.extentreports.util.Assert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,8 +65,7 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
     private final List<Log> generatedLog = Collections.synchronizedList(new ArrayList<>());
 
     public final void addChild(Test child) {
-        if (child == null)
-            throw new IllegalArgumentException("Node must not be null");
+    	Assert.notNull(child, "Node must not be null");
         child.setLevel(level + 1);
         child.setParent(this);
         child.setLeaf(true);
@@ -100,8 +100,7 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
     }
 
     private final void addLog(Log log, List<Log> list) {
-        if (log == null)
-            throw new IllegalArgumentException("Log must not be null");
+    	Assert.notNull(log, "Log must not be null");
         log.setSeq(list.size());
         list.add(log);
         end(log.getStatus());
