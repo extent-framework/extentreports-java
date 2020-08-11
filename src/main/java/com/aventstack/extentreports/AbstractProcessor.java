@@ -53,9 +53,9 @@ public abstract class AbstractProcessor extends ReactiveSubject {
     }
 
     @Override
-    protected void onMediaAdded(Media m, Log log) {
+    protected void onMediaAdded(Media m, Log log, Test test) {
         tryResolvePath(m);
-        super.onMediaAdded(m, log);
+        super.onMediaAdded(m, log, test);
     }
 
     private void tryResolvePath(Media m) {

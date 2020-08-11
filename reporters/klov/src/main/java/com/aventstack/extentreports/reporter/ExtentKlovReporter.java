@@ -656,7 +656,7 @@ public class ExtentKlovReporter extends AbstractReporter
             exceptionCollection.updateOne(new Document("_id", docException.getObjectId("_id")),
                     new Document("$set", doc));
             doc = new Document("exception", exceptionNameObjectIdCollection.get(ex.getName()))
-            		.append("exceptionName", ex.getName());
+                    .append("exceptionName", ex.getName());
             testCollection.updateOne(new Document("_id", test.getInfoMap().get(ID_KEY)), new Document("$set", doc));
             updateTestDesc(test);
         }
@@ -704,10 +704,10 @@ public class ExtentKlovReporter extends AbstractReporter
             @Override
             public void onNext(MediaEntity value) {
                 try {
-                    if (value.getTest() != null)
-                        onScreenCaptureAdded(value.getTest(), (ScreenCapture) value.getMedia());
                     if (value.getLog() != null)
-                        onScreenCaptureAdded(value.getLog(), (ScreenCapture) value.getMedia());
+                        onScreenCaptureAdded(value.getLog(), value.getTest(), (ScreenCapture) value.getMedia());
+                    else if (value.getTest() != null)
+                        onScreenCaptureAdded(value.getTest(), (ScreenCapture) value.getMedia());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -728,8 +728,12 @@ public class ExtentKlovReporter extends AbstractReporter
         saveScreenCapture(test, screenCapture);
     }
 
-    public void onScreenCaptureAdded(Log log, ScreenCapture screenCapture) throws IOException {
+    public void onScreenCaptureAdded(Log log, Test test, ScreenCapture screenCapture) throws IOException {
         screenCapture.getInfoMap().put(LOG_ID_KEY, log.getInfoMap().get(ID_KEY));
+        screenCapture.getInfoMap().put(TEST_ID_KEY, test.getInfoMap().get(ID_KEY));
+        logCollection.updateOne(
+                new Document("_id", log.getInfoMap().get(ID_KEY)),
+                new Document("$set", new Document("mediaCount", 1)));
         saveScreenCapture(log, screenCapture);
     }
 

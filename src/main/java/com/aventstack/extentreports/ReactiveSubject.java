@@ -75,8 +75,8 @@ abstract class ReactiveSubject {
         mediaSubject.onNext(MediaEntity.builder().media(m).test(test).build());
     }
 
-    protected void onMediaAdded(Media m, Log log) {
-        mediaSubject.onNext(MediaEntity.builder().media(m).log(log).build());
+    protected void onMediaAdded(Media m, Log log, Test test) {
+        mediaSubject.onNext(MediaEntity.builder().media(m).test(test).log(log).build());
     }
 
     protected void onFlush() {

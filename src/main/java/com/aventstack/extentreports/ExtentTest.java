@@ -364,11 +364,14 @@ public class ExtentTest implements RunResult, Serializable {
                 .build();
         ExceptionInfo exceptionInfo = ExceptionInfoService.createExceptionInfo(t);
         log.setException(exceptionInfo);
-        log.addMedia(media);
         if (exceptionInfo != null)
             model.getExceptions().add(exceptionInfo);
         model.addLog(log);
         extent.onLogCreated(log, model);
+        if (media != null) {
+            log.addMedia(media);
+            extent.onMediaAdded(media, log, model);
+        }
         return this;
     }
 
