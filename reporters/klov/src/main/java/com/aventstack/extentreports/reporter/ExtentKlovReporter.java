@@ -882,4 +882,10 @@ public class ExtentKlovReporter extends AbstractReporter
             deviceCollection.updateOne(match, new BasicDBObject("$pull", update));
         }
     }
+
+    public String uri() {
+        if (projectName == null || projectName.isEmpty() || reportId == null)
+            return "";
+        return "projects/" + projectName + "/launches/" + reportId.toString() + "/tests";
+    }
 }
