@@ -65,7 +65,7 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
     private final List<Log> generatedLog = Collections.synchronizedList(new ArrayList<>());
 
     public final void addChild(Test child) {
-    	Assert.notNull(child, "Node must not be null");
+        Assert.notNull(child, "Node must not be null");
         child.setLevel(level + 1);
         child.setParent(this);
         child.setLeaf(true);
@@ -100,7 +100,7 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
     }
 
     private final void addLog(Log log, List<Log> list) {
-    	Assert.notNull(log, "Log must not be null");
+        Assert.notNull(log, "Log must not be null");
         log.setSeq(list.size());
         list.add(log);
         end(log.getStatus());
@@ -148,7 +148,7 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
         StringBuilder sb = new StringBuilder(test.getName());
         while (test.getParent() != null) {
             test = test.getParent();
-            if (test.getBddType() == null || test.getBddType() != ScenarioOutline.class)
+            if (!test.isBDD() || test.getBddType() != ScenarioOutline.class)
                 sb.insert(0, test.getName() + ".");
         }
         return sb.toString();
@@ -168,7 +168,7 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
     public final long timeTaken() {
         return endTime.getTime() - startTime.getTime();
     }
-    
+
     public List<ExceptionInfo> aggregateExceptions() {
         return logs.stream()
                 .filter(x -> x.getException() != null)

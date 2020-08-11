@@ -46,7 +46,9 @@ public class HttpMediaManagerImplKlov
         if (m instanceof ScreenCapture && ((ScreenCapture) m).getBase64() != null) {
             return;
         }
-        File f = new File(m.getResolvedPath());
+        File f = new File(m.getPath());
+        if (m.getResolvedPath() != null)
+            f = new File(m.getResolvedPath());
         if (!f.exists()) {
             throw new IOException("The system cannot find the file specified " + m.getPath());
         }
@@ -69,13 +71,12 @@ public class HttpMediaManagerImplKlov
                         ContentType.TEXT_PLAIN));
         builder.addPart("testId",
                 new StringBody(m.getInfoMap().get(ExtentKlovReporter.TEST_ID_KEY).toString(), ContentType.TEXT_PLAIN));
-        builder.addPart("f", new FileBody(new File(m.getResolvedPath())));
+        builder.addPart("f", new FileBody(f));
         post.setEntity(builder.build());
 
-        String logId = m.getInfoMap().get(ExtentKlovReporter.LOG_ID_KEY) == null
-                ? null
-                : m.getInfoMap().get(ExtentKlovReporter.LOG_ID_KEY).toString();
-        builder.addPart("logId", new StringBody(logId, ContentType.TEXT_PLAIN));
+        Object logId = m.getInfoMap().get(ExtentKlovReporter.LOG_ID_KEY);
+        if (logId != null)
+            builder.addPart("logId", new StringBody(logId.toString(), ContentType.TEXT_PLAIN));
 
         HttpClient client = null;
         if (host.toLowerCase().startsWith("https")) {

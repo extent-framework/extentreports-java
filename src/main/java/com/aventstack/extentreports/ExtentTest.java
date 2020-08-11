@@ -357,7 +357,7 @@ public class ExtentTest implements RunResult, Serializable {
      * @return An {@link ExtentTest} object
      */
     public ExtentTest log(Status status, String details, Throwable t, Media media) {
-    	Assert.notNull(status, "Status must not be null");
+        Assert.notNull(status, "Status must not be null");
         Log log = Log.builder()
                 .status(status)
                 .details(details == null ? "" : details)
@@ -366,7 +366,7 @@ public class ExtentTest implements RunResult, Serializable {
         log.setException(exceptionInfo);
         log.addMedia(media);
         if (exceptionInfo != null)
-        	model.getExceptions().add(exceptionInfo);
+            model.getExceptions().add(exceptionInfo);
         model.addLog(log);
         extent.onLogCreated(log, model);
         return this;
@@ -1067,7 +1067,7 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     public ExtentTest addScreenCaptureFromPath(String path, String title) {
-    	Assert.notEmpty(path, "ScreenCapture path must not be null or empty");
+        Assert.notEmpty(path, "ScreenCapture path must not be null or empty");
         Media m = ScreenCapture.builder().path(path).title(title).build();
         model.addMedia(m);
         extent.onMediaAdded(m, model);
@@ -1079,7 +1079,7 @@ public class ExtentTest implements RunResult, Serializable {
     }
 
     public ExtentTest addScreenCaptureFromBase64String(String base64, String title) {
-    	Assert.notEmpty(base64, "ScreenCapture's base64 string must not be null or empty");
+        Assert.notEmpty(base64, "ScreenCapture's base64 string must not be null or empty");
         if (!base64.startsWith("data:"))
             base64 = "data:image/png;base64," + base64;
         Media m = ScreenCapture.builder().base64(base64).title(title).build();
