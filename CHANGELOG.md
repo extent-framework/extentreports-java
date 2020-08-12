@@ -1,3 +1,9 @@
+## [5.0.3](https://github.com/extent-framework/extentreports-java/compare/v5.0.2...v5.0.3)
+
+#### Issues Resolved
+- [#232](/issues/232) Display duration for child tests
+- [#235](/issues/235) Critical: KlovReporter fails to upload ScreenCapture for events
+
 ## [5.0.2](https://github.com/extent-framework/extentreports-java/compare/v5.0.1...v5.0.2)
 
 #### Issues Resolved
