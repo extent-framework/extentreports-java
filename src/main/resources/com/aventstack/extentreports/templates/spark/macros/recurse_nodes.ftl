@@ -7,11 +7,13 @@
         <div class="card-header">
           <div class="card-title">
             <div class="node" id="${node.getId()}">${node.name}</div>
-            <div class="status-avatar float-right ${node.status.toLower()}-bg">
-               <i class="fa fa-${Ico.ico(node.status)} text-white"></i>
+            <div class="node-status float-right"><span class="badge ${test.status.toLower()}-bg log ">${node.status}</span></div>
+            <div class="node-time">
+              <span class='badge badge-default'>${node.timeTaken()?number_to_time?string("mm:ss:SSS")}</span>
             </div>
-            <div class="node-time"><span class='badge badge-default'>${test.timeTaken()?number_to_time?string("mm:ss:SSS")}</span></div>
-            <@attributes test=node />
+            <div class="node-attr">
+                <#if node.hasAttributes()><div></div><@attributes test=node /></#if>
+            </div>
             <#if TestService.testHasScreenCapture(node, true)>
               <div class="status-avatar float-right"><i class="fa fa-paperclip"></i></div>
             </#if>

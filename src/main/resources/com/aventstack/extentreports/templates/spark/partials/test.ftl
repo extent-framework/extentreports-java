@@ -53,24 +53,23 @@
           author="<#list test.authorSet as x>${x.name}<#if x_has_next> </#if></#list>"
           tag="<#list test.categorySet as x>${x.name}<#if x_has_next> </#if></#list>"
           device="<#list test.deviceSet as x>${x.name}<#if x_has_next> </#if></#list>">
-          <div class="status-avatar ${test.status.toLower()}-bg">
-            <i class="fa fa-${Ico.ico(test.status)} text-white"></i>
-          </div>
           <div class="test-detail">
-            <span class="meta text-white badge badge-sm"></span>
             <p class="name">${test.name}</p>
-            <p class="text-sm"><span>${test.startTime?string("HH:mm:ss a")}</span> / <span>${test.timeTaken()?number_to_time?string("mm:ss:SSS")}</span></p>
+            <p class="text-sm">
+              <span>${test.startTime?string("HH:mm:ss a")}</span> / <span>${test.timeTaken()?number_to_time?string("mm:ss:SSS")}</span>
+              <span class="text-${test.status.toLower()} log float-right">${test.status}</span>
+            </p>
           </div>
           <div class="test-contents d-none">
             <#compress>
             <div class="detail-head">
               <div class="p-v-10">
                 <div class="info">
-                  <div class='float-right'><span class='badge badge-default'>#test-id=${test.getId()}</span></div>
                   <h5 class="test-status text-${test.status.toLower()}">${test.name}</h5>
                   <span class='badge badge-success'>${test.startTime?string("MM.dd.yyyy HH:mm:ss")}</span>
                   <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy HH:mm:ss")}</span>
                   <span class='badge badge-default'>${test.timeTaken()?number_to_time?string("mm:ss:SSS")}</span>
+                  &middot; <span class='badge badge-default'>#test-id=${test.getId()}</span>
                 </div>
                 <#if test.hasAttributes()>
                 <div class="m-t-15"><@attributes test=test /></div>
