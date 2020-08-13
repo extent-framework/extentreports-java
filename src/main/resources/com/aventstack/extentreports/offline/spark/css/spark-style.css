@@ -357,14 +357,15 @@ textarea {
 }
 .node {
     display: inline-block;
-    padding: 1rem;
+    padding: .75rem;
     font-weight: 500;
     max-width: 85%;
     font-size: 14px;
 }
 .node-attr {
-    padding: 1rem;
-    margin-top: -1rem;
+    padding: .75rem;
+    margin-top: -.5rem;
+    padding-left: .7rem;
     padding-top: 0;
 } 
 .node-attr > .badge { 

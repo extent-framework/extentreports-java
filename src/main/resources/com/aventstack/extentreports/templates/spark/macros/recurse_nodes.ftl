@@ -12,7 +12,7 @@
               <span class='badge badge-default'>${node.timeTaken()?number_to_time?string("mm:ss:SSS")}</span>
             </div>
             <div class="node-attr">
-                <#if node.hasAttributes()><div></div><@attributes test=node /></#if>
+                <#if node.hasAttributes()><@attributes test=node /></#if>
             </div>
             <#if TestService.testHasScreenCapture(node, true)>
               <div class="status-avatar float-right"><i class="fa fa-paperclip"></i></div>
