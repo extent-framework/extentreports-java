@@ -57,7 +57,7 @@
             <p class="name">${test.name}</p>
             <p class="text-sm">
               <span>${test.startTime?string("HH:mm:ss a")}</span> / <span>${test.timeTaken()?number_to_time?string("mm:ss:SSS")}</span>
-              <span class="text-${test.status.toLower()} log float-right">${test.status}</span>
+              <span class="badge ${test.status.toLower()}-bg log float-right">${test.status}</span>
             </p>
           </div>
           <div class="test-contents d-none">
