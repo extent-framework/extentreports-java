@@ -393,3 +393,51 @@ function drawChart(ctx, config) {
         drawChart(ctx, config);
     }
 })();
+
+/* -- [ timeline ] -- */
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+(function drawTimelineChart() {
+    if (typeof timeline !== "undefined") {
+        var datasets = [];
+        for (var key in timeline) {
+            datasets.push({ label:key, data:[timeline[key]], backgroundColor: getRandomColor(), borderWidth: 1 });
+        }
+        var ctx = document.getElementById('timeline').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                tooltips: {
+                    mode: 'point'
+                },
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        gridLines: false
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        gridLines: false,
+                        barThickness: 25
+                    }]
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+    }
+})();

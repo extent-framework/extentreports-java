@@ -117,6 +117,25 @@
     </div>
     </#if>
   </div>
+  <#if config.timelineEnabled == true>
+  <div class="row"><div class="col-md-12">
+    <div class="card"><div class="card-header"><p>Timeline</p></div>
+      <div class="card-body pt-0"><div>
+        <canvas id="timeline" height="120"></canvas>
+      </div></div>
+    </div>
+  </div></div>
+  <script>
+    <#macro listTestNameDuration testList>
+       <#if report.testList??>
+            <#list report.testList as t>"${t.name}":${(t.timeTaken()/1000)?c?replace(",","")}<#if t_has_next>,</#if></#list>
+       </#if>
+    </#macro>
+    var timeline = {
+        <@listTestNameDuration testList=report.testList />
+    };
+  </script>
+  </#if>
   <div class="row">
     <#if report.authorCtx.set?size != 0>
     <div class="col-md-4 author-container">
