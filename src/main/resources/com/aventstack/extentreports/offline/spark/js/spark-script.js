@@ -112,6 +112,13 @@ $(".test-content").click(function(evt) {
 		$(".test-content .tag-test-status").addClass("d-none");
 		$(".test-content .tag-test-status[status=" + status + "]").removeClass("d-none");
 	}
+	
+	if (target.is('.uri-anchor')) {
+		var url = window.location.href;
+		if (url.indexOf('#') > 0)
+			url = url.split('#')[0];
+		window.location = url + $(target).text();
+	}
 });
 
 /* -- [ attr ] -- */ 
@@ -136,7 +143,6 @@ $('.test-content').click(function(evt) {
 		}, 200);
 	}
 });
-
 
 /* ------------------------------------ */
 /* filters */

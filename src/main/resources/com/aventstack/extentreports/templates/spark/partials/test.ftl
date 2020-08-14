@@ -69,7 +69,7 @@
                   <span class='badge badge-success'>${test.startTime?string("MM.dd.yyyy HH:mm:ss")}</span>
                   <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy HH:mm:ss")}</span>
                   <span class='badge badge-default'>${test.timeTaken()?number_to_time?string("mm:ss:SSS")}</span>
-                  &middot; <span class='badge badge-default'>#test-id=${test.getId()}</span>
+                  &middot; <span class='uri-anchor badge badge-default'>#test-id=${test.getId()}</span>
                 </div>
                 <#if test.hasAttributes()>
                 <div class="m-t-15"><@attributes test=test /></div>
