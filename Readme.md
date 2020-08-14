@@ -5,6 +5,11 @@
 * Documentation (still in progress) for ExtentReports 5.x is hosted on GitHub at [ExtentReports Wiki](https://github.com/extent-framework/extentreports-java/wiki). 
 * For versions 4 and below, visit [extentreports.com](http://extentreports.com/).
 
+### Samples ###
+
+* [Klov](http://klov.herokuapp.com)
+* [Spark](http://extentreports.com/docs/v5/wiki/spark/spark.html) from [Wiki:A Complete Example](https://github.com/extent-framework/extentreports-java/wiki/A-Complete-Example)
+
 ### Contributing ###
 
 For more information on contributing to the ExtentReports project, please see [CONTRIBUTING.md](https://github.com/extent-framework/extentreports-java/blob/master/Contributing.md).
