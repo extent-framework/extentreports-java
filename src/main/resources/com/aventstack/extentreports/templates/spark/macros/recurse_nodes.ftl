@@ -7,7 +7,7 @@
         <div class="card-header">
           <div class="card-title">
             <div class="node" id="${node.getId()}">${node.name}</div>
-            <div class="node-status float-right"><span class="badge ${test.status.toLower()}-bg log ">${node.status}</span></div>
+            <div class="node-status float-right"><span class="badge ${node.status.toLower()}-bg log ">${node.status}</span></div>
             <div class="node-time">
               <span class='badge badge-default'>${node.timeTaken()?number_to_time?string("mm:ss:SSS")}</span>
             </div>
