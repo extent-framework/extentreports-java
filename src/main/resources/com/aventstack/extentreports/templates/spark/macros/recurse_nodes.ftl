@@ -20,7 +20,7 @@
           </div>
         </div>
         <#if node.hasLog()>
-        <div class="<#if node.status.toLower()=='pass'>collapse</#if>">
+        <div class="<#if node.status.toLower()!='fail'>collapse</#if>">
           <div class="card-body">
             <@log test=node />
             <@media node.media />
