@@ -1,3 +1,14 @@
+## [5.0.4](https://github.com/extent-framework/extentreports-java/compare/v5.0.3...v5.0.4)
+
+#### Issues Resolved
+- [#240](/issues/240) Change static URI anchor behavior
+- [#246](/issues/246) Collapse all nodes other than failure
+- [#252](/issues/252) Nodes were using status color from the parent node
+- [#235](/issues/235) [#236](/issues/236) Style updates
+
+#### New Features
+- [#233](/issues/233) ExtentSparkReporter does not show timeline in dashboard view
+
 ## [5.0.3](https://github.com/extent-framework/extentreports-java/compare/v5.0.2...v5.0.3)
 
 #### Issues Resolved
