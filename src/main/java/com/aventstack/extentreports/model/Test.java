@@ -1,6 +1,8 @@
 package com.aventstack.extentreports.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -11,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -167,6 +170,20 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
 
     public final long timeTaken() {
         return endTime.getTime() - startTime.getTime();
+    }
+
+    /**
+     * Time taken formatted as HH:mm:ss:SSS
+     * 
+     * Solution provided by @grasshopper7
+     * https://github.com/extent-framework/extentreports-java/issues/247#issuecomment-679918613
+     */
+    public final String timeTakenPretty() {
+        Date date = new Date(timeTaken());
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formatted = formatter.format(date);
+        return formatted;
     }
 
     public List<ExceptionInfo> aggregateExceptions() {
