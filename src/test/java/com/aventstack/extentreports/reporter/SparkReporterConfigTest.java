@@ -25,9 +25,9 @@ public class SparkReporterConfigTest {
     @Test
     public void loadJSONConfigFileTest() throws IOException {
         ExtentSparkReporter spark = new ExtentSparkReporter("target/spark.html");
-        spark.loadJSONConfig(new File("config/spark-config.json"));
+        spark.loadJSONConfig(new File("src/test/resources/config/spark-config.json"));
         Assert.assertEquals(spark.getConf().getTheme(), Theme.STANDARD);
-        Assert.assertEquals(spark.getConf().getDocumentTitle(), "ExtentReports");
+        Assert.assertEquals(spark.getConf().getDocumentTitle(), "Test1");
         Assert.assertEquals(spark.getConf().getEncoding(), "utf-8");
     }
 
@@ -44,18 +44,18 @@ public class SparkReporterConfigTest {
     @Test
     public void loadXMLConfigFileTest() throws IOException {
         ExtentSparkReporter spark = new ExtentSparkReporter("target/spark.html");
-        spark.loadXMLConfig(new File("config/spark-config.xml"));
-        Assert.assertEquals(spark.getConf().getReportName(), "Build 1");
-        Assert.assertEquals(spark.getConf().getDocumentTitle(), "Extent Framework");
-        Assert.assertEquals(spark.getConf().getEncoding(), "UTF-8");
+        spark.loadXMLConfig(new File("src/test/resources/config/spark-config.xml"));
+        Assert.assertEquals(spark.getConf().getReportName(), "Test2");
+        Assert.assertEquals(spark.getConf().getDocumentTitle(), "Build 1");
+        Assert.assertEquals(spark.getConf().getEncoding(), "utf-16");
     }
 
     @Test
     public void loadXMLConfigPathTest() throws IOException {
         ExtentSparkReporter spark = new ExtentSparkReporter("target/spark.html");
-        spark.loadXMLConfig("config/spark-config.xml");
-        Assert.assertEquals(spark.getConf().getReportName(), "Build 1");
-        Assert.assertEquals(spark.getConf().getDocumentTitle(), "Extent Framework");
-        Assert.assertEquals(spark.getConf().getEncoding(), "UTF-8");
+        spark.loadXMLConfig("src/test/resources/config/spark-config.xml");
+        Assert.assertEquals(spark.getConf().getReportName(), "Test2");
+        Assert.assertEquals(spark.getConf().getDocumentTitle(), "Build 1");
+        Assert.assertEquals(spark.getConf().getEncoding(), "utf-16");
     }
 }

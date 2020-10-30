@@ -27,7 +27,7 @@
           </div>
         </div>
         </#if>
-        <#if test.hasChildren()>
+        <#if node.hasChildren()>
           <@recurse_nodes test=node />
         </#if>
       </div>

@@ -1,6 +1,6 @@
 {
-  "theme": "DARK",
-  "encoding": "utf-16",
+  "theme": "standard",
+  "encoding": "utf-8",
   "protocol": "HTTP",
   "timelineEnabled": true,
   "offlineMode": true,

@@ -22,12 +22,12 @@ public class JsonConfigLoaderTest {
         loader.apply();
         Assert.assertEquals(conf.getCss(), "css1");
         Assert.assertEquals(conf.getDocumentTitle(), "Test1");
-        Assert.assertEquals(conf.getEncoding(), "utf-16");
+        Assert.assertEquals(conf.getEncoding(), "utf-8");
         Assert.assertEquals(conf.getReportName(), "Test2");
         Assert.assertEquals(conf.getTimeStampFormat(), "MMM dd, yyyy HH:mm:ss a");
         Assert.assertEquals(conf.getOfflineMode().booleanValue(), true);
         Assert.assertEquals(conf.getProtocol(), Protocol.HTTP);
-        Assert.assertEquals(conf.getTheme(), Theme.DARK);
+        Assert.assertEquals(conf.getTheme(), Theme.STANDARD);
     }
 
     @Test

@@ -22,7 +22,7 @@
     <offlineMode>true</offlineMode>
 
     <!-- title of the document -->
-    <documentTitle>Test1</documentTitle>
+    <documentTitle>Build 1</documentTitle>
 
     <!-- report name - displayed at top-nav -->
     <reportName>Test2</reportName>

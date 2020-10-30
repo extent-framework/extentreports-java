@@ -21,7 +21,7 @@ public class XmlConfigLoaderTest {
                 new File(XML_FILE));
         loader.apply();
         Assert.assertEquals(conf.getCss(), "css1");
-        Assert.assertEquals(conf.getDocumentTitle(), "Test1");
+        Assert.assertEquals(conf.getDocumentTitle(), "Build 1");
         Assert.assertEquals(conf.getEncoding(), "utf-16");
         Assert.assertEquals(conf.getReportName(), "Test2");
         Assert.assertEquals(conf.getTimeStampFormat(), "MMM dd, yyyy HH:mm:ss a");

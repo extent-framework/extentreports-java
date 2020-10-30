@@ -23,7 +23,7 @@
         </#if>
       </div>
     </div>
-    <#if test.hasChildren()>
+    <#if node.hasChildren()>
       <#if node.bddType?? && node.bddType.simpleName=="ScenarioOutline">
         <div class="scenario_outline <#if node.status.toLower()=='pass'>collapse</#if>">
           <#list node.children as child>
