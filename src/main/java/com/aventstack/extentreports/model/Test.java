@@ -177,6 +177,8 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
      * 
      * Solution provided by @grasshopper7
      * https://github.com/extent-framework/extentreports-java/issues/247#issuecomment-679918613
+     * 
+     * @return A formatted time taken string as HH:mm:ss:SSS
      */
     public final String timeTakenPretty() {
         Date date = new Date(timeTaken());

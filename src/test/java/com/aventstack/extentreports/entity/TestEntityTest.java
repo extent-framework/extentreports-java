@@ -318,4 +318,30 @@ public class TestEntityTest {
         long duration = test.timeTaken();
         Assert.assertTrue(duration < 5);
     }
+
+    @org.testng.annotations.Test
+    public void timeTakenPretty() {
+        Test test = getTest();
+        String duration = test.timeTakenPretty();
+        String[] durationParts = duration.split(":");
+        Assert.assertEquals(durationParts[0], "00");
+        Assert.assertEquals(durationParts[1], "00");
+        Assert.assertEquals(durationParts[2], "00");
+        long millis = Integer.parseInt(durationParts[3]);
+        Assert.assertTrue(millis >= 0);
+    }
+
+    @org.testng.annotations.Test
+    public void timeTakenPrettyWithLog() throws InterruptedException {
+        Test test = getTest();
+        Thread.sleep(10);
+        test.addLog(Log.builder().status(Status.PASS).build());
+        String duration = test.timeTakenPretty();
+        String[] durationParts = duration.split(":");
+        Assert.assertEquals(durationParts[0], "00");
+        Assert.assertEquals(durationParts[1], "00");
+        Assert.assertEquals(durationParts[2], "00");
+        long millis = Integer.parseInt(durationParts[3]);
+        Assert.assertTrue(millis > 0);
+    }
 }
