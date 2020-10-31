@@ -42,7 +42,7 @@ public abstract class AbstractFileReporter extends AbstractFilterableReporter {
         } else {
             parentFile = f.getParentFile();
         }
-        if (!parentFile.exists())
+        if (parentFile != null && !parentFile.exists())
             parentFile.mkdirs();
     }
 
