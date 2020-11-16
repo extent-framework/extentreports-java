@@ -1,3 +1,13 @@
+## [5.0.5](https://github.com/extent-framework/extentreports-java/compare/v5.0.4...v5.0.5)
+
+#### Issues Resolved
+- [#247](/issues/247) Spark Report - Wrong test durations displayed in tests tab
+- [#259](/issues/259) ExtentSparkReporter constructor throws NullPointerException if path argument don`t contains parrent fodler
+- [#267](/issues/267) Spark-css.css uses a googleapis.com import causing offline reports to attempt external connection
+
+#### New Features
+- [#269](/issues/269) KlovReporter: provide ability to specify a database name
+
 ## [5.0.4](https://github.com/extent-framework/extentreports-java/compare/v5.0.3...v5.0.4)
 
 #### Issues Resolved
