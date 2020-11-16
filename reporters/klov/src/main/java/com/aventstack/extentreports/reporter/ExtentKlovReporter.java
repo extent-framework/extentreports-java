@@ -77,13 +77,15 @@ public class ExtentKlovReporter extends AbstractReporter
     private static final String DEFAULT_MONGODB_HOST_PROP = "mongodb.host";
     private static final String DEFAULT_MONGODB_PORT_PROP = "mongodb.port";
     private static final String DEFAULT_MONGODB_URI_PROP = "mongodb.uri";
+    private static final String DEFAULT_DATABASE_NAME_PROP = "database.name";
     private static final String DEFAULT_KLOV_HOST_PROP = "klov.host";
     private static final String DEFAULT_KLOV_PORT_PROP = "klov.port";
-    private static final String DB_NAME = "klov";
     private static final String DEFAULT_PROJECT_NAME = "Default";
-
+    private static final String DB_NAME = "klov";
+    
     private final AtomicBoolean initiated = new AtomicBoolean();
 
+    private String databaseName = DB_NAME;
     private String url;
     private Boolean appendExisting = false;
 
@@ -283,6 +285,17 @@ public class ExtentKlovReporter extends AbstractReporter
         this.url = url;
         return this;
     }
+    
+    /**
+     * Specify a database name instead of default: "Klov"
+     * 
+     * @param name Name of the database
+     * @return a {@link ExtentKlovReporter} object
+     */
+    public ExtentKlovReporter setDatabaseName(String name) {
+        databaseName = name;
+        return this;
+    }
 
     /**
      * Initializes KlovReporter with default Klov and MongoDB settings. This
@@ -312,6 +325,10 @@ public class ExtentKlovReporter extends AbstractReporter
     }
 
     private void loadInitializationParams(Properties props) {
+        String databaseName = props.getProperty(DEFAULT_DATABASE_NAME_PROP);
+        if (databaseName != null && !databaseName.isEmpty())
+            this.databaseName = databaseName;
+        
         String mongoUri = props.getProperty(DEFAULT_MONGODB_URI_PROP);
         String mongoHost = props.getProperty(DEFAULT_MONGODB_HOST_PROP);
         String mongoPort = props.getProperty(DEFAULT_MONGODB_PORT_PROP);
@@ -800,7 +817,7 @@ public class ExtentKlovReporter extends AbstractReporter
     private final void start() {
         CodecRegistry pojoCodecRegistry = CodecRegistries.fromRegistries(MongoClient.getDefaultCodecRegistry(),
                 CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build()));
-        MongoDatabase db = mongoClient.getDatabase(DB_NAME).withCodecRegistry(pojoCodecRegistry);
+        MongoDatabase db = mongoClient.getDatabase(databaseName).withCodecRegistry(pojoCodecRegistry);
         initCollections(db);
         setupProject();
     }
