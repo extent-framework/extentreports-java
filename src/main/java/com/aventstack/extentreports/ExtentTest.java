@@ -305,6 +305,7 @@ public class ExtentTest implements RunResult, Serializable {
     public ExtentTest generateLog(Status status, String details) {
         Log log = Log.builder().status(status).details(details).build();
         model.addGeneratedLog(log);
+        extent.onLogCreated(log, model);
         return this;
     }
 
