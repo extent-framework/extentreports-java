@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KlovMedia {
-    private ObjectId reportId;
     private ObjectId projectId;
+    private ObjectId reportId;
     private MongoCollection<Document> mediaCollection;
 }
