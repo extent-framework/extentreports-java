@@ -25,7 +25,11 @@
     ],
     "name": "Afrikaans",
     "native": "Afrikaans",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Voorbeeld",
       "Situasie"
     ],
     "scenarioOutline": [
@@ -65,7 +69,11 @@
     ],
     "name": "Armenian",
     "native": "հայերեն",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Օրինակ",
       "Սցենար"
     ],
     "scenarioOutline": [
@@ -79,6 +87,55 @@
       "* ",
       "Եթե ",
       "Երբ "
+    ]
+  },
+  "an": {
+    "and": [
+      "* ",
+      "Y ",
+      "E "
+    ],
+    "background": [
+      "Antecedents"
+    ],
+    "but": [
+      "* ",
+      "Pero "
+    ],
+    "examples": [
+      "Eixemplos"
+    ],
+    "feature": [
+      "Caracteristica"
+    ],
+    "given": [
+      "* ",
+      "Dau ",
+      "Dada ",
+      "Daus ",
+      "Dadas "
+    ],
+    "name": "Aragonese",
+    "native": "Aragonés",
+    "rule": [
+      "Rule"
+    ],
+    "scenario": [
+      "Eixemplo",
+      "Caso"
+    ],
+    "scenarioOutline": [
+      "Esquema del caso"
+    ],
+    "then": [
+      "* ",
+      "Alavez ",
+      "Allora ",
+      "Antonces "
+    ],
+    "when": [
+      "* ",
+      "Cuan "
     ]
   },
   "ar": {
@@ -105,7 +162,11 @@
     ],
     "name": "Arabic",
     "native": "العربية",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "مثال",
       "سيناريو"
     ],
     "scenarioOutline": [
@@ -150,7 +211,11 @@
     ],
     "name": "Asturian",
     "native": "asturianu",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Exemplo",
       "Casu"
     ],
     "scenarioOutline": [
@@ -193,7 +258,11 @@
     ],
     "name": "Azerbaijani",
     "native": "Azərbaycanca",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Nümunə",
       "Ssenari"
     ],
     "scenarioOutline": [
@@ -233,7 +302,11 @@
     ],
     "name": "Bulgarian",
     "native": "български",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Пример",
       "Сценарий"
     ],
     "scenarioOutline": [
@@ -274,6 +347,9 @@
     ],
     "name": "Malay",
     "native": "Bahasa Melayu",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Senario",
       "Situasi",
@@ -320,7 +396,11 @@
     ],
     "name": "Bosnian",
     "native": "Bosanski",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Primjer",
       "Scenariju",
       "Scenario"
     ],
@@ -366,7 +446,11 @@
     ],
     "name": "Catalan",
     "native": "català",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Exemple",
       "Escenari"
     ],
     "scenarioOutline": [
@@ -409,7 +493,11 @@
     ],
     "name": "Czech",
     "native": "Česky",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Příklad",
       "Scénář"
     ],
     "scenarioOutline": [
@@ -449,7 +537,11 @@
     ],
     "name": "Welsh",
     "native": "Cymraeg",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Enghraifft",
       "Scenario"
     ],
     "scenarioOutline": [
@@ -488,7 +580,11 @@
     ],
     "name": "Danish",
     "native": "dansk",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Eksempel",
       "Scenarie"
     ],
     "scenarioOutline": [
@@ -509,7 +605,10 @@
       "Und "
     ],
     "background": [
-      "Grundlage"
+      "Grundlage",
+      "Hintergrund",
+      "Voraussetzungen",
+      "Vorbedingungen"
     ],
     "but": [
       "* ",
@@ -519,7 +618,8 @@
       "Beispiele"
     ],
     "feature": [
-      "Funktionalität"
+      "Funktionalität",
+      "Funktion"
     ],
     "given": [
       "* ",
@@ -529,11 +629,17 @@
     ],
     "name": "German",
     "native": "Deutsch",
+    "rule": [
+      "Rule",
+      "Regel"
+    ],
     "scenario": [
+      "Beispiel",
       "Szenario"
     ],
     "scenarioOutline": [
-      "Szenariogrundriss"
+      "Szenariogrundriss",
+      "Szenarien"
     ],
     "then": [
       "* ",
@@ -570,11 +676,16 @@
     ],
     "name": "Greek",
     "native": "Ελληνικά",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Παράδειγμα",
       "Σενάριο"
     ],
     "scenarioOutline": [
-      "Περιγραφή Σεναρίου"
+      "Περιγραφή Σεναρίου",
+      "Περίγραμμα Σεναρίου"
     ],
     "then": [
       "* ",
@@ -609,7 +720,11 @@
     ],
     "name": "Emoji",
     "native": "😀",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "🥒",
       "📕"
     ],
     "scenarioOutline": [
@@ -651,7 +766,11 @@
     ],
     "name": "English",
     "native": "English",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Example",
       "Scenario"
     ],
     "scenarioOutline": [
@@ -692,6 +811,9 @@
     ],
     "name": "Scouse",
     "native": "Scouse",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "The thing of it is"
     ],
@@ -733,6 +855,9 @@
     ],
     "name": "Australian",
     "native": "Australian",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Awww, look mate"
     ],
@@ -772,6 +897,9 @@
     ],
     "name": "LOLCAT",
     "native": "LOLCAT",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "MISHUN"
     ],
@@ -818,6 +946,9 @@
     ],
     "name": "Old English",
     "native": "Englisc",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Swa"
     ],
@@ -865,6 +996,9 @@
     ],
     "name": "Pirate",
     "native": "Pirate",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Heave to"
     ],
@@ -905,7 +1039,11 @@
     ],
     "name": "Esperanto",
     "native": "Esperanto",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Ekzemplo",
       "Scenaro",
       "Kazo"
     ],
@@ -951,7 +1089,11 @@
     ],
     "name": "Spanish",
     "native": "español",
+    "rule": [
+      "Regla"
+    ],
     "scenario": [
+      "Ejemplo",
       "Escenario"
     ],
     "scenarioOutline": [
@@ -990,10 +1132,15 @@
     ],
     "name": "Estonian",
     "native": "eesti keel",
+    "rule": [
+      "Reegel"
+    ],
     "scenario": [
+      "Juhtum",
       "Stsenaarium"
     ],
     "scenarioOutline": [
+      "Raamjuhtum",
       "Raamstsenaarium"
     ],
     "then": [
@@ -1029,7 +1176,11 @@
     ],
     "name": "Persian",
     "native": "فارسی",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "مثال",
       "سناریو"
     ],
     "scenarioOutline": [
@@ -1068,6 +1219,9 @@
     ],
     "name": "Finnish",
     "native": "suomi",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Tapaus"
     ],
@@ -1108,6 +1262,9 @@
     "given": [
       "* ",
       "Soit ",
+      "Sachant que ",
+      "Sachant qu'",
+      "Sachant ",
       "Etant donné que ",
       "Etant donné qu'",
       "Etant donné ",
@@ -1123,7 +1280,11 @@
     ],
     "name": "French",
     "native": "français",
+    "rule": [
+      "Règle"
+    ],
     "scenario": [
+      "Exemple",
       "Scénario"
     ],
     "scenarioOutline": [
@@ -1132,7 +1293,8 @@
     ],
     "then": [
       "* ",
-      "Alors "
+      "Alors ",
+      "Donc "
     ],
     "when": [
       "* ",
@@ -1168,7 +1330,11 @@
     ],
     "name": "Irish",
     "native": "Gaeilge",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Sampla",
       "Cás"
     ],
     "scenarioOutline": [
@@ -1212,7 +1378,11 @@
     ],
     "name": "Gujarati",
     "native": "ગુજરાતી",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "ઉદાહરણ",
       "સ્થિતિ"
     ],
     "scenarioOutline": [
@@ -1256,7 +1426,11 @@
     ],
     "name": "Galician",
     "native": "galego",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Exemplo",
       "Escenario"
     ],
     "scenarioOutline": [
@@ -1296,7 +1470,11 @@
     ],
     "name": "Hebrew",
     "native": "עברית",
+    "rule": [
+      "כלל"
+    ],
     "scenario": [
+      "דוגמא",
       "תרחיש"
     ],
     "scenarioOutline": [
@@ -1341,6 +1519,9 @@
     ],
     "name": "Hindi",
     "native": "हिंदी",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "परिदृश्य"
     ],
@@ -1383,11 +1564,16 @@
       "* ",
       "Zadan ",
       "Zadani ",
-      "Zadano "
+      "Zadano ",
+      "Ukoliko "
     ],
     "name": "Croatian",
     "native": "hrvatski",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Primjer",
       "Scenarij"
     ],
     "scenarioOutline": [
@@ -1435,6 +1621,9 @@
     ],
     "name": "Creole",
     "native": "kreyòl",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Senaryo"
     ],
@@ -1482,7 +1671,11 @@
     ],
     "name": "Hungarian",
     "native": "magyar",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Példa",
       "Forgatókönyv"
     ],
     "scenarioOutline": [
@@ -1505,33 +1698,46 @@
       "Dan "
     ],
     "background": [
-      "Dasar"
+      "Dasar",
+      "Latar Belakang"
     ],
     "but": [
       "* ",
-      "Tapi "
+      "Tapi ",
+      "Tetapi "
     ],
     "examples": [
-      "Contoh"
+      "Contoh",
+      "Misal"
     ],
     "feature": [
       "Fitur"
     ],
     "given": [
       "* ",
-      "Dengan "
+      "Dengan ",
+      "Diketahui ",
+      "Diasumsikan ",
+      "Bila ",
+      "Jika "
     ],
     "name": "Indonesian",
     "native": "Bahasa Indonesia",
+    "rule": [
+      "Rule",
+      "Aturan"
+    ],
     "scenario": [
       "Skenario"
     ],
     "scenarioOutline": [
-      "Skenario konsep"
+      "Skenario konsep",
+      "Garis-Besar Skenario"
     ],
     "then": [
       "* ",
-      "Maka "
+      "Maka ",
+      "Kemudian "
     ],
     "when": [
       "* ",
@@ -1563,6 +1769,9 @@
     ],
     "name": "Icelandic",
     "native": "Íslenska",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Atburðarás"
     ],
@@ -1606,7 +1815,11 @@
     ],
     "name": "Italian",
     "native": "italiano",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Esempio",
       "Scenario"
     ],
     "scenarioOutline": [
@@ -1649,6 +1862,9 @@
     ],
     "name": "Japanese",
     "native": "日本語",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "シナリオ"
     ],
@@ -1695,6 +1911,9 @@
     ],
     "name": "Javanese",
     "native": "Basa Jawa",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Skenario"
     ],
@@ -1736,7 +1955,11 @@
     ],
     "name": "Georgian",
     "native": "ქართველი",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "მაგალითად",
       "სცენარის"
     ],
     "scenarioOutline": [
@@ -1775,7 +1998,11 @@
     ],
     "name": "Kannada",
     "native": "ಕನ್ನಡ",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "ಉದಾಹರಣೆ",
       "ಕಥಾಸಾರಾಂಶ"
     ],
     "scenarioOutline": [
@@ -1816,6 +2043,9 @@
     ],
     "name": "Korean",
     "native": "한국어",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "시나리오"
     ],
@@ -1858,7 +2088,11 @@
     ],
     "name": "Lithuanian",
     "native": "lietuvių kalba",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Pavyzdys",
       "Scenarijus"
     ],
     "scenarioOutline": [
@@ -1899,7 +2133,11 @@
     ],
     "name": "Luxemburgish",
     "native": "Lëtzebuergesch",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Beispill",
       "Szenario"
     ],
     "scenarioOutline": [
@@ -1941,7 +2179,11 @@
     ],
     "name": "Latvian",
     "native": "latviešu",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Piemērs",
       "Scenārijs"
     ],
     "scenarioOutline": [
@@ -1985,7 +2227,11 @@
     ],
     "name": "Macedonian",
     "native": "Македонски",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Пример",
       "Сценарио",
       "На пример"
     ],
@@ -2032,6 +2278,9 @@
     ],
     "name": "Macedonian (Latin)",
     "native": "Makedonski (Latinica)",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Scenario",
       "Na primer"
@@ -2078,6 +2327,9 @@
     ],
     "name": "Mongolian",
     "native": "монгол",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Сценар"
     ],
@@ -2092,6 +2344,54 @@
     "when": [
       "* ",
       "Хэрэв "
+    ]
+  },
+  "ne": {
+    "and": [
+      "* ",
+      "र ",
+      "अनी "
+    ],
+    "background": [
+      "पृष्ठभूमी"
+    ],
+    "but": [
+      "* ",
+      "तर "
+    ],
+    "examples": [
+      "उदाहरण",
+      "उदाहरणहरु"
+    ],
+    "feature": [
+      "सुविधा",
+      "विशेषता"
+    ],
+    "given": [
+      "* ",
+      "दिइएको ",
+      "दिएको ",
+      "यदि "
+    ],
+    "name": "Nepali",
+    "native": "नेपाली",
+    "rule": [
+      "नियम"
+    ],
+    "scenario": [
+      "परिदृश्य"
+    ],
+    "scenarioOutline": [
+      "परिदृश्य रूपरेखा"
+    ],
+    "then": [
+      "* ",
+      "त्यसपछि ",
+      "अनी "
+    ],
+    "when": [
+      "* ",
+      "जब "
     ]
   },
   "nl": {
@@ -2119,7 +2419,11 @@
     ],
     "name": "Dutch",
     "native": "Nederlands",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Voorbeeld",
       "Scenario"
     ],
     "scenarioOutline": [
@@ -2159,7 +2463,11 @@
     ],
     "name": "Norwegian",
     "native": "norsk",
+    "rule": [
+      "Regel"
+    ],
     "scenario": [
+      "Eksempel",
       "Scenario"
     ],
     "scenarioOutline": [
@@ -2202,7 +2510,11 @@
     ],
     "name": "Panjabi",
     "native": "ਪੰਜਾਬੀ",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "ਉਦਾਹਰਨ",
       "ਪਟਕਥਾ"
     ],
     "scenarioOutline": [
@@ -2248,7 +2560,11 @@
     ],
     "name": "Polish",
     "native": "polski",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Przykład",
       "Scenariusz"
     ],
     "scenarioOutline": [
@@ -2300,7 +2616,11 @@
     ],
     "name": "Portuguese",
     "native": "português",
+    "rule": [
+      "Regra"
+    ],
     "scenario": [
+      "Exemplo",
       "Cenário",
       "Cenario"
     ],
@@ -2346,13 +2666,18 @@
       "* ",
       "Date fiind ",
       "Dat fiind ",
+      "Dată fiind",
       "Dati fiind ",
       "Dați fiind ",
       "Daţi fiind "
     ],
     "name": "Romanian",
     "native": "română",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Exemplu",
       "Scenariu"
     ],
     "scenarioOutline": [
@@ -2383,7 +2708,8 @@
     "but": [
       "* ",
       "Но ",
-      "А "
+      "А ",
+      "Иначе "
     ],
     "examples": [
       "Примеры"
@@ -2398,12 +2724,15 @@
       "* ",
       "Допустим ",
       "Дано ",
-      "Пусть ",
-      "Если "
+      "Пусть "
     ],
     "name": "Russian",
     "native": "русский",
+    "rule": [
+      "Правило"
+    ],
     "scenario": [
+      "Пример",
       "Сценарий"
     ],
     "scenarioOutline": [
@@ -2417,7 +2746,8 @@
     ],
     "when": [
       "* ",
-      "Когда "
+      "Когда ",
+      "Если "
     ]
   },
   "sk": {
@@ -2450,7 +2780,11 @@
     ],
     "name": "Slovak",
     "native": "Slovensky",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Príklad",
       "Scenár"
     ],
     "scenarioOutline": [
@@ -2504,9 +2838,12 @@
     ],
     "name": "Slovenian",
     "native": "Slovenski",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
-      "Scenarij",
-      "Primer"
+      "Primer",
+      "Scenarij"
     ],
     "scenarioOutline": [
       "Struktura scenarija",
@@ -2558,7 +2895,11 @@
     ],
     "name": "Serbian",
     "native": "Српски",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Пример",
       "Сценарио",
       "Пример"
     ],
@@ -2609,6 +2950,9 @@
     ],
     "name": "Serbian (Latin)",
     "native": "Srpski (Latinica)",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Scenario",
       "Primer"
@@ -2652,6 +2996,9 @@
     ],
     "name": "Swedish",
     "native": "Svenska",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Scenario"
     ],
@@ -2684,7 +3031,7 @@
     "examples": [
       "எடுத்துக்காட்டுகள்",
       "காட்சிகள்",
-      " நிலைமைகளில்"
+      "நிலைமைகளில்"
     ],
     "feature": [
       "அம்சம்",
@@ -2697,7 +3044,11 @@
     ],
     "name": "Tamil",
     "native": "தமிழ்",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "உதாரணமாக",
       "காட்சி"
     ],
     "scenarioOutline": [
@@ -2740,6 +3091,9 @@
     ],
     "name": "Thai",
     "native": "ไทย",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "เหตุการณ์"
     ],
@@ -2780,7 +3134,11 @@
     ],
     "name": "Telugu",
     "native": "తెలుగు",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "ఉదాహరణ",
       "సన్నివేశం"
     ],
     "scenarioOutline": [
@@ -2827,6 +3185,9 @@
     ],
     "name": "Klingon",
     "native": "tlhIngan",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "lut"
     ],
@@ -2867,7 +3228,11 @@
     ],
     "name": "Turkish",
     "native": "Türkçe",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Örnek",
       "Senaryo"
     ],
     "scenarioOutline": [
@@ -2910,6 +3275,9 @@
     ],
     "name": "Tatar",
     "native": "Татарча",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Сценарий"
     ],
@@ -2954,7 +3322,11 @@
     ],
     "name": "Ukrainian",
     "native": "Українська",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
+      "Приклад",
       "Сценарій"
     ],
     "scenarioOutline": [
@@ -2999,6 +3371,9 @@
     ],
     "name": "Urdu",
     "native": "اردو",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "منظرنامہ"
     ],
@@ -3041,6 +3416,9 @@
     ],
     "name": "Uzbek",
     "native": "Узбекча",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Сценарий"
     ],
@@ -3081,6 +3459,9 @@
     ],
     "name": "Vietnamese",
     "native": "Tiếng Việt",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "Tình huống",
       "Kịch bản"
@@ -3126,6 +3507,9 @@
     ],
     "name": "Chinese simplified",
     "native": "简体中文",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "场景",
       "剧本"
@@ -3171,6 +3555,9 @@
     ],
     "name": "Chinese traditional",
     "native": "繁體中文",
+    "rule": [
+      "Rule"
+    ],
     "scenario": [
       "場景",
       "劇本"
@@ -3186,6 +3573,53 @@
     "when": [
       "* ",
       "當"
+    ]
+  },
+  "mr": {
+    "and": [
+      "* ",
+      "आणि ",
+      "तसेच "
+    ],
+    "background": [
+      "पार्श्वभूमी"
+    ],
+    "but": [
+      "* ",
+      "पण ",
+      "परंतु "
+    ],
+    "examples": [
+      "उदाहरण"
+    ],
+    "feature": [
+      "वैशिष्ट्य",
+      "सुविधा"
+    ],
+    "given": [
+      "* ",
+      "जर",
+      "दिलेल्या प्रमाणे "
+    ],
+    "name": "Marathi",
+    "native": "मराठी",
+    "rule": [
+      "नियम"
+    ],
+    "scenario": [
+      "परिदृश्य"
+    ],
+    "scenarioOutline": [
+      "परिदृश्य रूपरेखा"
+    ],
+    "then": [
+      "* ",
+      "मग ",
+      "तेव्हा "
+    ],
+    "when": [
+      "* ",
+      "जेव्हा "
     ]
   }
 }
