@@ -138,7 +138,7 @@
   </#if>
   <div class="row">
     <#if report.authorCtx.set?size != 0>
-    <div class="col-md-4 author-container">
+    <div class="col-lg-6 col-md-12 author-container">
       <div class="card">
         <div class="card-header"><p>Author</p></div>
         <div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
@@ -160,7 +160,7 @@
     </div>
     </#if>
     <#if report.categoryCtx.set?size != 0>
-    <div class="col-md-4 category-container">
+    <div class="col-lg-6 col-md-12 category-container">
       <div class="card">
         <div class="card-header"><p>Tags</p></div>
         <div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
@@ -181,7 +181,7 @@
     </div>
     </#if>
     <#if report.deviceCtx.set?size != 0>
-    <div class="col-md-4 device-container">
+    <div class="col-lg-6 col-md-12 device-container">
       <div class="card">
         <div class="card-header"><p>Device</p></div>
         <div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
@@ -203,7 +203,7 @@
     </div>
     </#if>
     <#if report.systemEnvInfo?size != 0>
-      <div class="col-md-4 sysenv-container">
+      <div class="col-lg-6 col-md-12 sysenv-container">
       <div class="card">
         <div class="card-header"><p>System/Environment</p></div>
         <div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
