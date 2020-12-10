@@ -1,3 +1,13 @@
+## [5.0.6](https://github.com/extent-framework/extentreports-java/compare/v5.0.5...v5.0.6)
+
+#### Issues Resolved
+- [#265](/issues/265) Alignment issue in authors table in the dashboard view
+- [#273](/issues/273) ExtentKlovReporter: incorrect order for default @AllArgsConstructor of KlovMedia
+- [#274](/issues/274) ExtentTest does not propagate generated-log to listener
+
+#### New Features
+- [#271](/issues/271) Update gherkin-languages.json
+
 ## [5.0.5](https://github.com/extent-framework/extentreports-java/compare/v5.0.4...v5.0.5)
 
 #### Issues Resolved

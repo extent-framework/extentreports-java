@@ -12,7 +12,7 @@
   chartHeight="90"
   chartBoxHeight="94"
   displayEvents=true>
-<#if config.theme??><#assign theme=config.theme?lower_case></#if>
+<#if (config.theme)??><#assign theme=config.theme?lower_case></#if>
 <#if config.offlineMode??><#assign offline=config.offlineMode></#if>
 <#if report.stats.analysisStrategy=="SUITE">
   <#assign
