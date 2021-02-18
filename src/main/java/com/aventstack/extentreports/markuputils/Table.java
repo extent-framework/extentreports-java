@@ -128,7 +128,8 @@ class Table implements Markup {
     private void appendListItems(Object object, List<String> list, StringBuilder sb, List<Integer> columnRowCount) {
         int row = 0;
         Collection<Object> obj = (Collection<Object>) object;
-        for (int ix = obj.size(); ix >= list.size(); ix--)
+        int x = list.size();
+        for (int ix = obj.size(); ix >= x; ix--)
             list.add("");
         columnRowCount.set(columnRowCount.size() - 1, obj.size());
         for (Object o : obj) {
