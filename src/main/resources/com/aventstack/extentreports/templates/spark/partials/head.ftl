@@ -14,7 +14,7 @@
 </#if>
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="<#if config.encoding??>${config.encoding}<#else>utf-8</#if>">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>${config.documentTitle}</title>
   <#if offline>
