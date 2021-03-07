@@ -20,7 +20,7 @@ public class NamedAttributeContextManager<T extends NamedAttribute> {
     private Set<NamedAttributeContext<T>> set = Collections
             .newSetFromMap(new ConcurrentHashMap<NamedAttributeContext<T>, Boolean>());
 
-    public void addContext(T attr, Test test) {
+    public synchronized void addContext(T attr, Test test) {
         Optional<NamedAttributeContext<T>> opt = set.stream()
                 .filter(x -> x.getAttr().getName().equals(attr.getName()))
                 .findAny();
