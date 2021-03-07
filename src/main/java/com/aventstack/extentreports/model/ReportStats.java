@@ -38,33 +38,35 @@ public class ReportStats implements Serializable {
         if (testList == null || testList.isEmpty())
             return;
 
-        update(testList, parent, parentPercentage);
-
-        // level 1, for BDD, this would also include Scenario and excludes
-        // ScenarioOutline
-        List<Test> children = testList.stream()
-                .flatMap(x -> x.getChildren().stream())
-                .filter(x -> x.getBddType() != ScenarioOutline.class)
-                .collect(Collectors.toList());
-        List<Test> scenarios = testList.stream()
-                .flatMap(x -> x.getChildren().stream())
-                .flatMap(x -> x.getChildren().stream())
-                .filter(x -> x.getBddType() == Scenario.class)
-                .collect(Collectors.toList());
-        children.addAll(scenarios);
-        update(children, child, childPercentage);
-
-        // level 2, for BDD, this only includes Steps
-        List<Test> grandChildren = children.stream()
-                .flatMap(x -> x.getChildren().stream())
-                .filter(x -> x.getBddType() != Scenario.class)
-                .collect(Collectors.toList());
-        update(grandChildren, grandchild, grandchildPercentage);
-
-        List<Log> logs = testList.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList());
-        logs.addAll(children.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList()));
-        logs.addAll(grandChildren.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList()));
-        update(logs, log, logPercentage);
+        synchronized (testList) {
+            update(testList, parent, parentPercentage);
+    
+            // level 1, for BDD, this would also include Scenario and excludes
+            // ScenarioOutline
+            List<Test> children = testList.stream()
+                    .flatMap(x -> x.getChildren().stream())
+                    .filter(x -> x.getBddType() != ScenarioOutline.class)
+                    .collect(Collectors.toList());
+            List<Test> scenarios = testList.stream()
+                    .flatMap(x -> x.getChildren().stream())
+                    .flatMap(x -> x.getChildren().stream())
+                    .filter(x -> x.getBddType() == Scenario.class)
+                    .collect(Collectors.toList());
+            children.addAll(scenarios);
+            update(children, child, childPercentage);
+    
+            // level 2, for BDD, this only includes Steps
+            List<Test> grandChildren = children.stream()
+                    .flatMap(x -> x.getChildren().stream())
+                    .filter(x -> x.getBddType() != Scenario.class)
+                    .collect(Collectors.toList());
+            update(grandChildren, grandchild, grandchildPercentage);
+    
+            List<Log> logs = testList.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList());
+            logs.addAll(children.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList()));
+            logs.addAll(grandChildren.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList()));
+            update(logs, log, logPercentage);
+        }
     }
 
     private final void update(final List<? extends RunResult> list, final Map<Status, Long> countMap,

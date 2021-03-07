@@ -25,6 +25,8 @@ import lombok.ToString;
 @ToString(includeFieldNames = true)
 public class Report implements Serializable, BaseEntity {
     private static final long serialVersionUID = -8667496631392333349L;
+    
+    private final Object obj = new Object();
 
     @Builder.Default
     private Date startTime = Calendar.getInstance().getTime();
@@ -46,7 +48,7 @@ public class Report implements Serializable, BaseEntity {
         categoryCtx.getSet().forEach(x -> x.refresh());
         deviceCtx.getSet().forEach(x -> x.refresh());
         stats.update(testList);
-        synchronized (this) {
+        synchronized (obj) {
             setEndTime(Calendar.getInstance().getTime());
         }
     }
@@ -60,7 +62,7 @@ public class Report implements Serializable, BaseEntity {
                 .map(t -> t.getEndTime())
                 .max(Date::compareTo)
                 .get();
-        synchronized (this) {
+        synchronized (obj) {
             setStartTime(min);
             setEndTime(max);
         }

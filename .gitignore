@@ -40,3 +40,4 @@ deploycmd.txt
 
 # 
 pom.nexus.xml
+*.DS_Store
