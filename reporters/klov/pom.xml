@@ -5,7 +5,7 @@
 
 	<groupId>com.aventstack</groupId>
 	<artifactId>klov-reporter</artifactId>
-	<version>5.0.7-SNAPSHOT</version>
+	<version>5.0.7</version>
 	<name>klov-reporter</name>
 
 	<url>www.extentreports.com</url>
@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
-			<version>5.0.6</version>
+			<version>5.0.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb</groupId>

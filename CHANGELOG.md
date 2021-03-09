@@ -1,3 +1,11 @@
+## [5.0.7](https://github.com/extent-framework/extentreports-java/compare/v5.0.6...v5.0.7)
+
+#### Issues Resolved
+- [#250](/issues/250) ConcurrentModificationException in ReportStats
+- [#261](/issues/261) Fix issue with table creation from POJOs
+- [#275](/issues/275) setEncoding not working on ExtentSparkReporter on 5.0.6
+- [#282](/issues/282) Category tags are being duplicated if multiple tests have same tag
+
 ## [5.0.6](https://github.com/extent-framework/extentreports-java/compare/v5.0.5...v5.0.6)
 
 #### Issues Resolved
