@@ -6,17 +6,15 @@
       <div class="card">
         <div class="card-header">
           <div class="card-title">
-            <div class="node-meta">
-              <#if TestService.testHasScreenCapture(node, true)><span class='badge badge-default mr-1'><i class="fa fa-paperclip"></i></span></#if>
-              <span class='badge badge-default mr-1'>${node.timeTaken()?number_to_time?string("mm:ss:SSS")}</span>
-              <span class="badge ${node.status.toLower()}-bg log p-1">${node.status}</span>
-            </div>
-            <a class="node <#if !node.hasChildren() && node.status.toLower()!='fail'>collapsed</#if>" id="${node.getId()}">
-              <span>${node.name}</span> 
-            </a>
+            <div class="node-status float-right"><span class="badge ${node.status.toLower()}-bg log ">${node.status}</span></div>
+            <div class="node-time"><span class='badge badge-default'>${node.timeTaken()?number_to_time?string("mm:ss:SSS")}</span></div>
+            <a class="node <#if !node.hasChildren()>collapsed</#if>" id="${node.getId()}"><span>${node.name}</span></a>
             <div class="node-attr">
                 <#if node.hasAttributes()><@attributes test=node /></#if>
             </div>
+            <#if TestService.testHasScreenCapture(node, true)>
+              <div class="status-avatar float-right"><i class="fa fa-paperclip"></i></div>
+            </#if>
           </div>
         </div>
         <#if node.hasLog()>

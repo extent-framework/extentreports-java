@@ -2,8 +2,8 @@
 <#assign 
   resourceCDN=config.resourceCDN
   cdnURI="cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@" 
-  csscommit="da49378e7c517e3ef85493e4c6d1280a9a61dbb3"
-  jscommit="da49378e7c517e3ef85493e4c6d1280a9a61dbb3" 
+  csscommit="4d944c3cb6d7fd53cd8262e52101bf75421bfe21"
+  jscommit="4d944c3cb6d7fd53cd8262e52101bf75421bfe21" 
   iconcommit="b00a2d0486596e73dd7326beacf352c639623a0e">
 <#if resourceCDN=="extentreports">
   <#assign 
