@@ -70,6 +70,8 @@
                   <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy HH:mm:ss")}</span>
                   <span class='badge badge-default'>${test.timeTakenPretty()}</span>
                   &middot; <span class='uri-anchor badge badge-default'>#test-id=${test.getId()}</span>
+                  <span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+                  <span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
                 </div>
                 <#if test.hasAttributes()>
                 <div class="m-t-15"><@attributes test=test /></div>

@@ -4,6 +4,7 @@
   "protocol": "HTTPS",
   "timelineEnabled": false,
   "offlineMode": true,
+  "thumbnailForBase64": false,
   "documentTitle": "ExtentReports",
   "reportName": "ExtentReports",
   "timeStampFormat": "MMM dd, yyyy HH:mm:ss a",

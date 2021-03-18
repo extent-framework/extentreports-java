@@ -10,6 +10,7 @@ import com.aventstack.extentreports.reporter.configuration.util.ResourceHelper;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -29,6 +30,8 @@ public class ExtentSparkReporterConfig extends InteractiveReporterConfig {
 
     @Builder.Default
     private Boolean offlineMode = false;
+    @Accessors(fluent = true) @Builder.Default
+    private Boolean thumbnailForBase64 = false;
     @Builder.Default
     private String resourceCDN = "github";
 

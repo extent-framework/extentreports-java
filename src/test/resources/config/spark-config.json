@@ -4,6 +4,7 @@
   "protocol": "HTTP",
   "timelineEnabled": true,
   "offlineMode": true,
+  "thumbnailForBase64": false,
   "documentTitle": "Test1",
   "reportName": "Test2",
   "timeStampFormat": "MMM dd, yyyy HH:mm:ss a",

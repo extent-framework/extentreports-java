@@ -31,7 +31,12 @@
 <#macro mediaSingle m>
   <#if m??>
     <div class="row mb-3"><div class="col-md-3">
-    <#if m.base64??><a href="${m.base64}" data-featherlight="image"><span class="badge badge-gradient-primary">base64 img</span></a>
+    <#if m.base64??>
+      <#if config.thumbnailForBase64()?? && config.thumbnailForBase64()>
+        <a href="${m.base64}" class="base64-img" data-featherlight="image"><img src=""></a>
+      <#else>
+        <a href="${m.base64}" data-featherlight="image"><span class="badge badge-gradient-primary">base64 img</span></a>
+      </#if>
     <#elseif m.resolvedPath??><img data-featherlight='${m.resolvedPath}' src="${m.resolvedPath}">
     <#elseif m.path??><img data-featherlight='${m.path}' src="${m.path}">
     </#if>

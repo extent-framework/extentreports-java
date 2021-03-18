@@ -20,6 +20,8 @@
     
     <!-- offline report -->
     <offlineMode>true</offlineMode>
+    
+    <thumbnailForBase64>false</thumbnailForBase64>
 
     <!-- title of the document -->
     <documentTitle>Test1</documentTitle>
