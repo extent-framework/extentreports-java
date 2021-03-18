@@ -25,8 +25,6 @@ import lombok.ToString;
 @ToString(includeFieldNames = true)
 public class Report implements Serializable, BaseEntity {
     private static final long serialVersionUID = -8667496631392333349L;
-    
-    private final Object obj = new Object();
 
     @Builder.Default
     private Date startTime = Calendar.getInstance().getTime();
@@ -47,52 +45,77 @@ public class Report implements Serializable, BaseEntity {
         authorCtx.getSet().forEach(x -> x.refresh());
         categoryCtx.getSet().forEach(x -> x.refresh());
         deviceCtx.getSet().forEach(x -> x.refresh());
-        stats.update(testList);
-        synchronized (obj) {
+        synchronized (testList) {
+            stats.update(testList);
             setEndTime(Calendar.getInstance().getTime());
         }
     }
+    
+    public void addTest(Test test) {
+        testList.add(test);
+    }
+    
+    public boolean removeTest(Test test) {
+        synchronized (testList) {
+            return removeTest(testList, test);
+        }
+    }
 
+    private boolean removeTest(List<Test> testList, Test test) {
+        boolean removed = testList.removeIf(x -> x.getId() == test.getId());
+        if (!removed)
+            testList.forEach(x -> removeTest(x.getChildren(), test));
+        return removed;
+    }
+    
     public final void applyOverrideConf() {
-        Date min = testList.stream()
-                .map(t -> t.getStartTime())
-                .min(Date::compareTo)
-                .get();
-        Date max = testList.stream()
-                .map(t -> t.getEndTime())
-                .max(Date::compareTo)
-                .get();
-        synchronized (obj) {
+        synchronized (testList) {
+            Date min = testList.stream()
+                    .map(t -> t.getStartTime())
+                    .min(Date::compareTo)
+                    .get();
+            Date max = testList.stream()
+                    .map(t -> t.getEndTime())
+                    .max(Date::compareTo)
+                    .get();
             setStartTime(min);
             setEndTime(max);
         }
     }
 
     public final boolean isBDD() {
-        return !testList.isEmpty() && testList.stream().allMatch(Test::isBDD);
+        synchronized (testList) {
+            return !testList.isEmpty() && testList.stream().allMatch(Test::isBDD);
+        }
     }
 
     public final boolean anyTestHasStatus(Status status) {
-        return testList.stream()
+        synchronized (testList) {
+            return testList.stream()
                 .anyMatch(x -> x.getStatus() == status);
+        }
     }
    
     public Optional<Test> findTest(List<Test> list, String name) {
-        Optional<Test> test = list.stream().filter(x -> x.getName().equals(name)).findFirst();
-        if (!test.isPresent())
-            for (Test t : list)
-                return findTest(t.getChildren(), name);
-        return test;
+        synchronized (testList) {
+            Optional<Test> test = list.stream().filter(x -> x.getName().equals(name)).findFirst();
+            if (!test.isPresent())
+                for (Test t : list)
+                    return findTest(t.getChildren(), name);
+            return test;
+        }
     }
     
     public List<ExceptionInfo> aggregateExceptions(List<Test> testList) {
-        List<ExceptionInfo> list = new ArrayList<>();
-        for (Test test : testList) {
-            list.addAll(test.aggregateExceptions());
-            if (!test.getChildren().isEmpty())
-                aggregateExceptions(test.getChildren());
+        synchronized (testList) {
+            List<ExceptionInfo> list = new ArrayList<>();
+            for (Test test : testList) {
+                list.addAll(test.aggregateExceptions());
+                if (!test.getChildren().isEmpty())
+                    aggregateExceptions(test.getChildren());
+            }
+            return list;
         }
-        return list;
     }
 	
     public final long timeTaken() {
@@ -100,13 +123,15 @@ public class Report implements Serializable, BaseEntity {
     }
 
     public final Status getStatus() {
-        List<Status> list = testList
+        synchronized (testList) {
+            List<Status> list = testList
                 .stream()
                 .map(x -> x.getStatus())
                 .collect(Collectors.toList());
-        Status s = Status.max(list);
-        if (s == Status.SKIP && anyTestHasStatus(Status.PASS))
-            s = Status.PASS;
-        return s;
+            Status s = Status.max(list);
+            if (s == Status.SKIP && anyTestHasStatus(Status.PASS))
+                s = Status.PASS;
+            return s;
+        }
     }
 }
