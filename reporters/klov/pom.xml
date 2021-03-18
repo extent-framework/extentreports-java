@@ -5,7 +5,7 @@
 
 	<groupId>com.aventstack</groupId>
 	<artifactId>klov-reporter</artifactId>
-	<version>5.0.7</version>
+	<version>5.0.8-SNAPSHOT</version>
 	<name>klov-reporter</name>
 
 	<url>www.extentreports.com</url>
