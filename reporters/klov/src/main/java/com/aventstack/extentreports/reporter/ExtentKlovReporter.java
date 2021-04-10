@@ -900,6 +900,10 @@ public class ExtentKlovReporter extends AbstractReporter
         }
     }
 
+    public MongoClient mongoClient() {
+        return mongoClient;
+    }
+    
     public String uri() {
         if (projectName == null || projectName.isEmpty() || reportId == null)
             return "";
