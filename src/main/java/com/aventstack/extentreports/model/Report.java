@@ -15,11 +15,13 @@ import com.aventstack.extentreports.model.context.NamedAttributeContextManager;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString(includeFieldNames = true)
@@ -45,6 +47,7 @@ public class Report implements Serializable, BaseEntity {
         authorCtx.getSet().forEach(x -> x.refresh());
         categoryCtx.getSet().forEach(x -> x.refresh());
         deviceCtx.getSet().forEach(x -> x.refresh());
+        exceptionInfoCtx.getSet().forEach(x -> x.refresh());
         synchronized (testList) {
             stats.update(testList);
             setEndTime(Calendar.getInstance().getTime());

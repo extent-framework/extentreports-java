@@ -23,6 +23,7 @@ public class NamedAttributeContext<T extends NamedAttribute> implements Serializ
     private final List<Test> testList = Collections.synchronizedList(new ArrayList<>());
     private T attr;
     private Map<Status, Integer> statusDist = new HashMap<>();
+    private int size;
 
     public NamedAttributeContext(T attribute, Test test) {
         this.attr = attribute;
@@ -42,10 +43,11 @@ public class NamedAttributeContext<T extends NamedAttribute> implements Serializ
     public void refresh() {
         statusDist.clear();
         testList.forEach(this::refresh);
+        size = statusDist.values().stream().reduce(0, Integer::sum);
     }
 
     public Integer size() {
-        return statusDist.values().stream().reduce(0, Integer::sum);
+        return size;
     }
 
     public Integer getPassed() {
