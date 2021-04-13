@@ -56,7 +56,7 @@
           <div class="test-detail">
             <p class="name">${test.name}</p>
             <p class="text-sm">
-              <span>${test.startTime?string("HH:mm:ss a")}</span> / <span>${test.timeTakenPretty()}</span>
+              <span>${test.startTime?time?string}</span> / <span>${test.timeTakenPretty()}</span>
               <span class="badge ${test.status.toLower()}-bg log float-right">${test.status}</span>
             </p>
           </div>
@@ -66,8 +66,8 @@
               <div class="p-v-10">
                 <div class="info">
                   <h5 class="test-status text-${test.status.toLower()}">${test.name}</h5>
-                  <span class='badge badge-success'>${test.startTime?string("MM.dd.yyyy HH:mm:ss")}</span>
-                  <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy HH:mm:ss")}</span>
+                  <span class='badge badge-success'>${test.startTime?string("MM.dd.yyyy")} ${test.startTime?time?string}</span>
+                  <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy")} ${test.endTime?time?string}</span>
                   <span class='badge badge-default'>${test.timeTakenPretty()}</span>
                   &middot; <span class='uri-anchor badge badge-default'>#test-id=${test.getId()}</span>
                   <span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
