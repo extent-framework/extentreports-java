@@ -158,6 +158,13 @@ img {
 .test-view.test-wrapper .test-detail {
     padding-left: 10px !important;
 }
+.card-toolbar.node-info li {
+    float: right;
+    top: 1rem;
+    position: relative;
+    margin-right: .5rem;
+    right: 1rem;
+}
 .status-avatar {
     width: 20px;
     height: 20px;

@@ -5,16 +5,18 @@
     <#list test.children as node>
       <div class="card">
         <div class="card-header">
+          <div class="card-toolbar node-info">
+            <ul class="list-inline d-none d-sm-block">
+              <li><span class="badge ${node.status.toLower()}-bg log ">${node.status}</span></li>
+              <li><span class='badge badge-default'>${node.timeTaken()?number_to_time?string("mm:ss:SSS")}</span></li>
+              <li><#if TestService.testHasScreenCapture(node, true)><span><i class="fa fa-paperclip"></i></span></#if></li>
+            </ul>
+          </div>
           <div class="card-title">
-            <div class="node-status float-right"><span class="badge ${node.status.toLower()}-bg log ">${node.status}</span></div>
-            <div class="node-time"><span class='badge badge-default'>${node.timeTaken()?number_to_time?string("mm:ss:SSS")}</span></div>
-            <a class="node <#if !node.hasChildren()>collapsed</#if>" id="${node.getId()}"><span>${node.name}</span></a>
+            <a class="node <#if !node.hasChildren() && node.status=='FAIL'>collapsed</#if>" id="${node.getId()}"><span>${node.name}</span></a>
             <div class="node-attr">
                 <#if node.hasAttributes()><@attributes test=node /></#if>
             </div>
-            <#if TestService.testHasScreenCapture(node, true)>
-              <div class="status-avatar float-right"><i class="fa fa-paperclip"></i></div>
-            </#if>
           </div>
         </div>
         <#if node.hasLog()>
