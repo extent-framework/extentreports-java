@@ -1,3 +1,13 @@
+## [5.0.8](https://github.com/extent-framework/extentreports-java/compare/v5.0.7...v5.0.8)
+
+#### Issues Resolved
+- [#292](/issues/292) SparkReporter - Exceptions - Overall count of failed tests is not correct
+- [#293](/issues/293) SparkReporter - Timestamps - Datetime formats are not unified
+- [#297](/issues/297) Nodes: improve node meta-info
+
+#### New Features
+- [#295](/issues/295) KlovReporter: Expose MongoClient
+
 ## [5.0.7](https://github.com/extent-framework/extentreports-java/compare/v5.0.6...v5.0.7)
 
 #### Issues Resolved
