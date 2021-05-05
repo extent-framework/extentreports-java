@@ -2,7 +2,9 @@ package com.aventstack.extentreports.io;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,10 +22,12 @@ public class BufferedWriterWriter {
     private BufferedWriterWriter() {
     }
 
-    public synchronized void write(final File f, String text) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(f))) {
+    public synchronized void write(final File f, String text, String encoding) {
+        try (BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(
+                        new FileOutputStream(f), encoding))) {
             writer.write(text);
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.log(Level.SEVERE, f.getPath(), e);
         }
     }

@@ -43,7 +43,7 @@ public class FreemarkerTemplate {
     public void writeTemplate(Template template, Map<String, Object> templateMap, File outputFile)
             throws TemplateException, IOException {
         String source = getSource(template, templateMap);
-        BufferedWriterWriter.getInstance().write(outputFile, source);
+        BufferedWriterWriter.getInstance().write(outputFile, source, freemarkerConfig.getDefaultEncoding());
     }
 
     private String processTemplate(Template template, Map<String, Object> templateMap)
