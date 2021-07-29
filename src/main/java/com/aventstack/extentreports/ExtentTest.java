@@ -1017,6 +1017,7 @@ public class ExtentTest implements RunResult, Serializable {
         if (category == null || category.length == 0)
             return this;
         Arrays.stream(category)
+		        .filter(x -> x != null && x.trim().length() != 0)
                 .forEach(x -> {
                     Category c = new Category(x.replaceAll("\\s+", ""));
                     model.getCategorySet().add(c);
@@ -1037,6 +1038,7 @@ public class ExtentTest implements RunResult, Serializable {
         if (author == null || author.length == 0)
             return this;
         Arrays.stream(author)
+		        .filter(x -> x != null && x.trim().length() != 0)
                 .forEach(x -> {
                     Author a = new Author(x.replaceAll("\\s+", ""));
                     model.getAuthorSet().add(a);
