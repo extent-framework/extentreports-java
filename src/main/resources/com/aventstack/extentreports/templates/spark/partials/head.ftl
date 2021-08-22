@@ -28,7 +28,7 @@
     <link rel="shortcut icon" href="https://${cdnURI}${iconcommit}/commons/img/logo.png">
     <link href="https://${cdnURI}${csscommit}/spark/css/spark-style.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdn.rawgit.com/extent-framework/extent-github-cdn/7cc78ce/spark/js/jsontree.js"></script>
+    <script src="https://${cdnURI}7cc78ce/spark/js/jsontree.js"></script>
   </#if>
   <#include "../../commons/commons-inject-css.ftl">
 </head>
