@@ -67,7 +67,7 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
     private final Set<Device> deviceSet = ConcurrentHashMap.newKeySet();
     private final List<Log> generatedLog = Collections.synchronizedList(new ArrayList<>());
 
-    public final void addChild(Test child) {
+    public void addChild(Test child) {
         Assert.notNull(child, "Node must not be null");
         child.setLevel(level + 1);
         child.setParent(this);
@@ -85,24 +85,24 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
     private void end(Status evtStatus) {
         setStatus(Status.max(status, evtStatus));
         if (useNaturalConf)
-            propogateTime();
+            propagateTime();
     }
 
-    private void propogateTime() {
+    private void propagateTime() {
         setEndTime(Calendar.getInstance().getTime());
         if (parent != null)
-            parent.propogateTime();
+            parent.propagateTime();
     }
 
-    public final void addLog(Log log) {
+    public void addLog(Log log) {
         addLog(log, logs);
     }
 
-    public final void addGeneratedLog(Log log) {
+    public void addGeneratedLog(Log log) {
         addLog(log, generatedLog);
     }
 
-    private final void addLog(Log log, List<Log> list) {
+    private void addLog(Log log, List<Log> list) {
         Assert.notNull(log, "Log must not be null");
         log.setSeq(list.size());
         list.add(log);
@@ -110,43 +110,43 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
         updateResult();
     }
 
-    public final boolean isBDD() {
+    public boolean isBDD() {
         return getBddType() != null;
     }
 
-    public final boolean hasLog() {
+    public boolean hasLog() {
         return !logs.isEmpty();
     }
 
-    public final boolean hasAnyLog() {
+    public boolean hasAnyLog() {
         return !logs.isEmpty() || !generatedLog.isEmpty();
     }
 
-    public final boolean hasChildren() {
+    public boolean hasChildren() {
         return !children.isEmpty();
     }
 
-    public final boolean hasAttributes() {
+    public boolean hasAttributes() {
         return hasAuthor() || hasCategory() || hasDevice();
     }
 
-    public final boolean hasAuthor() {
+    public boolean hasAuthor() {
         return !authorSet.isEmpty();
     }
 
-    public final boolean hasCategory() {
+    public boolean hasCategory() {
         return !categorySet.isEmpty();
     }
 
-    public final boolean hasDevice() {
+    public boolean hasDevice() {
         return !deviceSet.isEmpty();
     }
 
-    public final boolean hasException() {
+    public boolean hasException() {
         return !exceptions.isEmpty();
     }
 
-    public final String getFullName() {
+    public String getFullName() {
         Test test = this;
         StringBuilder sb = new StringBuilder(test.getName());
         while (test.getParent() != null) {
@@ -157,18 +157,18 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
         return sb.toString();
     }
 
-    public final void addMedia(Media m) {
+    public void addMedia(Media m) {
         if (m != null
                 && (m.getPath() != null || m.getResolvedPath() != null || ((ScreenCapture) m).getBase64() != null))
             media.add(m);
         end(status);
     }
 
-    public final boolean hasScreenCapture() {
+    public boolean hasScreenCapture() {
         return !media.isEmpty() && media.stream().anyMatch(x -> x instanceof ScreenCapture);
     }
 
-    public final long timeTaken() {
+    public long timeTaken() {
         return endTime.getTime() - startTime.getTime();
     }
 
@@ -180,7 +180,7 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
      * 
      * @return A formatted time taken string as HH:mm:ss:SSS
      */
-    public final String timeTakenPretty() {
+    public String timeTakenPretty() {
         Date date = new Date(timeTaken());
         DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -195,14 +195,14 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
                 .collect(Collectors.toList());
     }
 
-    public final Test getAncestor() {
+    public Test getAncestor() {
         Test test = this;
         while (test.getParent() != null)
             test = test.getParent();
         return test;
     }
 
-    public final void updateResult() {
+    public void updateResult() {
         determinator.computeTestStatus();
     }
 
@@ -231,10 +231,17 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
 
         private void computeStatus(Test t) {
             Set<Status> set = new HashSet<>();
-            Iterator<Log> iter = new ArrayList<>(t.getLogs()).iterator();
-            while (iter.hasNext())
-                set.add(iter.next().getStatus());
             set.add(t.getStatus());
+            synchronized(t.getLogs()) {
+                set.addAll(t.getLogs().stream()
+                        .map(Log::getStatus)
+                        .collect(Collectors.toSet()));
+            }
+            synchronized (t.getGeneratedLog()) {
+                set.addAll(t.getGeneratedLog().stream()
+                        .map(Log::getStatus)
+                        .collect(Collectors.toSet()));
+            }
             t.setStatus(Status.max(set));
             if (t.getParent() != null) {
                 t.getParent().setStatus(Status.max(t.getStatus(), t.getParent().getStatus()));
