@@ -21,16 +21,14 @@ import com.aventstack.extentreports.observer.ExtentObserver;
  * 
  * <p>
  * ExtentReports itself does not build any reports, but allows reporters to
- * access information, which in turn build the said reports. An example of
+ * access information, which in turn create the reports. An example of
  * building an HTML report and adding information to ExtentX:
  * </p>
  * 
  * <pre>
- * ExtentHtmlReporter html = new ExtentHtmlReporter("Extent.html");
- * ExtentXReporter extentx = new ExtentXReporter("localhost");
- * 
+ * ExtentSparkReporter spark = new ExtentHtmlReporter("ExtentSpark.html");
  * ExtentReports extent = new ExtentReports();
- * extent.attachReporter(html, extentx);
+ * extent.attachReporter(spark);
  * 
  * extent.createTest("TestName").pass("Test Passed");
  * 
@@ -272,11 +270,8 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
      * Writes test information from the started reporters to their output view
      * 
      * <ul>
-     * <li>extent-html-formatter: flush output to HTML file</li>
-     * <li>extent-klov-reporter: updates MongoDB collections</li>
-     * <li>extent-email-formatter (pro-only): creates or appends to an HTML
-     * file</li>
-     * <li>ConsoleLogger: no action taken</li>
+     * <li>ExtentSparkReporter: flush output to HTML file</li>
+     * <li>ExtentKlovReporter: inserts or updates info in MongoDB</li>
      * </ul>
      */
     @Override
