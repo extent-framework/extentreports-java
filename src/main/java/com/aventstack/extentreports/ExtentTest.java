@@ -369,24 +369,6 @@ public class ExtentTest implements RunResult, Serializable {
         return this;
     }
 
-    /**
-     * @param status {@link Status} status of the log
-     * @param details {@link String} details to be added to the log
-     * @param overrideLogDate if passed, the log will be overridden to this timestamp. Else it will be defaulted to the current time stamp
-     * @return {@link Log} Log object with the status, details and timestamp set
-     */
-    private Log  buildLog(Status status, String details, Date overrideLogDate){
-        Assert.notNull(status, "Status must not be null");
-        Log log = Log.builder()
-                .status(status)
-                .details(details == null ? "" : details)
-                .build();
-        if(overrideLogDate != null){
-            log.setTimestamp(overrideLogDate);
-        }
-
-        return log;
-    }
 
     /**
      * Logs an event with {@link Status}, details and a media object:
@@ -527,6 +509,25 @@ public class ExtentTest implements RunResult, Serializable {
      */
     public ExtentTest log(Status status, Throwable t) {
         return log(status, t, null);
+    }
+
+    /**
+     * @param status {@link Status} status of the log
+     * @param details {@link String} details to be added to the log
+     * @param overrideLogDate if passed, the log will be overridden to this timestamp. Else it will be defaulted to the current time stamp
+     * @return {@link Log} Log object with the status, details and timestamp set
+     */
+    private Log  buildLog(Status status, String details, Date overrideLogDate){
+        Assert.notNull(status, "Status must not be null");
+        Log log = Log.builder()
+                .status(status)
+                .details(details == null ? "" : details)
+                .build();
+        if(overrideLogDate != null){
+            log.setTimestamp(overrideLogDate);
+        }
+
+        return log;
     }
 
     /**
