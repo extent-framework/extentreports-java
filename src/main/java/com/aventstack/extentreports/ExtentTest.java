@@ -356,6 +356,7 @@ public class ExtentTest implements RunResult, Serializable {
      * @return An {@link ExtentTest} object
      */
     public ExtentTest log(Log log, Throwable t, Media media) {
+        Assert.notNull(log.getStatus(), "Status must not be null");
         ExceptionInfo exceptionInfo = ExceptionInfoService.createExceptionInfo(t);
         log.setException(exceptionInfo);
         if (exceptionInfo != null)
