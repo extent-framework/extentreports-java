@@ -1,3 +1,10 @@
+## [5.0.9](https://github.com/extent-framework/extentreports-java/compare/v5.0.9...v5.0.9)
+
+#### Issues Resolved
+- [#305](/issues/305) Fix HttpClient version-4.5.2 vulnerability
+- [#310](/issues/310) Remove RawGit hosted templates
+- [377354](/commit/99fa74ba6c745262ba17f66c11e39d0569377354) Update test status using generatedLog
+
 ## [5.0.8](https://github.com/extent-framework/extentreports-java/compare/v5.0.7...v5.0.8)
 
 #### Issues Resolved
