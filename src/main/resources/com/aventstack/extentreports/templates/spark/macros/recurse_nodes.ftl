@@ -22,6 +22,7 @@
         <#if node.hasLog()>
         <div class="<#if node.status.toLower()!='fail'>collapse</#if>">
           <div class="card-body">
+            <#if node.description?has_content><p>${node.description}</p></#if>
             <@log test=node />
             <@media node.media />
           </div>
