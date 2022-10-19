@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -208,25 +207,23 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
 
     private class StatusDeterminator {
         public void computeTestStatus() {
-            List<Test> leafList = getLeafList(Test.this);
+            List<Test> leafList = getLeafNodes(Test.this);
             computeStatus(leafList);
         }
 
-        private List<Test> getLeafList(Test test) {
-            List<Test> testList = new ArrayList<>();
-            if (test.isLeaf())
-                testList.add(test);
-            else
-                for (Test t : test.getChildren())
-                    if (t.isLeaf())
-                        testList.add(t);
-                    else
-                        testList.addAll(getLeafList(t));
-            return testList;
+        private List<Test> getLeafNodes(Test test) {
+            List<Test> tests = new ArrayList<>();
+            if (test.isLeaf()) {
+                tests.add(test);
+            }
+            for (Test t : test.getChildren()) {
+                tests.addAll(getLeafNodes(t));
+            }
+            return tests;
         }
 
-        private void computeStatus(List<Test> testList) {
-            testList.forEach(this::computeStatus);
+        private void computeStatus(List<Test> tests) {
+            tests.forEach(this::computeStatus);
         }
 
         private void computeStatus(Test t) {
