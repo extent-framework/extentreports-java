@@ -6,10 +6,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.NamedAttribute;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.model.service.TestService;
 import com.aventstack.extentreports.util.Assert;
 
 import lombok.Getter;
@@ -34,6 +36,12 @@ public class NamedAttributeContext<T extends NamedAttribute> implements Serializ
     	Assert.notNull(test, "Test must not be null");
         testList.add(test);
         refresh(test);
+    }
+
+    public void removeTest(Test test) {
+        Assert.notNull(test, "Test must not be null");
+        TestService.deleteTest(testList, test);
+        refresh();
     }
 
     private synchronized void refresh(Test test) {

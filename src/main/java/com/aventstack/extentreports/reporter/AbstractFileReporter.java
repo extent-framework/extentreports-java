@@ -30,7 +30,7 @@ public abstract class AbstractFileReporter extends AbstractFilterableReporter {
     private static final Logger LOG = Logger.getLogger(AbstractFileReporter.class.getName());
     protected static final String PATH_SEP = "/";
 
-    private File file;
+    private final File file;
     private Map<String, Object> templateModel;
     private Configuration freemarkerConfig;
 
@@ -88,12 +88,12 @@ public abstract class AbstractFileReporter extends AbstractFilterableReporter {
             return fileName;
         String path = getFile().getPath();
         final String filePath = (getFile().isDirectory()
-                || path.indexOf(".") == -1)
-                && !Arrays.stream(checkExt).anyMatch(x -> path.endsWith(x))
+                || !path.contains("."))
+                && Arrays.stream(checkExt).noneMatch(path::endsWith)
                         ? getFile().getAbsolutePath()
                                 + PATH_SEP + fileName
                         : getFile().getAbsolutePath();
-        boolean b = Arrays.stream(checkExt).anyMatch(x -> filePath.endsWith(x));
+        boolean b = Arrays.stream(checkExt).anyMatch(filePath::endsWith);
         String resolved = b ? filePath : filePath + checkExt[0];
         new File(resolved).getParentFile().mkdirs();
         return resolved;

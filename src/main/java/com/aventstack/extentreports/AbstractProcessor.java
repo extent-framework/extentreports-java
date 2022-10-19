@@ -32,6 +32,9 @@ public abstract class AbstractProcessor extends ReactiveSubject {
     @Override
     protected void onTestRemoved(Test test) {
         TestService.deleteTest(getReport().getTestList(), test);
+        getReport().getAuthorCtx().removeTest(test);
+        getReport().getCategoryCtx().removeTest(test);
+        getReport().getDeviceCtx().removeTest(test);
         super.onTestRemoved(test);
     }
 

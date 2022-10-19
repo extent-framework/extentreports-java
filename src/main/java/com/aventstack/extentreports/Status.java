@@ -28,7 +28,7 @@ public enum Status {
     }
 
     private static void resolveHierarchy(List<Status> status) {
-        status.sort((Status s1, Status s2) -> s1.getLevel().compareTo(s2.getLevel()));
+        status.sort(Comparator.comparing(Status::getLevel));
     }
 
     public static Status max(Collection<Status> status) {
