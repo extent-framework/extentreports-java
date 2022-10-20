@@ -6,7 +6,7 @@
   reportType=""
   parentHeading="Tests"
   childHeading="Steps"
-  grandChildHeading=""
+  leafHeading=""
   displayEvents=true
   chartWidth="115"
   chartHeight="90"
@@ -18,23 +18,23 @@
   <#assign
     parentHeading="Suite" 
     childHeading="Class" 
-    grandChildHeading="Test">
+    leafHeading="Test">
 </#if>
 <#if report.stats.analysisStrategy=="CLASS">
   <#assign 
     parentHeading="Class"
     childHeading="Methods"
-    grandChildHeading="">
+    leafHeading="">
 </#if>
 <#assign chartCount=2>
 <#if report.stats.sumStat(report.stats.child) != 0><#assign chartCount=3></#if>
-<#if report.stats.sumStat(report.stats.grandchild) != 0><#assign chartCount=4></#if>
+<#if report.stats.sumStat(report.stats.leaf) != 0><#assign chartCount=4></#if>
 <#if report.isBDD()>
   <#assign 
     reportType="bdd" 
     parentHeading="Features" 
     childHeading="Scenarios" 
-    grandChildHeading="Steps"
+    leafHeading="Steps"
     chartCount=3
     displayEvents=false>
 </#if>

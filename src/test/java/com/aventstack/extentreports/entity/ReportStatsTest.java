@@ -23,13 +23,13 @@ public class ReportStatsTest {
     public void allLevelMapsNonNull() {
         ReportStats stats = new ReportStats();
         Assert.assertNotNull(stats.getChild());
-        Assert.assertNotNull(stats.getChildPercentage());
-        Assert.assertNotNull(stats.getGrandchild());
-        Assert.assertNotNull(stats.getGrandchildPercentage());
+        Assert.assertNotNull(stats.getChildStats());
+        Assert.assertNotNull(stats.getLeaf());
+        Assert.assertNotNull(stats.getLeafStats());
         Assert.assertNotNull(stats.getLog());
-        Assert.assertNotNull(stats.getLogPercentage());
+        Assert.assertNotNull(stats.getLogStats());
         Assert.assertNotNull(stats.getParent());
-        Assert.assertNotNull(stats.getParentPercentage());
+        Assert.assertNotNull(stats.getParentStats());
     }
 
     @org.testng.annotations.Test
@@ -50,7 +50,7 @@ public class ReportStatsTest {
         Arrays.asList(Status.values()).forEach(x -> Assert.assertTrue(report.getStats().getParent().containsKey(x)));
         Arrays.asList(Status.values()).forEach(x -> Assert.assertTrue(report.getStats().getChild().containsKey(x)));
         Arrays.asList(Status.values())
-                .forEach(x -> Assert.assertTrue(report.getStats().getGrandchild().containsKey(x)));
+                .forEach(x -> Assert.assertTrue(report.getStats().getLeaf().containsKey(x)));
         Assert.assertEquals(report.getStats().getParent().get(Status.PASS).longValue(), 0);
         Assert.assertEquals(report.getStats().getParent().get(Status.FAIL).longValue(), 0);
         Assert.assertEquals(report.getStats().getParent().get(Status.SKIP).longValue(), 0);
@@ -61,11 +61,11 @@ public class ReportStatsTest {
         Assert.assertEquals(report.getStats().getChild().get(Status.SKIP).longValue(), 0);
         Assert.assertEquals(report.getStats().getChild().get(Status.WARNING).longValue(), 0);
         Assert.assertEquals(report.getStats().getChild().get(Status.INFO).longValue(), 0);
-        Assert.assertEquals(report.getStats().getGrandchild().get(Status.PASS).longValue(), 0);
-        Assert.assertEquals(report.getStats().getGrandchild().get(Status.FAIL).longValue(), 0);
-        Assert.assertEquals(report.getStats().getGrandchild().get(Status.SKIP).longValue(), 0);
-        Assert.assertEquals(report.getStats().getGrandchild().get(Status.WARNING).longValue(), 0);
-        Assert.assertEquals(report.getStats().getGrandchild().get(Status.INFO).longValue(), 0);
+        Assert.assertEquals(report.getStats().getLeaf().get(Status.PASS).longValue(), 0);
+        Assert.assertEquals(report.getStats().getLeaf().get(Status.FAIL).longValue(), 0);
+        Assert.assertEquals(report.getStats().getLeaf().get(Status.SKIP).longValue(), 0);
+        Assert.assertEquals(report.getStats().getLeaf().get(Status.WARNING).longValue(), 0);
+        Assert.assertEquals(report.getStats().getLeaf().get(Status.INFO).longValue(), 0);
     }
 
     @org.testng.annotations.Test
@@ -78,7 +78,7 @@ public class ReportStatsTest {
         Arrays.asList(Status.values()).forEach(x -> Assert.assertTrue(report.getStats().getParent().containsKey(x)));
         Arrays.asList(Status.values()).forEach(x -> Assert.assertTrue(report.getStats().getChild().containsKey(x)));
         Arrays.asList(Status.values())
-                .forEach(x -> Assert.assertTrue(report.getStats().getGrandchild().containsKey(x)));
+                .forEach(x -> Assert.assertTrue(report.getStats().getLeaf().containsKey(x)));
         test.setStatus(Status.FAIL);
         report.getStats().update(report.getTestList());
         Assert.assertEquals(report.getStats().getParent().get(Status.PASS).longValue(), 0);
@@ -98,7 +98,7 @@ public class ReportStatsTest {
         Arrays.asList(Status.values()).forEach(x -> Assert.assertTrue(report.getStats().getParent().containsKey(x)));
         Arrays.asList(Status.values()).forEach(x -> Assert.assertTrue(report.getStats().getChild().containsKey(x)));
         Arrays.asList(Status.values())
-                .forEach(x -> Assert.assertTrue(report.getStats().getGrandchild().containsKey(x)));
+                .forEach(x -> Assert.assertTrue(report.getStats().getLeaf().containsKey(x)));
         Assert.assertEquals(report.getStats().getParent().get(Status.PASS).longValue(), 0);
         Assert.assertEquals(report.getStats().getParent().get(Status.SKIP).longValue(), 1);
         Assert.assertEquals(report.getStats().getChild().get(Status.PASS).longValue(), 0);
@@ -120,12 +120,12 @@ public class ReportStatsTest {
         Arrays.asList(Status.values()).forEach(x -> Assert.assertTrue(report.getStats().getParent().containsKey(x)));
         Arrays.asList(Status.values()).forEach(x -> Assert.assertTrue(report.getStats().getChild().containsKey(x)));
         Arrays.asList(Status.values())
-                .forEach(x -> Assert.assertTrue(report.getStats().getGrandchild().containsKey(x)));
+                .forEach(x -> Assert.assertTrue(report.getStats().getLeaf().containsKey(x)));
         Assert.assertEquals(report.getStats().getParent().get(Status.PASS).longValue(), 0);
         Assert.assertEquals(report.getStats().getParent().get(Status.FAIL).longValue(), 1);
         Assert.assertEquals(report.getStats().getChild().get(Status.PASS).longValue(), 0);
         Assert.assertEquals(report.getStats().getChild().get(Status.FAIL).longValue(), 1);
-        Assert.assertEquals(report.getStats().getGrandchild().get(Status.PASS).longValue(), 0);
-        Assert.assertEquals(report.getStats().getGrandchild().get(Status.FAIL).longValue(), 1);
+        Assert.assertEquals(report.getStats().getLeaf().get(Status.PASS).longValue(), 0);
+        Assert.assertEquals(report.getStats().getLeaf().get(Status.FAIL).longValue(), 1);
     }
 }

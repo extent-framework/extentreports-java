@@ -101,7 +101,9 @@ public class Report implements Serializable, BaseEntity {
    
     public Optional<Test> findTest(List<Test> list, String name) {
         synchronized (testList) {
-            Optional<Test> test = list.stream().filter(x -> x.getName().equals(name)).findFirst();
+            var test = list.stream()
+                    .filter(x -> x.getName().equals(name))
+                    .findFirst();
             if (!test.isPresent())
                 for (Test t : list)
                     return findTest(t.getChildren(), name);
@@ -114,8 +116,9 @@ public class Report implements Serializable, BaseEntity {
             List<ExceptionInfo> list = new ArrayList<>();
             for (Test test : testList) {
                 list.addAll(test.aggregateExceptions());
-                if (!test.getChildren().isEmpty())
+                if (!test.getChildren().isEmpty()) {
                     aggregateExceptions(test.getChildren());
+                }
             }
             return list;
         }
@@ -127,14 +130,15 @@ public class Report implements Serializable, BaseEntity {
 
     public final Status getStatus() {
         synchronized (testList) {
-            List<Status> list = testList
+            var allStatus = testList
                 .stream()
                 .map(x -> x.getStatus())
-                .collect(Collectors.toList());
-            Status s = Status.max(list);
-            if (s == Status.SKIP && anyTestHasStatus(Status.PASS))
-                s = Status.PASS;
-            return s;
+                .collect(Collectors.toSet());
+            var status = Status.max(allStatus);
+            // only return SKIP if there are no passing tests
+            if (status == Status.SKIP && anyTestHasStatus(Status.PASS))
+                status = Status.PASS;
+            return status;
         }
     }
 }

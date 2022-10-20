@@ -38,13 +38,13 @@
           </div>
         </div>
         <div class="card-footer">
-          <div><small data-tooltip='${report.stats.parentPercentage?api.get(Status.PASS)}%'>
+          <div><small data-tooltip='${report.stats.parentStats?api.get(Status.PASS)}%'>
             <b>${report.stats.parent?api.get(Status.PASS)}</b> ${parentHeading?lower_case} passed
             </small>
           </div>
           <div>
-            <small data-tooltip='${report.stats.parentPercentage?api.get(Status.FAIL)}%'><b>${report.stats.parent?api.get(Status.FAIL)}</b> ${parentHeading?lower_case} failed, 
-            <b>${report.stats.parent?api.get(Status.SKIP)}</b> skipped, <b data-tooltip='${report.stats.parentPercentage?api.get(Status.WARNING)}%'>${report.stats.parent?api.get(Status.WARNING)}</b> others
+            <small data-tooltip='${report.stats.parentStats?api.get(Status.FAIL)}%'><b>${report.stats.parent?api.get(Status.FAIL)}</b> ${parentHeading?lower_case} failed,
+            <b>${report.stats.parent?api.get(Status.SKIP)}</b> skipped, <b data-tooltip='${report.stats.parentStats?api.get(Status.WARNING)}%'>${report.stats.parent?api.get(Status.WARNING)}</b> others
             </small>
           </div>
         </div>
@@ -62,9 +62,9 @@
           </div>
         </div>
         <div class="card-footer">
-          <div><small data-tooltip='${report.stats.childPercentage?api.get(Status.PASS)}%'><b>${report.stats.child?api.get(Status.PASS)}</b> ${childHeading?lower_case} passed</small></div>
+          <div><small data-tooltip='${report.stats.childStats?api.get(Status.PASS)}%'><b>${report.stats.child?api.get(Status.PASS)}</b> ${childHeading?lower_case} passed</small></div>
           <div>
-            <small data-tooltip='${report.stats.childPercentage?api.get(Status.FAIL)}%'><b>${report.stats.child?api.get(Status.FAIL)}</b> ${childHeading?lower_case} failed, 
+            <small data-tooltip='${report.stats.childStats?api.get(Status.FAIL)}%'><b>${report.stats.child?api.get(Status.FAIL)}</b> ${childHeading?lower_case} failed,
             <b>${report.stats.child?api.get(Status.SKIP)}</b> skipped, <b data-tooltip='%'>${report.stats.child?api.get(Status.WARNING) + report.stats.child?api.get(Status.INFO)}</b> others
             </small>
           </div>
@@ -72,22 +72,22 @@
       </div>
     </div>
     </#if>
-    <#if report.stats.sumStat(report.stats.grandchild) != 0>
+    <#if report.stats.sumStat(report.stats.leaf) != 0>
     <div class="${boxsize}">
       <div class="card">
         <div class="card-header">
-          <h6 class="card-title">${grandChildHeading}</h6>
+          <h6 class="card-title">${leafHeading}</h6>
         </div>
         <div class="card-body">
           <div class="">
-            <canvas id='grandchild-analysis' width='${chartWidth}' height='${chartHeight}'></canvas>
+            <canvas id='leaf-analysis' width='${chartWidth}' height='${chartHeight}'></canvas>
           </div>
         </div>
         <div class="card-footer">
-          <div><small data-tooltip='${report.stats.grandchildPercentage?api.get(Status.PASS)}%'><b>${report.stats.grandchild?api.get(Status.PASS)}</b> ${grandChildHeading?lower_case} passed</small></div>
+          <div><small data-tooltip='${report.stats.leafStats?api.get(Status.PASS)}%'><b>${report.stats.leaf?api.get(Status.PASS)}</b> ${leafHeading?lower_case} passed</small></div>
           <div>
-            <small data-tooltip='${report.stats.grandchildPercentage?api.get(Status.FAIL)}%'><b>${report.stats.grandchild?api.get(Status.FAIL)}</b> ${grandChildHeading?lower_case} failed, 
-            <b>${report.stats.grandchild?api.get(Status.SKIP)}</b> skipped, <b data-tooltip='%'>${report.stats.grandchild?api.get(Status.WARNING) + report.stats.grandchild?api.get(Status.INFO)}</b> others
+            <small data-tooltip='${report.stats.leafStats?api.get(Status.FAIL)}%'><b>${report.stats.leaf?api.get(Status.FAIL)}</b> ${leafHeading?lower_case} failed,
+            <b>${report.stats.leaf?api.get(Status.SKIP)}</b> skipped, <b data-tooltip='%'>${report.stats.leaf?api.get(Status.WARNING) + report.stats.leaf?api.get(Status.INFO)}</b> others
             </small>
           </div>
         </div>
@@ -106,9 +106,9 @@
           </div>
         </div>
         <div class="card-footer">
-          <div><small data-tooltip='${report.stats.logPercentage?api.get(Status.PASS)}%'><b>${report.stats.log?api.get(Status.PASS)}</b> events passed</small></div>
+          <div><small data-tooltip='${report.stats.logStats?api.get(Status.PASS)}%'><b>${report.stats.log?api.get(Status.PASS)}</b> events passed</small></div>
           <div>
-            <small data-tooltip='${report.stats.logPercentage?api.get(Status.FAIL)}%'><b>${report.stats.log?api.get(Status.FAIL)}</b> events failed, 
+            <small data-tooltip='${report.stats.logStats?api.get(Status.FAIL)}%'><b>${report.stats.log?api.get(Status.FAIL)}</b> events failed,
             <b data-tooltip='%'>${report.stats.log?api.get(Status.WARNING) + report.stats.log?api.get(Status.SKIP) + report.stats.log?api.get(Status.INFO)}</b> others
             </small>
           </div>
@@ -239,13 +239,13 @@
     skipChild: ${ report.stats.child?api.get(Status.SKIP)?c },
     infoChild: ${ report.stats.child?api.get(Status.INFO)?c },
     </#if>
-    grandChildCount: ${ report.stats.grandchild?size?c },
-    <#if report.stats.grandchild?size != 0>
-    passGrandChild: ${ report.stats.grandchild?api.get(Status.PASS)?c },
-    failGrandChild: ${ report.stats.grandchild?api.get(Status.FAIL)?c },
-    warningGrandChild: ${ report.stats.grandchild?api.get(Status.WARNING)?c },
-    skipGrandChild: ${ report.stats.grandchild?api.get(Status.SKIP)?c },
-    infoGrandChild: ${ report.stats.grandchild?api.get(Status.INFO)?c },
+    leafCount: ${ report.stats.leaf?size?c },
+    <#if report.stats.leaf?size != 0>
+    passLeaf: ${ report.stats.leaf?api.get(Status.PASS)?c },
+    failLeaf: ${ report.stats.leaf?api.get(Status.FAIL)?c },
+    warningLeaf: ${ report.stats.leaf?api.get(Status.WARNING)?c },
+    skipLeaf: ${ report.stats.leaf?api.get(Status.SKIP)?c },
+    infoLeaf: ${ report.stats.leaf?api.get(Status.INFO)?c },
     </#if>
     eventsCount: ${ report.stats.log?size?c },
     <#if report.stats.log?size != 0 && displayEvents>

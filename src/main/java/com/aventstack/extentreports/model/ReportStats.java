@@ -3,9 +3,10 @@ package com.aventstack.extentreports.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import com.aventstack.extentreports.AnalysisStrategy;
@@ -24,14 +25,14 @@ public class ReportStats implements Serializable {
     private static final long serialVersionUID = 5424613250832948474L;
 
     private AnalysisStrategy analysisStrategy = AnalysisStrategy.TEST;
-    private final Map<Status, Long> parent = new ConcurrentHashMap<>();
-    private final Map<Status, Long> child = new ConcurrentHashMap<>();
-    private final Map<Status, Long> grandchild = new ConcurrentHashMap<>();
-    private final Map<Status, Long> log = new ConcurrentHashMap<>();
-    private final Map<Status, Float> parentPercentage = new ConcurrentHashMap<>();
-    private final Map<Status, Float> childPercentage = new ConcurrentHashMap<>();
-    private final Map<Status, Float> grandchildPercentage = new ConcurrentHashMap<>();
-    private final Map<Status, Float> logPercentage = new ConcurrentHashMap<>();
+    private final Map<Status, Long> parent = new HashMap<>();
+    private final Map<Status, Long> child = new HashMap<>();
+    private final Map<Status, Long> leaf = new HashMap<>();
+    private final Map<Status, Long> log = new HashMap<>();
+    private final Map<Status, Float> parentStats = new HashMap<>();
+    private final Map<Status, Float> childStats = new HashMap<>();
+    private final Map<Status, Float> leafStats = new HashMap<>();
+    private final Map<Status, Float> logStats = new HashMap<>();
 
     public final void update(final List<Test> testList) {
         reset();
@@ -39,62 +40,66 @@ public class ReportStats implements Serializable {
             return;
 
         synchronized (testList) {
-            update(testList, parent, parentPercentage);
+            // BDD: this level computes for features
+            update(testList, parent, parentStats);
     
-            // level 1, for BDD, this would also include Scenario and excludes
+            // BDD: this would also include Scenario and excludes
             // ScenarioOutline
-            List<Test> children = testList.stream()
+            var children = testList.stream()
                     .flatMap(x -> x.getChildren().stream())
                     .filter(x -> x.getBddType() != ScenarioOutline.class)
-                    .collect(Collectors.toList());
-            List<Test> scenarios = testList.stream()
-                    .flatMap(x -> x.getChildren().stream())
+                    .collect(Collectors.toSet());
+            var scenarios = children.stream()
                     .flatMap(x -> x.getChildren().stream())
                     .filter(x -> x.getBddType() == Scenario.class)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
             children.addAll(scenarios);
-            update(children, child, childPercentage);
+            update(children, child, childStats);
     
-            // level 2, for BDD, this only includes Steps
-            List<Test> grandChildren = children.stream()
+            // BDD: this only includes Steps
+            var leaf = children.stream()
                     .flatMap(x -> x.getChildren().stream())
                     .filter(x -> x.getBddType() != Scenario.class)
                     .collect(Collectors.toList());
-            update(grandChildren, grandchild, grandchildPercentage);
-    
-            List<Log> logs = testList.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList());
-            logs.addAll(children.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList()));
-            logs.addAll(grandChildren.stream().flatMap(x -> x.getLogs().stream()).collect(Collectors.toList()));
-            update(logs, log, logPercentage);
+            update(leaf, this.leaf, leafStats);
+
+            // aggregate logs from entire hierarchy
+            var logs = testList.stream()
+                    .flatMap(x -> x.getLogs().stream())
+                    .collect(Collectors.toSet());
+            logs.addAll(children.stream().flatMap(x -> x.getLogs().stream())
+                    .collect(Collectors.toSet()));
+            logs.addAll(leaf.stream().flatMap(x -> x.getLogs().stream())
+                    .collect(Collectors.toSet()));
+            update(logs, log, logStats);
         }
     }
 
-    private final void update(final List<? extends RunResult> list, final Map<Status, Long> countMap,
-            final Map<Status, Float> percentageMap) {
+    private final void update(final Collection<? extends RunResult> list, final Map<Status, Long> countMap,
+                              final Map<Status, Float> stats) {
         if (list == null)
             return;
         Map<Status, Long> map = list.stream().collect(
                 Collectors.groupingBy(RunResult::getStatus, Collectors.counting()));
-        Arrays.asList(Status.values()).forEach(x -> map.putIfAbsent(x, 0L));
+        Arrays.stream(Status.values()).forEach(x -> map.putIfAbsent(x, 0L));
         countMap.putAll(map);
         if (list.isEmpty()) {
-            percentageMap.putAll(
-                    map.entrySet().stream()
-                            .collect(Collectors.toMap(e -> e.getKey(), e -> Float.valueOf(e.getValue()))));
+            stats.putAll(map.entrySet().stream()
+                    .collect(Collectors.toMap(e -> e.getKey(), e -> Float.valueOf(e.getValue()))));
             return;
         }
         Map<Status, Float> pctMap = map.entrySet().stream()
                 .collect(Collectors.toMap(e -> e.getKey(),
                         e -> Float.valueOf(e.getValue() * 100 / list.size())));
-        percentageMap.putAll(pctMap);
+        stats.putAll(pctMap);
     }
 
     public final void reset() {
         List<RunResult> list = new ArrayList<>();
-        update(list, parent, parentPercentage);
-        update(list, child, childPercentage);
-        update(list, grandchild, grandchildPercentage);
-        update(list, log, logPercentage);
+        update(list, parent, parentStats);
+        update(list, child, childStats);
+        update(list, leaf, leafStats);
+        update(list, log, logStats);
     }
 
     public final long sumStat(final Map<Status, Long> stat) {

@@ -14,7 +14,7 @@ public class SparkReporterTest {
     private static final String FILE_NAME = "spark.html";
     private static final String PARENT = "Parent";
     private static final String CHILD = "Child";
-    private static final String GRANDCHILD = "Grandchild";
+    private static final String GRANDCHILD = "Leaf";
     private static final String SCRIPTS = "spark-script.js";
     private static final String STYLESHEET = "spark-style.css";
 
