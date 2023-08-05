@@ -106,4 +106,26 @@ public class ExtentReportsTest {
         Assert.assertEquals(extent.getReport().getLogs().size(), 2);
         Arrays.stream(logs).forEach(x -> Assert.assertTrue(extent.getReport().getLogs().contains(x)));
     }
+
+    @org.testng.annotations.Test
+    public void keepLastRetryOnlyTestEnabled() {
+        final ExtentReports extent = new ExtentReports();
+        extent.keepLastRetryOnly(true);
+        final int numberOfTests = 5;
+        for (int i = 0; i < numberOfTests; i++) {
+            extent.createTest("test");
+        }
+        Assert.assertEquals(extent.getReport().getTestList().size(), 1);
+    }
+
+    @org.testng.annotations.Test
+    public void keepLastRetryOnlyTestDisabled() {
+        final ExtentReports extent = new ExtentReports();
+        extent.keepLastRetryOnly(false);
+        final int numberOfTests = 5;
+        for (int i = 0; i < numberOfTests; i++) {
+            extent.createTest("test");
+        }
+        Assert.assertEquals(extent.getReport().getTestList().size(), numberOfTests);
+    }
 }

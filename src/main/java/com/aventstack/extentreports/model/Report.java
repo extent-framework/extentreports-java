@@ -108,6 +108,10 @@ public class Report implements Serializable, BaseEntity {
             return test;
         }
     }
+
+    public Optional<Test> findTest(final String name) {
+        return findTest(testList, name);
+    }
     
     public List<ExceptionInfo> aggregateExceptions(List<Test> testList) {
         synchronized (testList) {

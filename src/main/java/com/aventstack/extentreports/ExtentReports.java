@@ -447,6 +447,16 @@ public class ExtentReports extends AbstractProcessor implements Writable, Analys
     }
 
     /**
+     * This setting allows only 1 instance of a test or node to be present in the report. To maintain
+     * uniqueness, the name of the test is used.
+     *
+     * @param keepLastRetryOnly true - keeps only the last executed test instance
+     */
+    public void keepLastRetryOnly(final boolean keepLastRetryOnly) {
+        super.keepLastRetryOnly = keepLastRetryOnly;
+    }
+
+    /**
      * Returns an instance of {@link ReportStats} with counts of tests executed
      * by their status (pass, fail, skip etc)
      * 
