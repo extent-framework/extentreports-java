@@ -1,4 +1,21 @@
-## [5.0.9](https://github.com/extent-framework/extentreports-java/compare/v5.0.9...v5.0.9)
+## [5.1.0](https://github.com/extent-framework/extentreports-java/compare/v5.0.9...v5.1.0) - JDK11
+
+#### Issues Resolved
+- [#366](/issues/366) removeTest deletes the test case, but not in the statistics entry in the category tags
+- [#366](/pull/378) Resolves vulnerabilities
+  - com.google.code.gson » gson from 2.8.6 to 2.10.1
+  - io.reactivex.rxjava3 » rxjava from 3.0.4 to 3.1.6
+  - org.freemarker » freemarker from 2.3.30 to 2.3.32
+  - org.projectlombok » lombok from 1.18.12 to 1.18.26
+  - org.testng » testng from 7.3.0 to 7.7.1 
+
+#### New Features
+- [#386](/issues/386) Setting to prevent report from repeat displaying a retried test
+- [#379](/issues/379) New ExtentTest method: log(Status status, Markup markup, Media media)
+- [#364](/pull/364) Adds the test description to the card body
+  
+
+## [5.0.9](https://github.com/extent-framework/extentreports-java/compare/v5.0.8...v5.0.9)
 
 #### Issues Resolved
 - [#305](/issues/305) Fix HttpClient version-4.5.2 vulnerability
