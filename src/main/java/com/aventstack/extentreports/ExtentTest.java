@@ -238,6 +238,9 @@ public class ExtentTest implements RunResult, Serializable {
      * @return {@link ExtentTest}
      */
     public ExtentTest createNode(GherkinKeyword gherkinKeyword, String name, String description) {
+        if (gherkinKeyword == null) {
+            return createNode(name, description);
+        }
         return createNode(gherkinKeyword.getKeyword().getClass(), name, description);
     }
 

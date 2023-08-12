@@ -15,7 +15,7 @@ import com.google.gson.reflect.TypeToken;
 public class JsonDeserializer {
     private File f;
 
-    public JsonDeserializer(File f) {
+    public JsonDeserializer(final File f) {
         this.f = f;
     }
 
@@ -25,8 +25,7 @@ public class JsonDeserializer {
                 .withScreenCaptureTypeAdapter()
                 .build();
         String json = new String(Files.readAllBytes(f.toPath()));
-        Type t = new TypeToken<ArrayList<Test>>() {
-        }.getType();
+        Type t = new TypeToken<ArrayList<Test>>(){}.getType();
         List<Test> tests = gson.fromJson(json, t);
         return tests;
     }

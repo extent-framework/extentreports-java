@@ -12,8 +12,7 @@ import com.google.gson.stream.JsonWriter;
 public class ScreenCaptureTypeAdapter extends TypeAdapter<Media> {
 
     @Override
-    public void write(JsonWriter out, Media value) throws IOException {
-    }
+    public void write(JsonWriter out, Media value) throws IOException { }
 
     @Override
     public Media read(JsonReader reader) throws IOException {

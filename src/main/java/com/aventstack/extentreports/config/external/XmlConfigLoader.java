@@ -29,7 +29,7 @@ public class XmlConfigLoader<T> implements ConfigLoadable<T> {
     private InputStream stream;
     private T instance;
 
-    public XmlConfigLoader(T instance, File f) throws FileNotFoundException {
+    public XmlConfigLoader(T instance, File f) {
         createStream(f);
         this.instance = instance;
     }

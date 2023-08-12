@@ -16,13 +16,15 @@ import com.aventstack.extentreports.model.Test;
 public class RawEntityConverter {
     private final ExtentReports extent;
 
-    public RawEntityConverter(ExtentReports extent) {
+    public RawEntityConverter(final ExtentReports extent) {
         this.extent = extent;
     }
 
-    public void convertAndApply(File jsonFile) throws IOException {
-        if (!jsonFile.exists())
+    public void convertAndApply(final File jsonFile) throws IOException {
+        if (!jsonFile.exists()) {
             return;
+        }
+
         extent.setReportUsesManualConfiguration(true);
         List<Test> tests = new JsonDeserializer(jsonFile).deserialize();
         for (Test test : tests) {
@@ -64,12 +66,13 @@ public class RawEntityConverter {
 
         // handle nodes
         for (Test node : test.getChildren()) {
-            ExtentTest extentNode = null;
-            if (node.getBddType() == null)
+            ExtentTest extentNode;
+            if (!node.isBDD()) {
                 extentNode = extentTest.createNode(node.getName(), node.getDescription());
-            else
-                extentNode = extentTest.createNode(new GherkinKeyword(node.getBddType().getSimpleName()), node.getName(),
-                        node.getDescription());
+            } else {
+                GherkinKeyword gk = new GherkinKeyword(node.getBddType().getSimpleName());
+                extentNode = extentTest.createNode(gk, node.getName(), node.getDescription());
+            }
             addMedia(node, extentNode);
             createDomain(node, extentNode);
         }
@@ -82,8 +85,7 @@ public class RawEntityConverter {
                     MediaEntityBuilder.createScreenCaptureFromPath(m.getPath()).build());
         } else if (((ScreenCapture) m).getBase64() != null) {
             extentTest.log(log.getStatus(), ex,
-                    MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64())
-                            .build());
+                    MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64()).build());
         }
     }
 

@@ -33,12 +33,7 @@ public class JsonConfigLoader<T> implements ConfigLoadable<T> {
 
     private void init(T instance) {
         this.instance = instance;
-        creator = new InstanceCreator<T>() {
-            @Override
-            public T createInstance(Type type) {
-                return instance;
-            }
-        };
+        creator = type -> instance;
     }
 
     @SuppressWarnings("unchecked")

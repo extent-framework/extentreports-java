@@ -70,8 +70,9 @@
                   <span class='badge badge-danger'>${test.endTime?string("MM.dd.yyyy")} ${test.endTime?time?string}</span>
                   <span class='badge badge-default'>${test.timeTakenPretty()}</span>
                   &middot; <span class='uri-anchor badge badge-default'>#test-id=${test.getId()}</span>
-                  <span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
-                  <span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+                  <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+                  <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+                  <span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
                 </div>
                 <#if test.hasAttributes()>
                 <div class="m-t-15"><@attributes test=test /></div>
