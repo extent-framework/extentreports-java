@@ -1,6 +1,6 @@
 package com.aventstack.extentreports.gson;
 
-import com.aventstack.extentreports.append.ScreenCaptureTypeAdapter;
+import com.aventstack.extentreports.append.MediaTypeAdapter;
 import com.aventstack.extentreports.model.Media;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,8 +18,9 @@ public class GsonExtentTypeAdapterBuilder {
             return this;
         }
 
-        public Builder withScreenCaptureTypeAdapter() {
-            builder.registerTypeAdapter(Media.class, new ScreenCaptureTypeAdapter());
+        public Builder withMediaTypeAdapter() {
+            //builder.registerTypeAdapter(Media.class, new ScreenCaptureTypeAdapter());
+        	builder.registerTypeAdapter(Media.class, new MediaTypeAdapter());
             return this;
         }
 

@@ -13,8 +13,13 @@ import lombok.Setter;
 public class Media implements Serializable, BaseEntity, MetaDataStorable {
     private static final long serialVersionUID = 5428859443090457608L;
 
+    private MediaType type;
     private String path;
     private String title;
     private String resolvedPath;
     private transient Map<String, Object> infoMap;
+    
+    public enum MediaType {
+    	SCREENCAPTURE, VIDEO
+    }
 }

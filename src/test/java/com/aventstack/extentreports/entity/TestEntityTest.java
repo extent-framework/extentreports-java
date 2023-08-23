@@ -12,6 +12,7 @@ import com.aventstack.extentreports.model.Device;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.model.Video;
 import com.aventstack.extentreports.model.service.TestService;
 
 public class TestEntityTest {
@@ -227,6 +228,16 @@ public class TestEntityTest {
         Assert.assertFalse(test.hasScreenCapture());
         test.addMedia(ScreenCapture.builder().path("/img.png").build());
         Assert.assertTrue(test.hasScreenCapture());
+    }
+    
+    @org.testng.annotations.Test
+    public void hasVideo() {
+        Test test = getTest();
+        Assert.assertFalse(test.hasVideo());
+        test.addMedia(Video.builder().build());
+        Assert.assertFalse(test.hasVideo());
+        test.addMedia(Video.builder().path("/vid.mp4").build());
+        Assert.assertTrue(test.hasVideo());
     }
 
     @org.testng.annotations.Test

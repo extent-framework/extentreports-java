@@ -9,7 +9,7 @@
             <ul class="list-inline d-none d-sm-block">
               <li><span class="badge ${node.status.toLower()}-bg log ">${node.status}</span></li>
               <li><span class='badge badge-default'>${node.timeTaken()?number_to_time?string("mm:ss:SSS")}</span></li>
-              <li><#if TestService.testHasScreenCapture(node, true)><span><i class="fa fa-paperclip"></i></span></#if></li>
+              <li><#if TestService.testHasMedia(node, true)><span><i class="fa fa-paperclip"></i></span></#if></li>
             </ul>
           </div>
           <div class="card-title">

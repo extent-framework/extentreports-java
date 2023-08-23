@@ -7,10 +7,8 @@ import java.util.List;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.GherkinKeyword;
-import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Media;
-import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.Test;
 
 public class RawEntityConverter {
@@ -79,24 +77,14 @@ public class RawEntityConverter {
     }
 
     private void addMedia(Log log, ExtentTest extentTest, Throwable ex) {
-        Media m = log.getMedia();
-        if (m.getPath() != null) {
-            extentTest.log(log.getStatus(), ex,
-                    MediaEntityBuilder.createScreenCaptureFromPath(m.getPath()).build());
-        } else if (((ScreenCapture) m).getBase64() != null) {
-            extentTest.log(log.getStatus(), ex,
-                    MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64()).build());
-        }
+        Media m = log.getMedia();        
+        extentTest.log(log.getStatus(), ex, m);              
     }
 
     private void addMedia(Test test, ExtentTest extentTest) {
         if (test.getMedia() != null) {
             for (Media m : test.getMedia()) {
-                if (m.getPath() != null) {
-                    extentTest.addScreenCaptureFromPath(m.getPath());
-                } else if (m instanceof ScreenCapture) {
-                    extentTest.addScreenCaptureFromBase64String(((ScreenCapture) m).getBase64());
-                }
+            	extentTest.addMedia(m);          	
             }
         }
     }

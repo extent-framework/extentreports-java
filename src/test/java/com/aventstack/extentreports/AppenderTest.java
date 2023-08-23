@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.model.ScreenCapture;
+import com.aventstack.extentreports.model.Video;
 import com.aventstack.extentreports.reporter.JsonFormatter;
 
 public class AppenderTest {
@@ -132,7 +133,9 @@ public class AppenderTest {
         // parent checks
         Assert.assertEquals(list.size(), 1);
         Assert.assertEquals(list.get(0).getMedia().size(), 1);
+        Assert.assertTrue(list.get(0).getMedia().get(0) instanceof ScreenCapture);
         Assert.assertNotNull(list.get(0).getLogs().get(0).getMedia());
+        Assert.assertTrue(list.get(0).getLogs().get(0).getMedia() instanceof ScreenCapture);
         Assert.assertEquals(list.get(0).getMedia().get(0).getPath(), test1.getModel().getMedia().get(0).getPath());
         Assert.assertEquals(list.get(0).getLogs().get(0).getMedia().getPath(),
                 test1.getModel().getLogs().get(0).getMedia().getPath());
@@ -162,5 +165,60 @@ public class AppenderTest {
                 ((ScreenCapture) test1.getModel().getMedia().get(0)).getBase64());
         Assert.assertEquals(((ScreenCapture) list.get(0).getLogs().get(0).getMedia()).getBase64(),
                 ((ScreenCapture) test1.getModel().getLogs().get(0).getMedia()).getBase64());
+    }
+    
+    @Test
+    public void testWithVideoMedia() throws IOException {
+        // initial, create archive:
+        ExtentReports extent = new ExtentReports();
+        JsonFormatter json = new JsonFormatter(JSON_ARCHIVE);
+        extent.attachReporter(json);
+        ExtentTest test1 = extent.createTest("Testname1")
+                .addVideoFromPath("vid.mp4")
+                .fail("Fail", MediaEntityBuilder.createVideoFromPath("vid.mp4").build());
+        extent.flush();
+
+        // post, check archive
+        extent = new ExtentReports();
+        extent.createDomainFromJsonArchive(JSON_ARCHIVE);
+        List<com.aventstack.extentreports.model.Test> list = extent.getReport().getTestList();
+
+        // parent checks
+        Assert.assertEquals(list.size(), 1);
+        Assert.assertEquals(list.get(0).getMedia().size(), 1);
+        Assert.assertTrue(list.get(0).getMedia().get(0) instanceof Video);
+        Assert.assertNotNull(list.get(0).getLogs().get(0).getMedia());
+        Assert.assertTrue(list.get(0).getLogs().get(0).getMedia() instanceof Video);
+        Assert.assertEquals(list.get(0).getMedia().get(0).getPath(), test1.getModel().getMedia().get(0).getPath());
+        Assert.assertEquals(list.get(0).getLogs().get(0).getMedia().getPath(),
+                test1.getModel().getLogs().get(0).getMedia().getPath());
+    }
+    
+    @Test
+    public void testWithVideoBase64() throws IOException {
+        // initial, create archive:
+        ExtentReports extent = new ExtentReports();
+        JsonFormatter json = new JsonFormatter(JSON_ARCHIVE);
+        extent.attachReporter(json);
+        ExtentTest test1 = extent.createTest("Testname1")
+                .addVideoFromBase64String("base64string")
+                .fail("Fail", MediaEntityBuilder.createVideoFromBase64String("base64string").build());
+        extent.flush();
+
+        // post, check archive
+        extent = new ExtentReports();
+        extent.createDomainFromJsonArchive(JSON_ARCHIVE);
+        List<com.aventstack.extentreports.model.Test> list = extent.getReport().getTestList();
+
+        // parent checks
+        Assert.assertEquals(list.size(), 1);
+        Assert.assertEquals(list.get(0).getMedia().size(), 1);
+        Assert.assertTrue(list.get(0).getMedia().get(0) instanceof Video);
+        Assert.assertNotNull(list.get(0).getLogs().get(0).getMedia());
+        Assert.assertTrue(list.get(0).getLogs().get(0).getMedia() instanceof Video);
+        Assert.assertEquals(((Video) list.get(0).getMedia().get(0)).getBase64(),
+                ((Video) test1.getModel().getMedia().get(0)).getBase64());
+        Assert.assertEquals(((Video) list.get(0).getLogs().get(0).getMedia()).getBase64(),
+                ((Video) test1.getModel().getLogs().get(0).getMedia()).getBase64());
     }
 }
