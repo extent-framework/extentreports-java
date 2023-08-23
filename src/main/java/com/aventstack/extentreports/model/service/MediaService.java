@@ -5,11 +5,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import com.aventstack.extentreports.model.Media;
+import com.aventstack.extentreports.model.Media.MediaType;
 import com.aventstack.extentreports.model.ScreenCapture;
+import com.aventstack.extentreports.model.Video;
 
 public class MediaService {
     public static void tryResolveMediaPath(Media media, String[] knownPath) {
-        if (knownPath == null || (media instanceof ScreenCapture && ((ScreenCapture) media).getBase64() != null))
+        if (knownPath == null || (media instanceof ScreenCapture && ((ScreenCapture) media).getBase64() != null)
+        		|| (media instanceof Video && ((Video) media).getBase64() != null))
             return;
         String loc = media.getPath();
         File f = new File(loc);
@@ -38,4 +41,41 @@ public class MediaService {
             return ((ScreenCapture) m).getBase64();
         return null;
     }
+    
+    public static boolean isVideoBase64(Media m) {
+		return m instanceof Video && ((Video) m).getBase64() != null;
+	}
+
+	public static String getVideoBase64(Media m) {
+		if (isVideoBase64(m))
+			return ((Video) m).getBase64();
+		return null;
+	}
+	
+	public static Media createMedia(String type, String path, String resolvedPath, String title, String base64) {
+		if (MediaType.valueOf(type) == MediaType.SCREENCAPTURE) {
+			ScreenCapture sc = ScreenCapture.builder().build();
+			if (base64 != null)
+				sc.setBase64(base64);
+			updatePaths(sc,  path,  resolvedPath, title);
+			return sc;
+		}
+		if (MediaType.valueOf(type) == MediaType.VIDEO) {
+			Video vid = Video.builder().build();
+			if (base64 != null)
+				vid.setBase64(base64);
+			updatePaths(vid,  path,  resolvedPath, title);
+			return vid;
+		}
+		return null;
+	}
+	
+	private static void updatePaths(Media media, String path, String resolvedPath, String title) {
+		if (path != null)
+			media.setPath(path);
+		if (resolvedPath != null)
+			media.setResolvedPath(resolvedPath);
+		if (title != null)
+			media.setTitle(title);
+	}
 }

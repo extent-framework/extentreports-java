@@ -22,7 +22,7 @@ public class JsonDeserializer {
     public List<Test> deserialize() throws IOException {
         Gson gson = GsonExtentTypeAdapterBuilder.builder()
                 .withBddTypeAdapterFactory()
-                .withScreenCaptureTypeAdapter()
+                .withMediaTypeAdapter()
                 .build();
         String json = new String(Files.readAllBytes(f.toPath()));
         Type t = new TypeToken<ArrayList<Test>>(){}.getType();

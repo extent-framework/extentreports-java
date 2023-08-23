@@ -41,11 +41,20 @@ public class Log implements RunResult, Serializable, BaseEntity, MetaDataStorabl
 
     public final void addMedia(Media media) {
         if (media != null && ((media.getPath() != null || media.getResolvedPath() != null)
-                || media instanceof ScreenCapture && ((ScreenCapture) media).getBase64() != null))
+                || (media instanceof ScreenCapture && ((ScreenCapture) media).getBase64() != null)
+                || (media instanceof Video && ((Video) media).getBase64() != null)))
             this.media = media;
     }
 
     public final boolean hasMedia() {
         return media != null;
+    }
+    
+    public final boolean hasScreenCapture() {
+        return media != null && media instanceof ScreenCapture;
+    }
+    
+    public final boolean hasVideo() {
+        return media != null && media instanceof Video;
     }
 }

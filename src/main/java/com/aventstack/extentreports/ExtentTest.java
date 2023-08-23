@@ -15,6 +15,7 @@ import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.RunResult;
 import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.model.Video;
 import com.aventstack.extentreports.model.service.ExceptionInfoService;
 import com.aventstack.extentreports.util.Assert;
 
@@ -1110,7 +1111,7 @@ public class ExtentTest implements RunResult, Serializable {
     public ExtentTest addScreenCaptureFromBase64String(String base64, String title) {
         Assert.notEmpty(base64, "ScreenCapture's base64 string must not be null or empty");
         if (!base64.startsWith("data:"))
-            base64 = "data:image/png;base64," + base64;
+            base64 = ScreenCapture.BASE64_ENCODED + base64;
         Media m = ScreenCapture.builder().base64(base64).title(title).build();
         model.addMedia(m);
         extent.onMediaAdded(m, model);
@@ -1119,5 +1120,37 @@ public class ExtentTest implements RunResult, Serializable {
 
     public ExtentTest addScreenCaptureFromBase64String(String base64) {
         return addScreenCaptureFromBase64String(base64, null);
+    }
+    
+    public ExtentTest addVideoFromPath(String path, String title) {
+        Assert.notEmpty(path, "Video path must not be null or empty");
+        Media m = Video.builder().path(path).title(title).build();
+        model.addMedia(m);
+        extent.onMediaAdded(m, model);
+        return this;
+    }
+
+    public ExtentTest addVideoFromPath(String path) {
+        return addVideoFromPath(path, null);
+    }
+
+    public ExtentTest addVideoFromBase64String(String base64, String title) {
+        Assert.notEmpty(base64, "Video's base64 string must not be null or empty");
+        if (!base64.startsWith("data:"))
+            base64 = Video.BASE64_ENCODED + base64;
+        Media m = Video.builder().base64(base64).title(title).build();
+        model.addMedia(m);
+        extent.onMediaAdded(m, model);
+        return this;
+    }
+
+    public ExtentTest addVideoFromBase64String(String base64) {
+        return addVideoFromBase64String(base64, null);
+    }
+    
+    public ExtentTest addMedia(Media m) {
+    	model.addMedia(m);
+        extent.onMediaAdded(m, model);
+        return this;
     }
 }

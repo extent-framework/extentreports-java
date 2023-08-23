@@ -13,6 +13,7 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.model.Video;
 import com.aventstack.extentreports.model.service.TestService;
 
 public class TestServiceTest {
@@ -140,4 +141,55 @@ public class TestServiceTest {
         Assert.assertFalse(test.hasScreenCapture());
         Assert.assertTrue(TestService.testHasScreenCapture(test, true));
     }
+    
+    @org.testng.annotations.Test
+	public void testHasMedias() {
+		Test test = getTest();
+		test.addMedia(Video.builder().path("/vid.mp4").build());
+		test.addMedia(ScreenCapture.builder().path("/img.png").build());
+		Assert.assertTrue(test.hasScreenCapture());
+		Assert.assertTrue(test.hasVideo());
+		Assert.assertTrue(test.hasMedia());
+	}
+    
+    @org.testng.annotations.Test
+	public void testHasVideoDeepLog() {
+		Test test = getTest();
+		Log log = Log.builder().status(Status.PASS).details("").build();
+		log.addMedia(Video.builder().path("/vid.mp4").build());
+		test.addLog(log);
+		Assert.assertFalse(test.hasScreenCapture());
+		Assert.assertFalse(test.hasVideo());
+		Assert.assertFalse(TestService.testHasScreenCapture(test, true));
+		Assert.assertTrue(TestService.testHasMedia(test, true));
+		Assert.assertTrue(TestService.testHasVideo(test, true));
+	}
+    
+    @org.testng.annotations.Test
+	public void testHasVideoDeepNodeLog() {
+		Test test = getTest();
+		Test node = getTest();
+		test.getChildren().add(node);
+		Log log = Log.builder().status(Status.PASS).details("").build();
+		log.addMedia(Video.builder().path("/vid.mp4").build());
+		node.addLog(log);
+		Assert.assertFalse(test.hasScreenCapture());
+		Assert.assertFalse(test.hasVideo());
+		Assert.assertFalse(TestService.testHasScreenCapture(test, true));
+		Assert.assertTrue(TestService.testHasMedia(test, true));
+		Assert.assertTrue(TestService.testHasVideo(test, true));
+	}
+    
+    @org.testng.annotations.Test
+	public void testHasVideoDeepNode() {
+		Test test = getTest();
+		Test node = getTest();
+		test.getChildren().add(node);
+		node.addMedia(Video.builder().path("/vid.mp4").build());				
+		Assert.assertFalse(test.hasScreenCapture());
+		Assert.assertFalse(test.hasVideo());
+		Assert.assertFalse(TestService.testHasScreenCapture(test, true));
+		Assert.assertTrue(TestService.testHasMedia(test, true));
+		Assert.assertTrue(TestService.testHasVideo(test, true));		 
+	}
 }

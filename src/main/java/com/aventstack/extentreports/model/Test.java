@@ -158,13 +158,23 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
 
     public void addMedia(Media m) {
         if (m != null
-                && (m.getPath() != null || m.getResolvedPath() != null || ((ScreenCapture) m).getBase64() != null))
+                && (m.getPath() != null || m.getResolvedPath() != null || 
+                (m instanceof ScreenCapture && ((ScreenCapture) m).getBase64() != null) ||
+                (m instanceof Video && ((Video) m).getBase64() != null)))
             media.add(m);
         end(status);
     }
 
     public boolean hasScreenCapture() {
         return !media.isEmpty() && media.stream().anyMatch(x -> x instanceof ScreenCapture);
+    }
+    
+    public boolean hasVideo() {
+        return !media.isEmpty() && media.stream().anyMatch(x -> x instanceof Video);
+    }
+    
+    public boolean hasMedia() {
+        return !media.isEmpty() && media.stream().anyMatch(x -> x instanceof Media);
     }
 
     public long timeTaken() {

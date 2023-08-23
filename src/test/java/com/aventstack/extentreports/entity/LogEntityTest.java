@@ -7,6 +7,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Media;
 import com.aventstack.extentreports.model.ScreenCapture;
+import com.aventstack.extentreports.model.Video;
 
 public class LogEntityTest {
 
@@ -81,6 +82,20 @@ public class LogEntityTest {
     @Test
     public void addMediaWithResolvedPathToLog() {
         Media m = ScreenCapture.builder().resolvedPath("./img.png").build();
+        Log log = Log.builder().media(m).build();
+        Assert.assertTrue(log.hasMedia());
+    }
+    
+    @Test
+    public void addVideoWithPathToLog() {
+        Media m = Video.builder().path("./vid.mp4").build();
+        Log log = Log.builder().media(m).build();
+        Assert.assertTrue(log.hasMedia());
+    }
+
+    @Test
+    public void addVideoWithResolvedPathToLog() {
+        Media m = Video.builder().resolvedPath("./vid.mp4").build();
         Log log = Log.builder().media(m).build();
         Assert.assertTrue(log.hasMedia());
     }
