@@ -2,7 +2,9 @@ package com.aventstack.extentreports;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Date;
 
+import com.aventstack.extentreports.gherkin.model.Feature;
 import com.aventstack.extentreports.gherkin.model.IGherkinFormatterModel;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
@@ -53,7 +55,7 @@ public class ExtentTest implements RunResult, Serializable {
      * An instance of {@link ExtentReports} to which this {@link ExtentTest}
      * belongs
      */
-    private transient ExtentReports extent;
+    private final transient ExtentReports extent;
 
     /**
      * Internal model
@@ -345,13 +347,9 @@ public class ExtentTest implements RunResult, Serializable {
      * </p>
      * 
      * <pre>
-     * test.log(Status.FAIL, "details", MediaEntityBuilder.createScreenCaptureFromPath("screen.png").build());
+     * test.log(buildLog(Status.FAIL, "details"), MediaEntityBuilder.createScreenCaptureFromPath("screen.png").build());
      * </pre>
      * 
-     * @param status
-     *            {@link Status}
-     * @param details
-     *            Details
      * @param t
      *            A {@link Throwable} exception to be logged, enabling the
      *            Exception view of certain HTML reporters
@@ -360,12 +358,8 @@ public class ExtentTest implements RunResult, Serializable {
      * 
      * @return An {@link ExtentTest} object
      */
-    public ExtentTest log(Status status, String details, Throwable t, Media media) {
-        Assert.notNull(status, "Status must not be null");
-        Log log = Log.builder()
-                .status(status)
-                .details(details == null ? "" : details)
-                .build();
+    public ExtentTest log(Log log, Throwable t, Media media) {
+        Assert.notNull(log.getStatus(), "Status must not be null");
         ExceptionInfo exceptionInfo = ExceptionInfoService.createExceptionInfo(t);
         log.setException(exceptionInfo);
         if (exceptionInfo != null)
@@ -378,6 +372,7 @@ public class ExtentTest implements RunResult, Serializable {
         }
         return this;
     }
+
 
     /**
      * Logs an event with {@link Status}, details and a media object:
@@ -401,7 +396,11 @@ public class ExtentTest implements RunResult, Serializable {
      * @return An {@link ExtentTest} object
      */
     public ExtentTest log(Status status, String details, Media media) {
-        return log(status, details, null, media);
+        return log(buildLog(status, details, null), null, media);
+    }
+
+    public ExtentTest log(Log log){
+        return log(log, null, null);
     }
 
     /**
@@ -424,7 +423,7 @@ public class ExtentTest implements RunResult, Serializable {
      * @return An {@link ExtentTest} object
      */
     public ExtentTest log(Status status, Media media) {
-        return log(status, null, null, media);
+        return log(buildLog(status, null, null), null, media);
     }
 
     /**
@@ -440,6 +439,20 @@ public class ExtentTest implements RunResult, Serializable {
     public ExtentTest log(Status status, String details) {
         return log(status, details, null);
     }
+
+    /**
+     * Logs an event with {@link Status} and details
+     *
+     * @param status
+     *            {@link Status}
+     * @param details
+     *            Details
+     *
+     * @return An {@link ExtentTest} object
+     */
+//    public ExtentTest log(Status status, String details, Date timestamp) {
+//        return log(status, details, null);
+//    }
 
     /**
      * Logs an event with {@link Status} and custom {@link Markup} such as:
@@ -507,7 +520,7 @@ public class ExtentTest implements RunResult, Serializable {
      * @return An {@link ExtentTest} object
      */
     public ExtentTest log(Status status, Throwable t, Media media) {
-        return log(status, null, t, media);
+        return log(buildLog(status, null, null), t, media);
     }
 
     /**
@@ -522,6 +535,25 @@ public class ExtentTest implements RunResult, Serializable {
      */
     public ExtentTest log(Status status, Throwable t) {
         return log(status, t, null);
+    }
+
+    /**
+     * @param status {@link Status} status of the log
+     * @param details {@link String} details to be added to the log
+     * @param overrideLogDate if passed, the log will be overridden to this timestamp. Else it will be defaulted to the current time stamp
+     * @return {@link Log} Log object with the status, details and timestamp set
+     */
+    private Log  buildLog(Status status, String details, Date overrideLogDate){
+        Assert.notNull(status, "Status must not be null");
+        Log log = Log.builder()
+                .status(status)
+                .details(details == null ? "" : details)
+                .build();
+        if(overrideLogDate != null){
+            log.setTimestamp(overrideLogDate);
+        }
+
+        return log;
     }
 
     /**

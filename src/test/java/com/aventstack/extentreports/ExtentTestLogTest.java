@@ -2,6 +2,7 @@ package com.aventstack.extentreports;
 
 import java.io.IOException;
 
+import com.aventstack.extentreports.model.Log;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -22,7 +23,8 @@ public class ExtentTestLogTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void logWithStatusNull() {
-        test().log(null, null, null, null);
+        Log log = Log.builder().status(null).details("").build();
+        test().log(log, null, null);
     }
 
     @Test

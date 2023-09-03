@@ -8,10 +8,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.GherkinKeyword;
 import com.aventstack.extentreports.MediaEntityBuilder;
-import com.aventstack.extentreports.model.Log;
-import com.aventstack.extentreports.model.Media;
-import com.aventstack.extentreports.model.ScreenCapture;
-import com.aventstack.extentreports.model.Test;
+import com.aventstack.extentreports.model.*;
 
 public class RawEntityConverter {
     private final ExtentReports extent;
@@ -55,14 +52,16 @@ public class RawEntityConverter {
                 extentTest.log(log.getStatus(), log.getException().getException());
             else if (log.hasMedia())
                 addMedia(log, extentTest, null);
-            else
-                extentTest.log(log.getStatus(), log.getDetails());
+            else {
+                Log logToAdd = Log.builder().status(log.getStatus()).details(log.getDetails()).timestamp(log.getTimestamp()).build();
+                extentTest.log(logToAdd);
+            }
         }
 
         // assign attributes
-        test.getAuthorSet().stream().map(x -> x.getName()).forEach(extentTest::assignAuthor);
-        test.getCategorySet().stream().map(x -> x.getName()).forEach(extentTest::assignCategory);
-        test.getDeviceSet().stream().map(x -> x.getName()).forEach(extentTest::assignDevice);
+        test.getAuthorSet().stream().map(NamedAttribute::getName).forEach(extentTest::assignAuthor);
+        test.getCategorySet().stream().map(NamedAttribute::getName).forEach(extentTest::assignCategory);
+        test.getDeviceSet().stream().map(NamedAttribute::getName).forEach(extentTest::assignDevice);
 
         // handle nodes
         for (Test node : test.getChildren()) {
