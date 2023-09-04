@@ -81,10 +81,10 @@ public class RawEntityConverter {
     private void addMedia(Log log, ExtentTest extentTest, Throwable ex) {
         Media m = log.getMedia();
         if (m.getPath() != null) {
-            extentTest.log(log.getStatus(), ex,
+            extentTest.log(log.getStatus(),log.getDetails(),ex,
                     MediaEntityBuilder.createScreenCaptureFromPath(m.getPath()).build());
         } else if (((ScreenCapture) m).getBase64() != null) {
-            extentTest.log(log.getStatus(), ex,
+            extentTest.log(log.getStatus(),log.getDetails(),ex,
                     MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64()).build());
         }
     }
