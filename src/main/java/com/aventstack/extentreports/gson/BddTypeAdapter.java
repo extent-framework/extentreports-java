@@ -11,17 +11,16 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 public class BddTypeAdapter extends TypeAdapter<Class<? extends IGherkinFormatterModel>> {
+
     private static final Logger LOG = Logger.getLogger(BddTypeAdapter.class.getName());
 
     @SuppressWarnings("unchecked")
     @Override
     public Class<? extends IGherkinFormatterModel> read(final JsonReader reader) throws IOException {
-        int cycle = 0;
         while (reader.hasNext()) {
-            JsonToken token = reader.peek();
+            final JsonToken token = reader.peek();
             if ("string".equalsIgnoreCase(token.name())) {
-                token = reader.peek();
-                String s = reader.nextString();
+                final String s = reader.nextString();
                 if (s != null && !s.isEmpty()) {
                     try {
                         return (Class<? extends IGherkinFormatterModel>) Class.forName(s);
@@ -30,8 +29,6 @@ public class BddTypeAdapter extends TypeAdapter<Class<? extends IGherkinFormatte
                     }
                 }
             }
-            if (cycle++ > 10)
-                return null;
         }
         return null;
     }

@@ -21,7 +21,7 @@ public class JsonDeserializer {
 
     public List<Test> deserialize() throws IOException {
         Gson gson = GsonExtentTypeAdapterBuilder.builder()
-                .withBddTypeAdapterFactory()
+                .withGsonTypeAdapterFactory()
                 .withScreenCaptureTypeAdapter()
                 .build();
         String json = new String(Files.readAllBytes(f.toPath()));

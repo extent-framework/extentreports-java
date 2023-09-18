@@ -6,15 +6,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class GsonExtentTypeAdapterBuilder {
+
     public static Builder builder() {
         return new Builder();
     }
 
     public static class Builder {
+
         GsonBuilder builder = new GsonBuilder();
 
-        public Builder withBddTypeAdapterFactory() {
-            builder.registerTypeAdapterFactory(new BddTypeAdapterFactory());
+        public Builder withGsonTypeAdapterFactory() {
+            builder.registerTypeAdapterFactory(new GsonTypeAdapterFactory());
             return this;
         }
 
@@ -26,5 +28,7 @@ public class GsonExtentTypeAdapterBuilder {
         public Gson build() {
             return builder.create();
         }
+
     }
+
 }

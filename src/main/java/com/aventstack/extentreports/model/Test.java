@@ -83,8 +83,9 @@ public final class Test implements RunResult, Serializable, BaseEntity, MetaData
 
     private void end(Status evtStatus) {
         setStatus(Status.max(status, evtStatus));
-        if (useNaturalConf)
+        if (useNaturalConf) {
             propagateTime();
+        }
     }
 
     private void propagateTime() {

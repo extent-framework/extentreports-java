@@ -8,12 +8,15 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.GherkinKeyword;
 import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.model.ExceptionInfo;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Media;
+import com.aventstack.extentreports.model.NamedAttribute;
 import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.Test;
 
 public class RawEntityConverter {
+
     private final ExtentReports extent;
 
     public RawEntityConverter(final ExtentReports extent) {
@@ -26,43 +29,42 @@ public class RawEntityConverter {
         }
 
         extent.setReportUsesManualConfiguration(true);
-        List<Test> tests = new JsonDeserializer(jsonFile).deserialize();
-        for (Test test : tests) {
+        final List<Test> tests = new JsonDeserializer(jsonFile).deserialize();
+
+        for (final Test test : tests) {
+            ExtentTest extentTest;
             try {
-                if (test.getBddType() == null) {
-                    createDomain(test, extent.createTest(test.getName(), test.getDescription()));
+                if (test.isBDD()) {
+                    final GherkinKeyword gk = new GherkinKeyword(test.getBddType().getSimpleName());
+                    extentTest = extent.createTest(gk, test.getName(), test.getDescription());
                 } else {
-                    ExtentTest extentTest = extent.createTest(new GherkinKeyword(test.getBddType().getSimpleName()),
-                            test.getName(), test.getDescription());
-                    createDomain(test, extentTest);
+                    extentTest = extent.createTest(test.getName(), test.getDescription());
                 }
+                createDomain(test, extentTest);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void createDomain(Test test, ExtentTest extentTest) throws ClassNotFoundException {
+    public void createDomain(final Test test, final ExtentTest extentTest) throws ClassNotFoundException {
         extentTest.getModel().setStartTime(test.getStartTime());
         extentTest.getModel().setEndTime(test.getEndTime());
-        addMedia(test, extentTest);
+        constructTestMedia(test, extentTest);
 
         // create events
         for (Log log : test.getLogs()) {
-            if (log.hasException() && log.hasMedia())
-                addMedia(log, extentTest, log.getException().getException());
-            else if (log.hasException())
-                extentTest.log(log.getStatus(), log.getException().getException());
-            else if (log.hasMedia())
-                addMedia(log, extentTest, null);
-            else
+            if (log.hasException() || log.hasMedia()) {
+                constructLog(log, extentTest, log.getException());
+            } else {
                 extentTest.log(log.getStatus(), log.getDetails());
+            }
         }
 
         // assign attributes
-        test.getAuthorSet().stream().map(x -> x.getName()).forEach(extentTest::assignAuthor);
-        test.getCategorySet().stream().map(x -> x.getName()).forEach(extentTest::assignCategory);
-        test.getDeviceSet().stream().map(x -> x.getName()).forEach(extentTest::assignDevice);
+        test.getAuthorSet().stream().map(NamedAttribute::getName).forEach(extentTest::assignAuthor);
+        test.getCategorySet().stream().map(NamedAttribute::getName).forEach(extentTest::assignCategory);
+        test.getDeviceSet().stream().map(NamedAttribute::getName).forEach(extentTest::assignDevice);
 
         // handle nodes
         for (Test node : test.getChildren()) {
@@ -73,23 +75,38 @@ public class RawEntityConverter {
                 GherkinKeyword gk = new GherkinKeyword(node.getBddType().getSimpleName());
                 extentNode = extentTest.createNode(gk, node.getName(), node.getDescription());
             }
-            addMedia(node, extentNode);
+            constructTestMedia(node, extentNode);
             createDomain(node, extentNode);
         }
     }
 
-    private void addMedia(Log log, ExtentTest extentTest, Throwable ex) {
-        Media m = log.getMedia();
-        if (m.getPath() != null) {
-            extentTest.log(log.getStatus(), ex,
-                    MediaEntityBuilder.createScreenCaptureFromPath(m.getPath()).build());
-        } else if (((ScreenCapture) m).getBase64() != null) {
-            extentTest.log(log.getStatus(), ex,
-                    MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64()).build());
+    private void constructLog(final Log log, final ExtentTest extentTest, final ExceptionInfo ex) {
+        final Media m = log.getMedia();
+
+        if (m != null) {
+            if (m.getPath() != null) {
+                extentTest.log(log.getStatus(),
+                        MediaEntityBuilder.createScreenCaptureFromPath(m.getPath()).build());
+            }
+            if (((ScreenCapture) m).getBase64() != null) {
+                extentTest.log(log.getStatus(),
+                        MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64()).build());
+            }
+        }
+
+        if (ex != null) {
+            if (!extentTest.getModel().hasLog()) {
+                extentTest.log(log.getStatus(), log.getDetails());
+            }
+
+            final List<Log> logs = extentTest.getModel().getLogs();
+            final Log lastLog = logs.get(logs.size() - 1);
+            lastLog.setException(ex);
+            extentTest.getModel().getExceptions().add(ex);
         }
     }
 
-    private void addMedia(Test test, ExtentTest extentTest) {
+    private void constructTestMedia(final Test test, final ExtentTest extentTest) {
         if (test.getMedia() != null) {
             for (Media m : test.getMedia()) {
                 if (m.getPath() != null) {
@@ -100,4 +117,5 @@ public class RawEntityConverter {
             }
         }
     }
+
 }
