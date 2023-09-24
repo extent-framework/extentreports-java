@@ -25,6 +25,12 @@
           <h3>${report.stats.parent?api.get(Status.FAIL)?c}</h3>
       </div></div>
     </div>
+    <div class="col-md-3">
+      <div class="card"><div class="card-body">
+          <p class="m-b-0 text-skip">${parentHeading} Skipped</p>
+          <h3>${report.stats.parent?api.get(Status.SKIP)?c}</h3>
+      </div></div>
+    </div>
   </div>
   <div class="row">
     <div class="${boxsize}">
