@@ -43,7 +43,7 @@
                   <td><span class="badge log ${test.status.toLower()}-bg">${test.status?string}</span></td>
                   <td>${test.startTime?string[("HH:mm:ss a")]}</td>
                   <td>
-                    <a href="#" class="linked" test-id='${test.getAncestor().getId()}' id='${test.getId()}'>${test.name}</a>
+                    <a href="#" class="linked" test-id='${test.getAncestor().getId()?string["0"]}' id='${test.getId()?string["0"]}'>${test.name}</a>
                     <#if test.parent??>
                     <div class="">
                       <span class="badge badge-default">${test.getFullName()}</span>
