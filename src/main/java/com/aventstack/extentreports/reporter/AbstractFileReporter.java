@@ -69,8 +69,9 @@ public abstract class AbstractFileReporter extends AbstractFilterableReporter {
         }
     }
 
-    protected void processTemplate(Template template, File outputFile) throws TemplateException, IOException {
+    protected void processTemplate(Template template, File outputFile, String encoding) throws TemplateException, IOException {
         FreemarkerTemplate freemarkerTemplate = new FreemarkerTemplate(getFreemarkerConfig());
+        freemarkerConfig.setDefaultEncoding(encoding);
         freemarkerTemplate.writeTemplate(template, templateModel, outputFile);
     }
 
