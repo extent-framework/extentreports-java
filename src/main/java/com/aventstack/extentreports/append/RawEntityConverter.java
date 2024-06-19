@@ -82,23 +82,9 @@ public class RawEntityConverter {
 
     private void constructLog(final Log log, final ExtentTest extentTest, final ExceptionInfo ex) {
         final Media m = log.getMedia();
-
-        if (m != null) {
-            if (m.getPath() != null) {
-                extentTest.log(log.getStatus(),
-                        MediaEntityBuilder.createScreenCaptureFromPath(m.getPath()).build());
-            }
-            if (((ScreenCapture) m).getBase64() != null) {
-                extentTest.log(log.getStatus(),
-                        MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64()).build());
-            }
-        }
+        extentTest.log(log.getStatus(), log.getDetails(), m);
 
         if (ex != null) {
-            if (!extentTest.getModel().hasLog()) {
-                extentTest.log(log.getStatus(), log.getDetails());
-            }
-
             final List<Log> logs = extentTest.getModel().getLogs();
             final Log lastLog = logs.get(logs.size() - 1);
             lastLog.setException(ex);
