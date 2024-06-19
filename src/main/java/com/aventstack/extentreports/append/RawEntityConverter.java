@@ -10,6 +10,7 @@ import com.aventstack.extentreports.GherkinKeyword;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.model.Log;
 import com.aventstack.extentreports.model.Media;
+import com.aventstack.extentreports.model.NamedAttribute;
 import com.aventstack.extentreports.model.ScreenCapture;
 import com.aventstack.extentreports.model.Test;
 
@@ -60,9 +61,9 @@ public class RawEntityConverter {
         }
 
         // assign attributes
-        test.getAuthorSet().stream().map(x -> x.getName()).forEach(extentTest::assignAuthor);
-        test.getCategorySet().stream().map(x -> x.getName()).forEach(extentTest::assignCategory);
-        test.getDeviceSet().stream().map(x -> x.getName()).forEach(extentTest::assignDevice);
+        test.getAuthorSet().stream().map(NamedAttribute::getName).forEach(extentTest::assignAuthor);
+        test.getCategorySet().stream().map(NamedAttribute::getName).forEach(extentTest::assignCategory);
+        test.getDeviceSet().stream().map(NamedAttribute::getName).forEach(extentTest::assignDevice);
 
         // handle nodes
         for (Test node : test.getChildren()) {
@@ -81,10 +82,10 @@ public class RawEntityConverter {
     private void addMedia(Log log, ExtentTest extentTest, Throwable ex) {
         Media m = log.getMedia();
         if (m.getPath() != null) {
-            extentTest.log(log.getStatus(),log.getDetails(),ex,
+            extentTest.log(log.getStatus(),log.getDetails(), ex,
                     MediaEntityBuilder.createScreenCaptureFromPath(m.getPath()).build());
         } else if (((ScreenCapture) m).getBase64() != null) {
-            extentTest.log(log.getStatus(),log.getDetails(),ex,
+            extentTest.log(log.getStatus(),log.getDetails(), ex,
                     MediaEntityBuilder.createScreenCaptureFromBase64String(((ScreenCapture) m).getBase64()).build());
         }
     }
