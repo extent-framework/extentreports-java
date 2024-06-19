@@ -15,8 +15,8 @@
   <div class="card">
     <div class="card-header" role="tab">
       <div class="card-title">
-        <div class="node" id="${node.getId()}"><span class="badge log ${node.status.toLower()}-bg mr-2">${node.status?string}</span>${node.name}</div>
-        <#if TestService.testHasMedia(node, true)>
+        <div class="node" id="${node.getId()?string["0"]}"><span class="badge log ${node.status.toLower()}-bg mr-2">${node.status?string}</span>${node.name}</div>
+        <#if TestService.testHasScreenCapture(node, true)>
           <div class="status-avatar float-right mr-4">
             <i class="fa fa-paperclip"></i>
           </div>
@@ -30,8 +30,8 @@
             <div class="card-body l1">
               <div class="card-header">
                 <div class="card-title outline-child">
-                  <div class="node" id="${child.getId()}"><span class="badge log ${child.status.toLower()}-bg mr-2">${child.status?string}</span>${child.name}</div>
-                  <#if TestService.testHasMedia(child, true)>
+                  <div class="node" id="${child.getId()?string["0"]}"><span class="badge log ${child.status.toLower()}-bg mr-2">${child.status?string}</span>${child.name}</div>
+                  <#if TestService.testHasScreenCapture(child, true)>
                     <div class="status-avatar float-right">
                       <i class="fa fa-paperclip"></i>
                     </div>

@@ -90,8 +90,9 @@ public abstract class AbstractProcessor extends ReactiveSubject {
     @Override
     protected void onFlush() {
         getReport().refresh();
-        if (!usingNaturalConf)
+        if (!usingNaturalConf) {
             getReport().applyOverrideConf();
+        }
         super.onFlush();
     }
 

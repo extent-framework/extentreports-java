@@ -13,7 +13,7 @@
             </ul>
           </div>
           <div class="card-title">
-            <a class="node <#if !node.hasChildren() && node.status=='FAIL'>collapsed</#if>" id="${node.getId()}"><span>${node.name}</span></a>
+            <a class="node <#if !node.hasChildren() && node.status=='FAIL'>collapsed</#if>" id="${node.getId()?string["0"]}"><span>${node.name}</span></a>
             <div class="node-attr">
                 <#if node.hasAttributes()><@attributes test=node /></#if>
             </div>

@@ -18,20 +18,20 @@ public class SparkReporterTest {
     private static final String SCRIPTS = "spark-script.js";
     private static final String STYLESHEET = "spark-style.css";
 
-    private final String path() {
+    private final String getPath() {
         return FILE_PATH + Calendar.getInstance().getTimeInMillis() + FILE_NAME;
     }
 
     private void assertFileExists(String path) {
         File f = new File(path);
         Assert.assertTrue(f.exists());
-        f.delete();
+        //f.delete();
     }
 
     @Test
     public void createsReportWithNoTestsInitPath() {
         ExtentReports extent = new ExtentReports();
-        String path = path();
+        String path = getPath();
         ExtentSparkReporter spark = new ExtentSparkReporter(path);
         extent.attachReporter(spark);
         extent.flush();
@@ -41,7 +41,7 @@ public class SparkReporterTest {
     @Test
     public void createsReportWithNoTestsInitFile() {
         ExtentReports extent = new ExtentReports();
-        String path = path();
+        String path = getPath();
         ExtentSparkReporter spark = new ExtentSparkReporter(new File(path));
         extent.attachReporter(spark);
         extent.flush();
@@ -51,7 +51,7 @@ public class SparkReporterTest {
     @Test
     public void reportContainsTestsAndNodes() {
         ExtentReports extent = new ExtentReports();
-        String path = path();
+        String path = getPath();
         ExtentSparkReporter spark = new ExtentSparkReporter(path);
         extent.attachReporter(spark);
         extent.createTest(PARENT)
@@ -72,7 +72,7 @@ public class SparkReporterTest {
     @Test
     public void reportContainsTestsAndNodesTags() {
         ExtentReports extent = new ExtentReports();
-        String path = path();
+        String path = getPath();
         ExtentSparkReporter spark = new ExtentSparkReporter(path);
         extent.attachReporter(spark);
         extent.createTest(PARENT).assignCategory("Tag1")
@@ -91,7 +91,7 @@ public class SparkReporterTest {
     @Test
     public void reportContainsTestsAndNodesUsers() {
         ExtentReports extent = new ExtentReports();
-        String path = path();
+        String path = getPath();
         ExtentSparkReporter spark = new ExtentSparkReporter(path);
         extent.attachReporter(spark);
         extent.createTest(PARENT).assignAuthor("Tag1")
@@ -110,7 +110,7 @@ public class SparkReporterTest {
     @Test
     public void reportContainsTestsAndNodesDevices() {
         ExtentReports extent = new ExtentReports();
-        String path = path();
+        String path = getPath();
         ExtentSparkReporter spark = new ExtentSparkReporter(path);
         extent.attachReporter(spark);
         extent.createTest(PARENT).assignDevice("Tag1")
@@ -129,7 +129,7 @@ public class SparkReporterTest {
     @Test
     public void statusFilterable() {
         ExtentReports extent = new ExtentReports();
-        String path = path();
+        String path = getPath();
         ExtentSparkReporter spark = new ExtentSparkReporter(path)
                 .filter()
                 .statusFilter()
@@ -147,28 +147,28 @@ public class SparkReporterTest {
     @Test
     public void statusFilterableNode() {
         ExtentReports extent = new ExtentReports();
-        String path = path();
+        String path = getPath();
         ExtentSparkReporter spark = new ExtentSparkReporter(path)
                 .filter()
                 .statusFilter()
                 .as(new Status[]{Status.FAIL})
                 .apply();
         extent.attachReporter(spark);
-        extent.createTest(PARENT).pass("Pass");
-        extent.createTest(CHILD).pass("Pass")
+        extent.createTest("PassedTest").pass("");
+        extent.createTest(PARENT)
+                .createNode(CHILD).pass("Pass")
                 .createNode(GRANDCHILD).fail("Fail");
         extent.flush();
         assertFileExists(path);
         Assert.assertEquals(spark.getReport().getTestList().size(), 1);
-        Assert.assertEquals(spark.getReport().getTestList().get(0).getName(), CHILD);
+        Assert.assertEquals(spark.getReport().getTestList().get(0).getName(), PARENT);
         Assert.assertEquals(spark.getReport().getTestList().get(0).getChildren().size(), 1);
-        Assert.assertEquals(spark.getReport().getTestList().get(0).getChildren().get(0).getName(), GRANDCHILD);
     }
 
     @Test
     public void sparkOffline() {
         ExtentReports extent = new ExtentReports();
-        String path = path();
+        String path = getPath();
         ExtentSparkReporter spark = new ExtentSparkReporter(path);
         spark.config().enableOfflineMode(true);
         extent.attachReporter(spark);

@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class JsonDeserializer {
-    private File f;
+    private final File f;
 
     public JsonDeserializer(final File f) {
         this.f = f;
@@ -21,12 +21,11 @@ public class JsonDeserializer {
 
     public List<Test> deserialize() throws IOException {
         Gson gson = GsonExtentTypeAdapterBuilder.builder()
-                .withBddTypeAdapterFactory()
                 .withMediaTypeAdapter()
+                .withGsonTypeAdapterFactory()
                 .build();
         String json = new String(Files.readAllBytes(f.toPath()));
         Type t = new TypeToken<ArrayList<Test>>(){}.getType();
-        List<Test> tests = gson.fromJson(json, t);
-        return tests;
+        return gson.fromJson(json, t);
     }
 }
