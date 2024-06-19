@@ -36,8 +36,7 @@ public class FreemarkerTemplate {
     }
 
     public String getSource(Template template, Map<String, Object> templateMap) throws TemplateException, IOException {
-        String source = processTemplate(template, templateMap);
-        return source;
+        return processTemplate(template, templateMap);
     }
 
     public void writeTemplate(Template template, Map<String, Object> templateMap, File outputFile)

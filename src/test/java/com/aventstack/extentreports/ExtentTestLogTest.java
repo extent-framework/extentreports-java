@@ -11,6 +11,7 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 public class ExtentTestLogTest {
     private static final String DETAILS = "details";
     private static final String ATTACHMENT = "img.png";
+    private static final String VIDEO_ATTACHMENT = "vid.mp4";
 
     private ExtentTest test() {
         return new ExtentReports().createTest("Test");
@@ -48,10 +49,14 @@ public class ExtentTestLogTest {
         Assert.assertEquals(test.getModel().getLogs().get(1).getDetails(), DETAILS);
         Assert.assertEquals(test.getModel().getLogs().get(1).getStatus(), Status.FAIL);
         Assert.assertEquals(test.getModel().getLogs().get(1).getMedia().getPath(), ATTACHMENT);
+        test.log(Status.FAIL, MediaEntityBuilder.createVideoFromPath(VIDEO_ATTACHMENT).build());
+        Assert.assertEquals(test.getModel().getLogs().get(2).getDetails(), "");
+        Assert.assertEquals(test.getModel().getLogs().get(2).getStatus(), Status.FAIL);
+        Assert.assertEquals(test.getModel().getLogs().get(2).getMedia().getPath(), VIDEO_ATTACHMENT);
     }
 
     @Test
-    public void logMedia() throws IOException {
+    public void logMedia() {
         ExtentTest test = test().log(Status.SKIP,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         Assert.assertEquals(test.getModel().getStatus(), Status.SKIP);
@@ -62,10 +67,14 @@ public class ExtentTestLogTest {
         Assert.assertEquals(test.getModel().getLogs().get(1).getDetails(), "");
         Assert.assertEquals(test.getModel().getLogs().get(1).getStatus(), Status.FAIL);
         Assert.assertEquals(test.getModel().getLogs().get(1).getMedia().getPath(), ATTACHMENT);
+        test.log(Status.FAIL, MediaEntityBuilder.createVideoFromPath(VIDEO_ATTACHMENT).build());
+        Assert.assertEquals(test.getModel().getLogs().get(2).getDetails(), "");
+        Assert.assertEquals(test.getModel().getLogs().get(2).getStatus(), Status.FAIL);
+        Assert.assertEquals(test.getModel().getLogs().get(2).getMedia().getPath(), VIDEO_ATTACHMENT);
     }
 
     @Test
-    public void logMarkup() throws IOException {
+    public void logMarkup() {
         Markup m = MarkupHelper.createCodeBlock("code");
         ExtentTest test = test().log(Status.SKIP, m);
         Assert.assertEquals(test.getModel().getStatus(), Status.SKIP);
@@ -86,7 +95,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void logThrowableMedia() throws IOException {
+    public void logThrowableMedia() {
         Exception ex = ex();
         ExtentTest test = test().log(Status.SKIP, ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -98,6 +107,10 @@ public class ExtentTestLogTest {
         Assert.assertEquals(test.getModel().getLogs().get(1).getException().getException(), ex);
         Assert.assertEquals(test.getModel().getLogs().get(1).getStatus(), Status.FAIL);
         Assert.assertEquals(test.getModel().getLogs().get(1).getMedia().getPath(), ATTACHMENT);
+        test.log(Status.FAIL, MediaEntityBuilder.createVideoFromPath(VIDEO_ATTACHMENT).build());
+        Assert.assertEquals(test.getModel().getLogs().get(2).getDetails(), "");
+        Assert.assertEquals(test.getModel().getLogs().get(2).getStatus(), Status.FAIL);
+        Assert.assertEquals(test.getModel().getLogs().get(2).getMedia().getPath(), VIDEO_ATTACHMENT);
     }
 
     @Test
@@ -108,7 +121,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void failMedia() throws IOException {
+    public void failMedia() {
         ExtentTest test = test().fail(
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         test.log(Status.FAIL, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -125,7 +138,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void failThrowableMedia() throws IOException {
+    public void failThrowableMedia() {
         Exception ex = ex();
         ExtentTest test = test().fail(ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -135,7 +148,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void failMarkup() throws IOException {
+    public void failMarkup() {
         Markup m = MarkupHelper.createCodeBlock("code");
         ExtentTest test = test().fail(m);
         Assert.assertEquals(test.getModel().getStatus(), Status.FAIL);
@@ -151,7 +164,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void skipMedia() throws IOException {
+    public void skipMedia() {
         ExtentTest test = test().skip(
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         test.log(Status.FAIL, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -168,7 +181,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void skipThrowableMedia() throws IOException {
+    public void skipThrowableMedia() {
         Exception ex = ex();
         ExtentTest test = test().skip(ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -178,7 +191,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void skipMarkup() throws IOException {
+    public void skipMarkup() {
         Markup m = MarkupHelper.createCodeBlock("code");
         ExtentTest test = test().log(Status.SKIP, m);
         Assert.assertEquals(test.getModel().getStatus(), Status.SKIP);
@@ -194,7 +207,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void warnMedia() throws IOException {
+    public void warnMedia() {
         ExtentTest test = test().warning(
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         test.log(Status.WARNING, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -211,7 +224,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void warnThrowableMedia() throws IOException {
+    public void warnThrowableMedia() {
         Exception ex = ex();
         ExtentTest test = test().log(Status.WARNING, ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -221,7 +234,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void warnMarkup() throws IOException {
+    public void warnMarkup() {
         Markup m = MarkupHelper.createCodeBlock("code");
         ExtentTest test = test().log(Status.WARNING, m);
         Assert.assertEquals(test.getModel().getStatus(), Status.WARNING);
@@ -237,7 +250,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void passMedia() throws IOException {
+    public void passMedia() {
         ExtentTest test = test().pass(
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         test.log(Status.PASS, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -254,7 +267,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void passThrowableMedia() throws IOException {
+    public void passThrowableMedia() {
         Exception ex = ex();
         ExtentTest test = test().pass(ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -264,7 +277,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void passMarkup() throws IOException {
+    public void passMarkup() {
         Markup m = MarkupHelper.createCodeBlock("code");
         ExtentTest test = test().log(Status.PASS, m);
         Assert.assertEquals(test.getModel().getStatus(), Status.PASS);
@@ -280,7 +293,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void infoMedia() throws IOException {
+    public void infoMedia() {
         ExtentTest test = test().info(
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
         test.log(Status.INFO, DETAILS, MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -297,7 +310,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void infoThrowableMedia() throws IOException {
+    public void infoThrowableMedia() {
         Exception ex = ex();
         ExtentTest test = test().info(ex,
                 MediaEntityBuilder.createScreenCaptureFromPath(ATTACHMENT).build());
@@ -307,7 +320,7 @@ public class ExtentTestLogTest {
     }
 
     @Test
-    public void infoMarkup() throws IOException {
+    public void infoMarkup() {
         Markup m = MarkupHelper.createCodeBlock("code");
         ExtentTest test = test().log(Status.INFO, m);
         Assert.assertEquals(test.getModel().getStatus(), Status.PASS);
