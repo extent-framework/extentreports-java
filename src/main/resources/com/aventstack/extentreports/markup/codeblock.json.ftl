@@ -1,3 +1,4 @@
+<#setting number_format="0">
 <#list code as c>
  <div class='json-tree' id='code-block-json-${index}'></div>
  <script>

@@ -1,3 +1,11 @@
+## [5.1.1](https://github.com/extent-framework/extentreports-java/compare/v5.1.0...v5.1.1)
+
+#### Issues Resolved
+- [#331](/issues/331) Fixes issue parsing <code>Throwable</code> on JDK 17
+
+#### New Features
+- [#393](/issues/393) Adds circular auto-scroll to failing nodes or events
+
 ## [5.1.0](https://github.com/extent-framework/extentreports-java/compare/v5.0.9...v5.1.0) - JDK11
 
 #### Issues Resolved
