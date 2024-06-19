@@ -147,7 +147,6 @@ public class ExtentSparkReporter extends AbstractFileReporter
             final String filePath = getFileNameAsExt(FILE_NAME, new String[]{".html", ".htm"});
             final Template template = getFreemarkerConfig().getTemplate(SPA_TEMPLATE_NAME);
             processTemplate(template, new File(filePath));
-            return;
         } catch (IOException | TemplateException e) {
             disposable.dispose();
             logger.log(Level.SEVERE, "An exception occurred", e);

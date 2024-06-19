@@ -31,23 +31,23 @@
 <#macro mediaSingle m>
     <div class="row mb-3"><div class="col-md-3">
     
-	<#if TestService.isVideo(m)>	    
-	    <video width=100% height=auto controls src='${TestService.videoSrc(m)}'/>
-     </#if>
-  
+    <#if TestService.isVideo(m)>
+        <video width=100% height=auto controls src='${TestService.videoSrc(m)}'/>
+    </#if>
+
     <#if TestService.isScreenCapture(m)>
-	    <#if m.base64??>
-	      <#if config.thumbnailForBase64()?? && config.thumbnailForBase64()>
-	        <a href="${m.base64}" class="base64-img" data-featherlight="image"><img src=""></a>
-	      <#else>
-	        <a href="${m.base64}" data-featherlight="image"><span class="badge badge-gradient-primary">base64 img</span></a>
-	      </#if>
-	    <#elseif m.resolvedPath??><img data-featherlight='${m.resolvedPath}' src="${m.resolvedPath}">
-	    <#elseif m.path??><img data-featherlight='${m.path}' src="${m.path}">
-	    </#if>    
-     </#if>
+        <#if m.base64??>
+            <#if config.thumbnailForBase64()?? && config.thumbnailForBase64()>
+                <a href="${m.base64}" class="base64-img" data-featherlight="image"><img src=""></a>
+            <#else>
+                <a href="${m.base64}" data-featherlight="image"><span class="badge badge-gradient-primary">base64 img</span></a>
+            </#if>
+        <#elseif m.resolvedPath??><img data-featherlight='${m.resolvedPath}' src="${m.resolvedPath}">
+        <#elseif m.path??><img data-featherlight='${m.path}' src="${m.path}">
+        </#if>
+    </#if>
   
-  	    <#if m.title??><div class="title">${m.title}</div></#if>
+    <#if m.title??><div class="title">${m.title}</div></#if>
 
     </div></div>
 </#macro>
