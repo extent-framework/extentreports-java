@@ -1,3 +1,13 @@
+## [5.1.2](https://github.com/extent-framework/extentreports-java/compare/v5.1.1...v5.1.2)
+
+#### Issues Resolved
+- [#411](/issues/411) Fixes issue navigating from tag -> test view
+- [#413](/issues/413) Fixes ID conversion (when ID > 999) in freemarker template
+
+#### New Features
+- [#400](/issues/400) Adds Video display to tests (credits: https://github.com/grasshopper7)
+
+
 ## [5.1.1](https://github.com/extent-framework/extentreports-java/compare/v5.1.0...v5.1.1)
 
 #### Issues Resolved
@@ -5,6 +15,7 @@
 
 #### New Features
 - [#393](/issues/393) Adds circular auto-scroll to failing nodes or events
+
 
 ## [5.1.0](https://github.com/extent-framework/extentreports-java/compare/v5.0.9...v5.1.0) - JDK11
 
