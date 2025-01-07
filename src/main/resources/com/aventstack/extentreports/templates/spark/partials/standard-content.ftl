@@ -1,6 +1,6 @@
 <@media test.media />
 <#if test.hasAnyLog()>
-<div class="detail-body mt-4">
+<div class="detail-body">
   <#list test.generatedLog as l>
   <div>
   	<div class="float-left"><span class="badge log ${l.status.toLower()}-bg">${l.status?string}</span></div>
